@@ -1,8 +1,8 @@
-USE sakila;
+	USE sakila;
 
-DROP PROCEDURE IF EXISTS Registro;
+	DROP PROCEDURE IF EXISTS Registro;
 DELIMITER $$
-
+ 
 CREATE PROCEDURE Registro(
     IN  r_first_name VARCHAR(45),
     IN  r_last_name  VARCHAR(45),
@@ -26,67 +26,74 @@ BEGIN
     DECLARE existe    INT DEFAULT 0;
     DECLARE v_address INT DEFAULT NULL;
     DECLARE v_staff   INT DEFAULT NULL;
-
+ 
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
         SET FOREIGN_KEY_CHECKS = 1;
+        DO RELEASE_LOCK('registro_staff');
         SET _res = -99;
     END;
-
+ 
     IF (r_username IS NULL OR TRIM(r_username) = '') THEN
         SET _res = -1;
-
+ 
     ELSEIF (r_password IS NULL OR r_password = '') THEN
         SET _res = -3;
-
+ 
     ELSEIF (r_first_name IS NULL OR TRIM(r_first_name) = ''
          OR r_last_name  IS NULL OR TRIM(r_last_name)  = ''
          OR r_email      IS NULL OR TRIM(r_email)      = '') THEN
         SET _res = -5;
-
+ 
     ELSEIF (r_store_id IS NULL OR r_store_id < 1 OR r_store_id > 255) THEN
         SET _res = -6;
-
+ 
     ELSE
+        -- Bloqueo para que dos registros simultaneos no calculen el mismo ID
+        DO GET_LOCK('registro_staff', 5);
+ 
         SELECT COUNT(*) INTO existe FROM staff WHERE username = TRIM(r_username);
-
+ 
         IF (existe > 0) THEN
+            DO RELEASE_LOCK('registro_staff');
             SET _res = -2;
         ELSE
             SELECT MIN(address_id) INTO v_address FROM address;
-
+ 
+            -- Siguiente ID en orden: el mayor existente + 1
+            SELECT COALESCE(MAX(staff_id), 0) + 1 INTO v_staff FROM staff;
+ 
             SET FOREIGN_KEY_CHECKS = 0;
-
-            INSERT INTO staff (first_name, last_name, address_id,
+ 
+            INSERT INTO staff (staff_id, first_name, last_name, address_id,
                                email, store_id, active, username, password)
-            VALUES (TRIM(r_first_name), TRIM(r_last_name), v_address,
+            VALUES (v_staff, TRIM(r_first_name), TRIM(r_last_name), v_address,
                     TRIM(r_email), r_store_id, 1, TRIM(r_username), r_password);
-
-            SET v_staff = LAST_INSERT_ID();
-
+ 
             -- Si la tienda no existe, se crea con este empleado como encargado
             IF NOT EXISTS (SELECT 1 FROM store WHERE store_id = r_store_id) THEN
                 INSERT INTO store (store_id, manager_staff_id, address_id)
                 VALUES (r_store_id, v_staff, v_address);
             END IF;
-
+ 
             SET FOREIGN_KEY_CHECKS = 1;
-
+            DO RELEASE_LOCK('registro_staff');
+ 
             SET _res = v_staff;
         END IF;
     END IF;
 END $$
-
+ 
 DELIMITER ;
--- Bonus+: bloqueo a los 3 intentos fallidos
-ALTER TABLE sakila.staff
-  ADD COLUMN intentos_fallidos TINYINT UNSIGNED NOT NULL DEFAULT 0,
-  ADD COLUMN ultimo_intento DATETIME NULL;
+	-- Bonus+: bloqueo a los 3 intentos fallidos
+	ALTER TABLE sakila.staff
+	  ADD COLUMN intentos_fallidos TINYINT UNSIGNED NOT NULL DEFAULT 0,
+	  ADD COLUMN ultimo_intento DATETIME NULL;
 
-SELECT store_id FROM sakila.store;
+	SELECT store_id FROM sakila.store;
 
 
--- PARA BORRAR FILA
-SET FOREIGN_KEY_CHECKS = 0;
-DELETE FROM staff WHERE staff_id = 6;
-SET FOREIGN_KEY_CHECKS = 1;
+	-- PARA BORRAR FILA
+	SET FOREIGN_KEY_CHECKS = 0;
+	DELETE FROM staff WHERE staff_id = 22;
+	SET FOREIGN_KEY_CHECKS = 1;

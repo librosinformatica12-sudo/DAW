@@ -55,3 +55,48 @@ function PA_Registrar(string $nombre, string $apellido, string $email, int $tien
 
     return $fila['resultado'];
 }
+
+
+function PA_Login(string $login, string $contraseña)
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL Login(?, ?, @resultado)';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
+    }
+
+    
+    $contrasenaHash = md5($contraseña); // Sin tilde (igual que el parámetro de la función) y con un nombre mucho más claro
+    $stmt->bind_param('ss', $login, $contrasenaHash); // ¡Con la coma separando ambas variables!
+
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    while ($stmt->more_results()) {
+        $stmt->next_result();
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+
+    if (!$resultado) {
+        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return $fila['resultado'];
+}

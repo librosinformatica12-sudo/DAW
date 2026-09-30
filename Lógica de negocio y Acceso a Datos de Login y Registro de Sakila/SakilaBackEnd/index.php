@@ -87,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<p>ID de empleado: <?= (int) $resultado ?></p>
 		<?php endif; ?>
 
+		<!-- Crear usuario -->
 		<form method="POST" action="">
 			<label for="nombre">Nombre:</label>
 			<input type="text" id="nombre" name="nombre" value="<?= $nombre ?>" required>
@@ -108,6 +109,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<input type="password" id="confirmaContrasena" name="confirmaContrasena" required>
 
 			<button type="submit" onclick="return validarFormulario();">Registrar</button>
+		</form>	
+
+		<br>
+		<br>
+		<br>
+
+		<!-- iniciar sesion -->
+		<form method="POST" action="">
+			<label for="nombre">Usuario o Correo Electrónico:</label>
+			<input type="text" id="usuario" name="usuario" value="<?= $usuario ?>" required>
+
+			<label for="contrasena">Contraseña:</label>
+			<input type="password" id="contrasena" name="contrasena" required>
+			<label for="confirmaContrasena">Confirmar Contraseña:</label>
+			<input type="password" id="confirmaContrasena" name="confirmaContrasena" required>
+
+			<button type="submit" onclick="return validarFormulario();">Iniciar Sesion</button>
 		</form>	
 	</div>		
 

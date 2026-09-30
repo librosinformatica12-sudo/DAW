@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de las celdas adyacentes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Juego de celdas adyacentes</h1>
+
+    <table>
+        <tr>
+            <td data-pos="0"></td>
+            <td data-pos="1"></td>
+        </tr>
+        <tr>
+            <td data-pos="2"></td>
+            <td data-pos="3"></td>
+        </tr>
+    </table>
+
+    <p>Intentos: <span id="intentos">0</span></p>
+    <p id="mensaje"></p>
+    <button id="reiniciar">Reiniciar</button>
+
+    <script>
+        const vecinas = [
+            [1, 2], // Vecinas de la celda 0
+            [0, 3], // Vecinas de la celda 1
+            [0, 3], // Vecinas de la celda 2
+            [1, 2]  // Vecinas de la celda 3
+        ];
+
+        const celdas = document.querySelectorAll("td");
+        const spanIntentos = document.getElementById("intentos");
+        const mensaje = document.getElementById("mensaje");
+        const botonReiniciar = document.getElementById("reiniciar");
+
+        let intentos = 0;
+        let juegoTerminado = false;
+
+        function hayVictoria() {
+            return Array.from(celdas).every(celda => celda.classList.contains("verde"));
+        }
+
+        celdas.forEach((celda, posicion) => {
+            celda.addEventListener("click", () => {
+                if (juegoTerminado) return;
+
+                // Pinta la celda pulsada y sus vecinas
+                celdas[posicion].classList.add("verde");
+                vecinas[posicion].forEach(v => celdas[v].classList.add("verde"));
+
+                // Cuenta el intento
+                intentos++;
+                spanIntentos.textContent = intentos;
+
+                // Comprueba si ha ganado
+                if (hayVictoria()) {
+                    juegoTerminado = true;
+                    mensaje.textContent = "¡Has ganado en " + intentos + " intentos!";
+                }
+            });
+        });
+
+        botonReiniciar.addEventListener("click", () => {
+            celdas.forEach(celda => celda.classList.remove("verde"));
+            intentos = 0;
+            spanIntentos.textContent = 0;
+            mensaje.textContent = "";
+            juegoTerminado = false;
+        });
+    </script>
+</body>
+</html>

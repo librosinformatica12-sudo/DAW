@@ -1,0 +1,8 @@
+.btn + .btn{
+    border-radius: 5px;
+    background-color: darkcyan;
+    color: white;
+}
+.btn{
+    margin: 2px;
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Celdas 2x2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .contador {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Contenedor del tablero en disposición 2x2 */
+        .tablero {
+            display: grid;
+            grid-template-columns: repeat(2, 100px);
+            grid-template-rows: repeat(2, 100px);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo base de las celdas */
+        .celda {
+            width: 100px;
+            height: 100px;
+            background-color: #007bff; /* Azul */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .celda:active {
+            transform: scale(0.95);
+        }
+
+        /* Clase para cambiar el fondo a rojo */
+        .celda.rojo {
+            background-color: #dc3545; /* Rojo */
+        }
+
+        /* Mensaje de victoria */
+        .mensaje {
+            height: 30px;
+            font-size: 1.3rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Botón de reinicio */
+        .btn-reiniciar {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-reiniciar:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Invierte las Celdas</h1>
+    <p>Haz clic en las celdas para poner todo el tablero en rojo.</p>
+    
+    <!-- BONUS: Contador de intentos -->
+    <div class="contador">Intentos: <span id="intentos">0</span></div>
+    
+    <!-- Tablero de juego -->
+    <div class="tablero">
+        <div class="celda" id="c-0-0" onclick="presionarCelda(0, 0)"></div>
+        <div class="celda" id="c-0-1" onclick="presionarCelda(0, 1)"></div>
+        <div class="celda" id="c-1-0" onclick="presionarCelda(1, 0)"></div>
+        <div class="celda" id="c-1-1" onclick="presionarCelda(1, 1)"></div>
+    </div>
+
+    <div class="mensaje" id="mensaje-victoria"></div>
+
+    <!-- BONUS: Botón de reinicio -->
+    <button class="btn-reiniciar" onclick="reiniciarJuego()">Reiniciar Juego</button>
+
+    <script>
+        let intentos = 0;
+        let juegoTerminado = false;
+
+        // Representación del tablero (0 = Azul, 1 = Rojo)
+        // Empezamos con todas las celdas en 0 (Azul)
+        let tablero = [,
+            [0, 0]
+        ];
+
+        // Función principal al hacer clic en una celda
+        function presionarCelda(fila, columna) {
+            if (juegoTerminado) return; // Evita seguir jugando si ya ganó
+
+            // 1. Alternar la celda pulsada
+            cambiarEstado(fila, columna);
+
+            // 2. Alternar las celdas adyacentes (Arriba, Abajo, Izquierda, Derecha)
+            cambiarEstado(fila - 1, columna); // Arriba
+            cambiarEstado(fila + 1, columna); // Abajo
+            cambiarEstado(fila, columna - 1); // Izquierda
+            cambiarEstado(fila, columna + 1); // Derecha
+
+            // Aumentar y actualizar el contador de intentos
+            intentos++;
+            document.getElementById('intentos').innerText = intentos;
+
+            // Comprobar si el jugador ha ganado
+            verificarVictoria();
+        }
+
+        // Función auxiliar para cambiar el estado lógico y visual de una celda
+        function cambiarEstado(fila, columna) {
+            // Verificar que la celda exista dentro de los límites 2x2
+            if (fila >= 0 && fila < 2 && columna >= 0 && columna < 2) {
+                // Alternar valor lógico: si es 0 pasa a 1, si es 1 pasa a 0
+                tablero[fila][columna] = tablero[fila][columna] === 0 ? 1 : 0;
+                
+                // Actualizar el DOM agregando o quitando la clase CSS 'rojo'
+                const celdaElemento = document.getElementById(`c-${fila}-${columna}`);
+                if (tablero[fila][columna] === 1) {
+                    celdaElemento.classList.add('rojo');
+                } else {
+                    celdaElemento.classList.remove('rojo');
+                }
+            }
+        }
+
+        // Verifica si todas las celdas están en modo rojo (valor 1)
+        function verificarVictoria() {
+            const haGanado = tablero.every(fila => fila.every(celda => celda === 1));
+            
+            if (haGanado) {
+                juegoTerminado = true;
+                document.getElementById('mensaje-victoria').innerText = '¡Felicidades! Has ganado 🎉';
+            }
+        }
+
+        // Función para restaurar el juego a su estado inicial
+        function reiniciarJuego() {
+            intentos = 0;
+            juegoTerminado = false;
+            tablero = [,
+                [0, 0]
+            ];
+            
+            document.getElementById('intentos').innerText = intentos;
+            document.getElementById('mensaje-victoria').innerText = '';
+
+            // Limpiar la clase rojo de todas las celdas
+            for (let f = 0; f < 2; f++) {
+                for (let c = 0; c < 2; c++) {
+                    document.getElementById(`c-${f}-${c}`).classList.remove('rojo');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

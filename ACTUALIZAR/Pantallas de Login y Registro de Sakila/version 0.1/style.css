@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:  sans-serif;
+}
+body{
+    min-height: 100vh;
+    background-image: url(fondo.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    border: 2px solid rgb(255 255 255, 0.2);
+    width: 90%;
+    max-width: 450ox;
+    padding: 30px 40px;
+    border-radius:  10px;
+    color: #000000;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+form {
+    display:  flex;
+    flex-direction: column;
+    gap: 30px;
+}
+form a {
+    text-decoration: none;
+    color: #fdfdfd;
+}
+.input-box{
+    border: 2px solid rgb(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    height: 60px;
+    border-radius: 40px;
+    padding: 20px;
+}
+.input-box input {
+    flex: 1;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    color: #ffffff;
+    min-width: 0px;
+}
+.input-box input::placeholder {
+    color: #ffff;
+}
+.remember-password {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 14.5px;
+}
+.remember-password label {
+    display: flex;
+    align-items: center;
+}
+.remember-password input {
+    margin-right: 5px;
+}
+form a:hover {
+    text-decoration: underline;
+}
+.btn {
+    border-radius: 30px;
+    border: 0;
+    outline: 0;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px;
+    cursor: pointer;
+
+}
+.register-link {
+    text-align: center;
+    font-size: 14.5px;
+}
+.register-link a {
+    margin-left: 8px;
+}

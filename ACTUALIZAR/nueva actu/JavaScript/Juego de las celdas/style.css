@@ -1,0 +1,11 @@
+td {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+td.verde {
+    background-color: rgb(128, 0, 0);
+}

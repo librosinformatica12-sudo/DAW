@@ -57,7 +57,7 @@ function PA_Registrar(string $nombre, string $apellido, string $email, int $tien
 }
 
 
-function PA_Login(string $login, string $contraseña)
+function PA_Login(string $usuario, string $contrasena)
 {
     global $connection;
 
@@ -73,8 +73,8 @@ function PA_Login(string $login, string $contraseña)
     }
 
     
-    $contrasenaHash = md5($contraseña); // Sin tilde (igual que el parámetro de la función) y con un nombre mucho más claro
-    $stmt->bind_param('ss', $login, $contrasenaHash); // ¡Con la coma separando ambas variables!
+    $contrasenaHash = md5($contrasena); // Sin tilde (igual que el parámetro de la función) y con un nombre mucho más claro
+    $stmt->bind_param('ss', $usuario, $contrasenaHash); // ¡Con la coma separando ambas variables!
 
 
     if (!$stmt->execute()) {

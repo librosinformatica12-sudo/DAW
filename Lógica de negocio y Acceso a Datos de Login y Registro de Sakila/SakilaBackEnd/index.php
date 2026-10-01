@@ -57,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// login	
 	} elseif ($accion === 'login') {
 
-		$loginUsuario = trim($_POST['login_usuario'] ?? '');
-		$loginContrasena = $_POST['login_contrasena'] ?? '';
+		$loginUsuario = trim($_POST['usuario'] ?? '');
+		$contrasena = $_POST['contrasena'] ?? '';
 
-		if ($loginUsuario === '' || $loginContrasena === '') {
-			$errorLogin = 'Introduce usuario y contraseña.';
+		if ($loginUsuario === '' || $contrasena === '') {
+			$errorLogin = 'Usuario y contraseña correcta';
 		} else {
 			try {
-				$codigo = PA_Login($loginUsuario, $loginContrasena);
+				$codigo = PA_Login($usuario, $contrasena);
 
                 if ($codigo > 0) {
                     session_regenerate_id(true);

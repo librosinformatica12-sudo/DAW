@@ -23,16 +23,18 @@ BEGIN
 
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SET _res = -99;
 
+	        SELECT password INTO v_id
+          FROM staff
+         WHERE username = TRIM(l_username)
+           AND password = l_password = password;
+           
+           
     IF (l_username IS NULL OR TRIM(l_username) = '' OR l_password IS NULL OR l_password = '') THEN
         SET _res = -1;
     ELSE
-        SELECT staff_id INTO v_id
-          FROM staff
-         WHERE username = TRIM(l_username)
-           AND password = l_password
-           AND active = 1
-         LIMIT 1;
 
+	-- si es la misma
+		-- o diferente 
         IF (v_id IS NULL) THEN
             SET _res = -2;
         ELSE
@@ -41,6 +43,7 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+
 
 -- confirmar q se creo bien
 SELECT ROUTINE_NAME FROM information_schema.ROUTINES

@@ -11,6 +11,9 @@ $usuario = '';
 $resultado = null;
 $error = null;
 $errorLogin = null;
+$exitoLogin = null;
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -52,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = $exception->getMessage();
             }
         }
+		
 
 
 	// login	
@@ -61,29 +65,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$contrasena = $_POST['contrasena'] ?? '';
 
 		if ($loginUsuario === '' || $contrasena === '') {
-			$errorLogin = 'Usuario y contraseña correcta';
+			$errorLogin = 'Usuario y contraseña son obligatorios.';
 		} else {
 			try {
-				$codigo = PA_Login($usuario, $contrasena);
+				$codigo = (int)PA_Login($loginUsuario, $contrasena);
 
-                if ($codigo > 0) {
+                if ($codigo > 0) { 
                     session_regenerate_id(true);
                     $_SESSION['staff_id'] = $codigo;
                     $_SESSION['login']    = $loginUsuario;
-                    header('Location: panel.php');
-                    exit;
+                    $exitoLogin = "Sesion iniciada correctamente. Bienvenido!, " . $loginUsuario . "!";
                 } elseif ($codigo === -1) {
                     $errorLogin = 'Introduce usuario y contraseña.';
                 } elseif ($codigo === -2) {
                     $errorLogin = 'Usuario o contraseña incorrectos.';
                 } else {
-                    $errorLogin = 'Error inesperado. Inténtalo más tarde.';
+                    $errorLogin = "Codigo devuelto: " . $codigo;
                 }			
 			} catch (Throwable $e) {
 				error_log($e->getMessage());
-				$errorLogin = 'Error inesperado. Inténtalo más tarde.';
+				$errorLogin = 'Expepción: ' . $e->getMessage();
 			}
 		}
+
 	}
 }
 
@@ -141,20 +145,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		 <h2>Iniciar Sesion</h2>
 			<?php if ($errorLogin !== null): ?>
 				<p class="error"><?= htmlspecialchars($errorLogin) ?></p>
+			<?php elseif ($exitoLogin !== null): ?>
+				<p class="success"><?= htmlspecialchars($exitoLogin) ?></p>
 			<?php endif; ?>
 
-
 		<form method="POST" action="">
-			<input type="hidden" name="accion" value="login">
+			<label for="loginUsuario">Usuario:</label>
+			<input type="text" id="loginUsuario" name="usuario" required>
 
-			<label for="nombre">Usuario o Correo Electrónico:</label>
-			<input type="text" id="login" name="login" ...>
-
-			<label for="contrasena">Contraseña:</label>
-			<input type="password" id="password" name="password" required>
+			<label for="loginContrasena">Contraseña:</label>
+			<input type="password" id="loginContrasena" name="contrasena" required>
 
 			<button type="submit" name="accion" value="login">Iniciar Sesion</button>
-		</form>	
+		</form>
 	</div>		
 
 </body>

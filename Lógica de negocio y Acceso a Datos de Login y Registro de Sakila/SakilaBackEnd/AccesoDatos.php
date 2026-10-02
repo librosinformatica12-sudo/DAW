@@ -72,9 +72,8 @@ function PA_Login(string $usuario, string $contrasena)
         throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
     }
 
-    
-    $contrasenaHash = md5($contrasena); // Sin tilde (igual que el parámetro de la función) y con un nombre mucho más claro
-    $stmt->bind_param('ss', $usuario, $contrasenaHash); // ¡Con la coma separando ambas variables!
+    // $contrasenaHash = md5($contrasena); // Sin tilde (igual que el parámetro de la función) y con un nombre mucho más claro
+    $stmt->bind_param('ss', $usuario, $contrasena); // ¡Con la coma separando ambas variables!
 
 
     if (!$stmt->execute()) {

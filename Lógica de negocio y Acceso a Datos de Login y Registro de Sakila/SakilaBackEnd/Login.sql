@@ -23,35 +23,26 @@ BEGIN
 
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SET _res = -99;
 
-	        SELECT password INTO v_id
+	        SELECT staff_id INTO v_id
           FROM staff
          WHERE username = TRIM(l_username)
-           AND password = l_password = password;
+           AND password = MD5(l_password)
+           and active = 1
+           limit 1;
            
            
-    IF (l_username IS NULL OR TRIM(l_username) = '' OR l_password IS NULL OR l_password = '') THEN
-        SET _res = -1;
-    ELSE
-
-	-- si es la misma
-		-- o diferente 
-        IF (v_id IS NULL) THEN
-            SET _res = -2;
-        ELSE
-            SET _res = v_id;
-        END IF;
-    END IF;
+		IF (l_username IS NULL OR TRIM(l_username) = '' OR l_password IS NULL OR l_password = '') THEN
+				SET _res = -1;
+			ELSEIF (v_id IS NULL) THEN
+				SET _res = -2;
+			ELSE
+				SET _res = v_id;
+			END IF;
 END $$
 DELIMITER ;
 
+SHOW CREATE PROCEDURE Login;
+UPDATE staff SET password = MD5('1234'), active = 1 WHERE username = 'oscar';
 
--- confirmar q se creo bien
-SELECT ROUTINE_NAME FROM information_schema.ROUTINES
-WHERE ROUTINE_SCHEMA = 'sakila' AND ROUTINE_NAME = 'Login';
-
--- probar
-select count(*) from staff;
-select * from staff order by staff_id desc limit 5;
-
-
-update staff set password = md5('1234'), active = 1 where username = 'oscar';
+CALL Login('oscar', '1234', @res);
+SELECT @res;

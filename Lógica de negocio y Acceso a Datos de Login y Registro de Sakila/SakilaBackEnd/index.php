@@ -150,11 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<?php endif; ?>
 
 		<form method="POST" action="">
-<<<<<<< HEAD
+			
 			<label for="loginUsuario">Usuario o correo:</label>
-=======
-			<label for="loginUsuario">Usuario:</label>
->>>>>>> 492e89aa0769a4d0c2e02f9516a2d17b3b2787a9
 			<input type="text" id="loginUsuario" name="usuario" required>
 
 			<label for="loginContrasena">Contraseña:</label>

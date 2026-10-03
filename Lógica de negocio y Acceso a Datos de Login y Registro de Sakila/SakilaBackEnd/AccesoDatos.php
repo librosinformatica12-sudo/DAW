@@ -13,51 +13,13 @@ if (!$connection->connect_errno) {
     $connection->set_charset('utf8mb4');
 }
 
-
-function PA_Registrar(string $nombre, string $apellido, string $email, int $tienda, string $usuario, string $contrasena)
+function hashContrasena(string $contrasena): string
 {
-    global $connection;
-
-    if ($connection->connect_errno) {
-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
-    }
-
-    $sql = 'CALL Registro(?, ?, ?, ?, ?, ?, @resultado)';
-    $stmt = $connection->prepare($sql);
-
-    if (!$stmt) {
-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
-    }
-
-    $contrasenaHash = md5($contrasena);
-    $stmt->bind_param('sssiss', $nombre, $apellido, $email, $tienda, $usuario, $contrasenaHash);
-
-    if (!$stmt->execute()) {
-        $error = $stmt->error;
-        $stmt->close();
-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
-    }
-
-    while ($stmt->more_results()) {
-        $stmt->next_result();
-    }
-
-    $stmt->close();
-
-    $resultado = $connection->query('SELECT @resultado AS resultado');
-
-    if (!$resultado) {
-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
-    }
-
-    $fila = $resultado->fetch_assoc();
-    $resultado->free();
-
-    return $fila['resultado'];
+    return md5($contrasena);
 }
 
-
-function PA_Login(string $usuario, string $contrasena)
+/** Devuelve el código de salida (_res) del procedimiento Registro. */
+function PA_Registrar(string $nombre, string $apellido, string $email, string $usuario, string $contrasena): int
 {
     global $connection;
 
@@ -65,16 +27,13 @@ function PA_Login(string $usuario, string $contrasena)
         throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
     }
 
-    $sql = 'CALL Login(?, ?, @resultado)';
-    $stmt = $connection->prepare($sql);
-
+    $stmt = $connection->prepare('CALL Registro(?, ?, ?, ?, ?, @resultado)');
     if (!$stmt) {
         throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
     }
 
-    // $contrasenaHash = md5($contrasena); // Sin tilde (igual que el parámetro de la función) y con un nombre mucho más claro
-    $stmt->bind_param('ss', $usuario, $contrasena); // ¡Con la coma separando ambas variables!
-
+    $hash = hashContrasena($contrasena);
+    $stmt->bind_param('sssss', $nombre, $apellido, $email, $usuario, $hash);
 
     if (!$stmt->execute()) {
         $error = $stmt->error;
@@ -85,17 +44,61 @@ function PA_Login(string $usuario, string $contrasena)
     while ($stmt->more_results()) {
         $stmt->next_result();
     }
-
     $stmt->close();
 
-    $resultado = $connection->query('SELECT @resultado AS resultado');
-
-    if (!$resultado) {
+    $res = $connection->query('SELECT @resultado AS resultado');
+    if (!$res) {
         throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
     }
+    $fila = $res->fetch_assoc();
+    $res->free();
 
-    $fila = $resultado->fetch_assoc();
-    $resultado->free();
+    return (int) $fila['resultado'];
+}
 
-    return $fila['resultado'];
+/** Devuelve ['codigo' => int, 'staff' => array|null]. */
+function PA_Login(string $usuario, string $contrasena): array
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $stmt = $connection->prepare('CALL Login(?, ?, @resultado)');
+    if (!$stmt) {
+        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
+    }
+
+    $hash = hashContrasena($contrasena);
+    $stmt->bind_param('ss', $usuario, $hash);
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    // Leer el registro del empleado ANTES de descartar los result sets
+    $staff = null;
+    do {
+        $rs = $stmt->get_result();
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $staff = $fila;
+            }
+            $rs->free();
+        }
+    } while ($stmt->more_results() && $stmt->next_result());
+    $stmt->close();
+
+    $res = $connection->query('SELECT @resultado AS resultado');
+    if (!$res) {
+        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+    $fila = $res->fetch_assoc();
+    $res->free();
+
+    return ['codigo' => (int) $fila['resultado'], 'staff' => $staff];
 }

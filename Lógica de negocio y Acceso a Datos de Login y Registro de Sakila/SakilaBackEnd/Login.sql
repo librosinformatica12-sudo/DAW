@@ -8,7 +8,11 @@ USE sakila;
 DROP PROCEDURE IF EXISTS Login;
 DELIMITER $$
 CREATE PROCEDURE Login(
+<<<<<<< HEAD
     IN  l_username VARCHAR(50),
+=======
+    IN  l_username VARCHAR(16),
+>>>>>>> 492e89aa0769a4d0c2e02f9516a2d17b3b2787a9
     IN  l_password VARCHAR(40),   -- ya hasheada desde PHP (md5)
     OUT _res       INT
 )
@@ -26,9 +30,15 @@ BEGIN
 	        SELECT staff_id INTO v_id
           FROM staff
          WHERE username = TRIM(l_username)
+<<<<<<< HEAD
             OR email    = TRIM(l_username)
          ORDER BY (username = TRIM(l_username)) DESC
          LIMIT 1;
+=======
+           AND password = MD5(l_password)
+           and active = 1
+           limit 1;
+>>>>>>> 492e89aa0769a4d0c2e02f9516a2d17b3b2787a9
            
            
 		IF (l_username IS NULL OR TRIM(l_username) = '' OR l_password IS NULL OR l_password = '') THEN

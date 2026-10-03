@@ -259,3 +259,6 @@ h1, h2 {
         gap: 0;
     }
 }
+
+.aviso.error { color: red; }
+.aviso.ok    { color: green; }

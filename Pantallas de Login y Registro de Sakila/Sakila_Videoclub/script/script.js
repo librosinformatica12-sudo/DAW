@@ -42,17 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     linkLogin.addEventListener('click', (e) => {
         e.preventDefault();
         mostrarLogin();
-    })
+    });
 
     mostrarLogin(); // estado inicial
 
     // ---------- MOSTRAR / OCULTAR CONTRASEÑA ----------
-    // Botones con data-para="id-del-input" (clase "rojo" u "ojo")
     document.querySelectorAll('button[data-para]').forEach((boton) => {
         const input = document.getElementById(boton.dataset.para);
         if (!input) return;
 
-        // El botón solo aparece cuando hay texto escrito
         boton.style.display = input.value.length > 0 ? 'inline-block' : 'none';
 
         input.addEventListener('input', () => {
@@ -93,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         barra.style.background = colores[puntos];
     });
 
-    // ---------- VALIDACIÓN ----------
+    // ---------- UTILIDADES ----------
     function setMsg(input, texto) {
         const msg = input.closest('.campo').querySelector('.msg');
         msg.textContent = texto;
@@ -106,8 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
         aviso.style.color = ok ? 'green' : 'red';
     }
 
-    // Login
-    formLogin.addEventListener('submit', (e) => {
+    // Envía el formulario a PHP y devuelve el JSON  (NUEVO)
+    async function enviar(url, form) {
+        const resp = await fetch(url, { method: 'POST', body: new FormData(form) });
+        return await resp.json();
+    }
+
+    // ---------- LOGIN (SUSTITUIDO) ----------
+    formLogin.addEventListener('submit', async (e) => {
         e.preventDefault();
         const usuario = document.getElementById('log-usuario').value.trim();
         const pass = document.getElementById('log-pass').value;
@@ -116,19 +120,27 @@ document.addEventListener('DOMContentLoaded', () => {
             mostrarAviso('aviso-login', 'Rellena usuario y contraseña.', false);
             return;
         }
-        mostrarAviso('aviso-login', 'Datos correctos, iniciando sesión...', true);
-        // Aquí iría el envío al servidor (fetch / login_process.php)
+
+        try {
+            const r = await enviar('php/login.php', formLogin);
+            mostrarAviso('aviso-login', r.mensaje, r.ok);
+            if (r.ok) {
+                formLogin.reset();
+            }
+        } catch (err) {
+            console.error(err);
+            mostrarAviso('aviso-login', 'No se pudo conectar con el servidor.', false);
+        }
     });
 
-    // Registro
-    formRegistro.addEventListener('submit', (e) => {
+    // ---------- REGISTRO (SUSTITUIDO, sin tienda) ----------
+    formRegistro.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const nombre = document.getElementById('reg-nombre');
         const apellido = document.getElementById('reg-apellido');
         const email = document.getElementById('reg-email');
         const usuario = document.getElementById('reg-usuario');
-        const tienda = document.getElementById('reg-tienda');
         const pass = document.getElementById('reg-pass');
         const pass2 = document.getElementById('reg-pass2');
 
@@ -137,16 +149,25 @@ document.addEventListener('DOMContentLoaded', () => {
             setMsg(apellido, apellido.value.trim() === '' ? 'Escribe tu apellido.' : ''),
             setMsg(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) ? '' : 'Correo no válido.'),
             setMsg(usuario, usuario.value.trim().length >= 3 ? '' : 'Mínimo 3 caracteres.'),
-            setMsg(tienda, (tienda.value >= 1 && tienda.value <= 255) ? '' : 'Debe estar entre 1 y 255.'),
             setMsg(pass, pass.value.length >= 8 ? '' : 'Mínimo 8 caracteres.'),
             setMsg(pass2, pass2.value === pass.value && pass2.value !== '' ? '' : 'Las contraseñas no coinciden.')
         ];
 
-        if (resultados.every(Boolean)) {
-            mostrarAviso('aviso-registro', 'Cuenta creada correctamente.', true);
-            // Aquí iría el envío al servidor (fetch / register_process.php)
-        } else {
+        if (!resultados.every(Boolean)) {
             mostrarAviso('aviso-registro', 'Revisa los campos marcados.', false);
+            return;
+        }
+
+        try {
+            const r = await enviar('php/registro.php', formRegistro);
+            mostrarAviso('aviso-registro', r.mensaje, r.ok);
+            if (r.ok) {
+                formRegistro.reset();
+                barra.style.width = '0%';
+            }
+        } catch (err) {
+            console.error(err);
+            mostrarAviso('aviso-registro', 'No se pudo conectar con el servidor.', false);
         }
     });
 });

@@ -11,11 +11,15 @@ $usuario = '';
 $resultado = null;
 $error = null;
 $errorLogin = null;
+$exitoLogin = null;
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $accion = $_POST['accion'] ?? '';
 
+	// registro
     if ($accion === 'registro') {
 
         $nombre = trim($_POST['nombre'] ?? '');
@@ -51,33 +55,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = $exception->getMessage();
             }
         }
+		
 
-    } elseif ($accion === 'login') {
 
-		$login = trim($_POST['login'] ?? '');
-        $password = $_POST['password'] ?? '';
+	// login	
+	} elseif ($accion === 'login') {
 
-        if ($login === '' || $password === '') {
-            $errorLogin = 'Introduce usuario y contraseña.';
-        } else {
-            try {
-				$staffid = (int) PA_Login($login, $password);
+		$loginUsuario = trim($_POST['usuario'] ?? '');
+		$contrasena = $_POST['contrasena'] ?? '';
 
-                if ($staffid > 0) {
-                    session_regenerate_id(true);
-                    $_SESSION['staff_id'] = $staffid;
-                    $_SESSION['username'] = $login;
-                    header('Location: index.php');
-                    exit;
-                } else {
-                    $errorLogin = 'Usuario o contraseña incorrectos.';
-                }
-            } catch (Throwable $exception) {
-                $errorLogin = 'Error al iniciar sesión.';
-            }
-        }
+		if ($loginUsuario === '' || $contrasena === '') {
+			$errorLogin = 'Usuario y contraseña son obligatorios.';
+		} else {
+			try {
+				$r = PA_Login($loginUsuario, $contrasena);
+				$codigo = $r['codigo'];
 
-    }
+				if ($codigo > 0) {
+					session_regenerate_id(true);
+					$_SESSION['staff'] = $r['staff'];
+					$_SESSION['staff_id'] = $codigo;
+					$_SESSION['login'] = $loginUsuario;
+					$exitoLogin = 'Sesión iniciada correctamente. ¡Bienvenido, ' . $loginUsuario . '!';
+				} elseif ($codigo === -1) {
+					$errorLogin = 'Introduce usuario y contraseña.';
+				} elseif ($codigo === -2) {
+					$errorLogin = 'Usuario o contraseña incorrectos.';
+				} elseif ($codigo === -3) {
+					$errorLogin = 'Cuenta bloqueada por demasiados intentos fallidos. Inténtalo de nuevo en 5 minutos.';				} else {
+					$errorLogin = 'Error inesperado. Inténtalo más tarde.';
+				}
+			} catch (Throwable $e) {
+				error_log($e->getMessage());
+				$errorLogin = 'Error inesperado. Inténtalo más tarde.';
+			}
+		}
+	}
 }
 
 
@@ -131,18 +144,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<br>
 
 		<!-- iniciar sesion -->
-		<form method="POST" action="">
+		 <h2>Iniciar Sesion</h2>
 			<?php if ($errorLogin !== null): ?>
 				<p class="error"><?= htmlspecialchars($errorLogin) ?></p>
+			<?php elseif ($exitoLogin !== null): ?>
+				<p class="success"><?= htmlspecialchars($exitoLogin) ?></p>
 			<?php endif; ?>
-			<label for="nombre">Usuario o Correo Electrónico:</label>
-			<input type="text" id="login" name="login" ...>
 
-			<label for="contrasena">Contraseña:</label>
-			<input type="password" id="password" name="password" required>
+		<form method="POST" action="">
+			
+			<label for="loginUsuario">Usuario o correo:</label>
+			<input type="text" id="loginUsuario" name="usuario" required>
+
+			<label for="loginContrasena">Contraseña:</label>
+			<input type="password" id="loginContrasena" name="contrasena" required>
 
 			<button type="submit" name="accion" value="login">Iniciar Sesion</button>
-		</form>	
+		</form>
 	</div>		
 
 </body>

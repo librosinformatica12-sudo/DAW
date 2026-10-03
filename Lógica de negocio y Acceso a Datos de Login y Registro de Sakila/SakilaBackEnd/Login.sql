@@ -6,30 +6,43 @@ USE sakila;
 --   ADD COLUMN ultimo_intento DATETIME NULL;
 
 DROP PROCEDURE IF EXISTS Login;
-delimiter $$
-create procedure Login(
-in login varchar(45),
-in contraseña varchar(45),
-out _res int
+DELIMITER $$
+CREATE PROCEDURE Login(
+    IN  l_username VARCHAR(50),
+    IN  l_password VARCHAR(40),   -- ya hasheada desde PHP (md5)
+    OUT _res       INT
 )
-begin
-declare exit handler for sqlexception set _res = -99;
+BEGIN
+    /*
+       > 0 -> login correcto (es el staff_id)
+        -1 -> usuario o contrasena vacios
+        -2 -> usuario o contrasena incorrectos (o usuario inactivo)
+       -99 -> error inesperado de base de datos
+    */
+    DECLARE v_id INT DEFAULT NULL;
 
-set _res = null;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SET _res = -99;
 
-select staff_id into _res from staff where (username = trim(r_login) or email = trim(r_login))
-	and password = r_password
-    and active = 1
-limit 1;
+	        SELECT staff_id INTO v_id
+          FROM staff
+         WHERE username = TRIM(l_username)
+            OR email    = TRIM(l_username)
+         ORDER BY (username = TRIM(l_username)) DESC
+         LIMIT 1;
+           
+           
+		IF (l_username IS NULL OR TRIM(l_username) = '' OR l_password IS NULL OR l_password = '') THEN
+				SET _res = -1;
+			ELSEIF (v_id IS NULL) THEN
+				SET _res = -2;
+			ELSE
+				SET _res = v_id;
+			END IF;
+END $$
+DELIMITER ;
 
-if _res is null then
-	set _res = -1; 
-end if;
+SHOW CREATE PROCEDURE Login;
+UPDATE staff SET password = MD5('1234'), active = 1 WHERE username = 'oscar';
 
-end $$
-delimiter ;
-
-
--- confirmar q se creo bien
-SELECT ROUTINE_NAME FROM information_schema.ROUTINES
-WHERE ROUTINE_SCHEMA = 'sakila' AND ROUTINE_NAME = 'Login';
+CALL Login('oscar', '1234', @res);
+SELECT @res;

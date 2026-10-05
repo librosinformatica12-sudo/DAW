@@ -27,7 +27,7 @@ function PA_Registrar(string $nombre, string $apellido, string $email, string $u
         throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
     }
 
-    $stmt = $connection->prepare('CALL Registro(?, ?, ?, ?, ?, @resultado)');
+    $stmt = $connection->prepare('CALL Registro(?, ?, ?, 1, ?, ?, @resultado)');
     if (!$stmt) {
         throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
     }

@@ -161,8 +161,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 			<button type="submit" name="accion" value="login">Iniciar Sesion</button>
 		</form>
+<<<<<<< HEAD
 		<br>
 		<button id="btn-logout" type="button">Cerrar sesion</button>
+=======
+>>>>>>> 2b3ebca87df4b4846a6c762070ecb9d5d3fd06c2
 	</div>		
 
 </body>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 define('APP', true);
-require_once __DIR__ . '/AccesoDatos.php';
+require_once __DIR__ . '/src/AccesoDatos.php';
 
 function e($v): string { return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); }
 
@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
     if ($accion === 'registro') {
-        require __DIR__ . '/../php/registro.php';
+        require __DIR__ . '/php/registro.php';
     } elseif ($accion === 'login') {
-        require __DIR__ . '/../php/login.php';
+        require __DIR__ . '/php/login.php';
     }
 }
 
@@ -35,9 +35,58 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina web Pantallas de Login y Registro de Sakila</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+    <header class="topbar">
+        <div class="logo">
+            <i class='bx bx-film'></i>
+            <div>
+                <strong>Sakila</strong>
+                <span>VIDEO CLUB</span>
+            </div>
+        </div>
+        <div class="topbar-der">Portal del Empleado <i class="bs bs-film"></i></div>
+    </header>
+
+    <main class="pagina">
+        <section class="hero">
+            <h2>Bienvenido al  <span> Portal del empleado</span></h2>
+            <P> Gestiona el alquiler de películas, consulta el catálogo, administra clientes y mucho más... todo desde un solo lugar.</P>
+            <ul>
+                <li><i class="bx bx-movie-play"></i><div><b> Catalogo de películas </b><small>Consulta y gestiona el inventario.</small></div></li>
+                <li><i class="bx bx-group"></i><div><b> Clientes</b><small> Controla el estado de los alquileres.</small></div></li>
+                <li><i class="bx bx-bar-chart-alt-2"></i><div><b> Informes</b><small> Visualiza la actividad de la tienda.</small></div></li>
+            </ul>
+        </section>
+        <div class="container" data-panel="<?=  e ($panelActivo) ?>">
+            
+
+
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <center>
     <div class="container" data-panel="<?= e($panelActivo) ?>">
         <h1>Iniciar Sesión</h1>
@@ -49,14 +98,19 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
         <form id="form-login" method="POST" action="">
             <input type="hidden" name="accion" value="login">
 
-            <div class="input-box">
+            <div class="campo">
+                <label for="log-usuario">Usuario o Correo</label>
                 <input type="text" id="log-usuario" name="usuario" placeholder="Usuario o Correo" maxlength="50" autocomplete="username" required>
-                <i class="bx bxs-user"></i>
             </div>
-            <div class="input-box">
-                <input type="password" id="log-pass" name="contrasena" placeholder="Contraseña" autocomplete="current-password" required>
-                <i class="bx bxs-lock-alt"></i>
+
+            <div class="campo">
+                <label for="log-pass">Contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="log-pass" name="contrasena" placeholder="Contraseña" autocomplete="current-password" required>
+                    <button type="button" class="rojo" data-para="log-pass">Mostrar</button>
+                </div>
             </div>
+
             <div class="remember-password">
                 <label><input type="checkbox" id="log-recordar"> Recordarme</label>
                 <a href="#" id="olvide">¿Olvidaste tu contraseña?</a>
@@ -119,6 +173,6 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
         </form>
     </div>
     </center>
-    <script src="../script/script.js"></script>
+    <script src="script/script.js"></script>
 </body>
 </html>

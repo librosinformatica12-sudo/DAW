@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakila Videoclub - Portal de Acceso</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Boxicons for cinematic icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Google Fonts: Inter & Cinzel for cinematic touch -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif']
+                    },
+                    colors: {
+                        sakila: {
+                            dark: '#0b0f19',
+                            card: '#131c2e',
+                            border: '#1e293b',
+                            red: '#e50914',
+                            redhover: '#b80710',
+                            amber: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b0f19;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(229, 9, 20, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
+            min-height: 100vh;
+        }
+        .cinematic-glow {
+            box-shadow: 0 0 35px -5px rgba(229, 9, 20, 0.3);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.25);
+        }
+        /* Custom smooth transition panels */
+        .panel-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-100 flex flex-col justify-between py-6 px-4 selection:bg-sakila-red selection:text-white">
+
+    <header class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between pb-6 border-b border-gray-800 gap-4">
+        <div class="flex items-center space-x-3">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-sakila-red to-sakila-amber flex items-center justify-center shadow-lg shadow-sakila-red/30">
+                <i class='bx bx-movie-play text-2xl text-white'></i>
+            </div>
+            <div>
+                <h1 class="font-cinzel text-2xl font-bold tracking-wider bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">SAKILA CINEMA</h1>
+                <p class="text-xs text-gray-400 tracking-widest uppercase">Sistema de Videoclub Clásico & Moderno</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3 text-sm">
+            <button onclick="toggleModelModal(true)" class="px-4 py-2 rounded-lg bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700 text-gray-300 transition flex items-center space-x-2">
+                <i class='bx bx-data text-sakila-amber'></i>
+                <span>Ver Modelo Sakila (BONUS)</span>
+            </button>
+            <div class="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-red-950/40 border border-red-900/50 text-red-400 text-xs">
+                <span class="w-2 h-2 rounded-full bg-sakila-red animate-ping"></span>
+                <span>Servidor Activo (DAW MySQL)</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="w-full max-w-md mx-auto my-auto py-8">
+        <div class="bg-sakila-card/90 backdrop-blur-md border border-sakila-border rounded-2xl p-6 sm:p-8 cinematic-glow relative overflow-hidden">
+            
+            <!-- Cinema curtain top accent -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sakila-red via-sakila-amber to-sakila-red"></div>
+
+            <div class="grid grid-cols-2 gap-2 p-1 bg-gray-900/90 rounded-xl mb-8 border border-gray-800">
+                <button id="tab-login" onclick="switchTab('login')" class="py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center space-x-2 bg-sakila-red text-white shadow-md">
+                    <i class='bx bx-log-in'></i>
+                    <span>Iniciar Sesión</span>
+                </button>
+                <button id="tab-registro" onclick="switchTab('registro')" class="py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-gray-400 hover:text-white">
+                    <i class='bx bx-user-plus'></i>
+                    <span>Registrarse</span>
+                </button>
+            </div>
+
+            <div id="panel-login" class="panel-transition opacity-100 translate-x-0">
+                <div class="text-center mb-6">
+                    <h2 class="font-cinzel text-xl font-bold text-white">Bienvenido de Nuevo</h2>
+                    <p class="text-xs text-gray-400 mt-1">Introduce tus credenciales de empleado o socio Sakila</p>
+                </div>
+
+                <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4" novalidate>
+                    <input type="hidden" name="accion" value="login">
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Usuario o Correo Electrónico</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                <i class='bx bxs-user text-lg'></i>
+                            </span>
+                            <input type="text" id="log-usuario" name="usuario" maxlength="50" autocomplete="username" placeholder="ej. m.anderson o correo@sakila.es" required
+                                class="w-full pl-10 pr-4 py-3 bg-gray-900/80 border border-gray-700 rounded-xl text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red input-glow transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Contraseña</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                                <i class='bx bxs-lock-alt text-lg'></i>
+                            </span>
+                            <input type="password" id="log-pass" name="contrasena" autocomplete="current-password" placeholder="••••••••" required
+                                class="w-full pl-10 pr-10 py-3 bg-gray-900/80 border border-gray-700 rounded-xl text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red input-glow transition">
+                            <button type="button" onclick="togglePasswordVisibility('log-pass', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white">
+                                <i class='bx bx-show text-lg'></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" id="log-recordar" class="rounded bg-gray-900 border-gray-700 text-sakila-red focus:ring-0">
+                            <span>Recordarme</span>
+                        </label>
+                        <a href="#" onclick="showNotification('Instrucción de recuperación enviada a tu correo de empleado.', 'info')" class="text-sakila-amber hover:underline">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-sakila-red to-red-700 hover:from-red-600 hover:to-red-800 text-white font-semibold rounded-xl shadow-lg shadow-sakila-red/30 transition transform active:scale-[0.98] flex items-center justify-center space-x-2">
+                        <span>Acceder al Sistema</span>
+                        <i class='bx bx-right-arrow-alt text-xl'></i>
+                    </button>
+
+                    <div id="aviso-login" class="hidden text-xs p-3 rounded-lg text-center font-medium" role="status"></div>
+
+                    <p class="text-center text-xs text-gray-400 pt-2">
+                        ¿Todavía no tienes cuenta? <a href="#" onclick="switchTab('registro'); return false;" class="text-sakila-red font-semibold hover:underline">Regístrate aquí</a>
+                    </p>
+                </form>
+            </div>
+
+            <div id="panel-registro" class="panel-transition hidden opacity-0 translate-x-8">
+                <div class="text-center mb-6">
+                    <h2 class="font-cinzel text-xl font-bold text-white">Crear Nueva Cuenta</h2>
+                    <p class="text-xs text-gray-400 mt-1">Completa los campos para dar de alta en Sakila DB</p>
+                </div>
+
+                <form id="form-registro" onsubmit="handleRegister(event)" class="space-y-3.5" novalidate>
+                    <input type="hidden" name="accion" value="registro">
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Nombre</label>
+                            <input type="text" id="reg-nombre" name="nombre" maxlength="45" autocomplete="given-name" placeholder="Ej. John" oninput="validateField('nombre')"
+                                class="w-full px-3 py-2.5 bg-gray-900/80 border border-gray-700 rounded-xl text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red transition">
+                            <div class="msg text-[10px] mt-0.5 text-red-400 hidden"></div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1">Apellido</label>
+                            <input type="text" id="reg-apellido" name="apellido" maxlength="45" autocomplete="family-name" placeholder="Ej. Doe" oninput="validateField('apellido')"
+                                class="w-full px-3 py-2.5 bg-gray-900/80 border border-gray-700 rounded-xl text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red transition">
+                            <div class="msg text-[10px] mt-0.5 text-red-400 hidden"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Correo Electrónico (customer/staff)</label>
+                        <input type="email" id="reg-email" name="email" maxlength="50" autocomplete="email" placeholder="john.doe@sakila.customer.com" oninput="validateField('email')"
+                            class="w-full px-3 py-2.5 bg-gray-900/80 border border-gray-700 rounded-xl text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red transition">
+                        <div class="msg text-[10px] mt-0.5 text-red-400 hidden"></div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Nombre de Usuario</label>
+                        <input type="text" id="reg-usuario" name="usuario" maxlength="16" autocomplete="username" placeholder="3 a 16 caracteres" oninput="validateField('usuario')"
+                            class="w-full px-3 py-2.5 bg-gray-900/80 border border-gray-700 rounded-xl text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red transition">
+                        <div class="msg text-[10px] mt-0.5 text-red-400 hidden"></div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Contraseña</label>
+                        <div class="relative">
+                            <input type="password" id="reg-pass" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" oninput="checkPasswordStrength()"
+                                class="w-full px-3 py-2.5 pr-9 bg-gray-900/80 border border-gray-700 rounded-xl text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red transition">
+                            <button type="button" onclick="togglePasswordVisibility('reg-pass', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white text-sm">
+                                <i class='bx bx-show'></i>
+                            </button>
+                        </div>
+                        <!-- Password Strength Bar -->
+                        <div class="w-full bg-gray-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                            <div id="barra-fuerza" class="h-full w-0 transition-all duration-300 rounded-full"></div>
+                        </div>
+                        <div id="texto-fuerza" class="text-[10px] text-gray-400 mt-1">Fortaleza de contraseña</div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-300 mb-1">Repite la contraseña</label>
+                        <input type="password" id="reg-pass2" name="confirmaContrasena" autocomplete="new-password" placeholder="Repite tu contraseña" oninput="validateField('pass2')"
+                            class="w-full px-3 py-2.5 bg-gray-900/80 border border-gray-700 rounded-xl text-xs text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sakila-red transition">
+                        <div class="msg text-[10px] mt-0.5 text-red-400 hidden"></div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-sakila-red to-red-700 hover:from-red-600 hover:to-red-800 text-white font-semibold rounded-xl shadow-lg shadow-sakila-red/30 transition transform active:scale-[0.98] flex items-center justify-center space-x-2 mt-2">
+                        <span>Registrar en Sakila</span>
+                        <i class='bx bx-user-check text-xl'></i>
+                    </button>
+
+                    <div id="aviso-registro" class="hidden text-xs p-3 rounded-lg text-center font-medium" role="status"></div>
+
+                    <p class="text-center text-xs text-gray-400 pt-1">
+                        ¿Ya tienes una cuenta? <a href="#" onclick="switchTab('login'); return false;" class="text-sakila-red font-semibold hover:underline">Inicia sesión</a>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="modal-model" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+        <div class="bg-sakila-card border border-sakila-border rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 relative shadow-2xl">
+            <button onclick="toggleModelModal(false)" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-gray-800 p-2 rounded-full transition">
+                <i class='bx bx-x text-xl'></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-4">
+                <i class='bx bx-data text-sakila-amber text-3xl'></i>
+                <div>
+                    <h3 class="font-cinzel text-lg font-bold text-white">Modelo de Datos: Objeto Usuario (Sakila DB)</h3>
+                    <p class="text-xs text-gray-400">Definición PHP / JavaScript para la integración con la base de datos relacional Sakila</p>
+                </div>
+            </div>
+            <p class="text-xs text-gray-300 mb-4">
+                En la base de datos Sakila, los usuarios interactúan a través de las tablas <code class="text-sakila-amber bg-gray-900 px-1 py-0.5 rounded">customer</code> y <code class="text-sakila-amber bg-gray-900 px-1 py-0.5 rounded">staff</code>. A continuación se detalla la estructura mapeada del objeto Usuario para esta aplicación web:
+            </p>
+            <pre class="bg-gray-950 text-emerald-400 font-mono text-xs p-4 rounded-xl overflow-x-auto border border-gray-800 mb-4"><code>class SakilaUser {
+    public int $customer_id;      // Clave primaria (Auto-increment)
+    public int $store_id;         // ID de la tienda del videoclub (1 o 2)
+    public string $first_name;    // Nombre (máx 45 chars)
+    public string $last_name;     // Apellido (máx 45 chars)
+    public string $email;         // Correo electrónico único
+    public int $address_id;       // ID de dirección postal en tabla address
+    public bool $active;          // Estado activo (1 = activo, 0 = inactivo)
+    public string $username;      // Nombre de usuario para login web
+    public string $password_hash; // Hash seguro de contraseña (Bcrypt/Argon2)
+    public string $create_date;   // Fecha de registro automática (TIMESTAMP)
+    public string $last_update;   // Última actualización de datos
+}</code></pre>
+            <div class="bg-amber-950/30 border border-amber-900/50 rounded-xl p-3 text-xs text-amber-200 flex items-start space-x-2">
+                <i class='bx bx-info-circle text-lg shrink-0 mt-0.5'></i>
+                <span>Nota DAW: Este modelo prepara el terreno para enlazar con las tablas relacionales de alquileres (<code class="underline">rental</code>) y pagos (<code class="underline">payment</code>) de Sakila una vez que el usuario inicie sesión correctamente.</span>
+            </div>
+            <div class="mt-6 text-right">
+                <button onclick="toggleModelModal(false)" class="px-5 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-xl text-xs font-semibold transition">
+                    Cerrar Ventana
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="w-full max-w-5xl mx-auto text-center text-xs text-gray-500 pt-6 border-t border-gray-800/60">
+        <p>&copy; 2026 Sakila Videoclub &bull; Módulo de Desarrollo de Aplicaciones Web (DAW) &bull; Práctica Front-End SPA</p>
+    </footer>
+
+    <script>
+        // Tab switching function with fluid SPA slide/fade transition
+        function switchTab(tabName) {
+            const btnLogin = document.getElementById('tab-login');
+            const btnRegistro = document.getElementById('tab-registro');
+            const panelLogin = document.getElementById('panel-login');
+            const panelRegistro = document.getElementById('panel-registro');
+
+            if (tabName === 'login') {
+                // Style buttons
+                btnLogin.className = "py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center space-x-2 bg-sakila-red text-white shadow-md";
+                btnRegistro.className = "py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-gray-400 hover:text-white";
+                
+                // Animate panels
+                panelRegistro.classList.add('opacity-0', 'translate-x-8', 'hidden');
+                panelRegistro.classList.remove('opacity-100', 'translate-x-0');
+                
+                panelLogin.classList.remove('hidden');
+                setTimeout(() => {
+                    panelLogin.classList.remove('opacity-0', '-translate-x-8');
+                    panelLogin.classList.add('opacity-100', 'translate-x-0');
+                }, 50);
+            } else {
+                // Style buttons
+                btnRegistro.className = "py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center space-x-2 bg-sakila-red text-white shadow-md";
+                btnLogin.className = "py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center justify-center space-x-2 text-gray-400 hover:text-white";
+                
+                // Animate panels
+                panelLogin.classList.add('opacity-0', '-translate-x-8', 'hidden');
+                panelLogin.classList.remove('opacity-100', 'translate-x-0');
+                
+                panelRegistro.classList.remove('hidden');
+                setTimeout(() => {
+                    panelRegistro.classList.remove('opacity-0', 'translate-x-8');
+                    panelRegistro.classList.add('opacity-100', 'translate-x-0');
+                }, 50);
+            }
+        }
+
+        // Toggle password show/hide
+        function togglePasswordVisibility(fieldId, btnElement) {
+            const input = document.getElementById(fieldId);
+            const icon = btnElement.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'bx bx-hide text-lg';
+            } else {
+                input.type = 'password';
+                icon.className = 'bx bx-show text-lg';
+            }
+        }
+
+        // Password strength meter logic
+        function checkPasswordStrength() {
+            const val = document.getElementById('reg-pass').value;
+            const barra = document.getElementById('barra-fuerza');
+            const texto = document.getElementById('texto-fuerza');
+
+            if (!val) {
+                barra.style.width = '0%';
+                barra.className = 'h-full transition-all duration-300 rounded-full bg-gray-700';
+                texto.innerText = 'Fortaleza de contraseña';
+                return;
+            }
+
+            let score = 0;
+            if (val.length >= 8) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            if (score === 1) {
+                barra.style.width = '25%';
+                barra.className = 'h-full transition-all duration-300 rounded-full bg-red-500';
+                texto.innerText = 'Débil';
+                texto.className = 'text-[10px] text-red-400 mt-1';
+            } else if (score === 2 || score === 3) {
+                barra.style.width = '65%';
+                barra.className = 'h-full transition-all duration-300 rounded-full bg-sakila-amber';
+                texto.innerText = 'Moderada';
+                texto.className = 'text-[10px] text-amber-400 mt-1';
+            } else if (score >= 4) {
+                barra.style.width = '100%';
+                barra.className = 'h-full transition-all duration-300 rounded-full bg-emerald-500';
+                texto.innerText = 'Excelente (Segura)';
+                texto.className = 'text-[10px] text-emerald-400 mt-1';
+            }
+        }
+
+        // Field validation helper
+        function validateField(field) {
+            // Real-time auxiliary feedback can be handled here if needed
+        }
+
+        // Modal for Sakila Model (Bonus)
+        function toggleModelModal(show) {
+            const modal = document.getElementById('modal-model');
+            if (show) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Custom notification helper (avoids alert())
+        function showNotification(message, type, formType = 'login') {
+            const aviso = document.getElementById(`aviso-${formType}`);
+            aviso.textContent = message;
+            aviso.classList.remove('hidden');
+            if (type === 'error') {
+                aviso.className = 'text-xs p-3 rounded-lg text-center font-medium bg-red-950/80 border border-red-900 text-red-300';
+            } else if (type === 'success') {
+                aviso.className = 'text-xs p-3 rounded-lg text-center font-medium bg-emerald-950/80 border border-emerald-900 text-emerald-300';
+            } else {
+                aviso.className = 'text-xs p-3 rounded-lg text-center font-medium bg-amber-950/80 border border-amber-900 text-amber-300';
+            }
+        }
+
+        // Handle Login Submission simulation
+        function handleLogin(event) {
+            event.preventDefault();
+            const usuario = document.getElementById('log-usuario').value.trim();
+            const pass = document.getElementById('log-pass').value.trim();
+
+            if (!usuario || !pass) {
+                showNotification('Por favor, completa todos los campos de acceso.', 'error', 'login');
+                return;
+            }
+
+            // Simulated successful login for Sakila staff/customer
+            showNotification('¡Acceso concedido! Redirigiendo al panel de Sakila...', 'success', 'login');
+            setTimeout(() => {
+                showNotification(`Bienvenido al videoclub, ${usuario}. Sesión iniciada correctamente.`, 'success', 'login');
+            }, 1200);
+        }
+
+        // Handle Register Submission simulation
+        function handleRegister(event) {
+            event.preventDefault();
+            const nombre = document.getElementById('reg-nombre').value.trim();
+            const apellido = document.getElementById('reg-apellido').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const usuario = document.getElementById('reg-usuario').value.trim();
+            const pass = document.getElementById('reg-pass').value.trim();
+            const pass2 = document.getElementById('reg-pass2').value.trim();
+
+            if (!nombre || !apellido || !email || !usuario || !pass || !pass2) {
+                showNotification('Todos los campos son obligatorios para el registro en Sakila.', 'error', 'registro');
+                return;
+            }
+
+            if (usuario.length < 3 || usuario.length > 16) {
+                showNotification('El usuario debe tener entre 3 y 16 caracteres.', 'error', 'registro');
+                return;
+            }
+
+            if (pass.length < 8) {
+                showNotification('La contraseña debe tener al menos 8 caracteres.', 'error', 'registro');
+                return;
+            }
+
+            if (pass !== pass2) {
+                showNotification('Las contraseñas introducidas no coinciden.', 'error', 'registro');
+                return;
+            }
+
+            // Simulated successful registration matching Sakila DB structure
+            showNotification(`¡Registro exitoso! Cuenta creada para ${nombre} ${apellido} en Sakila DB.`, 'success', 'registro');
+            setTimeout(() => {
+                switchTab('login');
+                document.getElementById('log-usuario').value = usuario;
+                showNotification('Ya puedes iniciar sesión con tu nuevo usuario.', 'success', 'login');
+            }, 1800);
+        }
+
+        // Initialize console log for DAW developers
+        console.log("%c[Sakila DB Videoclub] Sistema SPA Front-End inicializado correctamente.", "color: #e50914; font-weight: bold; font-size: 14px;");
+        console.log("Objeto SakilaUser listo para mapeo con AccesoDatos.php.");
+    </script>
+</body>
+</html>

@@ -46,10 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     mostrarLogin(); // estado inicial
 
-    // ---------- MOSTRAR / OCULTAR CONTRASEÑA ----------
+    // ---------- MOSTRAR / OCULTAR CONTRASEÑA (login y registro) ----------
     document.querySelectorAll('button[data-para]').forEach((boton) => {
         const input = document.getElementById(boton.dataset.para);
         if (!input) return;
+
+        function ocultar() {
+            input.type = 'password';
+            boton.textContent = 'Mostrar';
+        }
 
         boton.style.display = input.value.length > 0 ? 'inline-block' : 'none';
 
@@ -58,8 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 boton.style.display = 'inline-block';
             } else {
                 boton.style.display = 'none';
-                input.type = 'password';
-                boton.textContent = 'Mostrar';
+                ocultar();
             }
         });
 
@@ -68,9 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.type = 'text';
                 boton.textContent = 'Ocultar';
             } else {
-                input.type = 'password';
-                boton.textContent = 'Mostrar';
+                ocultar();
             }
+        });
+
+        // Al resetear el formulario, vuelve todo al estado inicial
+        input.form.addEventListener('reset', () => {
+            ocultar();
+            boton.style.display = 'none';
         });
     });
 
@@ -104,13 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
         aviso.style.color = ok ? 'green' : 'red';
     }
 
-    // Envía el formulario a PHP y devuelve el JSON  (NUEVO)
+    // Envía el formulario a PHP y devuelve el JSON
     async function enviar(url, form) {
         const resp = await fetch(url, { method: 'POST', body: new FormData(form) });
         return await resp.json();
     }
 
-    // ---------- LOGIN (SUSTITUIDO) ----------
+    // ---------- LOGIN ----------
     formLogin.addEventListener('submit', async (e) => {
         e.preventDefault();
         const usuario = document.getElementById('log-usuario').value.trim();
@@ -133,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ---------- REGISTRO (SUSTITUIDO, sin tienda) ----------
+    // ---------- REGISTRO ----------
     formRegistro.addEventListener('submit', async (e) => {
         e.preventDefault();
 

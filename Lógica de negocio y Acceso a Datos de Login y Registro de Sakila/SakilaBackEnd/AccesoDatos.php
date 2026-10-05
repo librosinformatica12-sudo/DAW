@@ -19,7 +19,7 @@ function hashContrasena(string $contrasena): string
 }
 
 /** Devuelve el código de salida (_res) del procedimiento Registro. */
-function PA_Registrar(string $nombre, string $apellido, string $email, string $usuario, string $contrasena): int
+function PA_Registrar(string $nombre, string $apellido, string $email, int $tienda, string $usuario, string $contrasena): int
 {
     global $connection;
 
@@ -27,13 +27,13 @@ function PA_Registrar(string $nombre, string $apellido, string $email, string $u
         throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
     }
 
-    $stmt = $connection->prepare('CALL Registro(?, ?, ?, 1, ?, ?, @resultado)');
+    $stmt = $connection->prepare('CALL Registro(?, ?, ?, ?, ?, ?, @resultado)');
     if (!$stmt) {
         throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
     }
 
     $hash = hashContrasena($contrasena);
-    $stmt->bind_param('sssss', $nombre, $apellido, $email, $usuario, $hash);
+    $stmt->bind_param('sssiss', $nombre, $apellido, $email, $tienda, $usuario, $hash);
 
     if (!$stmt->execute()) {
         $error = $stmt->error;

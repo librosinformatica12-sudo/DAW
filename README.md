@@ -23,18 +23,11 @@ git clone https://github.com/librosinformatica12-sudo/DAW.git
 
 
 
-# 🚨 Guía de Solución: Conflictos al hacer `git pull --rebase`
+# 1. Descargar e integrar los cambios de GitHub encima de los tuyos
+git pull --rebase origin main
 
-Cuando ejecutas `git pull --rebase origin main` y tus archivos locales chocan con los de GitHub, Git pausa el proceso y te muestra el mensaje:  
-`CONFLICT (content): Merge conflict in...`
+# 2. Volver a subir tus cambios
+git push origin main
 
-Sigue estos **4 pasos** para resolverlo sin perder nada de código:
-
----
-
-## 🛠️ Paso a Paso para Resolver el Conflicto
-
-### 1️⃣ Identificar los archivos con conflicto
-Consulta qué archivos están atascados ejecutando:
-```bash
+# 2. Verificación: Los archivos en conflicto aparecerán marcados en rojo dentro de Unmerged paths.
 git status

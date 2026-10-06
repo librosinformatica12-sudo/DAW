@@ -3,19 +3,21 @@
 $DEBUG = true;
 
 ob_start(); // evita que cualquier warning o espacio rompa el JSON
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 header('Content-Type: application/json; charset=utf-8');
 
 function responder(bool $ok, string $mensaje, array $extra = []): void
 {
-    ob_clean();
+    if (ob_get_length()) ob_clean();
     echo json_encode(array_merge(['ok' => $ok, 'mensaje' => $mensaje], $extra), JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 // ---------- Conexión con AccesoDatos.php (carpeta src) ----------
-$rutaAcceso = __DIR__ . '../src/AccesoDatos.php';
+$rutaAcceso = __DIR__ . '/../src/AccesoDatos.php';
 
 if (!file_exists($rutaAcceso)) {
     responder(false, $DEBUG
@@ -31,33 +33,38 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // ---------- Datos del formulario ----------
-$usuario = trim($_POST['usuario'] ?? '');
+// Nota: Tu procedimiento de MySQL busca por EMAIL
+$email = trim($_POST['usuario'] ?? $_POST['email'] ?? '');
 $contrasena = $_POST['contrasena'] ?? '';
 
-if ($usuario === '' || $contrasena === '') {
-    responder(false, 'Usuario y contraseña son obligatorios.');
+if ($email === '' || $contrasena === '') {
+    responder(false, 'Correo y contraseña son obligatorios.');
 }
 
 // ---------- Llamada al procedimiento Login ----------
 try {
-    $r = PA_Login($usuario, $contrasena);   // ['codigo' => int, 'staff' => array|null]
+    $r = PA_Login($email, $contrasena);   // Devuelve ['codigo' => int, 'usuario' => array|null]
     $codigo = $r['codigo'];
+    $datosUsuario = $r['usuario'];
 
-    if ($codigo > 0) {
+    // En tu PA de MySQL: 0 = Éxito total
+    if ($codigo === 0 && $datosUsuario !== null) {
         session_regenerate_id(true);
-        $_SESSION['staff'] = $r['staff'];
-        $_SESSION['staff_id'] = $codigo;
-        $_SESSION['login'] = $usuario;
 
-        $nombre = $r['staff']['first_name'] ?? $usuario;
-        responder(true, '¡Bienvenido, ' . $nombre . '!', ['staff' => $r['staff']]);
+        // Guardar sesión de DinoCards
+        $_SESSION['usuario_id'] = $datosUsuario['id'] ?? null;
+        $_SESSION['usuario']    = $datosUsuario['username'] ?? $email;
+        $_SESSION['email']      = $datosUsuario['email'] ?? $email;
+
+        $nombreMostrar = $datosUsuario['username'] ?? $email;
+        responder(true, '¡Bienvenido, ' . $nombreMostrar . '!', ['usuario' => $datosUsuario]);
 
     } elseif ($codigo === -1) {
-        responder(false, 'Introduce usuario y contraseña.');
+        responder(false, 'El correo electrónico no puede estar vacío.');
     } elseif ($codigo === -2) {
-        responder(false, 'Usuario o contraseña incorrectos.');
+        responder(false, 'La contraseña no puede estar vacía.');
     } elseif ($codigo === -3) {
-        responder(false, 'Cuenta bloqueada por demasiados intentos fallidos. Inténtalo de nuevo en 5 minutos.');
+        responder(false, 'El correo o la contraseña son incorrectos.');
     } else {
         responder(false, $DEBUG
             ? 'Código devuelto por el procedimiento: ' . $codigo

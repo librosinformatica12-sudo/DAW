@@ -94,6 +94,42 @@ body {
     color: var(--gris);
     cursor: pointer;
 }
+
+/* ---------- PESTAÑAS (TABS) ---------- */
+.tabs {
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--borde);
+}
+
+.tabs .btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 16px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gris);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: -2px; /* Alinea el borde con el borde inferior del contenedor */
+}
+
+/* Estado al pasar el ratón */
+.tabs .btn:hover {
+    color: var(--texto);
+}
+
+/* Estado activo: resalta en rojo DinoCards */
+.tabs .btn.activo,
+.container[data-panel="login"] .tabs .btn[data-ir="login"],
+.container[data-panel="registro"] .tabs .btn[data-ir="registro"] {
+    color: var(--rojo);
+    border-bottom-color: var(--rojo);
+}
+
 .container > .btn.activo { color: var(--texto); border-bottom-color: var(--rojo); }
 .container > .btn:hover  { color: var(--texto); }
 
@@ -145,22 +181,31 @@ body {
 .campo.icono input { padding-left: 46px; }
 
 /* Contraseña + botón Mostrar */
-.entrada { position: relative; }
-.entrada input { padding-right: 90px; }
+.entrada { position: relative; width: 100%; }
+.entrada input { width: 100%; padding-right: 85px; }
 
+/* Estilo para el botón flotante Mostrar / Ocultar */
 .rojo {
     position: absolute;
-    right: 8px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: transparent;
     border: none;
-    color: var(--rojo);
-    font-weight: 600;
-    font-size: .85rem;
+    color: var(--rojo, #d6232f);
+    font-weight: 700;
+    font-size: 0.85rem;
     cursor: pointer;
+    padding: 4px 6px;
+    line-height: 1;
+    z-index: 2;
+    transition: opacity 0.2s ease;
 }
-.rojo:hover { text-decoration: underline; }
+
+.rojo:hover {
+    text-decoration: underline;
+    color: var(--rojo-osc, #b01c26);
+}
 
 /* ---------- REGISTRO ---------- */
 #form-registro h2 { font-size: 1.2rem; color: var(--texto); }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 define('APP', true);
-require_once __DIR__ . '/src/AccesoDatos.php';
+require_once __DIR__ . '/AccesoDatos.php';
 
 function e(mixed $v): string { 
     return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); 
@@ -44,8 +44,8 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
         <div class="logo">
             <i class="bx bx-film"></i>
             <div class="logo-text">
-                <strong>SAKILA <span class="version-code">v1.0</span></strong>
-                <span>VIDEO CLUB</span>
+                <strong>DinoCards<span class="version-code">v1.0</span></strong>
+                <span>DINO CARDS</span>
             </div>
         </div>
         <div class="topbar-der">
@@ -98,7 +98,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
 
                 <div class="separador"><span>o</span></div>
                 <p class="register-link"><a href="#"><i class="bx bx-user-plus"></i> Crear nueva cuenta</a></p>
-                <center><p class="nota">Solo para empleados autorizados de Sakila Video Club</p></center>
+                <center><p class="nota">Solo para empleados autorizados de DinoCards</p></center>
             </form>
 
             <!-- REGISTRO -->

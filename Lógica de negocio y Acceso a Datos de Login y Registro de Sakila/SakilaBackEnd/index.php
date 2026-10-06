@@ -101,10 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Catálogo Sakila | Film</title>
-	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<script src="script.js"></script>
+	<script src="/script/script.js"></script>
 	<div class="container">
 		<h1>Catálogo Sakila</h1>
 		<h2>Registro de Usuario</h2>

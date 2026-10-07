@@ -43,11 +43,6 @@ echo [4/4] Subiendo cambios...
 git commit -m "%DESC%"
 git push
 
-for /f "delims=" %%h in ('git rev-parse --short HEAD') do set "HASH=%%h"
-echo. >>"%REPORTE%"
-echo Commit subido: %HASH% >>"%REPORTE%"
-echo Mensaje: %DESC% >>"%REPORTE%"
-
 echo.
 echo LISTO. Informe guardado en: %REPORTE%
 goto fin

@@ -1,5 +1,4 @@
 <?php
-// src/AccesoDatos.php
 
 $host = '127.0.0.1';
 $port = 3306;
@@ -7,29 +6,19 @@ $database = 'dinocards';
 $username = 'oscar';
 $password = '561Cazadora#%';
 
-$connection = new mysqli($host, $username, $password, $database, $port);
+mysqli_report(MYSQLI_REPORT_OFF);
+$connection = @new mysqli($host, $username, $password, $database, $port);
 
-if ($connection->connect_error) {
-    die('Error de conexión a la BD: ' . $connection->connect_error);
+if (!$connection->connect_errno) {
+    $connection->set_charset('utf8mb4');
 }
 
-$connection->set_charset('utf8mb4');
-
-/**
- * Genera el hash MD5 de la contraseña.
- */
 function hashContrasena(string $contrasena): string
 {
     return md5($contrasena);
 }
 
-/**
- * Devuelve el código de salida (_res) del procedimiento Registro:
- *  0  -> Todo OK
- * -1  -> Usuario o email vacío
- * -2  -> Usuario o email ya existe
- * -3  -> Contraseña vacía
- */
+/** Devuelve el código de salida (_res) del procedimiento Registro. */
 function PA_Registrar(string $usuario, string $email, string $contrasena): int
 {
     global $connection;
@@ -38,6 +27,7 @@ function PA_Registrar(string $usuario, string $email, string $contrasena): int
         throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
     }
 
+    // El SP 'Registro' recibe 3 IN (username, email, password) y 1 OUT (_res)
     $stmt = $connection->prepare('CALL Registro(?, ?, ?, @resultado)');
     if (!$stmt) {
         throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
@@ -64,13 +54,11 @@ function PA_Registrar(string $usuario, string $email, string $contrasena): int
     $fila = $res->fetch_assoc();
     $res->free();
 
-    return isset($fila['resultado']) ? (int) $fila['resultado'] : -99;
+    return (int) $fila['resultado'];
 }
 
-/** 
- * Devuelve ['codigo' => int, 'usuario' => array|null].
- */
-function PA_Login(string $usuarioOEmail, string $contrasena): array
+/** Devuelve ['codigo' => int, 'usuario' => array|null]. */
+function PA_Login(string $email, string $contrasena): array
 {
     global $connection;
 
@@ -78,13 +66,14 @@ function PA_Login(string $usuarioOEmail, string $contrasena): array
         throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
     }
 
+    // El SP 'Login' recibe 2 IN (email, password) y 1 OUT (_res)
     $stmt = $connection->prepare('CALL Login(?, ?, @resultado)');
     if (!$stmt) {
         throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
     }
 
     $hash = hashContrasena($contrasena);
-    $stmt->bind_param('ss', $usuarioOEmail, $hash);
+    $stmt->bind_param('ss', $email, $hash);
 
     if (!$stmt->execute()) {
         $error = $stmt->error;
@@ -92,21 +81,19 @@ function PA_Login(string $usuarioOEmail, string $contrasena): array
         throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
     }
 
-    // Leer los datos devueltos por la consulta si el login es correcto
-    $usuario = null;
+    $datosUsuario = null;
     do {
         $rs = $stmt->get_result();
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $usuario = $fila;
+                $datosUsuario = $fila;
             }
             $rs->free();
         }
     } while ($stmt->more_results() && $stmt->next_result());
     $stmt->close();
 
-    // Recuperar la variable de salida OUT
     $res = $connection->query('SELECT @resultado AS resultado');
     if (!$res) {
         throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
@@ -114,13 +101,5 @@ function PA_Login(string $usuarioOEmail, string $contrasena): array
     $fila = $res->fetch_assoc();
     $res->free();
 
-    // Si @resultado no tiene valor, devolver -2 (Usuario/Contraseña incorrectos)
-    $codigoFinal = (isset($fila['resultado']) && $fila['resultado'] !== null) 
-        ? (int) $fila['resultado'] 
-        : -2;
-
-    return [
-        'codigo' => $codigoFinal,
-        'usuario' => $usuario
-    ];
+    return ['codigo' => (int) $fila['resultado'], 'usuario' => $datosUsuario];
 }

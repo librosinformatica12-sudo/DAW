@@ -1,0 +1,304 @@
+/* ============================================
+   SAKILA VIDEO CLUB · Login & Registro
+   ============================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
+
+:root {
+    --rojo: #d6232f;
+    --rojo-osc: #b01c26;
+    --fondo: #0b1018;
+    --texto: #1a2233;
+    --gris: #6b7385;
+    --borde: #d9dde5;
+}
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    min-height: 100vh;
+    color: #fff;
+    background:
+        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
+        var(--fondo);
+    /* Para usar tu foto: pon url('../img/fondo.jpg') center/cover, antes de var(--fondo) */
+}
+
+/* ---------- CABECERA ---------- */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+    background: rgba(8, 12, 20, .85);
+    border-bottom: 2px solid var(--rojo);
+}
+
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo i { font-size: 2.4rem; }
+.logo > div { display: flex; flex-direction: column; }
+.logo strong { font-size: 2rem; line-height: 1; color: var(--rojo); letter-spacing: 1px; }
+.logo span { font-size: .7rem; letter-spacing: 6px; margin-top: 2px; }
+
+.topbar-der { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
+.topbar-der i { font-size: 1.6rem; }
+
+/* ---------- LAYOUT ---------- */
+.pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+}
+
+/* ---------- HERO ---------- */
+.hero { max-width: 520px; }
+.hero h2 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; color: #fff; }
+.hero h2 span { display: block; color: var(--rojo); }
+.hero p { color: #d3d8e2; line-height: 1.5; margin-bottom: 28px; }
+.hero ul { list-style: none; display: grid; gap: 18px; }
+.hero li { display: flex; align-items: center; gap: 14px; }
+.hero li i { font-size: 2rem; color: var(--rojo); }
+.hero li b { display: block; color: #fff; }
+.hero li small { color: #b9c0cf; }
+
+/* ---------- TARJETA ---------- */
+.container {
+    width: 100%;
+    max-width: 520px;
+    background: #fafafa;
+    color: var(--texto);
+    border-radius: 6px;
+    padding: 0 30px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+}
+
+/* Pestañas arriba del todo */
+.container > .btn {
+    order: -1;
+    flex: 1 1 50%;
+    background: none;
+    border: none;
+    border-bottom: 3px solid #e6e8ee;
+    padding: 20px 0 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gris);
+    cursor: pointer;
+}
+
+/* ---------- PESTAÑAS (TABS) ---------- */
+.tabs {
+    width: 100%;
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--borde);
+}
+
+.tabs .btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 16px 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gris);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: -2px; /* Alinea el borde con el borde inferior del contenedor */
+}
+
+/* Estado al pasar el ratón */
+.tabs .btn:hover {
+    color: var(--texto);
+}
+
+/* Estado activo: resalta en rojo DinoCards */
+.tabs .btn.activo,
+.container[data-panel="login"] .tabs .btn[data-ir="login"],
+.container[data-panel="registro"] .tabs .btn[data-ir="registro"] {
+    color: var(--rojo);
+    border-bottom-color: var(--rojo);
+}
+
+.container > .btn.activo { color: var(--texto); border-bottom-color: var(--rojo); }
+.container > .btn:hover  { color: var(--texto); }
+
+.container > h1 {
+    width: 100%;
+    font-size: 1.5rem;
+    color: var(--texto);
+    margin: 28px 0 22px;
+}
+
+.container > form { width: 100%; }
+
+/* ---------- CAMPOS ---------- */
+.campo { margin-bottom: 16px; position: relative; text-align: left; }
+
+.campo label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--gris);
+    margin-bottom: 6px;
+}
+
+.campo input {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(214, 35, 47, .15);
+}
+
+/* Campos del login con icono a la izquierda */
+.campo.icono > i {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    font-size: 1.3rem;
+    color: var(--gris);
+    z-index: 1;
+}
+.campo.icono input { padding-left: 46px; }
+
+/* Contraseña + botón Mostrar */
+/* Contenedor relativo para posicionar el botón sobre el input */
+.entrada { 
+    position: relative; 
+}
+
+/* Espacio a la derecha del input para que el texto no se monte sobre el botón */
+.entrada input { 
+    padding-right: 90px; 
+}
+
+/* Estilos del botón 'Mostrar' / 'Ocultar' */
+.rojo {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--rojo);
+    font-weight: 600;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+.rojo:hover { 
+    text-decoration: underline; 
+}
+
+/* ---------- REGISTRO ---------- */
+#form-registro h2 { font-size: 1.2rem; color: var(--texto); }
+#form-registro .sub { color: var(--gris); margin: 4px 0 18px; font-size: .9rem; }
+
+.fila { display: flex; gap: 14px; }
+.fila .campo { flex: 1; min-width: 0; }
+
+.msg { color: var(--rojo); font-size: .8rem; min-height: 1em; margin-top: 4px; }
+
+.fuerza { height: 6px; background: #e6e8ee; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+.fuerza span { display: block; height: 100%; width: 0; transition: width .2s, background .2s; }
+
+/* ---------- LOGIN: extras ---------- */
+.remember-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0 20px;
+    font-size: .9rem;
+    color: var(--texto);
+}
+.remember-password label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.remember-password a { color: var(--rojo); text-decoration: none; }
+.remember-password a:hover { text-decoration: underline; }
+
+.enviar {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    background: var(--rojo);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.enviar:hover { background: var(--rojo-osc); }
+
+.aviso { text-align: center; margin-top: 10px; min-height: 1.2em; font-size: .9rem; }
+.aviso.error { color: var(--rojo); }
+.aviso.ok    { color: green; }
+
+/* Separador "o" */
+.separador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 20px 0;
+    color: var(--gris);
+    font-size: .85rem;
+}
+.separador::before,
+.separador::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--borde);
+}
+
+.register-link { text-align: center; font-size: .9rem; color: var(--gris); }
+
+/* Botón "Crear nueva cuenta" */
+#form-login .register-link a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+    font-weight: 600;
+    text-decoration: none;
+}
+#form-login .register-link a:hover { background: #f1f2f6; }
+
+#form-registro .register-link { margin-top: 18px; }
+#form-registro .register-link a { color: var(--rojo); font-weight: 600; text-decoration: none; }
+
+.nota { text-align: center; font-size: .75rem; color: var(--gris); margin-top: 26px; }
+
+/* ---------- MÓVIL ---------- */
+@media (max-width: 900px) {
+    .topbar { padding: 14px 20px; }
+    .pagina { flex-direction: column; padding: 24px 16px; }
+    .hero h2 { font-size: 2rem; }
+    .hero ul { display: none; }
+}
+
+@media (max-width: 420px) {
+    .fila { flex-direction: column; gap: 0; }
+}

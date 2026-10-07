@@ -4,20 +4,7 @@
 $DEBUG = true;
 
 // 1. Incluimos AccesoDatos.php subiendo un nivel desde la carpeta 'php' para entrar a 'src'
-$rutaAcceso = __DIR__ . '/../src/AccesoDatos.php';
-
-if (!file_exists($rutaAcceso)) {
-    $msg = $DEBUG ? 'No se encuentra AccesoDatos.php en: ' . $rutaAcceso : 'Error interno del servidor.';
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['ok' => false, 'mensaje' => $msg], JSON_UNESCAPED_UNICODE);
-        exit;
-    } else {
-        $errorRegistro = $msg;
-        return;
-    }
-}
-require_once $rutaAcceso;
+require_once __DIR__ . '/../src/AccesoDatos.php';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -41,6 +28,20 @@ function responder(bool $ok, string $mensaje, array $extra = []): void
         exit;
     }
 }
+
+// ---------- Conexión con AccesoDatos.php ----------
+$rutaAcceso = __DIR__ . '/../src/AccesoDatos.php';
+
+if (!file_exists($rutaAcceso)) {
+    $msg = $DEBUG ? 'No se encuentra AccesoDatos.php en: ' . $rutaAcceso : 'Error interno del servidor.';
+    if ($esAjax) {
+        responder(false, $msg);
+    } else {
+        $errorRegistro = $msg;
+        return;
+    }
+}
+require_once $rutaAcceso;
 
 // ---------- Datos del formulario ----------
 $usuario = trim($_POST['usuario'] ?? '');

@@ -2,11 +2,8 @@
 session_start();
 define('APP', true);
 
-// Si ya hay sesión iniciada, redirige al inicio
-if (isset($_SESSION['usuario_id'])) { 
-    header('Location: inicio.php'); 
-    exit; 
-}
+// Si ya hay sesión iniciada, no tiene sentido ver el login
+if (isset($_SESSION['usuario_id'])) { header('Location: inicio.php'); exit; }
 
 require_once __DIR__ . '/src/AccesoDatos.php';
 
@@ -47,6 +44,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     
+    <!-- Añade defer aquí para evitar errores al cargar el JS -->
     <script src="script/script.js" defer></script>
 </head>
 <body>
@@ -76,6 +74,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
         </section>
 
         <div class="container" data-panel="<?= e($panelActivo) ?>">
+
             <div class="tabs" role="tablist">
                 <button class="btn" type="button" role="tab" data-ir="login">Iniciar sesión</button>
                 <button class="btn" type="button" role="tab" data-ir="registro">Registrarse</button>
@@ -83,13 +82,13 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
 
             <!-- LOGIN -->
             <form id="form-login" method="POST" action="">
-                <h1>Iniciar Sesión</h1>
+                <h1>Iniciar Sesión </h1>
                 <br>
                 <input type="hidden" name="accion" value="login">
 
                 <div class="campo icono">
-                    <i class="bx bx-user"></i>
-                    <input type="text" name="usuario" placeholder="Usuario o email" maxlength="50" id="log-usuario" autocomplete="username" required>
+                        <i class="bx bx-user"></i>
+                        <input type="text" name="usuario" placeholder="Usuario o email" maxlength="50" id="log-usuario" autocomplete="username" required>
                 </div>
 
                 <div class="campo icono">
@@ -110,60 +109,64 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
 
                 <div class="separador"><span>o</span></div>
 
+
                 <p class="register-link">
                     <a href="#" data-ir="registro">
                         <i class="bx bx-user-plus"></i> Crear nueva cuenta
                     </a>
                 </p>
                 
-                <p class="nota" style="text-align: center;">Portal exclusivo para miembros y coleccionistas de DinoCards</p>
+                <center><p class="nota">Portal exlusivo para miembros y coleccionistas de DinoCards</p></center>
             </form>
 
-            <!-- REGISTRO -->
-            <form id="form-registro" method="POST" action="" novalidate hidden>
-                <input type="hidden" name="accion" value="registro">
-                
-                <h2>Crear cuenta</h2>
-                <p class="sub">Rellena tus datos para registrarte</p>
-                
-                <div class="campo">
-                    <label for="reg-usuario">Usuario</label>
-                    <input type="text" id="reg-usuario" name="usuario" maxlength="16" placeholder="3 a 16 caracteres">
-                </div>
-                
-                <div class="campo">
-                    <label for="reg-email">Correo electrónico</label>
-                    <input type="email" id="reg-email" name="email" maxlength="100" placeholder="tu@correo.com">
-                </div>
-                
-                <div class="campo">
-                    <label for="reg-pass">Contraseña</label>
-                    <div class="entrada">
-                        <input type="password" id="reg-pass" name="contrasena" placeholder="Mínimo 8 caracteres">
-                        <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
-                    </div>
-                </div>
-                
-                <div class="campo">
-                    <label for="reg-pass2">Repite la contraseña</label>
-                    <div class="entrada">
-                        <input type="password" id="reg-pass2" name="confirmaContrasena" placeholder="Repite la contraseña">
-                        <button type="button" class="rojo" data-para="reg-pass2">Mostrar</button>
-                    </div>
-                </div>
 
-                <button type="submit" class="enviar">Crear cuenta</button>
+        <!-- REGISTRO -->
+        <form id="form-registro" method="POST" action="" novalidate hidden>
+            <input type="hidden" name="accion" value="registro">
+            
+            <h2>Crear cuenta</h2>
+            <p class="sub">Rellena tus datos para registrarte</p>
+            
+            <div class="campo">
+                <label for="reg-usuario">Usuario</label>
+                <input type="text" id="reg-usuario" name="usuario" maxlength="16" placeholder="3 a 16 caracteres">
+            </div>
+            
+            <div class="campo">
+                <label for="reg-email">Correo electrónico</label>
+                <input type="email" id="reg-email" name="email" maxlength="100" placeholder="tu@correo.com">
+            </div>
+            
+            <div class="campo">
+                <label for="reg-pass">Contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass" name="contrasena" placeholder="Mínimo 4 caracteres">
+                    <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
+                </div>
+            </div>
+            
+            <div class="campo">
+                <label for="reg-pass2">Repite la contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass2" name="confirmaContrasena" placeholder="Repite la contraseña">
+                    <button type="button" class="rojo" data-para="reg-pass2">Mostrar</button>
+                </div>
+            </div>
 
-                <p class="register-link">
-                    ¿Ya tienes cuenta?
-                    <a href="#" data-ir="login">
-                        <i class="bx bx-user"></i> Iniciar sesión
-                    </a>
-                </p>
+            <button type="submit" class="enviar">Crear cuenta</button>
 
-                <p class="nota" style="text-align: center;">Al registrarte, aceptas nuestros Términos y Condiciones de la comunidad de DinoCards</p>
-            </form>        
-        </div>
+            <p class="register-link">
+                ¿Ya tienes cuenta?
+                <a href="#" data-ir="login">
+                    <i class="bx bx-user"></i> Iniciar sesión
+                </a>
+            </p>
+
+
+            <center><p class="nota">Al registrarte, aceptas nuestros Términos y Condiciones de la comunidad de DInoCards</p></center>
+        </form>        
+
+    </div>
     </main>
 </body>
 </html>

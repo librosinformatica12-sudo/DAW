@@ -25,10 +25,6 @@ function hashContrasena(string $contrasena): string
 
 /**
  * Devuelve el código de salida (_res) del procedimiento Registro:
- *  0  -> Todo OK
- * -1  -> Usuario o email vacío
- * -2  -> Usuario o email ya existe
- * -3  -> Contraseña vacía
  */
 function PA_Registrar(string $usuario, string $email, string $contrasena): int
 {
@@ -68,7 +64,7 @@ function PA_Registrar(string $usuario, string $email, string $contrasena): int
 }
 
 /** 
- * Devuelve ['codigo' => int, 'usuario' => array|null].
+ * Devuelve ['codigo' => int, 'staff' => array|null].
  */
 function PA_Login(string $usuarioOEmail, string $contrasena): array
 {
@@ -93,13 +89,13 @@ function PA_Login(string $usuarioOEmail, string $contrasena): array
     }
 
     // Leer los datos devueltos por la consulta si el login es correcto
-    $usuario = null;
+    $staff = null;
     do {
         $rs = $stmt->get_result();
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $usuario = $fila;
+                $staff = $fila;
             }
             $rs->free();
         }
@@ -114,13 +110,13 @@ function PA_Login(string $usuarioOEmail, string $contrasena): array
     $fila = $res->fetch_assoc();
     $res->free();
 
-    // Si @resultado no tiene valor, devolver -2 (Usuario/Contraseña incorrectos)
+    // Si @resultado no tiene valor, devolver -2 (Usuario/Contraseña incorrectos) en lugar de -99
     $codigoFinal = (isset($fila['resultado']) && $fila['resultado'] !== null) 
         ? (int) $fila['resultado'] 
         : -2;
 
     return [
         'codigo' => $codigoFinal,
-        'usuario' => $usuario
+        'staff' => $staff
     ];
 }

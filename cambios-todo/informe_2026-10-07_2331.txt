@@ -1,0 +1,13 @@
+===== INFORME DE CAMBIOS - TODO EL REPO ===== 
+Fecha: 07/10/2026 23:31:39,20 
+Descripcion: PERFECTO TODO BIEN ORDENADO 
+ 
+--- Archivos afectados --- 
+R  dino-prueba/abrir-chat-infoGIT.bat -> abrir-chat-infoGIT.bat
+?? cambios-todo/informe_2026-10-07_2331.txt
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dino-prueba/abrir-chat-infoGIT.bat b/abrir-chat-infoGIT.bat
+similarity index 100%
+rename from dino-prueba/abrir-chat-infoGIT.bat
+rename to abrir-chat-infoGIT.bat

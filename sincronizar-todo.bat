@@ -37,6 +37,8 @@ echo. >>"%REPORTE%"
 echo --- Detalle de cambios - diff --- >>"%REPORTE%"
 git diff --cached >>"%REPORTE%"
 
+git add cambios-todo
+
 echo [4/4] Subiendo cambios...
 git commit -m "%DESC%"
 git push

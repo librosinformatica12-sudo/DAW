@@ -3,12 +3,6 @@
 
 $DEBUG = true;
 
-<<<<<<< HEAD
-=======
-// 1. Incluimos AccesoDatos.php subiendo un nivel desde la carpeta 'php' para entrar a 'src'
-require_once __DIR__ . '/../src/AccesoDatos.php';
-
->>>>>>> 88528de (clase mal)
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

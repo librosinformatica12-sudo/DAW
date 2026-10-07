@@ -74,16 +74,11 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
         </section>
 
         <div class="container" data-panel="<?= e($panelActivo) ?>">
-<<<<<<< HEAD
-=======
-
->>>>>>> 88528de (clase mal)
             <div class="tabs" role="tablist">
                 <button class="btn" type="button" role="tab" data-ir="login">Iniciar sesión</button>
                 <button class="btn" type="button" role="tab" data-ir="registro">Registrarse</button>
             </div>
 
-<<<<<<< HEAD
         <!-- LOGIN -->
         <form id="form-login" method="POST" action="">
             <input type="hidden" name="accion" value="login">
@@ -103,58 +98,11 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
 
             <button type="submit" class="enviar">Iniciar sesión</button>
         </form>
-=======
-            <!-- LOGIN -->
-            <form id="form-login" method="POST" action="">
-                <h1>Iniciar Sesión </h1>
-                <br>
-                <input type="hidden" name="accion" value="login">
-
-                <div class="campo icono">
-                        <i class="bx bx-user"></i>
-                        <input type="text" name="usuario" placeholder="Usuario o email" maxlength="50" id="log-usuario" autocomplete="username" required>
-                </div>
-
-                <div class="campo icono">
-                    <i class="bx bx-lock-alt"></i>
-                    <div class="entrada">
-                        <input type="password" id="log-pass" name="contrasena" placeholder="Contraseña" autocomplete="current-password" required>
-                        <button type="button" class="rojo" data-para="log-pass">Mostrar</button>
-                    </div>
-                </div>
-
-                <div class="remember-password">
-                    <label><input type="checkbox" id="log-recordar"> Recordarme</label>
-                    <a href="#" id="olvide">¿Olvidaste tu contraseña?</a>
-                </div>
-
-                <button type="submit" class="enviar">Iniciar sesión</button>
-                <div class="aviso <?= $errorLogin !== null ? 'error' : 'ok' ?>" id="aviso-login" role="status"><?= e($errorLogin ?? $exitoLogin ?? '') ?></div>
-
-                <div class="separador"><span>o</span></div>
-
-
-                <p class="register-link">
-                    <a href="#" data-ir="registro">
-                        <i class="bx bx-user-plus"></i> Crear nueva cuenta
-                    </a>
-                </p>
-                
-                <center><p class="nota">Portal exlusivo para miembros y coleccionistas de DinoCards</p></center>
-            </form>
-
->>>>>>> 88528de (clase mal)
 
         <!-- REGISTRO -->
         <form id="form-registro" method="POST" action="" novalidate hidden>
             <input type="hidden" name="accion" value="registro">
             
-<<<<<<< HEAD
-=======
-            <h2>Crear cuenta</h2>
-            <p class="sub">Rellena tus datos para registrarte</p>
-            
->>>>>>> 88528de (clase mal)
             <div class="campo">
                 <label for="reg-usuario">Usuario</label>
                 <input type="text" id="reg-usuario" name="usuario" maxlength="16" placeholder="3 a 16 caracteres">
@@ -168,18 +116,13 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
             <div class="campo">
                 <label for="reg-pass">Contraseña</label>
                 <div class="entrada">
-<<<<<<< HEAD
                     <input type="password" id="reg-pass" name="contrasena" placeholder="Mínimo 8 caracteres">
-=======
-                    <input type="password" id="reg-pass" name="contrasena" placeholder="Mínimo 4 caracteres">
->>>>>>> 88528de (clase mal)
                     <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
                 </div>
             </div>
             
             <div class="campo">
                 <label for="reg-pass2">Repite la contraseña</label>
-<<<<<<< HEAD
                 <input type="password" id="reg-pass2" name="confirmaContrasena" placeholder="Repite la contraseña">
             </div>
 
@@ -189,28 +132,5 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
     </main>
 
     <script src="script/script.js"></script>
-=======
-                <div class="entrada">
-                    <input type="password" id="reg-pass2" name="confirmaContrasena" placeholder="Repite la contraseña">
-                    <button type="button" class="rojo" data-para="reg-pass2">Mostrar</button>
-                </div>
-            </div>
-
-            <button type="submit" class="enviar">Crear cuenta</button>
-
-            <p class="register-link">
-                ¿Ya tienes cuenta?
-                <a href="#" data-ir="login">
-                    <i class="bx bx-user"></i> Iniciar sesión
-                </a>
-            </p>
-
-
-            <center><p class="nota">Al registrarte, aceptas nuestros Términos y Condiciones de la comunidad de DInoCards</p></center>
-        </form>        
-
-    </div>
-    </main>
->>>>>>> 88528de (clase mal)
 </body>
 </html>

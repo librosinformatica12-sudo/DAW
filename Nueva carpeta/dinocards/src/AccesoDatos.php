@@ -1,22 +1,12 @@
 <?php
 // src/AccesoDatos.php
 
-<<<<<<< HEAD
 $host = 'localhost';
 $db   = 'dinocards';
 $user = 'oscar';
 $pass = '561Cazadora#%';
 
 $connection = new mysqli($host, $user, $pass, $db);
-=======
-$host = '127.0.0.1';
-$port = 3306;
-$database = 'dinocards';
-$username = 'oscar';
-$password = '561Cazadora#%';
-
-$connection = new mysqli($host, $username, $password, $database, $port);
->>>>>>> 88528de (clase mal)
 
 if ($connection->connect_error) {
     die('Error de conexión a la BD: ' . $connection->connect_error);
@@ -25,31 +15,21 @@ if ($connection->connect_error) {
 $connection->set_charset('utf8mb4');
 
 /**
-<<<<<<< HEAD
  * Genera el hash de la contraseña si es necesario.
  */
 function hashContrasena(string $contrasena): string
 {
     // Si guardas en texto plano para pruebas, devuelve $contrasena tal cual.
     // Si usas hash, ajusta según tu estándar:
-=======
- * Genera el hash MD5 de la contraseña.
- */
-function hashContrasena(string $contrasena): string
-{
->>>>>>> 88528de (clase mal)
     return md5($contrasena);
 }
 
 /**
  * Devuelve el código de salida (_res) del procedimiento Registro:
-<<<<<<< HEAD
  *  0  -> Todo OK
  * -1  -> Usuario o email vacío
  * -2  -> Usuario o email ya existe
  * -3  -> Contraseña vacía
-=======
->>>>>>> 88528de (clase mal)
  */
 function PA_Registrar(string $usuario, string $email, string $contrasena): int
 {
@@ -85,7 +65,6 @@ function PA_Registrar(string $usuario, string $email, string $contrasena): int
     $fila = $res->fetch_assoc();
     $res->free();
 
-<<<<<<< HEAD
     return (int) ($fila['resultado'] ?? -99);
 }
 
@@ -129,65 +108,5 @@ function PA_Login(string $email, string $contrasena): array
     return [
         'codigo' => $codigo,
         'usuario' => $datosUsuario
-=======
-    return isset($fila['resultado']) ? (int) $fila['resultado'] : -99;
-}
-
-/** 
- * Devuelve ['codigo' => int, 'staff' => array|null].
- */
-function PA_Login(string $usuarioOEmail, string $contrasena): array
-{
-    global $connection;
-
-    if ($connection->connect_errno) {
-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
-    }
-
-    $stmt = $connection->prepare('CALL Login(?, ?, @resultado)');
-    if (!$stmt) {
-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
-    }
-
-    $hash = hashContrasena($contrasena);
-    $stmt->bind_param('ss', $usuarioOEmail, $hash);
-
-    if (!$stmt->execute()) {
-        $error = $stmt->error;
-        $stmt->close();
-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
-    }
-
-    // Leer los datos devueltos por la consulta si el login es correcto
-    $staff = null;
-    do {
-        $rs = $stmt->get_result();
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $staff = $fila;
-            }
-            $rs->free();
-        }
-    } while ($stmt->more_results() && $stmt->next_result());
-    $stmt->close();
-
-    // Recuperar la variable de salida OUT
-    $res = $connection->query('SELECT @resultado AS resultado');
-    if (!$res) {
-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
-    }
-    $fila = $res->fetch_assoc();
-    $res->free();
-
-    // Si @resultado no tiene valor, devolver -2 (Usuario/Contraseña incorrectos) en lugar de -99
-    $codigoFinal = (isset($fila['resultado']) && $fila['resultado'] !== null) 
-        ? (int) $fila['resultado'] 
-        : -2;
-
-    return [
-        'codigo' => $codigoFinal,
-        'staff' => $staff
->>>>>>> 88528de (clase mal)
     ];
 }

@@ -1,0 +1,433 @@
+/* ==========================================================================
+   DinoCards - style.css
+   Índice:
+   1. Variables y reset
+   2. Estilos generales
+   3. Barra superior (topbar)
+   4. Cuerpo de la página (hero)
+   5. Tarjeta de acceso (container, pestañas)
+   6. Formularios y campos
+   7. Botones, avisos y enlaces
+   8. Responsive y accesibilidad
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES Y RESET
+   ========================================================================== */
+:root {
+    --deep: #0c1a12;
+    --fern: #1d3b2a;
+    --bone: #ece4cf;
+    --dim: #b9b6a3;
+    --amber: #e3a21a;
+    --ink: #22251f;
+    --err: #9b2a12;
+
+    --display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+    --body: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+
+/* ==========================================================================
+   2. ESTILOS GENERALES
+   ========================================================================== */
+body {
+    font-family: var(--body);
+    color: var(--bone);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--deep);
+    background-image:
+        radial-gradient(ellipse at 15% 60%, #24523a 0, transparent 55%),
+        radial-gradient(ellipse at 90% 20%, #13261b 0, transparent 50%);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 2px;
+}
+
+
+/* ==========================================================================
+   3. BARRA SUPERIOR
+   ========================================================================== */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem clamp(1rem, 4vw, 3.2rem);
+    background: #08120c;
+    border-bottom: 2px solid var(--amber);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.logo > i {
+    font-size: 2.2rem;
+    color: var(--bone);
+}
+
+.logo-text strong {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--amber);
+    line-height: 1;
+}
+
+.version-code {
+    font-size: 0.7rem;
+    color: var(--dim);
+    margin-left: 0.4rem;
+    font-weight: 500;
+}
+
+.logo-text > span {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--dim);
+    margin-top: 0.2rem;
+}
+
+.topbar-der {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+}
+
+.topbar-der i {
+    font-size: 1.7rem;
+}
+
+
+/* ==========================================================================
+   4. CUERPO DE LA PÁGINA (HERO)
+   ========================================================================== */
+.pagina {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr minmax(340px, 480px);
+    gap: clamp(2rem, 8vw, 9rem);
+    align-items: center;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+
+.hero h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+}
+
+.hero h2 span {
+    display: block;
+    color: var(--amber);
+}
+
+.hero > p {
+    color: var(--dim);
+    line-height: 1.6;
+    max-width: 52ch;
+    margin-bottom: 2rem;
+}
+
+.hero ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.1rem;
+}
+
+.hero li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.hero li > i {
+    font-size: 1.9rem;
+    color: var(--amber);
+}
+
+.hero b {
+    display: block;
+    font-family: var(--display);
+    font-size: 1.05rem;
+}
+
+.hero small {
+    font-size: 0.9rem;
+    color: var(--dim);
+}
+
+
+/* ==========================================================================
+   5. TARJETA DE ACCESO
+   ========================================================================== */
+.container {
+    background: #f7f5ee;
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 1.8rem 2rem 1.5rem;
+    box-shadow: 0 30px 60px -25px #000d;
+}
+
+/* Pestañas Iniciar sesión / Registrarse */
+.tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid #dcd8c8;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    font: 600 0.98rem var(--body);
+    padding: 0.7rem;
+    border: 0;
+    background: none;
+    color: #6d6f60;
+    cursor: pointer;
+    margin-bottom: -2px;
+    border-bottom: 2px solid transparent;
+}
+
+.btn.activo {
+    color: var(--ink);
+    border-bottom-color: var(--amber);
+}
+
+h1 {
+    font-family: var(--display);
+    font-size: 1.55rem;
+    margin-bottom: 0.4rem;
+}
+
+.sub {
+    color: #6d6f60;
+    font-size: 0.92rem;
+    margin-bottom: 0.6rem;
+}
+
+
+/* ==========================================================================
+   6. FORMULARIOS Y CAMPOS
+   ========================================================================== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.campo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.campo label {
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+/* Campo con icono a la izquierda */
+.campo.icono > i {
+    position: absolute;
+    left: 0.85rem;
+    top: 0.95rem;
+    font-size: 1.3rem;
+    color: #6d6f60;
+    pointer-events: none;
+}
+
+.campo.icono input {
+    padding-left: 2.7rem;
+}
+
+input[type=text],
+input[type=email],
+input[type=password] {
+    width: 100%;
+    font: 400 1rem var(--body);
+    padding: 0.8rem 0.9rem;
+    border: 1.5px solid #d3cfbd;
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+}
+
+/* Contenedor de contraseña con botón Mostrar */
+.entrada {
+    position: relative;
+}
+
+.entrada input {
+    padding-right: 5rem;
+}
+
+.ver {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: none;
+    color: #8a5b00;
+    font: 600 0.85rem var(--body);
+    cursor: pointer;
+}
+
+/* Validación */
+.campo.invalido input {
+    border-color: var(--err);
+}
+
+.msg {
+    min-height: 1em;
+    font-size: 0.8rem;
+    color: var(--err);
+}
+
+/* Barra de fuerza de la contraseña */
+.fuerza {
+    height: 5px;
+    border-radius: 3px;
+    background: #dcd8c8;
+    overflow: hidden;
+}
+
+.fuerza span {
+    display: block;
+    height: 100%;
+    width: 0;
+    transition: width 0.25s, background 0.25s;
+}
+
+/* Recordarme / olvidaste contraseña */
+.remember-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+}
+
+.remember-password label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+}
+
+
+/* ==========================================================================
+   7. BOTONES, AVISOS Y ENLACES
+   ========================================================================== */
+.enviar {
+    font: 700 1rem var(--body);
+    padding: 0.9rem;
+    border: 0;
+    border-radius: 6px;
+    background: var(--amber);
+    color: #2a1e00;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.enviar:hover {
+    filter: brightness(1.08);
+}
+
+.aviso {
+    min-height: 1.2em;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.aviso.error {
+    color: var(--err);
+}
+
+.aviso.ok {
+    color: var(--fern);
+}
+
+.separador {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #7b7d6e;
+    font-size: 0.85rem;
+}
+
+.separador::before,
+.separador::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #d3cfbd;
+}
+
+.register-link {
+    text-align: center;
+    font-size: 0.92rem;
+}
+
+.remember-password a,
+.register-link a {
+    color: #8a5b00;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+}
+
+.nota {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6d6f60;
+}
+
+
+/* ==========================================================================
+   8. RESPONSIVE Y ACCESIBILIDAD
+   ========================================================================== */
+@media (max-width: 860px) {
+    .pagina {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .topbar-der span {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}

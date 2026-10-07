@@ -99,11 +99,7 @@ body {
 .tabs {
     width: 100%;
     display: flex;
-<<<<<<< HEAD
     margin-bottom: 20px;
-=======
-    margin-bottom: 30px;
->>>>>>> 88528de (clase mal)
     border-bottom: 2px solid var(--borde);
 }
 
@@ -185,24 +181,10 @@ body {
 .campo.icono input { padding-left: 46px; }
 
 /* Contraseña + botón Mostrar */
-<<<<<<< HEAD
 .entrada { position: relative; width: 100%; }
 .entrada input { width: 100%; padding-right: 85px; }
 
 /* Estilo para el botón flotante Mostrar / Ocultar */
-=======
-/* Contenedor relativo para posicionar el botón sobre el input */
-.entrada { 
-    position: relative; 
-}
-
-/* Espacio a la derecha del input para que el texto no se monte sobre el botón */
-.entrada input { 
-    padding-right: 90px; 
-}
-
-/* Estilos del botón 'Mostrar' / 'Ocultar' */
->>>>>>> 88528de (clase mal)
 .rojo {
     position: absolute;
     right: 12px;
@@ -224,13 +206,6 @@ body {
     text-decoration: underline;
     color: var(--rojo-osc, #b01c26);
 }
-<<<<<<< HEAD
-=======
-
-.rojo:hover { 
-    text-decoration: underline; 
-}
->>>>>>> 88528de (clase mal)
 
 /* ---------- REGISTRO ---------- */
 #form-registro h2 { font-size: 1.2rem; color: var(--texto); }

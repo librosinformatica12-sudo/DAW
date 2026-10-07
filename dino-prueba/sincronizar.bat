@@ -11,15 +11,15 @@ echo.
 echo [1/4] Descargando cambios de GitHub...
 git pull
 
-echo [2/4] Preparando cambios locales...
-git add dino-prueba
+echo [2/4] Preparando TODOS los cambios...
+git add -A
 
-git diff --cached --quiet -- dino-prueba
+git diff --cached --quiet
 if not errorlevel 1 goto sin_cambios
 
 echo.
 set /p "DESC=Descripcion de los cambios  [Enter = automatica]: "
-if not defined DESC set "DESC=Cambios en dino-prueba"
+if not defined DESC set "DESC=Cambios en DAW"
 
 echo [3/4] Subiendo cambios...
 git commit -m "%DESC%"

@@ -1,0 +1,36 @@
+===== INFORME DE CAMBIOS - TODO EL REPO ===== 
+Fecha: 07/10/2026 23:22:00,77 
+Descripcion: Cambios en DAW 
+ 
+--- Archivos afectados --- 
+MM cambios-todo/informe_2026-10-07_2321.txt
+M  sincronizar-todo.bat
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/cambios-todo/informe_2026-10-07_2321.txt b/cambios-todo/informe_2026-10-07_2321.txt
+index 5fa5b57..80ec647 100644
+--- a/cambios-todo/informe_2026-10-07_2321.txt
++++ b/cambios-todo/informe_2026-10-07_2321.txt
+@@ -322,3 +322,6 @@ index 8a10e60..3ce9a4b 100644
+  echo [4/4] Subiendo cambios...
+  git commit -m "%DESC%"
+  git push
++ 
++Commit subido: 003f23e 
++Mensaje: Cambios en DAW 
+diff --git a/sincronizar-todo.bat b/sincronizar-todo.bat
+index 3ce9a4b..b84ce97 100644
+--- a/sincronizar-todo.bat
++++ b/sincronizar-todo.bat
+@@ -43,11 +43,6 @@ echo [4/4] Subiendo cambios...
+ git commit -m "%DESC%"
+ git push
+ 
+-for /f "delims=" %%h in ('git rev-parse --short HEAD') do set "HASH=%%h"
+-echo. >>"%REPORTE%"
+-echo Commit subido: %HASH% >>"%REPORTE%"
+-echo Mensaje: %DESC% >>"%REPORTE%"
+-
+ echo.
+ echo LISTO. Informe guardado en: %REPORTE%
+ goto fin

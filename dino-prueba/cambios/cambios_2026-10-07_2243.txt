@@ -1,0 +1,15 @@
+===== INFORME DE CAMBIOS - dino-prueba ===== 
+Fecha: 07/10/2026 22:43:17,31 
+Descripcion: sql bien nombre 
+ 
+--- Archivos afectados --- 
+R  "dino-prueba/doc SQL/generacion_dinocards (1).sql" -> "dino-prueba/doc SQL/generacion_dinocards.sql"
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dino-prueba/doc SQL/generacion_dinocards (1).sql b/dino-prueba/doc SQL/generacion_dinocards.sql
+similarity index 100%
+rename from dino-prueba/doc SQL/generacion_dinocards (1).sql
+rename to dino-prueba/doc SQL/generacion_dinocards.sql
+ 
+Commit subido: a9c5486 
+Mensaje: sql bien nombre 

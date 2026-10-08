@@ -47,7 +47,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     
-    <script src="script/script.js" defer></script>
+    <script src="script/script.js"></script>
 </head>
 <body>
     <header class="topbar">
@@ -66,25 +66,32 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
 
     <main class="pagina">
         <section class="hero">
-            <h2>Bienvenido al <span>Portal del Coleccionista</span></h2>
-            <p>Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
+            <h2 id="hero-title">Bienvenido al <span>Portal del Coleccionista</span></h2>
+            <p id="hero-description">Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
             <ul>
-                <li><i class="bx bx-gift"></i><div><b>Carta diaria</b><small>Abre tu sobre y consigue un dinosaurio nuevo.</small></div></li>
-                <li><i class="bx bx-collection"></i><div><b>Mi colección</b><small>Consulta las cartas que ya tienes.</small></div></li>
-                <li><i class="bx bx-book-open"></i><div><b>DinoPedia</b><small>Explora el catálogo completo de especies.</small></div></li>
+                <li>
+                    <i class="bx bx-gift"></i><div><b>Carta diaria</b><small>Abre tu sobre y consigue un dinosaurio nuevo.</small></div>
+                </li>
+                <li>
+                    <i class="bx bx-collection"></i><div><b>Mi colección</b><small>Consulta las cartas que ya tienes.</small></div>
+                </li>
+                <li>
+                    <i class="bx bx-book-open"></i><div><b>DinoPedia</b><small>Explora el catálogo completo de especies.</small></div>
+                </li>
             </ul>
         </section>
 
         <div class="container" data-panel="<?= e($panelActivo) ?>">
-            <div class="tabs" role="tablist">
-                <button class="btn" type="button" role="tab" data-ir="login">Iniciar sesión</button>
-                <button class="btn" type="button" role="tab" data-ir="registro">Registrarse</button>
-            </div>
+
+            <button class="btn" type="button" role="tab" data-ir="login">Iniciar sesión</button>
+            <button class="btn" type="button" role="tab" data-ir="registro">Registrarse</button>
+
 
             <!-- LOGIN -->
             <form id="form-login" method="POST" action="">
-                <h1>Iniciar Sesión</h1>
-                <br>
+                <h2>Iniciar sesión</h2>
+                <p class="sub">Rellena con tu usuario y contraseña para acceder a DinoCards</p>
+
                 <input type="hidden" name="accion" value="login">
 
                 <div class="campo icono">
@@ -120,26 +127,24 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
             </form>
 
             <!-- REGISTRO -->
-            <form id="form-registro" method="POST" action="" novalidate hidden>
-                <input type="hidden" name="accion" value="registro">
-                
+            <form id="form-registro" method="POST" action="php/registro.php">
                 <h2>Crear cuenta</h2>
                 <p class="sub">Rellena tus datos para registrarte</p>
-                
+
                 <div class="campo">
                     <label for="reg-usuario">Usuario</label>
-                    <input type="text" id="reg-usuario" name="usuario" maxlength="16" placeholder="3 a 16 caracteres">
+                    <input type="text" id="reg-usuario" name="usuario" maxlength="16" autocomplete="username" placeholder="3 a 16 caracteres" value="<?= e($usuario) ?>" required>
                 </div>
                 
                 <div class="campo">
                     <label for="reg-email">Correo electrónico</label>
-                    <input type="email" id="reg-email" name="email" maxlength="100" placeholder="tu@correo.com">
+                    <input type="email" id="reg-email" name="email" maxlength="100" autocomplete="email" placeholder="tu@correo.com" value="<?= e($email) ?>" required>
                 </div>
                 
                 <div class="campo">
                     <label for="reg-pass">Contraseña</label>
                     <div class="entrada">
-                        <input type="password" id="reg-pass" name="contrasena" placeholder="Mínimo 8 caracteres">
+                        <input type="password" id="reg-pass" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required>
                         <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
                     </div>
                 </div>
@@ -147,12 +152,13 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
                 <div class="campo">
                     <label for="reg-pass2">Repite la contraseña</label>
                     <div class="entrada">
-                        <input type="password" id="reg-pass2" name="confirmaContrasena" placeholder="Repite la contraseña">
+                        <input type="password" id="reg-pass2" name="confirmaContrasena" autocomplete="new-password" placeholder="Repite la contraseña" required>
                         <button type="button" class="rojo" data-para="reg-pass2">Mostrar</button>
                     </div>
                 </div>
 
                 <button type="submit" class="enviar">Crear cuenta</button>
+                <div class="aviso <?= $errorRegistro !== null ? 'error' : 'ok' ?>" id="aviso-registro" role="status"><?= e($errorRegistro ?? $exitoRegistro ?? '') ?></div>
 
                 <p class="register-link">
                     ¿Ya tienes cuenta?
@@ -160,9 +166,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
                         <i class="bx bx-user"></i> Iniciar sesión
                     </a>
                 </p>
-
-                <p class="nota" style="text-align: center;">Al registrarte, aceptas nuestros Términos y Condiciones de la comunidad de DinoCards</p>
-            </form>        
+            </form>
         </div>
     </main>
 </body>

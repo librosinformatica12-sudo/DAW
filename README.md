@@ -90,6 +90,8 @@ git pull                    # Antes de empezar: descargar lo último
 git add .                   # (o: git add dino-prueba)
 git commit -m "descripción"
 git push origin main        # Subir a GitHub
+
+git clone https://github.com/librosinformatica12-sudo/DAW   # Descargar trabajo DAW
 ```
 
 También hay dos accesos rápidos para sincronizar con doble clic:

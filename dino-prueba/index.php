@@ -65,6 +65,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
     </header>
 
     <main class="pagina">
+
         <section class="hero">
             <h2 id="hero-title">Bienvenido al <span>Portal del Coleccionista</span></h2>
             <p id="hero-description">Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>

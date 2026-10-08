@@ -17,21 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const textosHero = {
         login: {
-            titulo: 'Bienvenido al <span>Portal del Coleccionista</span>',
-            descripcion: 'Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.',
+            titulo: 'Bienvenido <span> Accede a tu </span> Cuenta',
+            descripcion: 'Introduce tus credenciales para iniciar sesión y disfrutar de todas las funciones de nuestra plataforma.',
             features: [
-                { titulo: 'Carta diaria', texto: 'Abre tu sobre y consigue un dinosaurio nuevo.' },
-                { titulo: 'Mi colección', texto: 'Consulta las cartas que ya tienes.' },
-                { titulo: 'DinoPedia', texto: 'Explora el catálogo completo de especies.' }
+                { titulo: 'Sobre del Día.', texto: 'Abre tu sobre diario y descubre nuevas cartas para tu colección.' },
+                { titulo: 'Colección Personal', texto: 'Filtra tus cartas por rareza, época o estadísticas.' },
+                { titulo: 'DinoPedia', texto: 'Revisa la ficha técnica de caad dinosaurio que poses.' }
             ]
         },
         registro: {
-            titulo: '¡Regístrate <span>ahora</span>!',
-            descripcion: 'Crea tu cuenta y empieza a reclamar cartas nuevas cada día. ¡No te pierdas la diversión!',
+            titulo: '¡Regístrate <span>Crea tu Cuenta de </span> Coleccionista!',
+            descripcion: 'Regístrate para guardar tu progreso, abrir sobres diarios y completar el catalogo de dinosaurios. ¡Únete a nuestra comunidad de coleccionistas!',
             features: [
-                { titulo: 'Crea tu cuenta', texto: 'Solo necesitas un usuario, un email y una contraseña.' },
-                { titulo: 'Tu primer sobre', texto: 'Empieza a reclamar cartas desde el primer día.' },
-                { titulo: 'Colecciónalos todos', texto: 'Completa tu colección y descubre cada especie.' }
+                { titulo: 'Primer Sobre Gratis', texto: 'Empieza tu colección desde el minuto uno.' },
+                { titulo: 'Guardado en la Nube', texto: 'No pierdas nunca tus cartas ni tu avance.' },
+                { titulo: 'Carálogo Iºnteractivo', texto: 'Accede a toda la información de la DinoPedia.' }
             ]
         }
     };
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             li.querySelector('small').textContent = t.features[i].texto;
         });
     }
-    
+
     // ---------- CAMBIO DE PESTAÑA ----------
     function mostrarLogin() {
         if (formLogin) formLogin.hidden = false;

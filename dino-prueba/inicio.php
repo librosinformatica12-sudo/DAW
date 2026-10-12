@@ -73,7 +73,7 @@ $sobres = [
         'nombre'     => 'Sobre semanal',
         'icono'      => 'bx-calendar-week',
         'imagen'     => 'img/img-sobres/sobre2.png',
-        'disponible' => false,
+        'disponible' => true,
         'texto'      => 'Ábrelo al completar 7 días seguidos de coleccionista.',
         'estado'     => 'Próximamente',
         'contiene'   => [
@@ -95,6 +95,21 @@ $sobres = [
             ['bx-crown', 'Cartas que no salen en otros sobres'],
         ],
     ],
+    [
+        'id' => 'preuba',
+        'nombre' => 'Sobre de Prueba',
+        'icono' => 'bx-test-tube',
+        'imagen' => 'img/img-sobres/sobre3.png',
+        'disponible' => true,
+        'texto' => 'Abrelo cuando quieras y consigue 4 cartas.',
+        'estado' => 'Disponible',
+        'cartas' => 4,
+        'contiene' => [
+            ['bx-cube', '4 cartas de dinosaurio'],
+            ['bx-infinite', 'Sin limite diario'],
+            ['bx-shuffle', "Dinosaurios aleatorios"],
+        ],
+    ]
 ];
 ?>
 <!DOCTYPE html>

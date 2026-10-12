@@ -82,6 +82,12 @@ while ($fila = $res->fetch_assoc()) {
                         </span>
                         <h3><?= e($d['especie']) ?></h3>
                         <p class="apodo">«<?= e($d['nombre']) ?>»</p>
+                            <div class="mini-stats">
+                                <span><b><?= e($d['hp']) ?></b><small>HP</small></span>
+                                <span><b><?= e($d['ataque']) ?></b><small>ATQ</small></span>
+                                <span><b><?= e($d['defensa']) ?></b><small>DEF</small></span>
+                                <span><b><?= e($d['agilidad']) ?></b><small>AGI</small></span>
+                            </div>
                         <a class="btn-carta" href="dinopedia.php?id=<?= e($d['id']) ?>">
                             <i class="bx bx-plus" aria-hidden="true"></i> Añadir
                         </a>

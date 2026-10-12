@@ -1,0 +1,391 @@
+===== INFORME DE CAMBIOS - dino-prueba ===== 
+Fecha: 12/10/2026 19:49:59,18 
+Descripcion: Cambios en dino-prueba 
+ 
+--- Archivos afectados --- 
+A  dino-prueba/dinopedia.php
+M  dino-prueba/perfil.php
+M  "dino-prueba/php/a\303\261adirCarta.php"
+M  dino-prueba/sincronizar.bat
+A  dino-prueba/styles/cabecera.css
+?? dino-prueba/cambios/cambios_2026-10-12_1949.txt
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dino-prueba/dinopedia.php b/dino-prueba/dinopedia.php
+new file mode 100644
+index 0000000..948c817
+--- /dev/null
++++ b/dino-prueba/dinopedia.php
+@@ -0,0 +1,94 @@
++<?php
++session_start();
++
++if (!isset($_SESSION['usuario_id'])) {
++    header('Location: index.php');
++    exit;
++}
++
++require_once __DIR__ . '/src/AccesoDatos.php';
++
++if (!function_exists('e')) {
++    function e(mixed $v): string {
++        return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
++    }
++}
++
++$usuarioId = (int) $_SESSION['usuario_id'];
++$aviso    = '';
++$avisoOk  = true;
++
++$id = (int) ($_GET['id'] ?? 0);
++if ($id > 0) {
++    try {
++        $dino = dinosauriosPorIds([$id])[$id] ?? null;
++        if (!$dino) {
++            $aviso   = 'Ese dinosaurio no existe.';
++            $avisoOk = false;
++        } else {
++            $codigo = PA_AñadirCarta($usuarioId, $id);
++            if ($codigo === 0) {
++                $aviso = 'Añadido a tu colección: ' . $dino['especie'] . ' «' . $dino['nombre'] . '»';
++            } else {
++                $aviso   = 'No se pudo añadir (código ' . $codigo . ').';
++                $avisoOk = false;
++            }
++        }
++    } catch (Throwable $ex) {
++        $aviso   = 'Error: ' . $ex->getMessage();
++        $avisoOk = false;
++    }
++}
++
++$dinos = [];
++$res = $connection->query('SELECT * FROM dinosaurios ORDER BY id');
++while ($fila = $res->fetch_assoc()) {
++    $dinos[] = $fila;
++}
++?>
++<!DOCTYPE html>
++<html lang="es">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>DinoCards - Añadir dinosaurios</title>
++    <link rel="preconnect" href="https://fonts.googleapis.com">
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
++    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
++    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
++</head>
++<body>
++    <?php require __DIR__ . '/partials/cabecera.php'; ?>
++
++    <main class="panel panel-coleccion">
++        <section class="tarjeta">
++            <h2><i class="bx bx-plus-circle" aria-hidden="true"></i> Añadir dinosaurios</h2>
++            <p class="sub">Pulsa «Añadir» en el dinosaurio que quieras y se sumará a tu colección.</p>
++
++            <?php if ($aviso !== ''): ?>
++                <p class="aviso <?= $avisoOk ? 'ok' : 'error' ?>"><?= e($aviso) ?></p>
++            <?php endif; ?>
++
++            <ul class="cartas-grid">
++                <?php foreach ($dinos as $d): ?>
++                    <li class="carta-mini">
++                        <span class="retrato">
++                            <?php if (!empty($d['imagen_url'])): ?>
++                                <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
++                            <?php else: ?>
++                                <i class="bx bx-dna" aria-hidden="true"></i>
++                            <?php endif; ?>
++                        </span>
++                        <h3><?= e($d['especie']) ?></h3>
++                        <p class="apodo">«<?= e($d['nombre']) ?>»</p>
++                        <a class="btn-carta" href="dinopedia.php?id=<?= e($d['id']) ?>">
++                            <i class="bx bx-plus" aria-hidden="true"></i> Añadir
++                        </a>
++                    </li>
++                <?php endforeach; ?>
++            </ul>
++        </section>
++    </main>
++</body>
++</html>
+diff --git a/dino-prueba/perfil.php b/dino-prueba/perfil.php
+index 43f06f9..ae4db36 100644
+--- a/dino-prueba/perfil.php
++++ b/dino-prueba/perfil.php
+@@ -48,10 +48,13 @@ $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalo
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
++    <link rel="stylesheet" href="styles/cabecera.css?v=<?= @filemtime(__DIR__ . '/styles/cabecera.css') ?>">
+     <link rel="stylesheet" href="styles/perfil.css?v=<?= @filemtime(__DIR__ . '/styles/perfil.css') ?>">
+ </head>
+ <body>
+     
++    <?php require __DIR__ . '/partials/cabecera.php'; ?>
++
+     <main class="panel panel-perfil">
+         <!-- Banner del Perfil -->
+         <header class="panel-hero">
+diff --git "a/dino-prueba/php/a\303\261adirCarta.php" "b/dino-prueba/php/a\303\261adirCarta.php"
+index e69de29..9b3b059 100644
+--- "a/dino-prueba/php/a\303\261adirCarta.php"
++++ "b/dino-prueba/php/a\303\261adirCarta.php"
+@@ -0,0 +1,65 @@
++<?php
++$DEBUG = true;
++
++ob_start();
++session_start();
++
++header('Content-Type: application/json; charset=utf-8');
++
++function responder(bool $ok, string $mensaje, array $extra = []): void
++{
++    if (ob_get_length()) {
++        ob_clean();
++    }
++    echo json_encode(array_merge(['ok' => $ok, 'mensaje' => $mensaje], $extra), JSON_UNESCAPED_UNICODE);
++    exit;
++}
++
++$rutaAcceso = __DIR__ . '/../src/AccesoDatos.php';
++
++if (!file_exists($rutaAcceso)) {
++    responder(false, $DEBUG ? 'No se encuentra AccesoDatos.php en: ' . $rutaAcceso : 'Error interno del servidor.');
++}
++require_once $rutaAcceso;
++
++if (!in_array($_SERVER['REQUEST_METHOD'], ['POST', 'GET'], true)) {
++    http_response_code(405);
++    responder(false, 'Método no permitido.');
++}
++
++$usuarioId = $_SESSION['usuario_id'] ?? null;
++
++if (!is_numeric($usuarioId)) {
++    http_response_code(401);
++    responder(false, 'Debes iniciar sesión para añadir una carta.');
++}
++$usuarioId = (int) $usuarioId;
++
++$cartaId = (int) ($_REQUEST['dinosaurio_id'] ?? 0);
++
++if ($cartaId <= 0) {
++    responder(false, 'Falta el dinosaurio_id.');
++}
++
++try {
++    $dino = dinosauriosPorIds([$cartaId])[$cartaId] ?? null;
++    if (!$dino) {
++        responder(false, 'El dinosaurio indicado no existe.');
++    }
++
++    $codigo = PA_AñadirCarta($usuarioId, $cartaId);
++
++    if ($codigo !== 0) {
++        $mensajes = [
++            -1 => 'El usuario no existe.',
++            -2 => 'El dinosaurio no existe.',
++        ];
++        responder(false, $mensajes[$codigo] ?? ($DEBUG ? 'Código del procedimiento: ' . $codigo : 'No se pudo añadir la carta.'));
++    }
++
++    responder(true, 'Carta añadida a tu colección.', ['dinosaurio' => $dino]);
++
++} catch (Throwable $ex) {
++    error_log($ex->getMessage());
++    responder(false, $DEBUG ? 'DEBUG: ' . $ex->getMessage() : 'Error inesperado. Inténtalo más tarde.');
++}
+diff --git a/dino-prueba/sincronizar.bat b/dino-prueba/sincronizar.bat
+index b4abef0..d5eb955 100644
+--- a/dino-prueba/sincronizar.bat
++++ b/dino-prueba/sincronizar.bat
+@@ -8,6 +8,9 @@ echo    SINCRONIZAR dino-prueba con GitHub
+ echo ==========================================
+ echo.
+ 
++for /f "delims=" %%t in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HHmm"') do set "TS=%%t"
++set "REPORTE=dino-prueba\cambios\cambios_%TS%.txt"
++
+ echo [1/4] Descargando cambios de GitHub...
+ git pull
+ 
+@@ -21,12 +24,27 @@ echo.
+ set /p "DESC=Descripcion de los cambios  [Enter = automatica]: "
+ if not defined DESC set "DESC=Cambios en dino-prueba"
+ 
+-echo [3/4] Subiendo cambios...
++echo [3/4] Creando informe de cambios...
++if not exist "dino-prueba\cambios" mkdir "dino-prueba\cambios"
++
++echo ===== INFORME DE CAMBIOS - dino-prueba ===== >"%REPORTE%"
++echo Fecha: %date% %time% >>"%REPORTE%"
++echo Descripcion: %DESC% >>"%REPORTE%"
++echo. >>"%REPORTE%"
++echo --- Archivos afectados --- >>"%REPORTE%"
++git status --short -- dino-prueba >>"%REPORTE%"
++echo. >>"%REPORTE%"
++echo --- Detalle de cambios - diff --- >>"%REPORTE%"
++git diff --cached -- dino-prueba >>"%REPORTE%"
++
++git add dino-prueba
++
++echo [4/4] Subiendo cambios...
+ git commit -m "%DESC%"
+ git push
+ 
+ echo.
+-echo LISTO. Cambios subidos a GitHub.
++echo LISTO. Informe guardado en: %REPORTE%
+ goto fin
+ 
+ :sin_cambios
+diff --git a/dino-prueba/styles/cabecera.css b/dino-prueba/styles/cabecera.css
+new file mode 100644
+index 0000000..b8792cf
+--- /dev/null
++++ b/dino-prueba/styles/cabecera.css
+@@ -0,0 +1,140 @@
++/* ============================================================
++   cabecera.css · Estilos de la barra superior (topbar)
++   Para páginas que NO cargan style.css (p. ej. perfil.php).
++   ============================================================ */
++
++:root {
++    --rojo: #d6232f;
++    --rojo-osc: #b01c26;
++}
++
++*, *::before, *::after { box-sizing: border-box; }
++body { margin: 0; }
++
++.topbar {
++    position: sticky;
++    top: 0;
++    z-index: 60;
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    gap: 16px;
++    padding: 12px 32px;
++    background: rgba(8, 12, 20, .88);
++    backdrop-filter: blur(10px);
++    border-bottom: 1px solid rgba(214, 35, 47, .5);
++}
++
++.logo {
++    display: flex;
++    align-items: center;
++    gap: 10px;
++    text-decoration: none;
++    cursor: pointer;
++    flex: 0 0 auto;
++}
++.logo i { font-size: 2.4rem; }
++.logo > div { display: flex; flex-direction: column; }
++.logo strong { font-size: 2rem; line-height: 1; color: var(--rojo); letter-spacing: 1px; }
++.logo span { font-size: .7rem; letter-spacing: 6px; margin-top: 2px; }
++
++.logo-app .logo-mark {
++    width: 44px;
++    height: 44px;
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    border-radius: 12px;
++    background: linear-gradient(140deg, var(--rojo), var(--rojo-osc));
++    box-shadow: 0 8px 18px rgba(214, 35, 47, .4);
++}
++.logo-app .logo-mark i { font-size: 1.7rem; color: #fff; }
++.logo-app .logo-texto { display: flex; flex-direction: column; }
++.logo-app .logo-texto strong { font-size: 1.35rem; line-height: 1; color: #fff; letter-spacing: .5px; }
++.logo-app .logo-texto small { margin-top: 2px; font-size: .62rem; letter-spacing: 2.5px; text-transform: uppercase; color: #9aa3b2; }
++
++.topbar-der { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
++.topbar-der i { font-size: 1.6rem; }
++
++.topbar-fin { display: flex; align-items: center; gap: 10px; }
++
++.carta-badge {
++    position: relative;
++    display: inline-flex;
++    align-items: center;
++    gap: 10px;
++    padding: 6px 14px 6px 10px;
++    border-radius: 999px;
++    border: 1px solid rgba(53, 208, 127, .35);
++    background: rgba(53, 208, 127, .12);
++    text-decoration: none;
++    transition: background .15s ease, border-color .15s ease, transform .15s ease;
++}
++.carta-badge i { font-size: 1.4rem; color: #35d07f; }
++.carta-badge b { display: block; color: #fff; font-size: .85rem; line-height: 1.1; }
++.carta-badge small { display: block; color: #9fd9bd; font-size: .62rem; text-transform: uppercase; letter-spacing: .6px; }
++.carta-badge:hover { transform: translateY(-1px); background: rgba(53, 208, 127, .2); }
++.carta-badge.abierta { border-color: rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .05); }
++.carta-badge.abierta i { color: #9aa3b2; }
++.carta-badge.abierta small { color: #9aa3b2; }
++.carta-badge .punto { position: absolute; top: -3px; right: -3px; }
++
++.nav { display: flex; align-items: center; gap: 6px; }
++.nav-link {
++    display: inline-flex;
++    align-items: center;
++    gap: 8px;
++    padding: 9px 14px;
++    border-radius: 6px;
++    color: #cfd6e4;
++    font-size: .92rem;
++    font-weight: 600;
++    text-decoration: none;
++    transition: background .15s ease, color .15s ease;
++}
++.nav-link i { font-size: 1.15rem; }
++.nav-link:hover { background: rgba(255, 255, 255, .07); color: #fff; }
++.nav-link.activo { color: #fff; background: rgba(214, 35, 47, .18); }
++.nav-link.activo i { color: var(--rojo); }
++.nav-link.prox { opacity: .45; cursor: default; }
++.nav-link.prox:hover { background: none; color: #cfd6e4; }
++.nav-link.prox small {
++    margin-left: 4px;
++    padding: 1px 6px;
++    border-radius: 999px;
++    background: rgba(255, 255, 255, .12);
++    font-size: .58rem;
++    text-transform: uppercase;
++    letter-spacing: .5px;
++}
++
++.punto {
++    width: 9px;
++    height: 9px;
++    border-radius: 50%;
++    background: #35d07f;
++    box-shadow: 0 0 0 0 rgba(53, 208, 127, .7);
++    animation: pulso 1.8s infinite;
++}
++@keyframes pulso {
++    0%   { box-shadow: 0 0 0 0 rgba(53, 208, 127, .6); }
++    70%  { box-shadow: 0 0 0 7px rgba(53, 208, 127, 0); }
++    100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
++}
++
++@media (max-width: 900px) {
++    .topbar {
++        flex-wrap: wrap;
++        gap: 12px;
++        padding: 14px 20px;
++    }
++    .logo { flex: 1 1 auto; }
++    .nav {
++        order: 3;
++        width: 100%;
++        justify-content: center;
++        flex-wrap: wrap;
++    }
++    .carta-badge-txt { display: none; }
++    .carta-badge { padding: 8px; }
++}

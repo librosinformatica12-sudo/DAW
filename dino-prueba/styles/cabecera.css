@@ -1,0 +1,140 @@
+/* ============================================================
+   cabecera.css · Estilos de la barra superior (topbar)
+   Para páginas que NO cargan style.css (p. ej. perfil.php).
+   ============================================================ */
+
+:root {
+    --rojo: #d6232f;
+    --rojo-osc: #b01c26;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 32px;
+    background: rgba(8, 12, 20, .88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(214, 35, 47, .5);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+.logo i { font-size: 2.4rem; }
+.logo > div { display: flex; flex-direction: column; }
+.logo strong { font-size: 2rem; line-height: 1; color: var(--rojo); letter-spacing: 1px; }
+.logo span { font-size: .7rem; letter-spacing: 6px; margin-top: 2px; }
+
+.logo-app .logo-mark {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(140deg, var(--rojo), var(--rojo-osc));
+    box-shadow: 0 8px 18px rgba(214, 35, 47, .4);
+}
+.logo-app .logo-mark i { font-size: 1.7rem; color: #fff; }
+.logo-app .logo-texto { display: flex; flex-direction: column; }
+.logo-app .logo-texto strong { font-size: 1.35rem; line-height: 1; color: #fff; letter-spacing: .5px; }
+.logo-app .logo-texto small { margin-top: 2px; font-size: .62rem; letter-spacing: 2.5px; text-transform: uppercase; color: #9aa3b2; }
+
+.topbar-der { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
+.topbar-der i { font-size: 1.6rem; }
+
+.topbar-fin { display: flex; align-items: center; gap: 10px; }
+
+.carta-badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(53, 208, 127, .35);
+    background: rgba(53, 208, 127, .12);
+    text-decoration: none;
+    transition: background .15s ease, border-color .15s ease, transform .15s ease;
+}
+.carta-badge i { font-size: 1.4rem; color: #35d07f; }
+.carta-badge b { display: block; color: #fff; font-size: .85rem; line-height: 1.1; }
+.carta-badge small { display: block; color: #9fd9bd; font-size: .62rem; text-transform: uppercase; letter-spacing: .6px; }
+.carta-badge:hover { transform: translateY(-1px); background: rgba(53, 208, 127, .2); }
+.carta-badge.abierta { border-color: rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .05); }
+.carta-badge.abierta i { color: #9aa3b2; }
+.carta-badge.abierta small { color: #9aa3b2; }
+.carta-badge .punto { position: absolute; top: -3px; right: -3px; }
+
+.nav { display: flex; align-items: center; gap: 6px; }
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-radius: 6px;
+    color: #cfd6e4;
+    font-size: .92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease;
+}
+.nav-link i { font-size: 1.15rem; }
+.nav-link:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.nav-link.activo { color: #fff; background: rgba(214, 35, 47, .18); }
+.nav-link.activo i { color: var(--rojo); }
+.nav-link.prox { opacity: .45; cursor: default; }
+.nav-link.prox:hover { background: none; color: #cfd6e4; }
+.nav-link.prox small {
+    margin-left: 4px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    font-size: .58rem;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.punto {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #35d07f;
+    box-shadow: 0 0 0 0 rgba(53, 208, 127, .7);
+    animation: pulso 1.8s infinite;
+}
+@keyframes pulso {
+    0%   { box-shadow: 0 0 0 0 rgba(53, 208, 127, .6); }
+    70%  { box-shadow: 0 0 0 7px rgba(53, 208, 127, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
+}
+
+@media (max-width: 900px) {
+    .topbar {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 14px 20px;
+    }
+    .logo { flex: 1 1 auto; }
+    .nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .carta-badge-txt { display: none; }
+    .carta-badge { padding: 8px; }
+}

@@ -32,21 +32,16 @@ try {
     $error = $ex->getMessage();
 }
 
-// Agrupar conservando el orden de aparición y contando las repetidas.
-$conteo = [];
-$orden  = [];
-foreach ($ids as $id) {
-    if (!isset($conteo[$id])) {
-        $conteo[$id] = 0;
-        $orden[]     = $id;
-    }
-    $conteo[$id]++;
-}
+// Agrupar (con repetidos) y calcular el progreso usando las reglas.
+$agrupado       = agruparColeccion($ids);
+$conteo         = $agrupado['conteo'];
+$orden          = $agrupado['orden'];
 
 $totalCartas    = count($ids);
 $especiesUnicas = count($conteo);
-$faltantes      = max(0, $totalDino - $especiesUnicas);
-$porcentaje     = $totalDino > 0 ? (int) round($especiesUnicas / $totalDino * 100) : 0;
+$progreso       = calcularProgreso($especiesUnicas, $totalDino);
+$faltantes      = $progreso['faltan'];
+$porcentaje     = $progreso['porcentaje'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -95,7 +90,7 @@ $porcentaje     = $totalDino > 0 ? (int) round($especiesUnicas / $totalDino * 10
                     <?php foreach ($orden as $id): ?>
                         <?php $d = $mapa[$id] ?? null; if (!$d) { continue; } ?>
                         <li class="carta-mini" data-especie="<?= e($d['especie']) ?>" data-apodo="<?= e($d['nombre']) ?>">
-                            <?php if ($conteo[$id] > 1): ?>
+                            <?php if (esRepetida($conteo[$id])): ?>
                                 <span class="badge">&times;<?= e($conteo[$id]) ?></span>
                             <?php endif; ?>
                             <span class="retrato">

@@ -1,0 +1,875 @@
+===== INFORME DE CAMBIOS - dino-prueba ===== 
+Fecha: 12/10/2026 22:31:49,77 
+Descripcion: nueva estructura 
+ 
+--- Archivos afectados --- 
+M  dino-prueba/coleccion.php
+M  dino-prueba/src/AccesoDatos.php
+M  dino-prueba/src/ColeccionService.php
+M  dino-prueba/src/ReglasColeccion.php
+M  dino-prueba/src/UsuarioService.php
+?? dino-prueba/cambios/cambios_2026-10-12_2231.txt
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dino-prueba/coleccion.php b/dino-prueba/coleccion.php
+index 6a0827b..f43682e 100644
+--- a/dino-prueba/coleccion.php
++++ b/dino-prueba/coleccion.php
+@@ -32,21 +32,16 @@ try {
+     $error = $ex->getMessage();
+ }
+ 
+-// Agrupar conservando el orden de aparición y contando las repetidas.
+-$conteo = [];
+-$orden  = [];
+-foreach ($ids as $id) {
+-    if (!isset($conteo[$id])) {
+-        $conteo[$id] = 0;
+-        $orden[]     = $id;
+-    }
+-    $conteo[$id]++;
+-}
++// Agrupar (con repetidos) y calcular el progreso usando las reglas.
++$agrupado       = agruparColeccion($ids);
++$conteo         = $agrupado['conteo'];
++$orden          = $agrupado['orden'];
+ 
+ $totalCartas    = count($ids);
+ $especiesUnicas = count($conteo);
+-$faltantes      = max(0, $totalDino - $especiesUnicas);
+-$porcentaje     = $totalDino > 0 ? (int) round($especiesUnicas / $totalDino * 100) : 0;
++$progreso       = calcularProgreso($especiesUnicas, $totalDino);
++$faltantes      = $progreso['faltan'];
++$porcentaje     = $progreso['porcentaje'];
+ ?>
+ <!DOCTYPE html>
+ <html lang="es">
+@@ -95,7 +90,7 @@ $porcentaje     = $totalDino > 0 ? (int) round($especiesUnicas / $totalDino * 10
+                     <?php foreach ($orden as $id): ?>
+                         <?php $d = $mapa[$id] ?? null; if (!$d) { continue; } ?>
+                         <li class="carta-mini" data-especie="<?= e($d['especie']) ?>" data-apodo="<?= e($d['nombre']) ?>">
+-                            <?php if ($conteo[$id] > 1): ?>
++                            <?php if (esRepetida($conteo[$id])): ?>
+                                 <span class="badge">&times;<?= e($conteo[$id]) ?></span>
+                             <?php endif; ?>
+                             <span class="retrato">
+diff --git a/dino-prueba/src/AccesoDatos.php b/dino-prueba/src/AccesoDatos.php
+index 3a62f82..1741915 100644
+--- a/dino-prueba/src/AccesoDatos.php
++++ b/dino-prueba/src/AccesoDatos.php
+@@ -1,4 +1,17 @@
+ <?php
++/**
++ * AccesoDatos.php
++ * ------------------------------------------------------------------
++ * Punto de entrada a la capa de datos: crea la conexión $connection
++ * y carga los servicios de la aplicación.
++ *
++ *   - UsuarioService.php    -> usuarios (registro, login, datos)
++ *   - ColeccionService.php  -> colección y catálogo de dinosaurios
++ *   - ReglasColeccion.php   -> reglas y cálculos (sin BD)
++ *
++ * Cualquier archivo que haga require de este ya tiene acceso a todo.
++ * ------------------------------------------------------------------
++ */
+ 
+ $host = '127.0.0.1';
+ $port = 3306;
+@@ -13,355 +26,6 @@ if (!$connection->connect_errno) {
+     $connection->set_charset('utf8mb4');
+ }
+ 
+-function hashContrasena(string $contrasena): string
+-{
+-    return md5($contrasena);
+-}
+-
+-/** Devuelve el código de salida (_res) del procedimiento Registro. */
+-function PA_Registrar(string $usuario, string $email, string $contrasena): int
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
+-    }
+-
+-    // El SP 'Registro' recibe 3 IN (username, email, password) y 1 OUT (_res)
+-    $stmt = $connection->prepare('CALL Registro(?, ?, ?, @resultado)');
+-    if (!$stmt) {
+-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
+-    }
+-
+-    $hash = hashContrasena($contrasena);
+-    $stmt->bind_param('sss', $usuario, $email, $hash);
+-
+-    if (!$stmt->execute()) {
+-        $error = $stmt->error;
+-        $stmt->close();
+-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+-    }
+-
+-    while ($stmt->more_results()) {
+-        $stmt->next_result();
+-    }
+-    $stmt->close();
+-
+-    $res = $connection->query('SELECT @resultado AS resultado');
+-    if (!$res) {
+-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
+-    }
+-    $fila = $res->fetch_assoc();
+-    $res->free();
+-
+-    return (int) $fila['resultado'];
+-}
+-
+-/** Devuelve ['codigo' => int, 'usuario' => array|null]. */
+-function PA_Login(string $email, string $contrasena): array
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
+-    }
+-
+-    // El SP 'Login' recibe 2 IN (email, password) y 1 OUT (_res)
+-    $stmt = $connection->prepare('CALL Login(?, ?, @resultado)');
+-    if (!$stmt) {
+-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
+-    }
+-
+-    $hash = hashContrasena($contrasena);
+-    $stmt->bind_param('ss', $email, $hash);
+-
+-    if (!$stmt->execute()) {
+-        $error = $stmt->error;
+-        $stmt->close();
+-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+-    }
+-
+-    $datosUsuario = null;
+-    do {
+-        $rs = $stmt->get_result();
+-        if ($rs) {
+-            $fila = $rs->fetch_assoc();
+-            if ($fila) {
+-                $datosUsuario = $fila;
+-            }
+-            $rs->free();
+-        }
+-    } while ($stmt->more_results() && $stmt->next_result());
+-    $stmt->close();
+-
+-    $res = $connection->query('SELECT @resultado AS resultado');
+-    if (!$res) {
+-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
+-    }
+-    $fila = $res->fetch_assoc();
+-    $res->free();
+-
+-    return ['codigo' => (int) $fila['resultado'], 'usuario' => $datosUsuario];
+-}
+-
+-/**
+- * Añade una carta a la colección del usuario mediante el procedimiento
+- * AñadirNuevaCartaAColeccion. Devuelve el código _res:
+- *   0  -> añadida OK
+- *  -1  -> el usuario no existe
+- *  -2  -> el dinosaurio no existe
+- */
+-function PA_AñadirCarta(int $usuarioId, int $cartaId): int
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
+-    }
+-
+-    $stmt = $connection->prepare('CALL AñadirNuevaCartaAColeccion(?, ?, @resultado)');
+-    if (!$stmt) {
+-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
+-    }
+-
+-    $stmt->bind_param('ii', $usuarioId, $cartaId);
+-
+-    if (!$stmt->execute()) {
+-        $error = $stmt->error;
+-        $stmt->close();
+-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+-    }
+-
+-    while ($stmt->more_results()) {
+-        $stmt->next_result();
+-    }
+-    $stmt->close();
+-
+-    $res = $connection->query('SELECT @resultado AS resultado');
+-    if (!$res) {
+-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
+-    }
+-    $fila = $res->fetch_assoc();
+-    $res->free();
+-
+-    return isset($fila['resultado']) ? (int) $fila['resultado'] : -99;
+-}
+-
+-/** Devuelve los datos de un usuario por su id, o null si no existe. */
+-function obtenerUsuarioPorId(int $usuarioId): ?array
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        return null;
+-    }
+-
+-    $stmt = $connection->prepare(
+-        'SELECT id, username, email, fecha_registro, ultima_obtencion
+-         FROM usuarios WHERE id = ? LIMIT 1'
+-    );
+-    if (!$stmt) {
+-        return null;
+-    }
+-
+-    $stmt->bind_param('i', $usuarioId);
+-    $stmt->execute();
+-    $fila = $stmt->get_result()->fetch_assoc();
+-    $stmt->close();
+-
+-    return $fila ?: null;
+-}
+-
+-/** Devuelve un dinosaurio al azar, o null si no hay ninguno. */
+-function dinosaurioAleatorio(): ?array
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        return null;
+-    }
+-
+-    $res = $connection->query('SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 1');
+-    if (!$res) {
+-        return null;
+-    }
+-
+-    $fila = $res->fetch_assoc();
+-    $res->free();
+-
+-    return $fila ?: null;
+-}
+-
+-/** Actualiza la fecha/hora de la última carta obtenida del usuario. */
+-function marcarUltimaObtencion(int $usuarioId): void
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        return;
+-    }
+-
+-    $stmt = $connection->prepare('UPDATE usuarios SET ultima_obtencion = NOW() WHERE id = ?');
+-    if (!$stmt) {
+-        return;
+-    }
+-
+-    $stmt->bind_param('i', $usuarioId);
+-    $stmt->execute();
+-    $stmt->close();
+-}
+-
+-/**
+- * Devuelve la lista de dinosaurio_id que posee un usuario usando el
+- * procedimiento ObtenerColeccion. Se conservan los repetidos.
+- */
+-function PA_ObtenerColeccion(int $usuarioId): array
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
+-    }
+-
+-    $stmt = $connection->prepare('CALL ObtenerColeccion(?, @resultado)');
+-    if (!$stmt) {
+-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
+-    }
+-
+-    $stmt->bind_param('i', $usuarioId);
+-
+-    if (!$stmt->execute()) {
+-        $error = $stmt->error;
+-        $stmt->close();
+-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+-    }
+-
+-    $ids = [];
+-    $resultado = $stmt->get_result();
+-    if ($resultado) {
+-        while ($fila = $resultado->fetch_assoc()) {
+-            $ids[] = (int) $fila['dinosaurio_id'];
+-        }
+-        $resultado->free();
+-    }
+-
+-    while ($stmt->more_results()) {
+-        $stmt->next_result();
+-    }
+-    $stmt->close();
+-
+-    return $ids;
+-}
+-
+-/**
+- * Devuelve los dinosaurios indicados indexados por su id:
+- *   [ id => [fila de dinosaurios] ]
+- */
+-function dinosauriosPorIds(array $ids): array
+-{
+-    global $connection;
+-
+-    $ids = array_values(array_unique(array_filter($ids, 'is_numeric')));
+-    if (!$ids || $connection->connect_errno) {
+-        return [];
+-    }
+-
+-    $lista = implode(',', array_map('intval', $ids));
+-
+-    $res = $connection->query('SELECT * FROM dinosaurios WHERE id IN (' . $lista . ')');
+-    if (!$res) {
+-        return [];
+-    }
+-
+-    $mapa = [];
+-    while ($fila = $res->fetch_assoc()) {
+-        $mapa[(int) $fila['id']] = $fila;
+-    }
+-    $res->free();
+-
+-    return $mapa;
+-}
+-
+-/** Número total de dinosaurios del catálogo. */
+-function contarDinosaurios(): int
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        return 0;
+-    }
+-
+-    $res = $connection->query('SELECT COUNT(*) AS total FROM dinosaurios');
+-    if (!$res) {
+-        return 0;
+-    }
+-
+-    $fila = $res->fetch_assoc();
+-    $res->free();
+-
+-    return (int) ($fila['total'] ?? 0);
+-}
+-
+-/** Resumen de la colección de un usuario: ['cartas' => int, 'especies' => int]. */
+-function resumenColeccion(int $usuarioId): array
+-{
+-    global $connection;
+-
+-    $resumen = ['cartas' => 0, 'especies' => 0];
+-    if ($connection->connect_errno) {
+-        return $resumen;
+-    }
+-
+-    $stmt = $connection->prepare(
+-        'SELECT COUNT(*) AS total, COUNT(DISTINCT dinosaurio_id) AS especies
+-         FROM colecciones WHERE usuario_id = ?'
+-    );
+-    if (!$stmt) {
+-        return $resumen;
+-    }
+-
+-    $stmt->bind_param('i', $usuarioId);
+-    if ($stmt->execute()) {
+-        $fila = $stmt->get_result()->fetch_assoc();
+-        $resumen['cartas']   = (int) ($fila['total'] ?? 0);
+-        $resumen['especies'] = (int) ($fila['especies'] ?? 0);
+-    }
+-    $stmt->close();
+-
+-    return $resumen;
+-}
+-
+-/** Últimas cartas obtenidas por un usuario (más recientes primero). */
+-function ultimasCartas(int $usuarioId, int $limite = 6): array
+-{
+-    global $connection;
+-
+-    if ($connection->connect_errno) {
+-        return [];
+-    }
+-
+-    $limite = max(1, min(50, $limite));
+-    $stmt = $connection->prepare(
+-        'SELECT d.*
+-         FROM colecciones c
+-         JOIN dinosaurios d ON d.id = c.dinosaurio_id
+-         WHERE c.usuario_id = ?
+-         ORDER BY c.fecha_adquisicion DESC, c.id DESC
+-         LIMIT ' . $limite
+-    );
+-    if (!$stmt) {
+-        return [];
+-    }
+-
+-    $stmt->bind_param('i', $usuarioId);
+-    $stmt->execute();
+-    $resultado = $stmt->get_result();
+-
+-    $filas = [];
+-    while ($fila = $resultado->fetch_assoc()) {
+-        $filas[] = $fila;
+-    }
+-    $stmt->close();
+-
+-    return $filas;
+-}
+\ No newline at end of file
++require_once __DIR__ . '/ReglasColeccion.php';
++require_once __DIR__ . '/UsuarioService.php';
++require_once __DIR__ . '/ColeccionService.php';
+diff --git a/dino-prueba/src/ColeccionService.php b/dino-prueba/src/ColeccionService.php
+index e69de29..1177bc8 100644
+--- a/dino-prueba/src/ColeccionService.php
++++ b/dino-prueba/src/ColeccionService.php
+@@ -0,0 +1,228 @@
++<?php
++/**
++ * ColeccionService.php
++ * ------------------------------------------------------------------
++ * Lógica de la colección y consultas al catálogo de dinosaurios.
++ * Usa la conexión $connection definida en AccesoDatos.php.
++ * ------------------------------------------------------------------
++ */
++
++require_once __DIR__ . '/ReglasColeccion.php';
++
++/**
++ * Añade una carta a la colección del usuario mediante el procedimiento
++ * AñadirNuevaCartaAColeccion. Devuelve el código _res:
++ *   0  -> añadida OK
++ *  -1  -> el usuario no existe
++ *  -2  -> el dinosaurio no existe
++ */
++function PA_AñadirCarta(int $usuarioId, int $cartaId): int
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
++    }
++
++    $stmt = $connection->prepare('CALL AñadirNuevaCartaAColeccion(?, ?, @resultado)');
++    if (!$stmt) {
++        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
++    }
++
++    $stmt->bind_param('ii', $usuarioId, $cartaId);
++
++    if (!$stmt->execute()) {
++        $error = $stmt->error;
++        $stmt->close();
++        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
++    }
++
++    while ($stmt->more_results()) {
++        $stmt->next_result();
++    }
++    $stmt->close();
++
++    $res = $connection->query('SELECT @resultado AS resultado');
++    if (!$res) {
++        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
++    }
++    $fila = $res->fetch_assoc();
++    $res->free();
++
++    return isset($fila['resultado']) ? (int) $fila['resultado'] : -99;
++}
++
++/**
++ * Devuelve la lista de dinosaurio_id que posee un usuario usando el
++ * procedimiento ObtenerColeccion. Se conservan los repetidos.
++ */
++function PA_ObtenerColeccion(int $usuarioId): array
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
++    }
++
++    $stmt = $connection->prepare('CALL ObtenerColeccion(?, @resultado)');
++    if (!$stmt) {
++        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
++    }
++
++    $stmt->bind_param('i', $usuarioId);
++
++    if (!$stmt->execute()) {
++        $error = $stmt->error;
++        $stmt->close();
++        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
++    }
++
++    $ids = [];
++    $resultado = $stmt->get_result();
++    if ($resultado) {
++        while ($fila = $resultado->fetch_assoc()) {
++            $ids[] = (int) $fila['dinosaurio_id'];
++        }
++        $resultado->free();
++    }
++
++    while ($stmt->more_results()) {
++        $stmt->next_result();
++    }
++    $stmt->close();
++
++    return $ids;
++}
++
++/** Resumen de la colección de un usuario: ['cartas' => int, 'especies' => int]. */
++function resumenColeccion(int $usuarioId): array
++{
++    global $connection;
++
++    $resumen = ['cartas' => 0, 'especies' => 0];
++    if ($connection->connect_errno) {
++        return $resumen;
++    }
++
++    $stmt = $connection->prepare(
++        'SELECT COUNT(*) AS total, COUNT(DISTINCT dinosaurio_id) AS especies
++         FROM colecciones WHERE usuario_id = ?'
++    );
++    if (!$stmt) {
++        return $resumen;
++    }
++
++    $stmt->bind_param('i', $usuarioId);
++    if ($stmt->execute()) {
++        $fila = $stmt->get_result()->fetch_assoc();
++        $resumen['cartas']   = (int) ($fila['total'] ?? 0);
++        $resumen['especies'] = (int) ($fila['especies'] ?? 0);
++    }
++    $stmt->close();
++
++    return $resumen;
++}
++
++/** Últimas cartas obtenidas por un usuario (más recientes primero). */
++function ultimasCartas(int $usuarioId, int $limite = 6): array
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        return [];
++    }
++
++    $limite = max(1, min(50, $limite));
++    $stmt = $connection->prepare(
++        'SELECT d.*
++         FROM colecciones c
++         JOIN dinosaurios d ON d.id = c.dinosaurio_id
++         WHERE c.usuario_id = ?
++         ORDER BY c.fecha_adquisicion DESC, c.id DESC
++         LIMIT ' . $limite
++    );
++    if (!$stmt) {
++        return [];
++    }
++
++    $stmt->bind_param('i', $usuarioId);
++    $stmt->execute();
++    $resultado = $stmt->get_result();
++
++    $filas = [];
++    while ($fila = $resultado->fetch_assoc()) {
++        $filas[] = $fila;
++    }
++    $stmt->close();
++
++    return $filas;
++}
++
++/**
++ * Devuelve los dinosaurios indicados indexados por su id:
++ *   [ id => [fila de dinosaurios] ]
++ */
++function dinosauriosPorIds(array $ids): array
++{
++    global $connection;
++
++    $ids = array_values(array_unique(array_filter($ids, 'is_numeric')));
++    if (!$ids || $connection->connect_errno) {
++        return [];
++    }
++
++    $lista = implode(',', array_map('intval', $ids));
++
++    $res = $connection->query('SELECT * FROM dinosaurios WHERE id IN (' . $lista . ')');
++    if (!$res) {
++        return [];
++    }
++
++    $mapa = [];
++    while ($fila = $res->fetch_assoc()) {
++        $mapa[(int) $fila['id']] = $fila;
++    }
++    $res->free();
++
++    return $mapa;
++}
++
++/** Número total de dinosaurios del catálogo. */
++function contarDinosaurios(): int
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        return 0;
++    }
++
++    $res = $connection->query('SELECT COUNT(*) AS total FROM dinosaurios');
++    if (!$res) {
++        return 0;
++    }
++
++    $fila = $res->fetch_assoc();
++    $res->free();
++
++    return (int) ($fila['total'] ?? 0);
++}
++
++/** Devuelve un dinosaurio al azar, o null si no hay ninguno. */
++function dinosaurioAleatorio(): ?array
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        return null;
++    }
++
++    $res = $connection->query('SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 1');
++    if (!$res) {
++        return null;
++    }
++
++    $fila = $res->fetch_assoc();
++    $res->free();
++
++    return $fila ?: null;
++}
+diff --git a/dino-prueba/src/ReglasColeccion.php b/dino-prueba/src/ReglasColeccion.php
+index e69de29..caedc74 100644
+--- a/dino-prueba/src/ReglasColeccion.php
++++ b/dino-prueba/src/ReglasColeccion.php
+@@ -0,0 +1,51 @@
++<?php
++/**
++ * ReglasColeccion.php
++ * ------------------------------------------------------------------
++ * Reglas y cálculos de la colección. NO accede a la base de datos:
++ * son funciones puras que se pueden probar por separado.
++ * ------------------------------------------------------------------
++ */
++
++/** ¿El usuario tiene más de una copia de una especie? */
++function esRepetida(int $veces): bool
++{
++    return $veces > 1;
++}
++
++/**
++ * Agrupa una lista de dinosaurio_id contando cuántas veces aparece cada uno.
++ * Devuelve ['conteo' => [id => veces], 'orden' => [ids en orden de aparición]].
++ */
++function agruparColeccion(array $ids): array
++{
++    $conteo = [];
++    $orden  = [];
++
++    foreach ($ids as $id) {
++        $id = (int) $id;
++        if (!isset($conteo[$id])) {
++            $conteo[$id] = 0;
++            $orden[]     = $id;
++        }
++        $conteo[$id]++;
++    }
++
++    return ['conteo' => $conteo, 'orden' => $orden];
++}
++
++/**
++ * Calcula el progreso de la colección.
++ * Devuelve ['especies' => int, 'total' => int, 'faltan' => int, 'porcentaje' => int].
++ */
++function calcularProgreso(int $especies, int $total): array
++{
++    $porcentaje = $total > 0 ? (int) round($especies / $total * 100) : 0;
++
++    return [
++        'especies'   => $especies,
++        'total'      => $total,
++        'faltan'     => max(0, $total - $especies),
++        'porcentaje' => $porcentaje,
++    ];
++}
+diff --git a/dino-prueba/src/UsuarioService.php b/dino-prueba/src/UsuarioService.php
+index e69de29..b1714c5 100644
+--- a/dino-prueba/src/UsuarioService.php
++++ b/dino-prueba/src/UsuarioService.php
+@@ -0,0 +1,144 @@
++<?php
++/**
++ * UsuarioService.php
++ * ------------------------------------------------------------------
++ * Lógica de usuarios: registro, login y datos del usuario.
++ * Usa la conexión $connection definida en AccesoDatos.php.
++ * ------------------------------------------------------------------
++ */
++
++/** Hash de la contraseña (md5 por compatibilidad con la BD actual). */
++function hashContrasena(string $contrasena): string
++{
++    return md5($contrasena);
++}
++
++/** Devuelve el código de salida (_res) del procedimiento Registro. */
++function PA_Registrar(string $usuario, string $email, string $contrasena): int
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
++    }
++
++    // El SP 'Registro' recibe 3 IN (username, email, password) y 1 OUT (_res)
++    $stmt = $connection->prepare('CALL Registro(?, ?, ?, @resultado)');
++    if (!$stmt) {
++        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
++    }
++
++    $hash = hashContrasena($contrasena);
++    $stmt->bind_param('sss', $usuario, $email, $hash);
++
++    if (!$stmt->execute()) {
++        $error = $stmt->error;
++        $stmt->close();
++        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
++    }
++
++    while ($stmt->more_results()) {
++        $stmt->next_result();
++    }
++    $stmt->close();
++
++    $res = $connection->query('SELECT @resultado AS resultado');
++    if (!$res) {
++        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
++    }
++    $fila = $res->fetch_assoc();
++    $res->free();
++
++    return (int) $fila['resultado'];
++}
++
++/** Devuelve ['codigo' => int, 'usuario' => array|null]. */
++function PA_Login(string $email, string $contrasena): array
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
++    }
++
++    // El SP 'Login' recibe 2 IN (email, password) y 1 OUT (_res)
++    $stmt = $connection->prepare('CALL Login(?, ?, @resultado)');
++    if (!$stmt) {
++        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
++    }
++
++    $hash = hashContrasena($contrasena);
++    $stmt->bind_param('ss', $email, $hash);
++
++    if (!$stmt->execute()) {
++        $error = $stmt->error;
++        $stmt->close();
++        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
++    }
++
++    $datosUsuario = null;
++    do {
++        $rs = $stmt->get_result();
++        if ($rs) {
++            $fila = $rs->fetch_assoc();
++            if ($fila) {
++                $datosUsuario = $fila;
++            }
++            $rs->free();
++        }
++    } while ($stmt->more_results() && $stmt->next_result());
++    $stmt->close();
++
++    $res = $connection->query('SELECT @resultado AS resultado');
++    if (!$res) {
++        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
++    }
++    $fila = $res->fetch_assoc();
++    $res->free();
++
++    return ['codigo' => (int) $fila['resultado'], 'usuario' => $datosUsuario];
++}
++
++/** Devuelve los datos de un usuario por su id, o null si no existe. */
++function obtenerUsuarioPorId(int $usuarioId): ?array
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        return null;
++    }
++
++    $stmt = $connection->prepare(
++        'SELECT id, username, email, fecha_registro, ultima_obtencion
++         FROM usuarios WHERE id = ? LIMIT 1'
++    );
++    if (!$stmt) {
++        return null;
++    }
++
++    $stmt->bind_param('i', $usuarioId);
++    $stmt->execute();
++    $fila = $stmt->get_result()->fetch_assoc();
++    $stmt->close();
++
++    return $fila ?: null;
++}
++
++/** Actualiza la fecha/hora de la última carta obtenida del usuario. */
++function marcarUltimaObtencion(int $usuarioId): void
++{
++    global $connection;
++
++    if ($connection->connect_errno) {
++        return;
++    }
++
++    $stmt = $connection->prepare('UPDATE usuarios SET ultima_obtencion = NOW() WHERE id = ?');
++    if (!$stmt) {
++        return;
++    }
++
++    $stmt->bind_param('i', $usuarioId);
++    $stmt->execute();
++    $stmt->close();
++}

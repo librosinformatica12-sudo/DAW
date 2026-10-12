@@ -72,7 +72,7 @@ $sobres = [
     [
         'nombre'     => 'Sobre semanal',
         'icono'      => 'bx-calendar-week',
-        'imagen'     => 'img/img-sobres/sobre2.jpg',
+        'imagen'     => 'img/img-sobres/sobre2.png',
         'disponible' => false,
         'texto'      => 'Ábrelo al completar 7 días seguidos de coleccionista.',
         'estado'     => 'Próximamente',
@@ -112,12 +112,12 @@ $sobres = [
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/carrusel.css">
+    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
+    <link rel="stylesheet" href="styles/carrusel.css?v=<?= @filemtime(__DIR__ . '/styles/carrusel.css') ?>">
 
     <!-- Scripts (defer: se ejecutan cuando el HTML ya está cargado) -->
-    <script src="script/inicio.js" defer></script>
-    <script src="script/carrusel.js" defer></script>
+    <script src="script/inicio.js?v=<?= @filemtime(__DIR__ . '/script/inicio.js') ?>" defer></script>
+    <script src="script/carrusel.js?v=<?= @filemtime(__DIR__ . '/script/carrusel.js') ?>" defer></script>
 </head>
 
 <body>

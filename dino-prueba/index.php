@@ -45,9 +45,9 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
     
-    <script src="script/script.js"></script>
+    <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>"></script>
 </head>
 <body>
     <header class="topbar">
@@ -145,7 +145,7 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
                 <div class="campo">
                     <label for="reg-pass">Contraseña</label>
                     <div class="entrada">
-                        <input type="password" id="reg-pass" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required>
+                        <input type="password" id="reg-pass" name="contrasena" autocomplete="new-password" placeholder="Mínimo 4 caracteres" required>
                         <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
                     </div>
                 </div>

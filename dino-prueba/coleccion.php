@@ -58,27 +58,13 @@ $porcentaje     = $totalDino > 0 ? (int) round($especiesUnicas / $totalDino * 10
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
-    <script src="script/coleccion.js"></script>
+    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
+    <script src="script/coleccion.js?v=<?= @filemtime(__DIR__ . '/script/coleccion.js') ?>"></script>
 </head>
 <body>
     <?php require __DIR__ . '/partials/cabecera.php'; ?>
 
     <main class="panel panel-coleccion">
-        <header class="panel-hero">
-            <p class="avatar-hero" aria-hidden="true"><?= e($inicial) ?></p>
-            <section class="panel-hero-texto">
-                <h2>Mi <span>colección</span></h2>
-                <p>Todas las cartas de dinosaurios que has reunido. Consigue una nueva cada día abriendo tu sobre.</p>
-                <ul class="panel-hero-etiquetas">
-                    <li><i class="bx bx-cube" aria-hidden="true"></i> <?= e($totalCartas) ?> cartas</li>
-                    <li><i class="bx bx-layer" aria-hidden="true"></i> <?= e($especiesUnicas) ?> especies</li>
-                    <li><i class="bx bx-target-lock" aria-hidden="true"></i> <?= e($porcentaje) ?>% del catálogo</li>
-                </ul>
-            </section>
-            <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Abrir sobre</a>
-        </header>
-
         <section class="tarjeta" aria-labelledby="progreso-titulo">
             <h2 id="progreso-titulo"><i class="bx bx-line-chart" aria-hidden="true"></i> Progreso</h2>
 

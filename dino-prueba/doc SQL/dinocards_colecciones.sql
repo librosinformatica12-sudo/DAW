@@ -25,13 +25,13 @@ DROP TABLE IF EXISTS `colecciones`;
 CREATE TABLE `colecciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `usuario_id` int DEFAULT NULL,
-  `dinousuario_id` int DEFAULT NULL,
+  `dinosaurio_id` int DEFAULT NULL,
   `fecha_adquisicion` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
-  KEY `dinousuario_id` (`dinousuario_id`),
+  KEY `dinosaurio_id` (`dinosaurio_id`),
   CONSTRAINT `colecciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  CONSTRAINT `colecciones_ibfk_2` FOREIGN KEY (`dinousuario_id`) REFERENCES `dinosaurios` (`id`)
+  CONSTRAINT `colecciones_ibfk_2` FOREIGN KEY (`dinosaurio_id`) REFERENCES `dinosaurios` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

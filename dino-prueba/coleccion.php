@@ -1,0 +1,137 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
+require_once __DIR__ . '/src/AccesoDatos.php';
+
+function e(mixed $v): string {
+    return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
+}
+
+$usuarioId    = (int) $_SESSION['usuario_id'];
+$usuarioDatos = $_SESSION['usuario_datos'] ?? [];
+
+$usuarioActual = obtenerUsuarioPorId($usuarioId);
+$nombre        = $usuarioActual['username'] ?? $usuarioDatos['username'] ?? 'Coleccionista';
+$inicial       = mb_strtoupper(mb_substr((string) $nombre, 0, 1, 'UTF-8'), 'UTF-8');
+
+$error     = null;
+$ids       = [];
+$mapa      = [];
+$totalDino = 0;
+
+try {
+    $ids       = PA_ObtenerColeccion($usuarioId);
+    $mapa      = dinosauriosPorIds($ids);
+    $totalDino = contarDinosaurios();
+} catch (Throwable $ex) {
+    $error = $ex->getMessage();
+}
+
+// Agrupar conservando el orden de aparición y contando las repetidas.
+$conteo = [];
+$orden  = [];
+foreach ($ids as $id) {
+    if (!isset($conteo[$id])) {
+        $conteo[$id] = 0;
+        $orden[]     = $id;
+    }
+    $conteo[$id]++;
+}
+
+$totalCartas    = count($ids);
+$especiesUnicas = count($conteo);
+$faltantes      = max(0, $totalDino - $especiesUnicas);
+$porcentaje     = $totalDino > 0 ? (int) round($especiesUnicas / $totalDino * 100) : 0;
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DinoCards - Mi colección</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="script/coleccion.js"></script>
+</head>
+<body>
+    <?php require __DIR__ . '/partials/cabecera.php'; ?>
+
+    <main class="panel panel-coleccion">
+        <header class="panel-hero">
+            <p class="avatar-hero" aria-hidden="true"><?= e($inicial) ?></p>
+            <section class="panel-hero-texto">
+                <h2>Mi <span>colección</span></h2>
+                <p>Todas las cartas de dinosaurios que has reunido. Consigue una nueva cada día abriendo tu sobre.</p>
+                <ul class="panel-hero-etiquetas">
+                    <li><i class="bx bx-cube" aria-hidden="true"></i> <?= e($totalCartas) ?> cartas</li>
+                    <li><i class="bx bx-layer" aria-hidden="true"></i> <?= e($especiesUnicas) ?> especies</li>
+                    <li><i class="bx bx-target-lock" aria-hidden="true"></i> <?= e($porcentaje) ?>% del catálogo</li>
+                </ul>
+            </section>
+            <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Abrir sobre</a>
+        </header>
+
+        <section class="tarjeta" aria-labelledby="progreso-titulo">
+            <h2 id="progreso-titulo"><i class="bx bx-line-chart" aria-hidden="true"></i> Progreso</h2>
+
+            <p class="barra-progreso">
+                <span><?= e($especiesUnicas) ?> de <?= e($totalDino) ?> especies · te faltan <?= e($faltantes) ?></span>
+                <b><?= e($porcentaje) ?>%</b>
+            </p>
+            <span class="barra" role="progressbar" aria-valuenow="<?= e($porcentaje) ?>" aria-valuemin="0" aria-valuemax="100">
+                <span style="width: <?= e($porcentaje) ?>%"></span>
+            </span>
+
+            <?php if ($error !== null): ?>
+                <p class="aviso error">No se pudo cargar tu colección: <?= e($error) ?></p>
+            <?php elseif ($totalCartas === 0): ?>
+                <section class="vacio">
+                    <i class="bx bx-sad" aria-hidden="true"></i>
+                    <h3>Todavía no tienes ninguna carta</h3>
+                    <p>Abre tu sobre del día y empieza a reunir dinosaurios.</p>
+                    <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Ir a por mi carta diaria</a>
+                </section>
+            <?php else: ?>
+                <div class="toolbar">
+                    <input type="search" id="filtro-coleccion" placeholder="Buscar por dinosaurio o apodo..." autocomplete="off" aria-label="Buscar en la colección">
+                    <span class="contador" id="contador-coleccion"><?= e($especiesUnicas) ?> de <?= e($especiesUnicas) ?> especies</span>
+                </div>
+
+                <ul class="cartas-grid" id="cartas-grid">
+                    <?php foreach ($orden as $id): ?>
+                        <?php $d = $mapa[$id] ?? null; if (!$d) { continue; } ?>
+                        <li class="carta-mini" data-especie="<?= e($d['especie']) ?>" data-apodo="<?= e($d['nombre']) ?>">
+                            <?php if ($conteo[$id] > 1): ?>
+                                <span class="badge">&times;<?= e($conteo[$id]) ?></span>
+                            <?php endif; ?>
+                            <span class="retrato">
+                                <?php if (!empty($d['imagen_url'])): ?>
+                                    <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
+                                <?php else: ?>
+                                    <i class="bx bx-dna" aria-hidden="true"></i>
+                                <?php endif; ?>
+                            </span>
+                            <h3><?= e($d['especie']) ?></h3>
+                            <p class="apodo">«<?= e($d['nombre']) ?>»</p>
+                            <span class="mini-stats">
+                                <span><b><?= e($d['hp']) ?></b><small>HP</small></span>
+                                <span><b><?= e($d['ataque']) ?></b><small>ATQ</small></span>
+                                <span><b><?= e($d['defensa']) ?></b><small>DEF</small></span>
+                                <span><b><?= e($d['agilidad']) ?></b><small>AGI</small></span>
+                            </span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </section>
+    </main>
+</body>
+</html>

@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const validApellido = setMsg(apellido, apellido && apellido.value.trim() !== '' ? '' : 'El apellido es obligatorio.');
             const validUsuario = setMsg(usuario, usuario && usuario.value.trim().length >= 3 ? '' : 'Mínimo 3 caracteres.');
             const validEmail = setMsg(email, email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) ? '' : 'Correo no válido.');
-            const validPass = setMsg(pass, pass && pass.vxalue.length >= 4 ? '' : 'Mínimo 4 caracteres.');
+            const validPass = setMsg(pass, pass && pass.value.length >= 4 ? '' : 'Mínimo 4 caracteres.');
             const validPass2 = setMsg(pass2, pass2 && pass2.value === pass.value && pass2.value !== '' ? '' : 'Las contraseñas no coinciden.');
 
             const esValido = validNombre && validApellido && validUsuario && validEmail && validPass && validPass2;

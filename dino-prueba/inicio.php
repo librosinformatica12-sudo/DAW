@@ -1,4 +1,13 @@
 <?php
+/* ============================================================
+   inicio.php · Panel principal del coleccionista
+   ------------------------------------------------------------
+   ESTRUCTURA DE LA PÁGINA
+   .panel-layout
+     ├─ .col-principal  → Bienvenida · Sobres (carrusel) · Carta de hoy
+     └─ .col-lateral    → Resumen de la colección · Accesos rápidos
+   ============================================================ */
+
 session_start();
 
 if (!isset($_SESSION['usuario_id'])) {
@@ -12,105 +21,310 @@ function e(mixed $v): string {
     return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
 }
 
-$datos   = $_SESSION['usuario_datos'] ?? [];
-$usuarioId = $_SESSION['usuario_id'] ?? null;
+/* ============================================================
+   1. DATOS
+   ============================================================ */
 
-$nombre      = $datos['username']    ?? $usuarioId;
-$email       = $datos['email']       ?? '';
-$registro    = $datos['fecha_registro'] ?? null;
-$ultimaCarta = $datos['ultima_obtencion'] ?? null;
+/* ---------- Usuario ---------- */
+$usuarioId = (int) $_SESSION['usuario_id'];
+$datos     = $_SESSION['usuario_datos'] ?? [];
 
-$totalCartas = null;
-if (!$connection->connect_errno && is_numeric($usuarioId)) {
-    $stmt = $connection->prepare('SELECT COUNT(*) AS total FROM colecciones WHERE usuario_id = ?');
-    if ($stmt) {
-        $stmt->bind_param('i', $usuarioId);
-        if ($stmt->execute()) {
-            $fila = $stmt->get_result()->fetch_assoc();
-            $totalCartas = (int) ($fila['total'] ?? 0);
-        }
-        $stmt->close();
-    }
-}
+$usuarioActual = obtenerUsuarioPorId($usuarioId);
+$nombre        = $usuarioActual['username'] ?? $datos['username'] ?? 'Coleccionista';
+$ultimaCarta   = $usuarioActual['ultima_obtencion'] ?? ($datos['ultima_obtencion'] ?? null);
+$inicial       = mb_strtoupper(mb_substr((string) $nombre, 0, 1, 'UTF-8'), 'UTF-8');
+
+$yaObtenidaHoy = $ultimaCarta !== null
+    && date('Y-m-d', strtotime((string) $ultimaCarta)) === date('Y-m-d');
+
+/* ---------- Colección ---------- */
+$resumen       = resumenColeccion($usuarioId);
+$totalCartas   = $resumen['cartas'];
+$totalEspecies = $resumen['especies'];
+$totalCatalogo = contarDinosaurios();
+$porcentaje    = $totalCatalogo > 0 ? (int) round($totalEspecies / $totalCatalogo * 100) : 0;
+
+/* ---------- Fecha ---------- */
+$diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+$meses      = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+$diaSemana  = $diasSemana[(int) date('w')];
+$mesActual  = $meses[(int) date('n') - 1];
+
+/* ---------- Sobres ----------
+   'disponible' => true activa el sobre.
+   'contiene'   => lista que se muestra al ver el sobre en el carrusel. */
+$sobres = [
+    [
+        'nombre'     => 'Sobre del día',
+        'icono'      => 'bx-sun',
+        'imagen'     => 'img/img-sobres/sobre.png',
+        'disponible' => true,
+        'texto'      => $yaObtenidaHoy
+            ? 'Ya abriste tu sobre hoy. Vuelve mañana por otra carta.'
+            : 'Ábrelo y consigue un dinosaurio nuevo para tu colección.',
+        'estado'     => $yaObtenidaHoy ? 'Abierto hoy' : 'Disponible',
+        'contiene'   => [
+            ['bx-cube',   '1 carta de dinosaurio'],
+            ['bx-time',   'Uno gratis cada día'],
+            ['bx-shuffle', 'Dinosaurio aleatorio del catálogo'],
+        ],
+    ],
+    [
+        'nombre'     => 'Sobre semanal',
+        'icono'      => 'bx-calendar-week',
+        'imagen'     => 'img/img-sobres/sobre2.jpg',
+        'disponible' => false,
+        'texto'      => 'Ábrelo al completar 7 días seguidos de coleccionista.',
+        'estado'     => 'Próximamente',
+        'contiene'   => [
+            ['bx-cube',     '3 cartas de dinosaurio'],
+            ['bx-calendar', 'Se desbloquea con 7 días seguidos'],
+            ['bx-star',     'Más opciones de cartas poco comunes'],
+        ],
+    ],
+    [
+        'nombre'     => 'Sobre de evento',
+        'icono'      => 'bx-party',
+        'imagen'     => '',
+        'disponible' => false,
+        'texto'      => 'Cartas exclusivas durante los eventos temporales.',
+        'estado'     => 'Próximamente',
+        'contiene'   => [
+            ['bx-cube',  '1 carta exclusiva del evento'],
+            ['bx-timer', 'Solo durante el evento'],
+            ['bx-crown', 'Cartas que no salen en otros sobres'],
+        ],
+    ],
+];
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DinoCards - Mi panel</title>
+    <title>DinoCards · Mi panel</title>
+
+    <!-- Tipografías e iconos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/carrusel.css">
+
+    <!-- Scripts (defer: se ejecutan cuando el HTML ya está cargado) -->
+    <script src="script/inicio.js" defer></script>
+    <script src="script/carrusel.js" defer></script>
 </head>
+
 <body>
-    <header class="topbar">
-        <div class="logo">
-            <i class="bx bx-id-card"></i>
-            <div class="logo-text">
-                <strong>DinoCards<span class="version-code"> V1.0</span></strong>
-                <span>CLUB DE COLECCIONISTAS</span>
-            </div>
-        </div>
-        <div class="topbar-der">
-            <span><?= e($nombre) ?></span>
-            <i class="bx bx-user-circle"></i>
-        </div>
-    </header>
+    <?php require __DIR__ . '/partials/cabecera.php'; ?>
 
-    <main class="pagina">
-        <section class="hero">
-            <h2>Hola de nuevo, <span><?= e($nombre) ?></span></h2>
-            <p>Ya estás dentro de tu panel. Desde aquí puedes ver el estado de tu colección y gestionar tu cuenta de DinoCards.</p>
-            <ul>
-                <li><i class="bx bx-gift"></i><div><b>Carta diaria</b><small>Abre tu sobre y consigue un dinosaurio nuevo.</small></div></li>
-                <li><i class="bx bx-collection"></i><div><b>Mi colección</b><small>Consulta las cartas que ya tienes.</small></div></li>
-                <li><i class="bx bx-book-open"></i><div><b>DinoPedia</b><small>Explora el catálogo completo de especies.</small></div></li>
-            </ul>
-        </section>
+    <main class="panel panel-inicio">
+        <div class="panel-layout">
 
-        <div class="container panel-inicio">
-            <h2>Mi cuenta</h2>
-            <br>
-            <p class="sub">Datos de tu sesión actual en DinoCards</p>
-            <br>
-            
-            <ul class="datos-cuenta">
-                <li>
-                    <i class="bx bx-user"></i>
-                    <div><small>Usuario</small><b><?= e($nombre) ?></b></div>
-                </li>
-                <li>
-                    <i class="bx bx-envelope"></i>
-                    <div><small>Correo electrónico</small><b><?= e($email !== '' ? $email : '—') ?></b></div>
-                </li>
-                <li>
-                    <i class="bx bx-calendar"></i>
-                    <div><small>Miembro desde</small><b><?= e($registro !== null ? date('d/m/Y', strtotime($registro)) : '—') ?></b></div>
-                </li>
-                <li>
-                    <i class="bx bx-time"></i>
-                    <div><small>Última carta obtenida</small><b><?= e($ultimaCarta !== null ? date('d/m/Y H:i', strtotime($ultimaCarta)) : 'Todavía ninguna') ?></b></div>
-                </li>
-            </ul>
+            <!-- ====================================================
+                 COLUMNA PRINCIPAL
+                 ==================================================== -->
+            <div class="col-principal">
 
-            <div class="stat-carta">
-                <i class="bx bx-cube"></i>
-                <div>
-                    <strong><?= $totalCartas !== null ? e($totalCartas) : '—' ?></strong>
-                    <small>cartas en tu colección</small>
+                <!-- 1 · BIENVENIDA -->
+                <div class="bloque bloque-hero">
+                    <header class="panel-hero">
+                        <p class="avatar-hero" aria-hidden="true"><?= e($inicial) ?></p>
+
+                        <div class="panel-hero-texto">
+                            <h2>Hola, <span><?= e($nombre) ?></span></h2>
+                            <p>Abre tu sobre del día y sigue completando tu colección de dinosaurios.</p>
+                        </div>
+
+                        <time class="panel-fecha" datetime="<?= e(date('Y-m-d')) ?>">
+                            <small><?= e($diaSemana) ?></small>
+                            <b><?= e(date('j')) ?></b>
+                            <span><?= e($mesActual) ?> <?= e(date('Y')) ?></span>
+                        </time>
+                    </header>
                 </div>
-            </div>
 
-            <div class="acciones-inicio">
-                <a class="enviar" href="index.php"><i class="bx bx-collection"></i> Ver mi colección</a>
-                <a class="salir" href="php/logout.php"><i class="bx bx-log-out"></i> Cerrar sesión</a>
-            </div>
+                <!-- 2 · SOBRES (carrusel) -->
+                <div class="bloque bloque-sobres">
+                    <section class="sobres" aria-labelledby="sobres-titulo">
 
-            <p class="nota" style="text-align: center;">Portal exclusivo para miembros y coleccionistas de DinoCards</p>
-        </div>
+                        <div class="sobres-cab-wrap">
+                            <header class="sobres-cab">
+                                <h2 id="sobres-titulo"><i class="bx bx-package" aria-hidden="true"></i> Sobres</h2>
+                                <span class="contador" id="sobres-contador">1 / <?= e(count($sobres)) ?></span>
+                            </header>
+                        </div>
+
+                        <div class="carrusel" id="carrusel">
+                            <button type="button" class="carrusel-nav" id="sobre-prev" aria-label="Sobre anterior">
+                                <i class="bx bx-chevron-left" aria-hidden="true"></i>
+                            </button>
+
+                            <ul class="carrusel-pista" id="carrusel-pista">
+                                <?php foreach ($sobres as $i => $sobre): ?>
+                                    <li class="sobre-slide<?= $i === 0 ? ' activo' : '' ?>" data-indice="<?= e($i) ?>">
+
+                                        <!-- Imagen y descripción -->
+                                        <div class="sobre-principal">
+                                            <figure class="sobre-box">
+                                                <?php if (!empty($sobre['imagen'])): ?>
+                                                    <img class="sobre-img" src="<?= e($sobre['imagen']) ?>" alt="<?= e($sobre['nombre']) ?>">
+                                                <?php else: ?>
+                                                    <span class="sobre-icono" aria-hidden="true">
+                                                        <i class="bx <?= e($sobre['icono']) ?>"></i>
+                                                    </span>
+                                                <?php endif; ?>
+                                                <figcaption>
+                                                    <h3><?= e($sobre['nombre']) ?></h3>
+                                                    <p<?= $sobre['disponible'] ? ' id="sobre-texto"' : '' ?>><?= e($sobre['texto']) ?></p>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+
+                                        <!-- Qué contiene este sobre -->
+                                        <div class="sobre-detalle">
+                                            <p class="sobre-estado<?= $sobre['disponible'] ? ' ok' : '' ?>">
+                                                <i class="bx <?= e($sobre['icono']) ?>" aria-hidden="true"></i>
+                                                <?= e($sobre['estado']) ?>
+                                            </p>
+
+                                            <ul class="sobre-contiene">
+                                                <?php foreach ($sobre['contiene'] as [$icono, $linea]): ?>
+                                                    <li>
+                                                        <i class="bx <?= e($icono) ?>" aria-hidden="true"></i>
+                                                        <?= e($linea) ?>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </div>
+
+                                        <!-- Acción -->
+                                        <div class="sobre-accion">
+                                            <?php if ($sobre['disponible']): ?>
+                                                <button type="button" id="btn-sobre" class="btn-carta"<?= $yaObtenidaHoy ? ' disabled' : '' ?>>
+                                                    <i class="bx bx-gift" aria-hidden="true"></i>
+                                                    <?= $yaObtenidaHoy ? 'Ya abierto hoy' : 'Abrir sobre del día' ?>
+                                                </button>
+                                            <?php else: ?>
+                                                <button type="button" class="btn-carta" disabled>
+                                                    <i class="bx <?= e($sobre['icono']) ?>" aria-hidden="true"></i> Próximamente
+                                                </button>
+                                            <?php endif; ?>
+                                        </div>
+
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+
+                            <button type="button" class="carrusel-nav" id="sobre-next" aria-label="Sobre siguiente">
+                                <i class="bx bx-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <!-- Los puntos los genera script/carrusel.js -->
+                        <ol class="carrusel-puntos" id="carrusel-puntos" aria-label="Seleccionar sobre"></ol>
+                    </section>
+                </div>
+
+                <!-- 3 · TU CARTA DE HOY -->
+                <div class="bloque bloque-resultado">
+                    <section class="resultado" aria-labelledby="resultado-titulo" aria-live="polite">
+                        <h2 id="resultado-titulo"><i class="bx bx-image" aria-hidden="true"></i> Tu carta de hoy</h2>
+
+                        <output id="resultado-carta" class="resultado-salida">
+                            <span class="resultado-vacio">
+                                <i class="bx bx-gift" aria-hidden="true"></i>
+                                Abre el sobre del día y verás aquí tu nueva carta.
+                            </span>
+                        </output>
+                    </section>
+                </div>
+
+            </div><!-- /.col-principal -->
+
+
+            <!-- ====================================================
+                 COLUMNA LATERAL
+                 ==================================================== -->
+            <div class="col-lateral">
+
+                <!-- 4 · RESUMEN DE LA COLECCIÓN -->
+                <div class="bloque bloque-resumen">
+                    <aside class="panel-resumen2" aria-label="Resumen de tu colección">
+                        <h3>Tu colección</h3>
+
+                        <ul class="resumen-grid">
+                            <li class="resumen-item">
+                                <i class="bx bx-cube" aria-hidden="true"></i>
+                                <strong><?= e($totalCartas) ?></strong>
+                                <small>cartas guardadas</small>
+                            </li>
+                            <li class="resumen-item">
+                                <i class="bx bx-layer" aria-hidden="true"></i>
+                                <strong><?= e($totalEspecies) ?></strong>
+                                <small>especies distintas</small>
+                            </li>
+                            <li class="resumen-item">
+                                <i class="bx bx-target-lock" aria-hidden="true"></i>
+                                <strong><?= e($porcentaje) ?>%</strong>
+                                <small>del catálogo (<?= e($totalCatalogo) ?>)</small>
+                            </li>
+                            <li class="resumen-item">
+                                <i class="bx bx-gift" aria-hidden="true"></i>
+                                <strong><?= $yaObtenidaHoy ? 'Abierta' : 'Disponible' ?></strong>
+                                <small>carta de hoy</small>
+                            </li>
+                        </ul>
+
+                        <p class="resumen-progreso">
+                            <span>Progreso del catálogo</span><b><?= e($porcentaje) ?>%</b>
+                        </p>
+                        <span class="resumen-barra" role="progressbar" aria-valuenow="<?= e($porcentaje) ?>" aria-valuemin="0" aria-valuemax="100">
+                            <span style="width: <?= e($porcentaje) ?>%"></span>
+                        </span>
+                    </aside>
+                </div>
+
+                <!-- 5 · ACCESOS RÁPIDOS -->
+                <div class="bloque bloque-accesos">
+                    <nav class="accesos-panel" aria-label="Accesos rápidos">
+                        <h3>Explora</h3>
+
+                        <ul>
+                            <li>
+                                <a href="coleccion.php">
+                                    <i class="bx bx-collection" aria-hidden="true"></i>
+                                    <b>Mi colección</b>
+                                    <small>Revisa tus <?= e($totalCartas) ?> cartas</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="perfil.php">
+                                    <i class="bx bx-user-circle" aria-hidden="true"></i>
+                                    <b>Mi perfil</b>
+                                    <small>Tus datos y estadísticas</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="prox" href="#" aria-disabled="true">
+                                    <i class="bx bx-book-open" aria-hidden="true"></i>
+                                    <b>DinoPedia</b>
+                                    <small>Próximamente</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div><!-- /.col-lateral -->
+
+        </div><!-- /.panel-layout -->
     </main>
 </body>
+
 </html>

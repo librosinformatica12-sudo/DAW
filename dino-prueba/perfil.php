@@ -160,6 +160,7 @@ $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalo
                             <li class="carta-mini">
                                 <div class="retrato">
                                     <?php if (!empty($d['imagen_url'])): ?>
+                                        <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true">
                                         <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
                                     <?php else: ?>
                                         <i class="bx bx-dna" aria-hidden="true"></i>

@@ -82,11 +82,12 @@ $porcentaje     = $progreso['porcentaje'];
                     <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Ir a por mi carta diaria</a>
                 </section>
             <?php else: ?>
+                <br>
                 <div class="toolbar">
                     <input type="search" id="filtro-coleccion" placeholder="Buscar por dinosaurio o apodo..." autocomplete="off" aria-label="Buscar en la colección">
                     <span class="contador" id="contador-coleccion"><?= e($especiesUnicas) ?> de <?= e($especiesUnicas) ?> especies</span>
                 </div>
-
+                
                 <ul class="cartas-grid" id="cartas-grid">
                     <?php foreach ($orden as $id): ?>
                         <?php $d = $mapa[$id] ?? null; if (!$d) { continue; } ?>
@@ -96,6 +97,7 @@ $porcentaje     = $progreso['porcentaje'];
                             <?php endif; ?>
                             <span class="retrato">
                                 <?php if (!empty($d['imagen_url'])): ?>
+                                    <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true">
                                     <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
                                 <?php else: ?>
                                     <i class="bx bx-dna" aria-hidden="true"></i>

@@ -235,8 +235,9 @@
 }
 
 .carta-mini .retrato {
+    position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 4;
     background: #141419;
     border-radius: 10px;
     display: flex;
@@ -249,9 +250,18 @@
 .carta-mini .retrato img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     display: block;
 }
+.carta-mini .retrato img.fondo {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    filter: blur(18px) brightness(.5) saturate(1.15);
+    transform: scale(1.2);
+}
+.carta-mini .retrato img:not(.fondo) { position: relative; z-index: 1; }
 
 .carta-mini .retrato i {
     font-size: 2rem;

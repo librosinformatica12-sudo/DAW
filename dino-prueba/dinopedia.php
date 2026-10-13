@@ -162,13 +162,14 @@ while ($fila = $res->fetch_assoc()) {
                     <li class="carta-mini">
                         <span class="retrato">
                             <?php if (!empty($d['imagen_url'])): ?>
+                                <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true">
                                 <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['nombre']) ?>">
                             <?php else: ?>
                                 <i class="bx bx-dna" aria-hidden="true"></i>
                             <?php endif; ?>
                         </span>
                         <h3><?= e($d['nombre']) ?></h3>
-                        <p class="apodo">«<?= e($d['periodo']) ?>»</p>
+                        <p class="apodo">«<?= e($d['especie']) ?>»</p>
                             <div class="mini-stats">
                                 <span><b><?= e($d['hp']) ?></b><small>HP</small></span>
                                 <span><b><?= e($d['ataque']) ?></b><small>ATQ</small></span>

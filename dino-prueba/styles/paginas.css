@@ -182,7 +182,15 @@
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, .08);
 }
-.carta-mini .retrato img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; transition: transform .35s ease; }
+.carta-mini .retrato img { 
+    width: 100%;
+    height: 100%; 
+    object-fit: contain; 
+    object-position: center; 
+    display: block; 
+    transition: transform .35s ease; 
+}
+
 .carta-mini .retrato img.fondo {
     position: absolute;
     inset: 0;
@@ -191,7 +199,7 @@
     transform: scale(1.2);
 }
 .carta-mini .retrato img:not(.fondo) { position: relative; z-index: 1; }
-.carta-mini:hover .retrato img:not(.fondo) { transform: scale(1.06); }
+.carta-mini:hover .retrato img:not(.fondo) { transform: scale(1.04); }
 .carta-mini h3 { font-size: 1rem; color: #fff; line-height: 1.2; }
 .carta-mini .apodo { font-size: .74rem; color: #9aa3b2; font-style: italic; }
 .carta-mini .mini-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 2px; }

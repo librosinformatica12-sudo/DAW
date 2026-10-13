@@ -96,12 +96,12 @@ $porcentaje     = $progreso['porcentaje'];
                                 <span class="badge">&times;<?= e($conteo[$id]) ?></span>
                             <?php endif; ?>
                             <span class="retrato">
-                                <?php if (!empty($d['imagen_url'])): ?>
-                                    <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true">
-                                    <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
-                                <?php else: ?>
-                                    <i class="bx bx-dna" aria-hidden="true"></i>
-                                <?php endif; ?>
+                                 <?php if (!empty($d['imagen_url'])): ?>
+                                     <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                     <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22266%22%3E%3Crect width=%22200%22 height=%22266%22 fill=%22%23121219%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%239aa3b2%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22%3EDNA%3C/text%3E%3C/svg%3E'; this.style.objectFit='contain'">
+                                 <?php else: ?>
+                                     <i class="bx bx-dna" aria-hidden="true"></i>
+                                 <?php endif; ?>
                             </span>
                             <h3><?= e($d['especie']) ?></h3>
                             <p class="apodo">«<?= e($d['nombre']) ?>»</p>

@@ -1,0 +1,1992 @@
+===== INFORME DE CAMBIOS - TODO EL REPO ===== 
+Fecha: 13/10/2026 14:52:11,11 
+Descripcion: bien 
+ 
+--- Archivos afectados --- 
+D  dino-prueba/Abrir-Chat-Dino.exe
+M  dino-prueba/coleccion.php
+M  dino-prueba/dinopedia.php
+A  dino-prueba/img/img-cartas/23.png
+A  dino-prueba/img/img-cartas/24.png
+A  dino-prueba/img/img-cartas/25.png
+M  dino-prueba/index.php
+M  dino-prueba/inicio.php
+M  dino-prueba/perfil.php
+D  dino-prueba/styles/carrusel.css
+R  dino-prueba/styles/cabecera.css -> dino-prueba/styles/comun.css
+R  dino-prueba/styles/style.css -> dino-prueba/styles/paginas.css
+M  dino-prueba/styles/perfil.css
+?? cambios-todo/informe_2026-10-13_1452.txt
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dino-prueba/Abrir-Chat-Dino.exe b/dino-prueba/Abrir-Chat-Dino.exe
+deleted file mode 100644
+index bbffe46..0000000
+Binary files a/dino-prueba/Abrir-Chat-Dino.exe and /dev/null differ
+diff --git a/dino-prueba/coleccion.php b/dino-prueba/coleccion.php
+index f43682e..dfedb88 100644
+--- a/dino-prueba/coleccion.php
++++ b/dino-prueba/coleccion.php
+@@ -53,7 +53,8 @@ $porcentaje     = $progreso['porcentaje'];
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
++    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
++    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+     <script src="script/coleccion.js?v=<?= @filemtime(__DIR__ . '/script/coleccion.js') ?>"></script>
+ </head>
+ <body>
+diff --git a/dino-prueba/dinopedia.php b/dino-prueba/dinopedia.php
+index fc8f756..e78e8c2 100644
+--- a/dino-prueba/dinopedia.php
++++ b/dino-prueba/dinopedia.php
+@@ -137,7 +137,8 @@ while ($fila = $res->fetch_assoc()) {
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
++    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
++    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+ </head>
+ <body>
+     <?php require __DIR__ . '/partials/cabecera.php'; ?>
+diff --git a/dino-prueba/img/img-cartas/23.png b/dino-prueba/img/img-cartas/23.png
+new file mode 100644
+index 0000000..eb66d11
+Binary files /dev/null and b/dino-prueba/img/img-cartas/23.png differ
+diff --git a/dino-prueba/img/img-cartas/24.png b/dino-prueba/img/img-cartas/24.png
+new file mode 100644
+index 0000000..b61ad05
+Binary files /dev/null and b/dino-prueba/img/img-cartas/24.png differ
+diff --git a/dino-prueba/img/img-cartas/25.png b/dino-prueba/img/img-cartas/25.png
+new file mode 100644
+index 0000000..33918c1
+Binary files /dev/null and b/dino-prueba/img/img-cartas/25.png differ
+diff --git a/dino-prueba/index.php b/dino-prueba/index.php
+index 62be342..85219d4 100644
+--- a/dino-prueba/index.php
++++ b/dino-prueba/index.php
+@@ -45,7 +45,8 @@ $panelActivo = ($accion === 'registro') ? 'registro' : 'login';
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
++    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
++    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+     
+     <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>"></script>
+ </head>
+diff --git a/dino-prueba/inicio.php b/dino-prueba/inicio.php
+index eed4387..394b6c7 100644
+--- a/dino-prueba/inicio.php
++++ b/dino-prueba/inicio.php
+@@ -83,20 +83,7 @@ $sobres = [
+         ],
+     ],
+     [
+-        'nombre'     => 'Sobre de evento',
+-        'icono'      => 'bx-party',
+-        'imagen'     => '',
+-        'disponible' => false,
+-        'texto'      => 'Cartas exclusivas durante los eventos temporales.',
+-        'estado'     => 'Próximamente',
+-        'contiene'   => [
+-            ['bx-cube',  '1 carta exclusiva del evento'],
+-            ['bx-timer', 'Solo durante el evento'],
+-            ['bx-crown', 'Cartas que no salen en otros sobres'],
+-        ],
+-    ],
+-    [
+-        'id' => 'preuba',
++        'id' => 'prueba',
+         'nombre' => 'Sobre de Prueba',
+         'icono' => 'bx-test-tube',
+         'imagen' => 'img/img-sobres/sobre3.png',
+@@ -109,7 +96,21 @@ $sobres = [
+             ['bx-infinite', 'Sin limite diario'],
+             ['bx-shuffle', "Dinosaurios aleatorios"],
+         ],
+-    ]
++    ],
++    [
++        'nombre'     => 'Sobre de evento',
++        'icono'      => 'bx-party',
++        'imagen'     => '',
++        'disponible' => false,
++        'texto'      => 'Cartas exclusivas durante los eventos temporales.',
++        'estado'     => 'Próximamente',
++        'contiene'   => [
++            ['bx-cube',  '1 carta exclusiva del evento'],
++            ['bx-timer', 'Solo durante el evento'],
++            ['bx-crown', 'Cartas que no salen en otros sobres'],
++        ],
++    ],
++
+ ];
+ ?>
+ <!DOCTYPE html>
+@@ -127,8 +128,8 @@ $sobres = [
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+ 
+     <!-- Estilos -->
+-    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
+-    <link rel="stylesheet" href="styles/carrusel.css?v=<?= @filemtime(__DIR__ . '/styles/carrusel.css') ?>">
++    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
++    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+ 
+     <!-- Scripts (defer: se ejecutan cuando el HTML ya está cargado) -->
+     <script src="script/inicio.js?v=<?= @filemtime(__DIR__ . '/script/inicio.js') ?>" defer></script>
+diff --git a/dino-prueba/perfil.php b/dino-prueba/perfil.php
+index ae4db36..a904ef3 100644
+--- a/dino-prueba/perfil.php
++++ b/dino-prueba/perfil.php
+@@ -48,7 +48,7 @@ $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalo
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="styles/cabecera.css?v=<?= @filemtime(__DIR__ . '/styles/cabecera.css') ?>">
++    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+     <link rel="stylesheet" href="styles/perfil.css?v=<?= @filemtime(__DIR__ . '/styles/perfil.css') ?>">
+ </head>
+ <body>
+diff --git a/dino-prueba/styles/carrusel.css b/dino-prueba/styles/carrusel.css
+deleted file mode 100644
+index c88da08..0000000
+--- a/dino-prueba/styles/carrusel.css
++++ /dev/null
+@@ -1,222 +0,0 @@
+-/* ============================================================
+-   carrusel.css · Layout del panel + carrusel de sobres
+-   Cárgalo DESPUÉS de style.css. Usa tus variables si existen
+-   (--color-*), con valores por defecto de reserva.
+-   ============================================================ */
+-
+-/* ---------- Layout en dos columnas ---------- */
+-.panel-layout {
+-    grid-column: 1 / -1;   /* ocupa todo el ancho del .panel-inicio (antes solo la 1ª columna) */
+-    display: grid;
+-    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+-    gap: 24px;
+-    align-items: start;
+-}
+-
+-.col-principal,
+-.col-lateral {
+-    display: flex;
+-    flex-direction: column;
+-    gap: 24px;
+-    min-width: 0;
+-}
+-
+-@media (max-width: 900px) {
+-    .panel-layout {
+-        grid-template-columns: minmax(0, 1fr);
+-    }
+-}
+-
+-/* ---------- Carrusel ---------- */
+-.carrusel {
+-    display: grid;
+-    grid-template-columns: auto minmax(0, 1fr) auto;
+-    align-items: center;
+-    gap: 12px;
+-}
+-
+-.carrusel-pista {
+-    display: flex;
+-    margin: 0;
+-    padding: 0;
+-    list-style: none;
+-    overflow-x: auto;
+-    scroll-snap-type: x mandatory;
+-    scrollbar-width: none;
+-    overscroll-behavior-x: contain;
+-}
+-
+-.carrusel-pista::-webkit-scrollbar {
+-    display: none;
+-}
+-
+-.sobre-slide {
+-    flex: 0 0 100%;
+-    scroll-snap-align: center;
+-    display: flex;
+-    flex-direction: column;
+-    gap: 16px;
+-    padding: 4px;
+-    box-sizing: border-box;
+-    opacity: 0.45;
+-    transition: opacity 0.25s ease;
+-}
+-
+-.sobre-slide.activo {
+-    opacity: 1;
+-}
+-
+-/* ---------- Flechas ---------- */
+-.carrusel-nav {
+-    display: grid;
+-    place-items: center;
+-    width: 44px;
+-    height: 44px;
+-    border: 1px solid rgba(128, 128, 128, 0.35);
+-    border-radius: 50%;
+-    background: transparent;
+-    color: inherit;
+-    font-size: 1.6rem;
+-    cursor: pointer;
+-}
+-
+-.carrusel-nav:hover:not(:disabled) {
+-    background: rgba(128, 128, 128, 0.15);
+-}
+-
+-.carrusel-nav:disabled {
+-    opacity: 0.3;
+-    cursor: not-allowed;
+-}
+-
+-.carrusel-nav:focus-visible,
+-.carrusel-puntos button:focus-visible {
+-    outline: 2px solid currentColor;
+-    outline-offset: 3px;
+-}
+-
+-/* ---------- Contenido de cada sobre ---------- */
+-.sobre-principal {
+-    display: flex;
+-    justify-content: center;
+-}
+-
+-.sobre-img {
+-    display: block;
+-    max-width: 100%;
+-    max-height: 280px;
+-    margin-inline: auto;
+-    object-fit: contain;
+-}
+-
+-.sobre-slide:not(.activo) .sobre-img {
+-    filter: grayscale(0.4);
+-}
+-
+-.sobre-icono {
+-    display: grid;
+-    place-items: center;
+-    width: 148px;
+-    height: 148px;
+-    margin-inline: auto;
+-    border-radius: 50%;
+-    background: radial-gradient(circle at 35% 30%, rgba(214, 35, 47, .5), rgba(11, 16, 24, .25) 70%);
+-    border: 1px solid rgba(214, 35, 47, .45);
+-    box-shadow: 0 14px 30px rgba(214, 35, 47, .3);
+-}
+-
+-.sobre-icono i {
+-    font-size: 4rem;
+-    color: #fff;
+-}
+-
+-.sobre-detalle {
+-    display: flex;
+-    flex-direction: column;
+-    gap: 10px;
+-    padding: 14px 16px;
+-    border: 1px solid rgba(128, 128, 128, 0.3);
+-    border-radius: 12px;
+-}
+-
+-.sobre-estado {
+-    display: inline-flex;
+-    align-items: center;
+-    gap: 6px;
+-    margin: 0;
+-    font-weight: 600;
+-    opacity: 0.7;
+-}
+-
+-.sobre-estado.ok {
+-    opacity: 1;
+-}
+-
+-.sobre-contiene {
+-    display: flex;
+-    flex-direction: column;
+-    gap: 8px;
+-    margin: 0;
+-    padding: 0;
+-    list-style: none;
+-}
+-
+-.sobre-contiene li {
+-    display: flex;
+-    align-items: center;
+-    gap: 8px;
+-}
+-
+-.sobre-contiene i {
+-    font-size: 1.2rem;
+-}
+-
+-.sobre-accion {
+-    display: flex;
+-    justify-content: center;
+-}
+-
+-/* ---------- Puntos ---------- */
+-.carrusel-puntos {
+-    display: flex;
+-    justify-content: center;
+-    gap: 10px;
+-    margin: 14px 0 0;
+-    padding: 0;
+-    list-style: none;
+-}
+-
+-.carrusel-puntos button {
+-    width: 12px;
+-    height: 12px;
+-    padding: 0;
+-    border: 0;
+-    border-radius: 50%;
+-    background: rgba(128, 128, 128, 0.4);
+-    cursor: pointer;
+-    transition: width 0.2s ease, background 0.2s ease;
+-}
+-
+-.carrusel-puntos button.activo {
+-    width: 28px;
+-    border-radius: 6px;
+-    background: currentColor;
+-}
+-
+-/* ---------- Móvil: sin flechas, se desliza con el dedo ---------- */
+-@media (max-width: 600px) {
+-    .carrusel {
+-        grid-template-columns: minmax(0, 1fr);
+-    }
+-
+-    .carrusel-nav {
+-        display: none;
+-    }
+-}
+-
+-@media (prefers-reduced-motion: reduce) {
+-    .sobre-slide,
+-    .carrusel-puntos button {
+-        transition: none;
+-    }
+-}
+diff --git a/dino-prueba/styles/cabecera.css b/dino-prueba/styles/comun.css
+similarity index 65%
+rename from dino-prueba/styles/cabecera.css
+rename to dino-prueba/styles/comun.css
+index b8792cf..c39075b 100644
+--- a/dino-prueba/styles/cabecera.css
++++ b/dino-prueba/styles/comun.css
+@@ -1,18 +1,47 @@
+ /* ============================================================
+-   cabecera.css · Estilos de la barra superior (topbar)
+-   Para páginas que NO cargan style.css (p. ej. perfil.php).
++   comun.css · Estilos COMPARTIDOS por TODAS las páginas
++   ------------------------------------------------------------
++   Lo cargan: index.php · inicio.php · coleccion.php ·
++              dinopedia.php · perfil.php (junto con perfil.css)
++   Contiene SOLO lo común: reset básico, variables de color,
++   fondo/tipografía del body y la CABECERA (.topbar).
+    ============================================================ */
+ 
++/* ---------- Reset básico ---------- */
++* { box-sizing: border-box; }
++
++/* Oculta elementos con el atributo [hidden] (lo usa coleccion.js) */
++[hidden] { display: none !important; }
++
++/* Quitamos el margen del body (los márgenes internos se controlan por página) */
++body { margin: 0; }
++
++/* ---------- Variables de color de DinoCards ---------- */
+ :root {
+-    --rojo: #d6232f;
+-    --rojo-osc: #b01c26;
++    --rojo: #d6232f;      /* rojo principal de la marca */
++    --rojo-osc: #b01c26;  /* rojo oscuro (hover) */
++    --fondo: #0b1018;     /* azul muy oscuro de fondo */
++    --texto: #111827;     /* texto oscuro (para tarjetas claras) */
++    --gris: #6b7280;      /* gris de textos secundarios */
++    --borde: #d9dde5;     /* color de bordes claros */
+ }
+ 
+-*, *::before, *::after { box-sizing: border-box; }
+-body { margin: 0; }
++/* ---------- Fondo y tipografía generales ---------- */
++body {
++    font-family: "Segoe UI", Roboto, Arial, sans-serif;
++    min-height: 100vh;
++    color: #fff;
++    background:
++        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
++        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
++        var(--fondo);
++}
+ 
++/* ============================================================
++   CABECERA (barra superior pegada arriba)
++   ============================================================ */
+ .topbar {
+-    position: sticky;
++    position: sticky;               /* se queda fija al hacer scroll */
+     top: 0;
+     z-index: 60;
+     display: flex;
+@@ -25,6 +54,7 @@ body { margin: 0; }
+     border-bottom: 1px solid rgba(214, 35, 47, .5);
+ }
+ 
++/* ---------- Logotipo ---------- */
+ .logo {
+     display: flex;
+     align-items: center;
+@@ -38,6 +68,7 @@ body { margin: 0; }
+ .logo strong { font-size: 2rem; line-height: 1; color: var(--rojo); letter-spacing: 1px; }
+ .logo span { font-size: .7rem; letter-spacing: 6px; margin-top: 2px; }
+ 
++/* Marca de la app (con recuadro rojo) — la usa partials/cabecera.php */
+ .logo-app .logo-mark {
+     width: 44px;
+     height: 44px;
+@@ -53,11 +84,14 @@ body { margin: 0; }
+ .logo-app .logo-texto strong { font-size: 1.35rem; line-height: 1; color: #fff; letter-spacing: .5px; }
+ .logo-app .logo-texto small { margin-top: 2px; font-size: .62rem; letter-spacing: 2.5px; text-transform: uppercase; color: #9aa3b2; }
+ 
++/* Zona derecha de la cabecera (index.php) */
+ .topbar-der { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
+ .topbar-der i { font-size: 1.6rem; }
+ 
++/* Zona derecha de la app: carta diaria + salir (partials/cabecera.php) */
+ .topbar-fin { display: flex; align-items: center; gap: 10px; }
+ 
++/* ---------- Chapa "Carta diaria" ---------- */
+ .carta-badge {
+     position: relative;
+     display: inline-flex;
+@@ -74,11 +108,13 @@ body { margin: 0; }
+ .carta-badge b { display: block; color: #fff; font-size: .85rem; line-height: 1.1; }
+ .carta-badge small { display: block; color: #9fd9bd; font-size: .62rem; text-transform: uppercase; letter-spacing: .6px; }
+ .carta-badge:hover { transform: translateY(-1px); background: rgba(53, 208, 127, .2); }
++/* Estado cuando la carta del día YA se abrió (se pone gris) */
+ .carta-badge.abierta { border-color: rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .05); }
+ .carta-badge.abierta i { color: #9aa3b2; }
+ .carta-badge.abierta small { color: #9aa3b2; }
+ .carta-badge .punto { position: absolute; top: -3px; right: -3px; }
+ 
++/* ---------- Navegación principal ---------- */
+ .nav { display: flex; align-items: center; gap: 6px; }
+ .nav-link {
+     display: inline-flex;
+@@ -108,6 +144,7 @@ body { margin: 0; }
+     letter-spacing: .5px;
+ }
+ 
++/* ---------- Punto verde con pulso (aviso de carta disponible) ---------- */
+ .punto {
+     width: 9px;
+     height: 9px;
+@@ -122,6 +159,7 @@ body { margin: 0; }
+     100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
+ }
+ 
++/* ---------- Cabecera en móvil ---------- */
+ @media (max-width: 900px) {
+     .topbar {
+         flex-wrap: wrap;
+diff --git a/dino-prueba/styles/style.css b/dino-prueba/styles/paginas.css
+similarity index 64%
+rename from dino-prueba/styles/style.css
+rename to dino-prueba/styles/paginas.css
+index 33a5555..c2ac5d1 100644
+--- a/dino-prueba/styles/style.css
++++ b/dino-prueba/styles/paginas.css
+@@ -1,556 +1,85 @@
+-/* ============================================
+-   SAKILA VIDEO CLUB · Login & Registro
+-   ============================================ */
+-
+-* { box-sizing: border-box; margin: 0; padding: 0; }
+-
+-[hidden] { display: none !important; }
+-
+-:root {
+-    --rojo: #d6232f;
+-    --rojo-osc: #b01c26;
+-    --fondo: #0b1018;
+-    --texto: #111827;
+-    --gris: #6b7280;
+-    --borde: #d9dde5;
+-}
+-
+-body {
+-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+-    min-height: 100vh;
+-    color: #fff;
+-    background:
+-        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
+-        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
+-        var(--fondo);
+-}
+-
+-/* ---------- CABECERA ---------- */
+-.topbar {
+-    position: sticky;
+-    top: 0;
+-    z-index: 60;
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    gap: 16px;
+-    padding: 12px 32px;
+-    background: rgba(8, 12, 20, .88);
+-    backdrop-filter: blur(10px);
+-    border-bottom: 1px solid rgba(214, 35, 47, .5);
+-}
+-
+-.logo { display: flex; align-items: center; gap: 10px; }
+-.logo i { font-size: 2.4rem; }
+-.logo > div { display: flex; flex-direction: column; }
+-.logo strong { font-size: 2rem; line-height: 1; color: var(--rojo); letter-spacing: 1px; }
+-.logo span { font-size: .7rem; letter-spacing: 6px; margin-top: 2px; }
+-
+-/* Marca de la app (con recuadro) */
+-.logo-app .logo-mark {
+-    width: 44px;
+-    height: 44px;
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
+-    border-radius: 12px;
+-    background: linear-gradient(140deg, var(--rojo), var(--rojo-osc));
+-    box-shadow: 0 8px 18px rgba(214, 35, 47, .4);
+-}
+-.logo-app .logo-mark i { font-size: 1.7rem; color: #fff; }
+-.logo-app .logo-texto { display: flex; flex-direction: column; }
+-.logo-app .logo-texto strong { font-size: 1.35rem; line-height: 1; color: #fff; letter-spacing: .5px; }
+-.logo-app .logo-texto small { margin-top: 2px; font-size: .62rem; letter-spacing: 2.5px; text-transform: uppercase; color: #9aa3b2; }
+-
+-.topbar-der { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
+-.topbar-der i { font-size: 1.6rem; }
+-
+-/* Zona derecha de la cabecera de la app */
+-.topbar-fin { display: flex; align-items: center; gap: 10px; }
+-
+-.carta-badge {
+-    position: relative;
+-    display: inline-flex;
+-    align-items: center;
+-    gap: 10px;
+-    padding: 6px 14px 6px 10px;
+-    border-radius: 999px;
+-    border: 1px solid rgba(53, 208, 127, .35);
+-    background: rgba(53, 208, 127, .12);
+-    text-decoration: none;
+-    transition: background .15s ease, border-color .15s ease, transform .15s ease;
+-}
+-.carta-badge i { font-size: 1.4rem; color: #35d07f; }
+-.carta-badge b { display: block; color: #fff; font-size: .85rem; line-height: 1.1; }
+-.carta-badge small { display: block; color: #9fd9bd; font-size: .62rem; text-transform: uppercase; letter-spacing: .6px; }
+-.carta-badge:hover { transform: translateY(-1px); background: rgba(53, 208, 127, .2); }
+-.carta-badge.abierta { border-color: rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .05); }
+-.carta-badge.abierta i { color: #9aa3b2; }
+-.carta-badge.abierta small { color: #9aa3b2; }
+-.carta-badge .punto { position: absolute; top: -3px; right: -3px; }
+-
+-/* ---------- NAVEGACIÓN ---------- */
+-.logo { text-decoration: none; cursor: pointer; flex: 0 0 auto; }
+-
+-.nav { display: flex; align-items: center; gap: 6px; }
+-.nav-link {
+-    display: inline-flex;
+-    align-items: center;
+-    gap: 8px;
+-    padding: 9px 14px;
+-    border-radius: 6px;
+-    color: #cfd6e4;
+-    font-size: .92rem;
+-    font-weight: 600;
+-    text-decoration: none;
+-    transition: background .15s ease, color .15s ease;
+-}
+-.nav-link i { font-size: 1.15rem; }
+-.nav-link:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+-.nav-link.activo { color: #fff; background: rgba(214, 35, 47, .18); }
+-.nav-link.activo i { color: var(--rojo); }
+-.nav-link.prox { opacity: .45; cursor: default; }
+-.nav-link.prox:hover { background: none; color: #cfd6e4; }
+-.nav-link.prox small {
+-    margin-left: 4px;
+-    padding: 1px 6px;
+-    border-radius: 999px;
+-    background: rgba(255, 255, 255, .12);
+-    font-size: .58rem;
+-    text-transform: uppercase;
+-    letter-spacing: .5px;
+-}
+-
+-/* ---------- USUARIO / DESPLEGABLE ---------- */
+-.usuario { position: relative; flex: 0 0 auto; }
+-
+-.usuario-btn {
+-    display: inline-flex;
+-    align-items: center;
+-    gap: 10px;
+-    padding: 6px 10px 6px 6px;
+-    border: 1px solid rgba(255, 255, 255, .15);
+-    border-radius: 999px;
+-    background: rgba(255, 255, 255, .05);
+-    color: #fff;
+-    font-family: inherit;
+-    font-size: .92rem;
+-    font-weight: 600;
+-    cursor: pointer;
+-    transition: background .15s ease, border-color .15s ease;
+-}
+-.usuario-btn:hover { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .3); }
+-.usuario-btn .flecha { font-size: 1.1rem; transition: transform .2s ease; }
+-.usuario-btn.abierto .flecha { transform: rotate(180deg); }
+-
+-.avatar {
+-    width: 34px;
+-    height: 34px;
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
+-    border-radius: 50%;
+-    background: var(--rojo);
+-    color: #fff;
+-    font-weight: 700;
+-    font-size: .95rem;
+-    flex: 0 0 auto;
+-}
+-.avatar.grande { width: 46px; height: 46px; font-size: 1.2rem; }
+-.avatar.xl { width: 72px; height: 72px; font-size: 1.9rem; }
+-
+-.punto {
+-    width: 9px;
+-    height: 9px;
+-    border-radius: 50%;
+-    background: #35d07f;
+-    box-shadow: 0 0 0 0 rgba(53, 208, 127, .7);
+-    animation: pulso 1.8s infinite;
+-}
+-@keyframes pulso {
+-    0%   { box-shadow: 0 0 0 0 rgba(53, 208, 127, .6); }
+-    70%  { box-shadow: 0 0 0 7px rgba(53, 208, 127, 0); }
+-    100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
+-}
+-
+-.menu-usuario {
+-    position: absolute;
+-    top: calc(100% + 12px);
+-    right: 0;
+-    width: 330px;
+-    max-width: calc(100vw - 32px);
+-    padding: 14px;
+-    background: #111827;
+-    border: 1px solid rgba(255, 255, 255, .12);
+-    border-radius: 12px;
+-    box-shadow: 0 24px 50px rgba(0, 0, 0, .55);
+-    z-index: 100;
+-}
+-
+-.menu-cab {
+-    display: flex;
+-    align-items: center;
+-    gap: 12px;
+-    padding-bottom: 12px;
+-    border-bottom: 1px solid rgba(255, 255, 255, .1);
+-    text-decoration: none;
+-    color: inherit;
+-}
+-.menu-cab:hover .menu-identidad b { color: var(--rojo); }
+-.menu-identidad { min-width: 0; }
+-.menu-identidad b { display: block; color: #fff; font-size: 1rem; }
+-.menu-identidad small { display: block; color: #9aa3b2; font-size: .78rem; word-break: break-all; }
+-
+-.menu-resumen {
+-    list-style: none;
+-    display: grid;
+-    gap: 4px;
+-    padding: 12px 0;
+-    border-bottom: 1px solid rgba(255, 255, 255, .1);
+-}
+-.menu-resumen li { display: flex; align-items: center; gap: 12px; padding: 6px 4px; }
+-.menu-resumen li i { font-size: 1.3rem; color: var(--rojo); }
+-.menu-resumen small { display: block; color: #8b93a2; font-size: .66rem; text-transform: uppercase; letter-spacing: .6px; }
+-.menu-resumen b { color: #fff; font-size: .9rem; }
+-
+-.menu-progreso {
+-    height: 6px;
+-    margin-top: 10px;
+-    background: rgba(255, 255, 255, .12);
+-    border-radius: 999px;
+-    overflow: hidden;
+-}
+-.menu-progreso span {
+-    display: block;
+-    height: 100%;
+-    background: var(--rojo);
+-    border-radius: 999px;
+-}
+-
+-.menu-acciones { display: grid; gap: 3px; padding-top: 10px; }
+-.menu-acciones a {
+-    display: flex;
+-    align-items: center;
+-    gap: 10px;
+-    padding: 10px;
+-    border-radius: 7px;
+-    color: #cfd6e4;
+-    font-size: .9rem;
+-    font-weight: 500;
+-    text-decoration: none;
+-    transition: background .15s ease, color .15s ease;
+-}
+-.menu-acciones a i { font-size: 1.2rem; }
+-.menu-acciones a:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+-.menu-acciones a.salir { color: #ff9191; }
+-.menu-acciones a.salir:hover { background: rgba(214, 35, 47, .16); color: #fff; }
+-
+-/* ---------- ACCESOS RÁPIDOS ---------- */
+-.accesos {
+-    display: grid;
+-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+-    gap: 12px;
+-    margin-top: 12px;
+-}
+-.acceso {
+-    display: flex;
+-    flex-direction: column;
+-    align-items: center;
+-    text-align: center;
+-    gap: 4px;
+-    padding: 18px 12px;
+-    border: 1px solid var(--borde);
+-    border-radius: 6px;
+-    background: #fff;
+-    color: var(--texto);
+-    text-decoration: none;
+-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+-}
+-.acceso i { font-size: 2rem; color: var(--rojo); }
+-.acceso b { font-size: .95rem; }
+-.acceso small { font-size: .75rem; color: var(--gris); }
+-.acceso:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(17, 24, 39, .1); border-color: var(--rojo); }
+-.acceso.prox { opacity: .6; cursor: default; }
+-.acceso.prox:hover { transform: none; box-shadow: none; border-color: var(--borde); }
+-
+-/* ---------- LAYOUT ---------- */
+-.pagina {
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    gap: 40px;
+-    padding: 48px;
+-    max-width: 1400px;
++/* ============================================================
++   paginas.css · Estilos de las páginas de la APP
++   ------------------------------------------------------------
++   Lo cargan: index.php · inicio.php · coleccion.php · dinopedia.php
++   NO lo carga perfil.php (ese usa comun.css + perfil.css).
++
++   Orden de las secciones:
++     1. Reset de la app
++     2. Layout de app (.panel)
++     3. Componentes compartidos
++     4. LOGIN / REGISTRO   (index.php)
++     5. INICIO             (inicio.php)
++     6. CARRUSEL de sobres (sobreescribe el del punto 5)
++     7. Móvil
++   ============================================================ */
++
++/* ============================================================
++   1. RESET DE LA APP
++   ============================================================ */
++* { margin: 0; padding: 0; }
++
++
++/* ============================================================
++   2. LAYOUT DE APP (.panel)
++   Estructura que usan inicio.php, coleccion.php y dinopedia.php
++   ============================================================ */
++.panel {
++    max-width: 1120px;
+     margin: 0 auto;
+-    min-height: calc(100vh - 80px);
+-}
+-
+-/* ---------- HERO ---------- */
+-.hero { max-width: 520px; }
+-.hero h2 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; color: #fff; }
+-.hero h2 span { display: block; color: var(--rojo); }
+-.hero p { color: #d3d8e2; line-height: 1.5; margin-bottom: 28px; }
+-.hero ul { list-style: none; display: grid; gap: 18px; }
+-.hero li { display: flex; align-items: center; gap: 14px; }
+-.hero li i { font-size: 2rem; color: var(--rojo); }
+-.hero li b { display: block; color: #fff; }
+-.hero li small { color: #b9c0cf; }
+-
+-/* ---------- TARJETA ---------- */
+-.container {
+-    width: 100%;
+-    max-width: 520px;
+-    background: #fafafa;
+-    color: var(--texto);
+-    border-radius: 6px;
+-    padding: 0 30px 30px;
+-    display: flex;
+-    flex-wrap: wrap;
+-    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+-}
+-
+-/* Pestañas arriba */
+-.container > .btn {
+-    order: -1;
+-    flex: 1 1 50%;
+-    background: none;
+-    border: none;
+-    border-bottom: 3px solid #e6e8ee;
+-    padding: 20px 0 14px;
+-    font-size: 1rem;
+-    font-weight: 600;
+-    color: var(--gris);
+-    cursor: pointer;
+-}
+-.container > .btn.activo { color: var(--texto); border-bottom-color: var(--rojo); }
+-.container > .btn:hover  { color: var(--texto); }
+-
+-.container > form { width: 100%; }
+-
+-/* ---------- ENCABEZADOS Y SUBTÍTULOS ---------- */
+-#form-login h2,
+-#form-registro h2 {
+-    font-size: 1.25rem;
+-    font-weight: 700;
+-    color: var(--texto);
+-    margin-top: 24px;
+-    margin-bottom: 2px;
+-}
+-
+-.sub {
+-    font-size: 0.85rem;
+-    color: var(--gris);
+-    margin-top: 2px;
+-    margin-bottom: 18px;
+-    line-height: 1.3;
+-}
+-
+-/* ---------- CAMPOS ---------- */
+-.campo { margin-bottom: 16px; position: relative; text-align: left; }
+-
+-.campo label {
+-    display: block;
+-    font-size: .85rem;
+-    font-weight: 600;
+-    color: var(--gris);
+-    margin-bottom: 6px;
+-}
+-
+-.campo input {
+-    width: 100%;
+-    padding: 14px;
+-    font-size: 1rem;
+-    border: 1px solid var(--borde);
+-    border-radius: 4px;
+-    background: #fff;
+-    color: var(--texto);
+-}
+-
+-.campo input:focus {
+-    outline: none;
+-    border-color: var(--rojo);
+-    box-shadow: 0 0 0 3px rgba(214, 35, 47, .15);
+-}
+-
+-/* Campos del login con icono a la izquierda */
+-.campo.icono > i {
+-    position: absolute;
+-    left: 14px;
+-    top: 14px;
+-    font-size: 1.3rem;
+-    color: var(--gris);
+-    z-index: 1;
+-}
+-.campo.icono input { padding-left: 46px; }
+-
+-/* Contraseña + botón Mostrar */
+-.entrada { position: relative; }
+-.entrada input { padding-right: 90px; }
+-
+-.rojo {
+-    position: absolute;
+-    right: 8px;
+-    top: 50%;
+-    transform: translateY(-50%);
+-    background: none;
+-    border: none;
+-    color: var(--rojo);
+-    font-weight: 600;
+-    font-size: .85rem;
+-    cursor: pointer;
+-}
+-.rojo:hover { text-decoration: underline; }
+-
+-.fila { display: flex; gap: 14px; }
+-.fila .campo { flex: 1; min-width: 0; }
+-
+-.msg { color: var(--rojo); font-size: .8rem; min-height: 1em; margin-top: 4px; }
+-
+-.fuerza { height: 6px; background: #e6e8ee; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+-.fuerza span { display: block; height: 100%; width: 0; transition: width .2s, background .2s; }
+-
+-/* ---------- LOGIN Y REGISTRO: EXTRAS ---------- */
+-.remember-password {
+-    display: flex;
+-    justify-content: space-between;
+-    align-items: center;
+-    margin: 4px 0 20px;
+-    font-size: .9rem;
+-    color: var(--texto);
+-}
+-.remember-password label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+-.remember-password a { color: var(--rojo); text-decoration: none; }
+-.remember-password a:hover { text-decoration: underline; }
+-
+-.enviar {
+-    width: 100%;
+-    padding: 14px;
+-    border: none;
+-    border-radius: 4px;
+-    background: var(--rojo);
+-    color: #fff;
+-    font-size: 1rem;
+-    font-weight: 700;
+-    cursor: pointer;
+-}
+-.enviar:hover { background: var(--rojo-osc); }
+-
+-.aviso { text-align: center; margin-top: 10px; min-height: 1.2em; font-size: .9rem; }
+-.aviso.error { color: var(--rojo); }
+-.aviso.ok    { color: green; }
+-
+-/* Separador "o" */
+-.separador {
+-    display: flex;
+-    align-items: center;
+-    gap: 14px;
+-    margin: 20px 0;
+-    color: var(--gris);
+-    font-size: .85rem;
+-}
+-.separador::before,
+-.separador::after {
+-    content: "";
+-    flex: 1;
+-    height: 1px;
+-    background: var(--borde);
+-}
+-
+-.register-link { text-align: center; font-size: .9rem; color: var(--gris); }
+-
+-/* Enlace/Botón dentro de login */
+-#form-login .register-link a {
+-    display: flex;
+-    align-items: center;
+-    justify-content: center;
+-    gap: 8px;
+-    padding: 13px;
+-    border: 1px solid var(--borde);
+-    border-radius: 4px;
+-    background: #fff;
+-    color: var(--texto);
+-    font-weight: 600;
+-    text-decoration: none;
+-}
+-#form-login .register-link a:hover { background: #f1f2f6; }
+-
+-/* Enlace dentro de registro */
+-#form-registro .register-link { margin-top: 18px; }
+-#form-registro .register-link a {
+-    color: var(--rojo);
+-    font-weight: 600;
+-    text-decoration: none;
+-    display: inline-flex;
+-    align-items: center;
+-    gap: 4px;
++    padding: 32px 24px 64px;
++    display: grid;
++    gap: 20px;
+ }
+-#form-registro .register-link a:hover { text-decoration: underline; }
+-
+-.nota { text-align: center; font-size: .75rem; color: var(--gris); margin-top: 26px; }
+ 
+-.carta {
+-    width: 100%;
+-    display: grid;
+-    grid-template-columns: 104px 1fr;
++.panel-inicio {
++    grid-template-columns: 1.15fr .85fr;
+     grid-template-areas:
+-        "img   nombre"
+-        "img   especie"
+-        "stats stats";
+-    align-items: center;
+-    gap: 4px 18px;
+-    text-align: left;
+-    padding: 20px 22px;
+-    border: 1px solid rgba(255, 255, 255, .14);
+-    border-top: 3px solid rgba(214, 35, 47, .9);
+-    border-radius: 18px;
+-    background:
+-        radial-gradient(circle at 85% 0%, rgba(214, 35, 47, .22), transparent 55%),
+-        rgba(255, 255, 255, .05);
+-    animation: aparecer .35s ease;
+-}
+-@keyframes aparecer {
+-    from { opacity: 0; transform: translateY(8px); }
+-    to   { opacity: 1; transform: none; }
+-}
+-.carta-img {
+-    grid-area: img;
+-    width: 104px;
+-    height: 104px;
+-    margin: 0;
+-    display: flex;
+-    align-items: center;
+-    justify-content: center;
+-    border-radius: 50%;
+-    background: rgba(255, 255, 255, .08);
+-    color: var(--rojo);
+-    overflow: hidden;
+-}
+-.carta-img i { font-size: 3.4rem; }
+-.carta-img img { width: 100%; height: 100%; object-fit: cover; }
+-.carta h3 { grid-area: nombre; font-size: 1.4rem; color: #fff; }
+-.carta-especie { grid-area: especie; font-size: .92rem; color: #c6cdda; font-style: italic; }
+-.carta-periodo { grid-area: periodo; display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; color: #9aa3b2; }
+-.carta-stats {
+-    grid-area: stats;
+-    list-style: none;
+-    display: grid;
+-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+-    gap: 8px;
+-    width: 100%;
+-    margin-top: 10px;
++        "hero    hero"
++        "sobres  resumen"
++        "carta   carta"
++        "accesos accesos";
+ }
+-.carta-stats li {
+-    display: flex;
+-    flex-direction: column;
+-    align-items: center;
+-    padding: 8px 4px;
+-    background: rgba(255, 255, 255, .06);
+-    border-radius: 10px;
++.panel-coleccion { grid-template-columns: 1fr; }
++.panel-perfil {
++    grid-template-columns: 1.15fr .85fr;
++    grid-template-areas:
++        "hero     hero"
++        "stats    datos"
++        "cartas   cartas"
++        "acciones acciones";
+ }
+-.carta-stats b { font-size: 1rem; color: #fff; }
+-.carta-stats small { font-size: .62rem; color: #9aa3b2; text-transform: uppercase; letter-spacing: .5px; }
+ 
+-/* ---------- COMPONENTES (compartidos) ---------- */
++/* Zonas del grid (grid-area) */
++.panel-hero { grid-area: hero; }
++.panel-resumen2 { grid-area: resumen; }
++.accesos-panel { grid-area: accesos; }
++.perfil-stats { grid-area: stats; }
++.perfil-datos { grid-area: datos; }
++.perfil-ultimas { grid-area: cartas; }
++.perfil-acciones { grid-area: acciones; }
++
++/* Bloques que envuelven cada zona de inicio.php */
++.bloque { min-width: 0; }
++.bloque-hero { grid-area: hero; }
++.bloque-sobres { grid-area: sobres; }
++.bloque-resultado { grid-area: carta; }
++.bloque-resumen { grid-area: resumen; }
++.bloque-accesos { grid-area: accesos; }
++
++.bloque-hero > .panel-hero,
++.bloque-sobres > .sobres,
++.bloque-resultado > .resultado,
++.bloque-resumen > .panel-resumen2,
++.bloque-accesos > .accesos-panel { height: 100%; }
++
++
++/* ============================================================
++   3. COMPONENTES COMPARTIDOS
++   (tarjetas, estadísticas, barras, rejilla de cartas, avisos...)
++   ============================================================ */
++
++/* ---------- Tarjeta genérica ---------- */
+ .tarjeta {
+     background: rgba(255, 255, 255, .04);
+     border: 1px solid rgba(255, 255, 255, .1);
+@@ -570,6 +99,7 @@ body {
+ .tarjeta > h2 i,
+ .tarjeta > h3 i { color: var(--rojo); font-size: 1.25rem; }
+ 
++/* ---------- Estadísticas (grid de 2 columnas) ---------- */
+ .stats-grid { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+ .stat {
+     display: flex;
+@@ -586,6 +116,7 @@ body {
+ .stat small { color: #9aa3b2; font-size: .75rem; }
+ .stat:hover { border-color: rgba(214, 35, 47, .5); transform: translateY(-2px); }
+ 
++/* ---------- Barra de progreso ---------- */
+ .barra-progreso { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; margin-top: 6px; }
+ .barra-progreso span { color: #9aa3b2; }
+ .barra-progreso b { color: #fff; }
+@@ -598,6 +129,7 @@ body {
+     transition: width .3s ease;
+ }
+ 
++/* ---------- Accesos tipo "tile" (perfil) ---------- */
+ .tiles { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+ .tile {
+     display: flex;
+@@ -619,6 +151,7 @@ body {
+ .tile.prox { opacity: .55; cursor: default; }
+ .tile.prox:hover { transform: none; border-color: rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .03); }
+ 
++/* ---------- Rejilla de cartas + carta miniatura ---------- */
+ .cartas-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+ .carta-mini {
+     position: relative;
+@@ -663,6 +196,7 @@ body {
+ }
+ .carta-mini .mini-stats b { font-size: .8rem; color: #fff; }
+ .carta-mini .mini-stats small { font-size: .55rem; color: #9aa3b2; letter-spacing: .5px; }
++/* Contador de repetidas (x2, x3...) */
+ .carta-mini .badge {
+     position: absolute;
+     top: 12px;
+@@ -675,6 +209,7 @@ body {
+     font-weight: 700;
+ }
+ 
++/* ---------- Estado vacío ---------- */
+ .vacio {
+     display: flex;
+     flex-direction: column;
+@@ -690,6 +225,7 @@ body {
+ .vacio p { color: #9aa3b2; font-size: .9rem; }
+ .vacio .btn-carta { margin-top: 10px; text-decoration: none; }
+ 
++/* ---------- Barra de búsqueda / herramientas ---------- */
+ .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+ .toolbar input[type="search"] {
+     flex: 1 1 240px;
+@@ -706,56 +242,255 @@ body {
+ .toolbar input:focus { outline: none; border-color: var(--rojo); box-shadow: 0 0 0 3px rgba(214, 35, 47, .18); }
+ .toolbar .contador { margin-left: auto; color: #9aa3b2; font-size: .85rem; }
+ 
+-/* ---------- LAYOUT DE APP (compartido) ---------- */
+-.panel {
+-    max-width: 1120px;
++/* ---------- Botón principal "carta" ---------- */
++.btn-carta {
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    gap: 10px;
++    padding: 14px 34px;
++    border: none;
++    border-radius: 999px;
++    background: linear-gradient(135deg, var(--rojo), #ff5b4d);
++    color: #fff;
++    font-size: 1rem;
++    font-weight: 700;
++    font-family: inherit;
++    cursor: pointer;
++    box-shadow: 0 10px 26px rgba(214, 35, 47, .45);
++    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
++}
++.btn-carta i { font-size: 1.25rem; }
++.btn-carta:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(214, 35, 47, .55); filter: brightness(1.05); }
++.btn-carta:disabled {
++    background: rgba(255, 255, 255, .1);
++    color: #8b93a2;
++    box-shadow: none;
++    cursor: default;
++    transform: none;
++}
++
++/* ---------- Avisos (mensajes de error / éxito) ---------- */
++.aviso { text-align: center; margin-top: 10px; min-height: 1.2em; font-size: .9rem; }
++.aviso.error { color: var(--rojo); }
++.aviso.ok    { color: green; }
++
++
++/* ============================================================
++   4. LOGIN / REGISTRO  (index.php)
++   ============================================================ */
++
++/* ---------- Estructura de dos columnas (hero + formulario) ---------- */
++.pagina {
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    gap: 40px;
++    padding: 48px;
++    max-width: 1400px;
+     margin: 0 auto;
+-    padding: 32px 24px 64px;
+-    display: grid;
+-    gap: 20px;
++    min-height: calc(100vh - 80px);
+ }
+ 
+-.panel-inicio {
+-    grid-template-columns: 1.15fr .85fr;
+-    grid-template-areas:
+-        "hero    hero"
+-        "sobres  resumen"
+-        "carta   carta"
+-        "accesos accesos";
++/* ---------- HERO (texto de bienvenida) ---------- */
++.hero { max-width: 520px; }
++.hero h2 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; color: #fff; }
++.hero h2 span { display: block; color: var(--rojo); }
++.hero p { color: #d3d8e2; line-height: 1.5; margin-bottom: 28px; }
++.hero ul { list-style: none; display: grid; gap: 18px; }
++.hero li { display: flex; align-items: center; gap: 14px; }
++.hero li i { font-size: 2rem; color: var(--rojo); }
++.hero li b { display: block; color: #fff; }
++.hero li small { color: #b9c0cf; }
++
++/* ---------- Tarjeta blanca del formulario ---------- */
++.container {
++    width: 100%;
++    max-width: 520px;
++    background: #fafafa;
++    color: var(--texto);
++    border-radius: 6px;
++    padding: 0 30px 30px;
++    display: flex;
++    flex-wrap: wrap;
++    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
++}
++/* Pestañas "Iniciar sesión" / "Registrarse" */
++.container > .btn {
++    order: -1;
++    flex: 1 1 50%;
++    background: none;
++    border: none;
++    border-bottom: 3px solid #e6e8ee;
++    padding: 20px 0 14px;
++    font-size: 1rem;
++    font-weight: 600;
++    color: var(--gris);
++    cursor: pointer;
++}
++.container > .btn.activo { color: var(--texto); border-bottom-color: var(--rojo); }
++.container > .btn:hover  { color: var(--texto); }
++.container > form { width: 100%; }
++
++/* ---------- Encabezados y subtítulos ---------- */
++#form-login h2,
++#form-registro h2 {
++    font-size: 1.25rem;
++    font-weight: 700;
++    color: var(--texto);
++    margin-top: 24px;
++    margin-bottom: 2px;
++}
++.sub {
++    font-size: 0.85rem;
++    color: var(--gris);
++    margin-top: 2px;
++    margin-bottom: 18px;
++    line-height: 1.3;
++}
++
++/* ---------- Campos del formulario ---------- */
++.campo { margin-bottom: 16px; position: relative; text-align: left; }
++.campo label {
++    display: block;
++    font-size: .85rem;
++    font-weight: 600;
++    color: var(--gris);
++    margin-bottom: 6px;
++}
++.campo input {
++    width: 100%;
++    padding: 14px;
++    font-size: 1rem;
++    border: 1px solid var(--borde);
++    border-radius: 4px;
++    background: #fff;
++    color: var(--texto);
++}
++.campo input:focus {
++    outline: none;
++    border-color: var(--rojo);
++    box-shadow: 0 0 0 3px rgba(214, 35, 47, .15);
++}
++/* Campos con icono a la izquierda (login) */
++.campo.icono > i {
++    position: absolute;
++    left: 14px;
++    top: 14px;
++    font-size: 1.3rem;
++    color: var(--gris);
++    z-index: 1;
++}
++.campo.icono input { padding-left: 46px; }
++
++/* Contraseña + botón "Mostrar" */
++.entrada { position: relative; }
++.entrada input { padding-right: 90px; }
++.rojo {
++    position: absolute;
++    right: 8px;
++    top: 50%;
++    transform: translateY(-50%);
++    background: none;
++    border: none;
++    color: var(--rojo);
++    font-weight: 600;
++    font-size: .85rem;
++    cursor: pointer;
++}
++.rojo:hover { text-decoration: underline; }
++
++/* Filas de dos campos */
++.fila { display: flex; gap: 14px; }
++.fila .campo { flex: 1; min-width: 0; }
++
++/* Mensaje de validación bajo el campo */
++.msg { color: var(--rojo); font-size: .8rem; min-height: 1em; margin-top: 4px; }
++
++/* Medidor de fuerza de contraseña */
++.fuerza { height: 6px; background: #e6e8ee; border-radius: 3px; margin-top: 8px; overflow: hidden; }
++.fuerza span { display: block; height: 100%; width: 0; transition: width .2s, background .2s; }
++
++/* ---------- Extras login/registro ---------- */
++.remember-password {
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    margin: 4px 0 20px;
++    font-size: .9rem;
++    color: var(--texto);
++}
++.remember-password label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
++.remember-password a { color: var(--rojo); text-decoration: none; }
++.remember-password a:hover { text-decoration: underline; }
++
++.enviar {
++    width: 100%;
++    padding: 14px;
++    border: none;
++    border-radius: 4px;
++    background: var(--rojo);
++    color: #fff;
++    font-size: 1rem;
++    font-weight: 700;
++    cursor: pointer;
++}
++.enviar:hover { background: var(--rojo-osc); }
++
++/* Separador "o" con línea */
++.separador {
++    display: flex;
++    align-items: center;
++    gap: 14px;
++    margin: 20px 0;
++    color: var(--gris);
++    font-size: .85rem;
++}
++.separador::before,
++.separador::after {
++    content: "";
++    flex: 1;
++    height: 1px;
++    background: var(--borde);
++}
++
++.register-link { text-align: center; font-size: .9rem; color: var(--gris); }
++
++/* Botón grande "Crear nueva cuenta" dentro de login */
++#form-login .register-link a {
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    gap: 8px;
++    padding: 13px;
++    border: 1px solid var(--borde);
++    border-radius: 4px;
++    background: #fff;
++    color: var(--texto);
++    font-weight: 600;
++    text-decoration: none;
+ }
+-.panel-coleccion { grid-template-columns: 1fr; }
+-.panel-perfil {
+-    grid-template-columns: 1.15fr .85fr;
+-    grid-template-areas:
+-        "hero     hero"
+-        "stats    datos"
+-        "cartas   cartas"
+-        "acciones acciones";
++#form-login .register-link a:hover { background: #f1f2f6; }
++
++#form-registro .register-link { margin-top: 18px; }
++#form-registro .register-link a {
++    color: var(--rojo);
++    font-weight: 600;
++    text-decoration: none;
++    display: inline-flex;
++    align-items: center;
++    gap: 4px;
+ }
++#form-registro .register-link a:hover { text-decoration: underline; }
+ 
+-.panel-hero { grid-area: hero; }
+-.panel-resumen2 { grid-area: resumen; }
+-.accesos-panel { grid-area: accesos; }
+-.perfil-stats { grid-area: stats; }
+-.perfil-datos { grid-area: datos; }
+-.perfil-ultimas { grid-area: cartas; }
+-.perfil-acciones { grid-area: acciones; }
++.nota { text-align: center; font-size: .75rem; color: var(--gris); margin-top: 26px; }
+ 
+-/* Bloques que envuelven cada zona de inicio.php */
+-.bloque { min-width: 0; }
+-.bloque-hero { grid-area: hero; }
+-.bloque-sobres { grid-area: sobres; }
+-.bloque-resultado { grid-area: carta; }
+-.bloque-resumen { grid-area: resumen; }
+-.bloque-accesos { grid-area: accesos; }
+ 
+-.bloque-hero > .panel-hero,
+-.bloque-sobres > .sobres,
+-.bloque-resultado > .resultado,
+-.bloque-resumen > .panel-resumen2,
+-.bloque-accesos > .accesos-panel { height: 100%; }
++/* ============================================================
++   5. INICIO  (inicio.php)
++   ============================================================ */
+ 
+-/* HERO */
++/* ---------- Bienvenida (panel-hero) ---------- */
+ .panel-hero {
+     position: relative;
+     overflow: hidden;
+@@ -777,6 +512,7 @@ body {
+     pointer-events: none;
+     background: linear-gradient(120deg, transparent 55%, rgba(255, 255, 255, .06));
+ }
++/* Avatar redondo con la inicial */
+ .avatar-hero {
+     width: 86px;
+     height: 86px;
+@@ -795,6 +531,7 @@ body {
+ .panel-hero-texto h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
+ .panel-hero-texto h2 span { color: var(--rojo); }
+ .panel-hero-texto p { margin-top: 6px; color: #c6cdda; line-height: 1.5; max-width: 60ch; }
++/* Bloque de fecha a la derecha */
+ .panel-fecha {
+     margin-left: auto;
+     flex: 0 0 auto;
+@@ -811,7 +548,70 @@ body {
+ .panel-fecha b { font-size: 2.2rem; line-height: 1.1; color: #fff; }
+ .panel-fecha span { font-size: .8rem; color: #c6cdda; }
+ 
+-/* SOBRES (carrusel) */
++/* ---------- Tarjeta "Tu carta de hoy" (rellenada por inicio.js) ---------- */
++.carta {
++    width: 100%;
++    display: grid;
++    grid-template-columns: 104px 1fr;
++    grid-template-areas:
++        "img   nombre"
++        "img   especie"
++        "stats stats";
++    align-items: center;
++    gap: 4px 18px;
++    text-align: left;
++    padding: 20px 22px;
++    border: 1px solid rgba(255, 255, 255, .14);
++    border-top: 3px solid rgba(214, 35, 47, .9);
++    border-radius: 18px;
++    background:
++        radial-gradient(circle at 85% 0%, rgba(214, 35, 47, .22), transparent 55%),
++        rgba(255, 255, 255, .05);
++    animation: aparecer .35s ease;
++}
++@keyframes aparecer {
++    from { opacity: 0; transform: translateY(8px); }
++    to   { opacity: 1; transform: none; }
++}
++.carta-img {
++    grid-area: img;
++    width: 104px;
++    height: 104px;
++    margin: 0;
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    border-radius: 50%;
++    background: rgba(255, 255, 255, .08);
++    color: var(--rojo);
++    overflow: hidden;
++}
++.carta-img i { font-size: 3.4rem; }
++.carta-img img { width: 100%; height: 100%; object-fit: cover; }
++.carta h3 { grid-area: nombre; font-size: 1.4rem; color: #fff; }
++.carta-especie { grid-area: especie; font-size: .92rem; color: #c6cdda; font-style: italic; }
++.carta-periodo { grid-area: periodo; display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; color: #9aa3b2; }
++.carta-stats {
++    grid-area: stats;
++    list-style: none;
++    display: grid;
++    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
++    gap: 8px;
++    width: 100%;
++    margin-top: 10px;
++}
++.carta-stats li {
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    padding: 8px 4px;
++    background: rgba(255, 255, 255, .06);
++    border-radius: 10px;
++}
++.carta-stats b { font-size: 1rem; color: #fff; }
++.carta-stats small { font-size: .62rem; color: #9aa3b2; text-transform: uppercase; letter-spacing: .5px; }
++
++/* ---------- Sobres (versión base, se sobreescribe en el apartado 6) ---------- */
+ .sobres {
+     grid-area: sobres;
+     display: flex;
+@@ -827,57 +627,7 @@ body {
+ .sobres-cab h2 i { font-size: 1.3rem; color: var(--rojo); }
+ .sobres-cab .contador { color: #9aa3b2; font-size: .8rem; }
+ 
+-.carrusel { display: flex; align-items: center; gap: 8px; }
+-.carrusel-pista { list-style: none; flex: 1; min-width: 0; }
+-.sobre-slide { display: none; flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+-.sobre-slide.activo { display: flex; animation: aparecer .3s ease; }
+-
+-.carrusel-nav {
+-    flex: 0 0 auto;
+-    width: 40px;
+-    height: 40px;
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
+-    border-radius: 50%;
+-    border: 1px solid rgba(255, 255, 255, .15);
+-    background: rgba(255, 255, 255, .05);
+-    color: #fff;
+-    font-size: 1.5rem;
+-    cursor: pointer;
+-    transition: background .15s ease, border-color .15s ease, transform .15s ease;
+-}
+-.carrusel-nav:hover { background: rgba(214, 35, 47, .22); border-color: var(--rojo); transform: translateY(-1px); }
+-
+-.carrusel-puntos { list-style: none; display: flex; justify-content: center; gap: 8px; }
+-.carrusel-puntos button {
+-    width: 9px;
+-    height: 9px;
+-    padding: 0;
+-    border: none;
+-    border-radius: 50%;
+-    background: rgba(255, 255, 255, .25);
+-    cursor: pointer;
+-    transition: width .2s ease, background .2s ease;
+-}
+-.carrusel-puntos button.activo { width: 22px; border-radius: 999px; background: var(--rojo); }
+-
+-.sobre-box { display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 0; }
+-.sobre-img {
+-    width: 148px;
+-    height: auto;
+-    filter: drop-shadow(0 14px 22px rgba(214, 35, 47, .35));
+-    animation: flotar 3s ease-in-out infinite;
+-}
+-.sobre-slide.activo .sobre-img { animation: flotar 3s ease-in-out infinite; }
+-@keyframes flotar {
+-    0%, 100% { transform: translateY(0); }
+-    50%      { transform: translateY(-10px); }
+-}
+-.sobre-box figcaption h3 { font-size: 1.35rem; color: #fff; }
+-.sobre-box figcaption p { margin-top: 4px; color: #9aa3b2; font-size: .9rem; }
+-
+-/* RESULTADO (tu carta de hoy) */
++/* ---------- Tu carta de hoy: contenedor ---------- */
+ .resultado {
+     grid-area: carta;
+     display: flex;
+@@ -905,34 +655,7 @@ body {
+ }
+ .resultado-vacio i { font-size: 1.7rem; color: var(--rojo); }
+ 
+-.btn-carta {
+-    display: inline-flex;
+-    align-items: center;
+-    justify-content: center;
+-    gap: 10px;
+-    padding: 14px 34px;
+-    border: none;
+-    border-radius: 999px;
+-    background: linear-gradient(135deg, var(--rojo), #ff5b4d);
+-    color: #fff;
+-    font-size: 1rem;
+-    font-weight: 700;
+-    font-family: inherit;
+-    cursor: pointer;
+-    box-shadow: 0 10px 26px rgba(214, 35, 47, .45);
+-    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+-}
+-.btn-carta i { font-size: 1.25rem; }
+-.btn-carta:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(214, 35, 47, .55); filter: brightness(1.05); }
+-.btn-carta:disabled {
+-    background: rgba(255, 255, 255, .1);
+-    color: #8b93a2;
+-    box-shadow: none;
+-    cursor: default;
+-    transform: none;
+-}
+-
+-/* RESUMEN */
++/* ---------- Resumen de la colección (columna lateral) ---------- */
+ .panel-resumen2 {
+     display: flex;
+     flex-direction: column;
+@@ -982,7 +705,7 @@ body {
+     transition: width .3s ease;
+ }
+ 
+-/* ACCESOS RÁPIDOS */
++/* ---------- Accesos rápidos (Inicio / Perfil / DinoPedia) ---------- */
+ .accesos-panel {
+     padding: 24px;
+     border-radius: 22px;
+@@ -1017,72 +740,220 @@ body {
+ .accesos-panel a.prox { opacity: .55; cursor: default; }
+ .accesos-panel a.prox:hover { transform: none; border-color: rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .03); }
+ 
+-/* ---------- PÁGINA DE PERFIL ---------- */
+-.etiqueta {
++
++/* ============================================================
++   6. CARRUSEL DE SOBRES
++   Estas reglas van DESPUÉS de las del apartado 5 y las
++   sobreescriben (nuevo carrusel con scroll-snap).
++   ============================================================ */
++
++/* ---------- Layout en dos columnas del inicio ---------- */
++.panel-layout {
++    grid-column: 1 / -1;   /* ocupa todo el ancho del .panel-inicio */
++    display: grid;
++    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
++    gap: 24px;
++    align-items: start;
++}
++.col-principal,
++.col-lateral {
++    display: flex;
++    flex-direction: column;
++    gap: 24px;
++    min-width: 0;
++}
++@media (max-width: 900px) {
++    .panel-layout {
++        grid-template-columns: minmax(0, 1fr);
++    }
++}
++
++/* ---------- Carrusel ---------- */
++.carrusel {
++    display: grid;
++    grid-template-columns: auto minmax(0, 1fr) auto;
++    align-items: center;
++    gap: 12px;
++}
++.carrusel-pista {
++    display: flex;
++    margin: 0;
++    padding: 0;
++    list-style: none;
++    overflow-x: auto;
++    scroll-snap-type: x mandatory;
++    scrollbar-width: none;
++    overscroll-behavior-x: contain;
++}
++.carrusel-pista::-webkit-scrollbar {
++    display: none;
++}
++.sobre-slide {
++    flex: 0 0 100%;
++    scroll-snap-align: center;
++    display: flex;
++    flex-direction: column;
++    gap: 16px;
++    padding: 4px;
++    box-sizing: border-box;
++    opacity: 0.45;
++    transition: opacity 0.25s ease;
++}
++.sobre-slide.activo {
++    opacity: 1;
++}
++
++/* ---------- Flechas laterales ---------- */
++.carrusel-nav {
++    display: grid;
++    place-items: center;
++    width: 44px;
++    height: 44px;
++    border: 1px solid rgba(128, 128, 128, 0.35);
++    border-radius: 50%;
++    background: transparent;
++    color: inherit;
++    font-size: 1.6rem;
++    cursor: pointer;
++}
++.carrusel-nav:hover:not(:disabled) {
++    background: rgba(128, 128, 128, 0.15);
++}
++.carrusel-nav:disabled {
++    opacity: 0.3;
++    cursor: not-allowed;
++}
++.carrusel-nav:focus-visible,
++.carrusel-puntos button:focus-visible {
++    outline: 2px solid currentColor;
++    outline-offset: 3px;
++}
++
++/* ---------- Contenido de cada sobre ---------- */
++.sobre-principal {
++    display: flex;
++    justify-content: center;
++}
++.sobre-img {
++    display: block;
++    max-width: 100%;
++    max-height: 280px;
++    margin-inline: auto;
++    object-fit: contain;
++}
++.sobre-slide:not(.activo) .sobre-img {
++    filter: grayscale(0.4);
++}
++.sobre-icono {
++    display: grid;
++    place-items: center;
++    width: 148px;
++    height: 148px;
++    margin-inline: auto;
++    border-radius: 50%;
++    background: radial-gradient(circle at 35% 30%, rgba(214, 35, 47, .5), rgba(11, 16, 24, .25) 70%);
++    border: 1px solid rgba(214, 35, 47, .45);
++    box-shadow: 0 14px 30px rgba(214, 35, 47, .3);
++}
++.sobre-icono i {
++    font-size: 4rem;
++    color: #fff;
++}
++.sobre-detalle {
++    display: flex;
++    flex-direction: column;
++    gap: 10px;
++    padding: 14px 16px;
++    border: 1px solid rgba(128, 128, 128, 0.3);
++    border-radius: 12px;
++}
++.sobre-estado {
+     display: inline-flex;
+     align-items: center;
+     gap: 6px;
+-    margin-top: 12px;
+-    padding: 5px 12px;
+-    border-radius: 999px;
+-    background: rgba(214, 35, 47, .16);
+-    color: #ffb3b8;
+-    font-size: .78rem;
++    margin: 0;
+     font-weight: 600;
++    opacity: 0.7;
+ }
+-.perfil-id {
+-    position: absolute;
+-    top: 24px;
+-    right: 24px;
+-    font-size: .8rem;
+-    font-weight: 700;
+-    letter-spacing: 1px;
+-    color: #8b93a2;
++.sobre-estado.ok {
++    opacity: 1;
+ }
+-
+-.datos-lista { list-style: none; display: grid; gap: 8px; }
+-.datos-lista li {
++.sobre-contiene {
++    display: flex;
++    flex-direction: column;
++    gap: 8px;
++    margin: 0;
++    padding: 0;
++    list-style: none;
++}
++.sobre-contiene li {
+     display: flex;
+     align-items: center;
+-    gap: 14px;
+-    padding: 12px;
+-    background: rgba(255, 255, 255, .03);
+-    border: 1px solid rgba(255, 255, 255, .06);
+-    border-radius: 12px;
++    gap: 8px;
++}
++.sobre-contiene i {
++    font-size: 1.2rem;
++}
++.sobre-accion {
++    display: flex;
++    justify-content: center;
+ }
+-.datos-lista li i { font-size: 1.3rem; color: var(--rojo); }
+-.datos-lista li p { display: flex; flex-direction: column; min-width: 0; }
+-.datos-lista li small { color: #8b93a2; font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; }
+-.datos-lista li b { color: #fff; font-size: .92rem; word-break: break-all; }
+ 
+-/* ---------- MÓVIL ---------- */
+-@media (max-width: 900px) {
+-    .topbar {
+-        flex-wrap: wrap;
+-        gap: 12px;
+-        padding: 14px 20px;
++/* ---------- Puntos del carrusel ---------- */
++.carrusel-puntos {
++    display: flex;
++    justify-content: center;
++    gap: 10px;
++    margin: 14px 0 0;
++    padding: 0;
++    list-style: none;
++}
++.carrusel-puntos button {
++    width: 12px;
++    height: 12px;
++    padding: 0;
++    border: 0;
++    border-radius: 50%;
++    background: rgba(128, 128, 128, 0.4);
++    cursor: pointer;
++    transition: width 0.2s ease, background 0.2s ease;
++}
++.carrusel-puntos button.activo {
++    width: 28px;
++    border-radius: 6px;
++    background: currentColor;
++}
++
++/* ---------- Móvil: sin flechas, se desliza con el dedo ---------- */
++@media (max-width: 600px) {
++    .carrusel {
++        grid-template-columns: minmax(0, 1fr);
+     }
+-    .logo { flex: 1 1 auto; }
+-    .nav {
+-        order: 3;
+-        width: 100%;
+-        justify-content: center;
+-        flex-wrap: wrap;
++    .carrusel-nav {
++        display: none;
+     }
+-    .usuario-nombre { display: none; }
+-    .carta-badge-txt { display: none; }
+-    .carta-badge { padding: 8px; }
++}
++@media (prefers-reduced-motion: reduce) {
++    .sobre-slide,
++    .carrusel-puntos button {
++        transition: none;
++    }
++}
++
++
++/* ============================================================
++   7. MÓVIL (ajustes generales)
++   ============================================================ */
++@media (max-width: 900px) {
+     .panel { padding: 24px 16px 48px; }
+     .panel-inicio, .panel-perfil { grid-template-columns: 1fr; grid-template-areas: none; }
+     .panel-hero { flex-wrap: wrap; }
+     .panel-fecha { margin-left: 0; }
+     .panel-hero-texto h2 { font-size: 1.6rem; }
+-    .perfil-id { position: static; margin-left: auto; }
+     .pagina { flex-direction: column; padding: 24px 16px; }
+     .hero h2 { font-size: 2rem; }
+     .hero ul { display: none; }
+ }
+-
+ @media (max-width: 420px) {
+     .fila { flex-direction: column; gap: 0; }
+-}
+\ No newline at end of file
++}
+diff --git a/dino-prueba/styles/perfil.css b/dino-prueba/styles/perfil.css
+index 453e366..bb1ec0e 100644
+--- a/dino-prueba/styles/perfil.css
++++ b/dino-prueba/styles/perfil.css
+@@ -1,27 +1,12 @@
+ /* ==========================================================================
+-   ESTILOS PARA PERFIL.PHP (DASHBOARD)
++   perfil.css · Estilos EXCLUSIVOS de perfil.php
++   --------------------------------------------------------------------------
++   Se carga junto con comun.css (que ya aporta el reset, las variables
++   --rojo/--fondo... , el fondo del body y la cabecera .topbar).
++   Por eso aquí NO se repiten ni :root ni body.
+    ========================================================================== */
+ 
+ /* Contenedor principal */
+-:root {
+-    --rojo: #d6232f;
+-    --rojo-osc: #b01c26;
+-    --fondo: #0b1018;
+-    --texto: #111827;
+-    --gris: #6b7280;
+-    --borde: #d9dde5;
+-}
+-
+-body {
+-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+-    min-height: 100vh;
+-    color: #fff;
+-    background:
+-        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
+-        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
+-        var(--fondo);
+-}
+-
+ .panel-perfil {
+     max-width: 1200px;
+     margin: 2rem auto;

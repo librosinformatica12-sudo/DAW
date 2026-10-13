@@ -1,0 +1,959 @@
+/* ============================================================
+   paginas.css · Estilos de las páginas de la APP
+   ------------------------------------------------------------
+   Lo cargan: index.php · inicio.php · coleccion.php · dinopedia.php
+   NO lo carga perfil.php (ese usa comun.css + perfil.css).
+
+   Orden de las secciones:
+     1. Reset de la app
+     2. Layout de app (.panel)
+     3. Componentes compartidos
+     4. LOGIN / REGISTRO   (index.php)
+     5. INICIO             (inicio.php)
+     6. CARRUSEL de sobres (sobreescribe el del punto 5)
+     7. Móvil
+   ============================================================ */
+
+/* ============================================================
+   1. RESET DE LA APP
+   ============================================================ */
+* { margin: 0; padding: 0; }
+
+
+/* ============================================================
+   2. LAYOUT DE APP (.panel)
+   Estructura que usan inicio.php, coleccion.php y dinopedia.php
+   ============================================================ */
+.panel {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    display: grid;
+    gap: 20px;
+}
+
+.panel-inicio {
+    grid-template-columns: 1.15fr .85fr;
+    grid-template-areas:
+        "hero    hero"
+        "sobres  resumen"
+        "carta   carta"
+        "accesos accesos";
+}
+.panel-coleccion { grid-template-columns: 1fr; }
+.panel-perfil {
+    grid-template-columns: 1.15fr .85fr;
+    grid-template-areas:
+        "hero     hero"
+        "stats    datos"
+        "cartas   cartas"
+        "acciones acciones";
+}
+
+/* Zonas del grid (grid-area) */
+.panel-hero { grid-area: hero; }
+.panel-resumen2 { grid-area: resumen; }
+.accesos-panel { grid-area: accesos; }
+.perfil-stats { grid-area: stats; }
+.perfil-datos { grid-area: datos; }
+.perfil-ultimas { grid-area: cartas; }
+.perfil-acciones { grid-area: acciones; }
+
+/* Bloques que envuelven cada zona de inicio.php */
+.bloque { min-width: 0; }
+.bloque-hero { grid-area: hero; }
+.bloque-sobres { grid-area: sobres; }
+.bloque-resultado { grid-area: carta; }
+.bloque-resumen { grid-area: resumen; }
+.bloque-accesos { grid-area: accesos; }
+
+.bloque-hero > .panel-hero,
+.bloque-sobres > .sobres,
+.bloque-resultado > .resultado,
+.bloque-resumen > .panel-resumen2,
+.bloque-accesos > .accesos-panel { height: 100%; }
+
+
+/* ============================================================
+   3. COMPONENTES COMPARTIDOS
+   (tarjetas, estadísticas, barras, rejilla de cartas, avisos...)
+   ============================================================ */
+
+/* ---------- Tarjeta genérica ---------- */
+.tarjeta {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 20px;
+    padding: 22px;
+    color: #e5e9f0;
+}
+.tarjeta > h2,
+.tarjeta > h3 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 1.12rem;
+    color: #fff;
+    margin-bottom: 14px;
+}
+.tarjeta > h2 i,
+.tarjeta > h3 i { color: var(--rojo); font-size: 1.25rem; }
+
+/* ---------- Estadísticas (grid de 2 columnas) ---------- */
+.stats-grid { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .07);
+    transition: border-color .15s ease, transform .15s ease;
+}
+.stat i { font-size: 1.5rem; color: var(--rojo); }
+.stat strong { color: #fff; font-size: 1.55rem; line-height: 1; margin-top: 4px; }
+.stat small { color: #9aa3b2; font-size: .75rem; }
+.stat:hover { border-color: rgba(214, 35, 47, .5); transform: translateY(-2px); }
+
+/* ---------- Barra de progreso ---------- */
+.barra-progreso { display: flex; justify-content: space-between; align-items: baseline; font-size: .8rem; margin-top: 6px; }
+.barra-progreso span { color: #9aa3b2; }
+.barra-progreso b { color: #fff; }
+.barra { display: block; height: 10px; background: rgba(255, 255, 255, .12); border-radius: 999px; overflow: hidden; }
+.barra > span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--rojo), #ff5b4d);
+    transition: width .3s ease;
+}
+
+/* ---------- Accesos tipo "tile" (perfil) ---------- */
+.tiles { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.tile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .03);
+    color: #e5e9f0;
+    text-decoration: none;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.tile i { font-size: 1.9rem; color: var(--rojo); }
+.tile-texto { display: flex; flex-direction: column; }
+.tile b { color: #fff; font-size: 1rem; }
+.tile small { color: #9aa3b2; font-size: .8rem; }
+.tile:hover { transform: translateY(-3px); border-color: var(--rojo); background: rgba(255, 255, 255, .06); }
+.tile.prox { opacity: .55; cursor: default; }
+.tile.prox:hover { transform: none; border-color: rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .03); }
+
+/* ---------- Rejilla de cartas + carta miniatura ---------- */
+.cartas-grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.carta-mini {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-top: 3px solid rgba(214, 35, 47, .85);
+    background:
+        radial-gradient(circle at 85% 0%, rgba(214, 35, 47, .18), transparent 55%),
+        rgba(255, 255, 255, .04);
+    transition: transform .15s ease, border-color .15s ease;
+}
+.carta-mini:hover { transform: translateY(-3px); border-color: rgba(214, 35, 47, .6); }
+.carta-mini .retrato {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .08);
+    color: var(--rojo);
+    font-size: 2.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+.carta-mini .retrato img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+.carta-mini:hover .retrato img { transform: scale(1.06); }
+.carta-mini h3 { font-size: 1rem; color: #fff; line-height: 1.2; }
+.carta-mini .apodo { font-size: .74rem; color: #9aa3b2; font-style: italic; }
+.carta-mini .mini-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 2px; }
+.carta-mini .mini-stats span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 2px;
+    background: rgba(255, 255, 255, .06);
+    border-radius: 8px;
+}
+.carta-mini .mini-stats b { font-size: .8rem; color: #fff; }
+.carta-mini .mini-stats small { font-size: .55rem; color: #9aa3b2; letter-spacing: .5px; }
+/* Contador de repetidas (x2, x3...) */
+.carta-mini .badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--rojo);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+}
+
+/* ---------- Estado vacío ---------- */
+.vacio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 44px 20px;
+    border: 1px dashed rgba(255, 255, 255, .18);
+    border-radius: 18px;
+}
+.vacio i { font-size: 3rem; color: var(--rojo); }
+.vacio h3 { color: #fff; font-size: 1.1rem; }
+.vacio p { color: #9aa3b2; font-size: .9rem; }
+.vacio .btn-carta { margin-top: 10px; text-decoration: none; }
+
+/* ---------- Barra de búsqueda / herramientas ---------- */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+.toolbar input[type="search"] {
+    flex: 1 1 240px;
+    min-width: 180px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    background: rgba(255, 255, 255, .05);
+    color: #fff;
+    font-family: inherit;
+    font-size: .95rem;
+}
+.toolbar input::placeholder { color: #8b93a2; }
+.toolbar input:focus { outline: none; border-color: var(--rojo); box-shadow: 0 0 0 3px rgba(214, 35, 47, .18); }
+.toolbar .contador { margin-left: auto; color: #9aa3b2; font-size: .85rem; }
+
+/* ---------- Botón principal "carta" ---------- */
+.btn-carta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 34px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--rojo), #ff5b4d);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(214, 35, 47, .45);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.btn-carta i { font-size: 1.25rem; }
+.btn-carta:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(214, 35, 47, .55); filter: brightness(1.05); }
+.btn-carta:disabled {
+    background: rgba(255, 255, 255, .1);
+    color: #8b93a2;
+    box-shadow: none;
+    cursor: default;
+    transform: none;
+}
+
+/* ---------- Avisos (mensajes de error / éxito) ---------- */
+.aviso { text-align: center; margin-top: 10px; min-height: 1.2em; font-size: .9rem; }
+.aviso.error { color: var(--rojo); }
+.aviso.ok    { color: green; }
+
+
+/* ============================================================
+   4. LOGIN / REGISTRO  (index.php)
+   ============================================================ */
+
+/* ---------- Estructura de dos columnas (hero + formulario) ---------- */
+.pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+}
+
+/* ---------- HERO (texto de bienvenida) ---------- */
+.hero { max-width: 520px; }
+.hero h2 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; color: #fff; }
+.hero h2 span { display: block; color: var(--rojo); }
+.hero p { color: #d3d8e2; line-height: 1.5; margin-bottom: 28px; }
+.hero ul { list-style: none; display: grid; gap: 18px; }
+.hero li { display: flex; align-items: center; gap: 14px; }
+.hero li i { font-size: 2rem; color: var(--rojo); }
+.hero li b { display: block; color: #fff; }
+.hero li small { color: #b9c0cf; }
+
+/* ---------- Tarjeta blanca del formulario ---------- */
+.container {
+    width: 100%;
+    max-width: 520px;
+    background: #fafafa;
+    color: var(--texto);
+    border-radius: 6px;
+    padding: 0 30px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+}
+/* Pestañas "Iniciar sesión" / "Registrarse" */
+.container > .btn {
+    order: -1;
+    flex: 1 1 50%;
+    background: none;
+    border: none;
+    border-bottom: 3px solid #e6e8ee;
+    padding: 20px 0 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gris);
+    cursor: pointer;
+}
+.container > .btn.activo { color: var(--texto); border-bottom-color: var(--rojo); }
+.container > .btn:hover  { color: var(--texto); }
+.container > form { width: 100%; }
+
+/* ---------- Encabezados y subtítulos ---------- */
+#form-login h2,
+#form-registro h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin-top: 24px;
+    margin-bottom: 2px;
+}
+.sub {
+    font-size: 0.85rem;
+    color: var(--gris);
+    margin-top: 2px;
+    margin-bottom: 18px;
+    line-height: 1.3;
+}
+
+/* ---------- Campos del formulario ---------- */
+.campo { margin-bottom: 16px; position: relative; text-align: left; }
+.campo label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--gris);
+    margin-bottom: 6px;
+}
+.campo input {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+}
+.campo input:focus {
+    outline: none;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(214, 35, 47, .15);
+}
+/* Campos con icono a la izquierda (login) */
+.campo.icono > i {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    font-size: 1.3rem;
+    color: var(--gris);
+    z-index: 1;
+}
+.campo.icono input { padding-left: 46px; }
+
+/* Contraseña + botón "Mostrar" */
+.entrada { position: relative; }
+.entrada input { padding-right: 90px; }
+.rojo {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--rojo);
+    font-weight: 600;
+    font-size: .85rem;
+    cursor: pointer;
+}
+.rojo:hover { text-decoration: underline; }
+
+/* Filas de dos campos */
+.fila { display: flex; gap: 14px; }
+.fila .campo { flex: 1; min-width: 0; }
+
+/* Mensaje de validación bajo el campo */
+.msg { color: var(--rojo); font-size: .8rem; min-height: 1em; margin-top: 4px; }
+
+/* Medidor de fuerza de contraseña */
+.fuerza { height: 6px; background: #e6e8ee; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+.fuerza span { display: block; height: 100%; width: 0; transition: width .2s, background .2s; }
+
+/* ---------- Extras login/registro ---------- */
+.remember-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0 20px;
+    font-size: .9rem;
+    color: var(--texto);
+}
+.remember-password label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.remember-password a { color: var(--rojo); text-decoration: none; }
+.remember-password a:hover { text-decoration: underline; }
+
+.enviar {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    background: var(--rojo);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.enviar:hover { background: var(--rojo-osc); }
+
+/* Separador "o" con línea */
+.separador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 20px 0;
+    color: var(--gris);
+    font-size: .85rem;
+}
+.separador::before,
+.separador::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--borde);
+}
+
+.register-link { text-align: center; font-size: .9rem; color: var(--gris); }
+
+/* Botón grande "Crear nueva cuenta" dentro de login */
+#form-login .register-link a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+    font-weight: 600;
+    text-decoration: none;
+}
+#form-login .register-link a:hover { background: #f1f2f6; }
+
+#form-registro .register-link { margin-top: 18px; }
+#form-registro .register-link a {
+    color: var(--rojo);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+#form-registro .register-link a:hover { text-decoration: underline; }
+
+.nota { text-align: center; font-size: .75rem; color: var(--gris); margin-top: 26px; }
+
+
+/* ============================================================
+   5. INICIO  (inicio.php)
+   ============================================================ */
+
+/* ---------- Bienvenida (panel-hero) ---------- */
+.panel-hero {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 30px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background:
+        radial-gradient(circle at 85% 15%, rgba(214, 35, 47, .35), transparent 40%),
+        radial-gradient(circle at 8% 100%, rgba(60, 80, 130, .3), transparent 45%),
+        rgba(255, 255, 255, .05);
+}
+.panel-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, transparent 55%, rgba(255, 255, 255, .06));
+}
+/* Avatar redondo con la inicial */
+.avatar-hero {
+    width: 86px;
+    height: 86px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rojo), #ff6b3d);
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    flex: 0 0 auto;
+    box-shadow: 0 0 0 6px rgba(214, 35, 47, .25), 0 12px 30px rgba(214, 35, 47, .4);
+}
+.panel-hero-texto { min-width: 0; }
+.panel-hero-texto h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
+.panel-hero-texto h2 span { color: var(--rojo); }
+.panel-hero-texto p { margin-top: 6px; color: #c6cdda; line-height: 1.5; max-width: 60ch; }
+/* Bloque de fecha a la derecha */
+.panel-fecha {
+    margin-left: auto;
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 12px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.panel-fecha small { font-size: .68rem; color: #9aa3b2; text-transform: uppercase; letter-spacing: 1.5px; }
+.panel-fecha b { font-size: 2.2rem; line-height: 1.1; color: #fff; }
+.panel-fecha span { font-size: .8rem; color: #c6cdda; }
+
+/* ---------- Tarjeta "Tu carta de hoy" (rellenada por inicio.js) ---------- */
+.carta {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    grid-template-areas:
+        "img   nombre"
+        "img   especie"
+        "stats stats";
+    align-items: center;
+    gap: 4px 18px;
+    text-align: left;
+    padding: 20px 22px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-top: 3px solid rgba(214, 35, 47, .9);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 85% 0%, rgba(214, 35, 47, .22), transparent 55%),
+        rgba(255, 255, 255, .05);
+    animation: aparecer .35s ease;
+}
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+}
+.carta-img {
+    grid-area: img;
+    width: 104px;
+    height: 104px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    color: var(--rojo);
+    overflow: hidden;
+}
+.carta-img i { font-size: 3.4rem; }
+.carta-img img { width: 100%; height: 100%; object-fit: cover; }
+.carta h3 { grid-area: nombre; font-size: 1.4rem; color: #fff; }
+.carta-especie { grid-area: especie; font-size: .92rem; color: #c6cdda; font-style: italic; }
+.carta-periodo { grid-area: periodo; display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; color: #9aa3b2; }
+.carta-stats {
+    grid-area: stats;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 8px;
+    width: 100%;
+    margin-top: 10px;
+}
+.carta-stats li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    background: rgba(255, 255, 255, .06);
+    border-radius: 10px;
+}
+.carta-stats b { font-size: 1rem; color: #fff; }
+.carta-stats small { font-size: .62rem; color: #9aa3b2; text-transform: uppercase; letter-spacing: .5px; }
+
+/* ---------- Sobres (versión base, se sobreescribe en el apartado 6) ---------- */
+.sobres {
+    grid-area: sobres;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 26px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+}
+.sobres-cab { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.sobres-cab h2 { display: inline-flex; align-items: center; gap: 9px; font-size: 1.15rem; color: #fff; }
+.sobres-cab h2 i { font-size: 1.3rem; color: var(--rojo); }
+.sobres-cab .contador { color: #9aa3b2; font-size: .8rem; }
+
+/* ---------- Tu carta de hoy: contenedor ---------- */
+.resultado {
+    grid-area: carta;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 26px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+}
+.resultado > h2 { display: inline-flex; align-items: center; gap: 9px; font-size: 1.15rem; color: #fff; }
+.resultado > h2 i { font-size: 1.3rem; color: var(--rojo); }
+.resultado-salida { display: block; width: 100%; }
+.resultado-vacio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 32px 20px;
+    border: 1px dashed rgba(255, 255, 255, .18);
+    border-radius: 16px;
+    color: #9aa3b2;
+    font-size: .9rem;
+    text-align: center;
+}
+.resultado-vacio i { font-size: 1.7rem; color: var(--rojo); }
+
+/* ---------- Resumen de la colección (columna lateral) ---------- */
+.panel-resumen2 {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+}
+.panel-resumen2 > h3 { font-size: 1.15rem; color: #fff; }
+.resumen-grid { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.resumen-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(255, 255, 255, .07);
+    transition: border-color .15s ease, transform .15s ease;
+}
+.resumen-item:hover { border-color: rgba(214, 35, 47, .5); transform: translateY(-2px); }
+.resumen-item i { font-size: 1.5rem; color: var(--rojo); }
+.resumen-item strong { color: #fff; font-size: 1.55rem; line-height: 1; margin-top: 4px; }
+.resumen-item small { color: #9aa3b2; font-size: .75rem; }
+.resumen-progreso {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 4px;
+    font-size: .8rem;
+}
+.resumen-progreso span { color: #9aa3b2; }
+.resumen-progreso b { color: #fff; }
+.resumen-barra {
+    display: block;
+    height: 10px;
+    background: rgba(255, 255, 255, .1);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.resumen-barra > span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--rojo), #ff5b4d);
+    transition: width .3s ease;
+}
+
+/* ---------- Accesos rápidos (Inicio / Perfil / DinoPedia) ---------- */
+.accesos-panel {
+    padding: 24px;
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .04);
+}
+.accesos-panel h3 { font-size: 1.15rem; color: #fff; margin-bottom: 14px; }
+.accesos-panel ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+.accesos-panel a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    background: rgba(255, 255, 255, .03);
+    color: #e5e9f0;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.accesos-panel a i { font-size: 2rem; color: var(--rojo); }
+.accesos-panel a b { font-size: 1.05rem; color: #fff; }
+.accesos-panel a small { color: #9aa3b2; font-size: .82rem; }
+.accesos-panel a:hover { transform: translateY(-3px); border-color: var(--rojo); background: rgba(255, 255, 255, .06); }
+.accesos-panel a.prox { opacity: .55; cursor: default; }
+.accesos-panel a.prox:hover { transform: none; border-color: rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .03); }
+
+
+/* ============================================================
+   6. CARRUSEL DE SOBRES
+   Estas reglas van DESPUÉS de las del apartado 5 y las
+   sobreescriben (nuevo carrusel con scroll-snap).
+   ============================================================ */
+
+/* ---------- Layout en dos columnas del inicio ---------- */
+.panel-layout {
+    grid-column: 1 / -1;   /* ocupa todo el ancho del .panel-inicio */
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+.col-principal,
+.col-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+@media (max-width: 900px) {
+    .panel-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ---------- Carrusel ---------- */
+.carrusel {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+}
+.carrusel-pista {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+}
+.carrusel-pista::-webkit-scrollbar {
+    display: none;
+}
+.sobre-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px;
+    box-sizing: border-box;
+    opacity: 0.45;
+    transition: opacity 0.25s ease;
+}
+.sobre-slide.activo {
+    opacity: 1;
+}
+
+/* ---------- Flechas laterales ---------- */
+.carrusel-nav {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+.carrusel-nav:hover:not(:disabled) {
+    background: rgba(128, 128, 128, 0.15);
+}
+.carrusel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+.carrusel-nav:focus-visible,
+.carrusel-puntos button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+/* ---------- Contenido de cada sobre ---------- */
+.sobre-principal {
+    display: flex;
+    justify-content: center;
+}
+.sobre-img {
+    display: block;
+    max-width: 100%;
+    max-height: 280px;
+    margin-inline: auto;
+    object-fit: contain;
+}
+.sobre-slide:not(.activo) .sobre-img {
+    filter: grayscale(0.4);
+}
+.sobre-icono {
+    display: grid;
+    place-items: center;
+    width: 148px;
+    height: 148px;
+    margin-inline: auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(214, 35, 47, .5), rgba(11, 16, 24, .25) 70%);
+    border: 1px solid rgba(214, 35, 47, .45);
+    box-shadow: 0 14px 30px rgba(214, 35, 47, .3);
+}
+.sobre-icono i {
+    font-size: 4rem;
+    color: #fff;
+}
+.sobre-detalle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+}
+.sobre-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-weight: 600;
+    opacity: 0.7;
+}
+.sobre-estado.ok {
+    opacity: 1;
+}
+.sobre-contiene {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.sobre-contiene li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sobre-contiene i {
+    font-size: 1.2rem;
+}
+.sobre-accion {
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------- Puntos del carrusel ---------- */
+.carrusel-puntos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+.carrusel-puntos button {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.4);
+    cursor: pointer;
+    transition: width 0.2s ease, background 0.2s ease;
+}
+.carrusel-puntos button.activo {
+    width: 28px;
+    border-radius: 6px;
+    background: currentColor;
+}
+
+/* ---------- Móvil: sin flechas, se desliza con el dedo ---------- */
+@media (max-width: 600px) {
+    .carrusel {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .carrusel-nav {
+        display: none;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sobre-slide,
+    .carrusel-puntos button {
+        transition: none;
+    }
+}
+
+
+/* ============================================================
+   7. MÓVIL (ajustes generales)
+   ============================================================ */
+@media (max-width: 900px) {
+    .panel { padding: 24px 16px 48px; }
+    .panel-inicio, .panel-perfil { grid-template-columns: 1fr; grid-template-areas: none; }
+    .panel-hero { flex-wrap: wrap; }
+    .panel-fecha { margin-left: 0; }
+    .panel-hero-texto h2 { font-size: 1.6rem; }
+    .pagina { flex-direction: column; padding: 24px 16px; }
+    .hero h2 { font-size: 2rem; }
+    .hero ul { display: none; }
+}
+@media (max-width: 420px) {
+    .fila { flex-direction: column; gap: 0; }
+}

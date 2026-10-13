@@ -83,20 +83,7 @@ $sobres = [
         ],
     ],
     [
-        'nombre'     => 'Sobre de evento',
-        'icono'      => 'bx-party',
-        'imagen'     => '',
-        'disponible' => false,
-        'texto'      => 'Cartas exclusivas durante los eventos temporales.',
-        'estado'     => 'Próximamente',
-        'contiene'   => [
-            ['bx-cube',  '1 carta exclusiva del evento'],
-            ['bx-timer', 'Solo durante el evento'],
-            ['bx-crown', 'Cartas que no salen en otros sobres'],
-        ],
-    ],
-    [
-        'id' => 'preuba',
+        'id' => 'prueba',
         'nombre' => 'Sobre de Prueba',
         'icono' => 'bx-test-tube',
         'imagen' => 'img/img-sobres/sobre3.png',
@@ -109,7 +96,21 @@ $sobres = [
             ['bx-infinite', 'Sin limite diario'],
             ['bx-shuffle', "Dinosaurios aleatorios"],
         ],
-    ]
+    ],
+    [
+        'nombre'     => 'Sobre de evento',
+        'icono'      => 'bx-party',
+        'imagen'     => '',
+        'disponible' => false,
+        'texto'      => 'Cartas exclusivas durante los eventos temporales.',
+        'estado'     => 'Próximamente',
+        'contiene'   => [
+            ['bx-cube',  '1 carta exclusiva del evento'],
+            ['bx-timer', 'Solo durante el evento'],
+            ['bx-crown', 'Cartas que no salen en otros sobres'],
+        ],
+    ],
+
 ];
 ?>
 <!DOCTYPE html>
@@ -127,8 +128,8 @@ $sobres = [
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
     <!-- Estilos -->
-    <link rel="stylesheet" href="styles/style.css?v=<?= @filemtime(__DIR__ . '/styles/style.css') ?>">
-    <link rel="stylesheet" href="styles/carrusel.css?v=<?= @filemtime(__DIR__ . '/styles/carrusel.css') ?>">
+    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
 
     <!-- Scripts (defer: se ejecutan cuando el HTML ya está cargado) -->
     <script src="script/inicio.js?v=<?= @filemtime(__DIR__ . '/script/inicio.js') ?>" defer></script>

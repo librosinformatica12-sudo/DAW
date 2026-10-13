@@ -1,27 +1,12 @@
 /* ==========================================================================
-   ESTILOS PARA PERFIL.PHP (DASHBOARD)
+   perfil.css · Estilos EXCLUSIVOS de perfil.php
+   --------------------------------------------------------------------------
+   Se carga junto con comun.css (que ya aporta el reset, las variables
+   --rojo/--fondo... , el fondo del body y la cabecera .topbar).
+   Por eso aquí NO se repiten ni :root ni body.
    ========================================================================== */
 
 /* Contenedor principal */
-:root {
-    --rojo: #d6232f;
-    --rojo-osc: #b01c26;
-    --fondo: #0b1018;
-    --texto: #111827;
-    --gris: #6b7280;
-    --borde: #d9dde5;
-}
-
-body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    min-height: 100vh;
-    color: #fff;
-    background:
-        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
-        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
-        var(--fondo);
-}
-
 .panel-perfil {
     max-width: 1200px;
     margin: 2rem auto;

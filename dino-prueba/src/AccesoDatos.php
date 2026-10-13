@@ -1,4 +1,17 @@
 <?php
+/**
+ * AccesoDatos.php
+ * ------------------------------------------------------------------
+ * Punto de entrada a la capa de datos: crea la conexión $connection
+ * y carga los servicios de la aplicación.
+ *
+ *   - UsuarioService.php    -> usuarios (registro, login, datos)
+ *   - ColeccionService.php  -> colección y catálogo de dinosaurios
+ *   - ReglasColeccion.php   -> reglas y cálculos (sin BD)
+ *
+ * Cualquier archivo que haga require de este ya tiene acceso a todo.
+ * ------------------------------------------------------------------
+ */
 
 $host = '127.0.0.1';
 $port = 3306;
@@ -13,93 +26,6 @@ if (!$connection->connect_errno) {
     $connection->set_charset('utf8mb4');
 }
 
-function hashContrasena(string $contrasena): string
-{
-    return md5($contrasena);
-}
-
-/** Devuelve el código de salida (_res) del procedimiento Registro. */
-function PA_Registrar(string $usuario, string $email, string $contrasena): int
-{
-    global $connection;
-
-    if ($connection->connect_errno) {
-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
-    }
-
-    // El SP 'Registro' recibe 3 IN (username, email, password) y 1 OUT (_res)
-    $stmt = $connection->prepare('CALL Registro(?, ?, ?, @resultado)');
-    if (!$stmt) {
-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
-    }
-
-    $hash = hashContrasena($contrasena);
-    $stmt->bind_param('sss', $usuario, $email, $hash);
-
-    if (!$stmt->execute()) {
-        $error = $stmt->error;
-        $stmt->close();
-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
-    }
-
-    while ($stmt->more_results()) {
-        $stmt->next_result();
-    }
-    $stmt->close();
-
-    $res = $connection->query('SELECT @resultado AS resultado');
-    if (!$res) {
-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
-    }
-    $fila = $res->fetch_assoc();
-    $res->free();
-
-    return (int) $fila['resultado'];
-}
-
-/** Devuelve ['codigo' => int, 'usuario' => array|null]. */
-function PA_Login(string $email, string $contrasena): array
-{
-    global $connection;
-
-    if ($connection->connect_errno) {
-        throw new RuntimeException('Error de conexión: ' . $connection->connect_error);
-    }
-
-    // El SP 'Login' recibe 2 IN (email, password) y 1 OUT (_res)
-    $stmt = $connection->prepare('CALL Login(?, ?, @resultado)');
-    if (!$stmt) {
-        throw new RuntimeException('Error al preparar el procedimiento: ' . $connection->error);
-    }
-
-    $hash = hashContrasena($contrasena);
-    $stmt->bind_param('ss', $email, $hash);
-
-    if (!$stmt->execute()) {
-        $error = $stmt->error;
-        $stmt->close();
-        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
-    }
-
-    $datosUsuario = null;
-    do {
-        $rs = $stmt->get_result();
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $datosUsuario = $fila;
-            }
-            $rs->free();
-        }
-    } while ($stmt->more_results() && $stmt->next_result());
-    $stmt->close();
-
-    $res = $connection->query('SELECT @resultado AS resultado');
-    if (!$res) {
-        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
-    }
-    $fila = $res->fetch_assoc();
-    $res->free();
-
-    return ['codigo' => (int) $fila['resultado'], 'usuario' => $datosUsuario];
-}
+require_once __DIR__ . '/ReglasColeccion.php';
+require_once __DIR__ . '/UsuarioService.php';
+require_once __DIR__ . '/ColeccionService.php';

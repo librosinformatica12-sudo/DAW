@@ -1,0 +1,106 @@
+LISTA DE DINOSAURIOS PARA FOTOS
+======================================================================
+Guarda cada imagen en  img/img-cartas/  y nombrala como:
+  <id>.png   o   <Nombre>.png   o   <Especie>.png   (da igual acentos/mayusculas)
+======================================================================
+
+  1  Tiranosaurio Rex               Tyrannosaurus rex
+  2  Triceratops                    Triceratops horridus
+  3  Velociraptor                   Velociraptor mongoliensis
+  4  Estegosaurio                   Stegosaurus stenops
+  5  Braquiosaurio                  Brachiosaurus altithorax
+  6  Espinosauro                    Spinosaurus aegyptiacus
+  7  Parasaurolofus                 Parasaurolophus walkeri
+  8  Anquilosaurio                  Ankylosaurus magniventris
+  9  Pteranodon                     Pteranodon longiceps
+ 10  Allosaurio                     Allosaurus fragilis
+ 11  Diplodoco                      Diplodocus longus
+ 12  Trictops Bebé                 Triceratops prorsus
+ 13  Compsognato                    Compsognathus longipes
+ 14  Argentinosaurio                Argentinosaurus huinculensis
+ 15  Ictiosaurio                    Ichthyosaurus communis
+ 16  Plesiosaurio                   Plesiosaurus dolichodeirus
+ 17  Mosasaurio                     Mosasaurus missouriensis
+ 18  Iguanodonte                    Iguanodon bernissartensis
+ 19  Ceratosaurio                   Carnotaurus sastrei
+ 20  Tarbosauro                     Tarbosaurus bataar
+ 21  Protosaurio                    Protosauropod theodor
+ 22  Pterodáctilo                  Pterodactyl kochi
+ 23  Quetzalcóatl                  Quetzalcoatlus northropi
+ 24  Sinornitosaurio                Sinosauropteryx prima
+ 25  Apatosaurio                    Apatosaurus louisae
+ 26  Tricerátope de Larga Corna    Torosaurus latus
+ 27  Ovirraptor                     Oviraptor philceratops
+ 28  Gallimimo                      Gallimimus bullatus
+ 29  Iguanodón Mayor               Iguanodon mantelli
+ 30  Deinoquiro                     Deinochirus mirificus
+ 31  Tiranosaurio Bebé             Tyrannosaurus rex (juvenil)
+ 32  Placerias                      Placerias hesternus
+ 33  Nothosauro                     Nothosaurus mirabilis
+ 34  Ópistocélico                 Opisthoteuthis granulosa
+ 35  Saurópodo Pequeño            Camarasaurus supremus
+ 36  Dimetrodonte                   Dimetrodon grandis
+ 37  Giganotosauro                  Giganotosaurus carolinii
+ 38  Maniraptorá                   Deinonychus antirrhopus
+ 39  Therizinosaurio                Therizinosaurus cheloniformis
+ 40  Trodonte                       Troodon formosus
+ 41  Sauroposeidón                 Sauroposeidon proteles
+ 42  Ictiteria                      Ichthyomis dispar
+ 43  Paquicefalosauro               Pachycephalosaurus wyomingensis
+ 44  Ornitorrinco Prehistórico     Stegoceras validum
+ 45  Saurópodo Acuático           Rebbachisaurus gaundi
+ 46  Raptor Mayor                   Utahraptor ostrommaysorum
+ 47  Dinosaurio Volador             Archaeopteryx lithographica
+ 48  Rinoceronte Marino             Leedsichthys problematics
+ 49  Espinosaurido Acuático        Baryonyx walkeri
+ 50  Microrraptor                   Microraptor zhaoianus
+ 51  Ankylosaurus Coludo            Edmontosaurus regalis
+ 52  Titanosaurio Enano             Diamantinasaurus matildae
+ 53  Aviador Antiguo                Eudimorphodon ranzii
+ 54  Mosasaurio Gigante             Tylosaurus proriger
+ 55  Ceratopsio Menor               Protoceratops andrewsi
+ 56  Plesiosaurio Largo             Cryptocleidus oxoniensis
+ 57  Pterosaurio Dentado            Anhanguera blittersdorfi
+ 58  Dromeosaurio Primitivo         Rahonavis ostromi
+ 59  Saurópodo de Cuello Corto     Mamenchisaurus sinocanadorum
+ 60  Espinosaurio Menor             Sigilmassasaurus brevicollis
+ 61  Ictiosaurio Gigante            Temnodontosaurus platyodon
+ 62  Ornitomímido                  Ornithomimus edmontonensis
+ 63  Ceratopsio Gigante             Pentaceratops sternbergii
+ 64  Pteranodon Gigante             Pteranodon ingens
+ 65  Eosimio Volador                Icaronycteris index
+ 66  Paquicefalosaurio Pequeño     Homalocephale calathocercos
+ 67  Nodosaurio Blindado            Polacanthus foxii
+ 68  Reptil Marino Corto            Nothosaurus longispinus
+ 69  Carnosaurio Emplumado          Guanlong wucaii
+ 70  Estegosaurio Temprano          Huayangosaurus taibaii
+ 71  Ictiosaurio Pequeño           Mixosaurus cornalianus
+ 72  Tiranosáurido Enano           Dilong paradoxus
+ 73  Arqueopterix                   Archaeopteryx siemensii
+ 74  Troodón                       Troodon inequalis
+ 75  Eoraptor                       Eoraptor lunensis
+ 76  Tiranosáurido Plumado         Yutyrannus huali
+ 77  Paquicéfalo                   Dracorex hogwartsia
+ 78  Camposaurio Acuático          Suchomimus tenerensis
+ 79  Tiranosáurido Primitivo       Eotyrannus lengi
+ 80  Ceratopsio de Cuerno Largo     Kosmoceratops richardsoni
+ 81  Pterosaurio Corto              Dimorphodon macronyx
+ 82  Carnosaurio Ágil              Megalosaurus bucklandii
+ 83  Dinosaurio Pico de Pato Corto  Hypacrosaurus altispinus
+ 84  Reptil Marino Primitivo        Placodus gigas
+ 85  Sauropodomorfo Primitivo       Panphagia protos
+ 86  Ictiosaurio Largo              Shonisaurus popularis
+ 87  Nodosaurio Gigante             Edmontonia longicauda
+ 88  Pterosaurio Gigante            Azhdarchidae rex
+ 89  Plesiosaurio Marino Gigante    Plesiosauru macrocephalus
+ 90  Dromeosaurio Volador           Archaeoraptor liaoningensis
+ 91  Carnosaurio Temprano           Herrerasaurus ischigualastensis
+ 92  Anquilosauro con Pica          Saichania chulsanensis
+ 93  Terópodo de Cuello Largo      Erlikoaurus andrewsi
+ 94  Ornitomímido Veloz            Struthiomimus altus
+ 95  Iguanodon Primitivo            Hypsilophodon foxii
+ 96  Ceratopsio sin Cuernos         Leptoceratops gracilis
+ 97  Plesiosaurio Depredador        Kronosaurus queenslandicus
+ 98  Saurópodo Gigante             Patagotitan mayorum
+ 99  Ictiosaurio Depredador         Stenopterygius quadriscissus
+100  Pterosaurio Cazador            Anhanguera piscator

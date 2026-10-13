@@ -1,0 +1,222 @@
+/* ============================================================
+   carrusel.css · Layout del panel + carrusel de sobres
+   Cárgalo DESPUÉS de style.css. Usa tus variables si existen
+   (--color-*), con valores por defecto de reserva.
+   ============================================================ */
+
+/* ---------- Layout en dos columnas ---------- */
+.panel-layout {
+    grid-column: 1 / -1;   /* ocupa todo el ancho del .panel-inicio (antes solo la 1ª columna) */
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.col-principal,
+.col-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    .panel-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* ---------- Carrusel ---------- */
+.carrusel {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.carrusel-pista {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+}
+
+.carrusel-pista::-webkit-scrollbar {
+    display: none;
+}
+
+.sobre-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px;
+    box-sizing: border-box;
+    opacity: 0.45;
+    transition: opacity 0.25s ease;
+}
+
+.sobre-slide.activo {
+    opacity: 1;
+}
+
+/* ---------- Flechas ---------- */
+.carrusel-nav {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+
+.carrusel-nav:hover:not(:disabled) {
+    background: rgba(128, 128, 128, 0.15);
+}
+
+.carrusel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carrusel-nav:focus-visible,
+.carrusel-puntos button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+/* ---------- Contenido de cada sobre ---------- */
+.sobre-principal {
+    display: flex;
+    justify-content: center;
+}
+
+.sobre-img {
+    display: block;
+    max-width: 100%;
+    max-height: 280px;
+    margin-inline: auto;
+    object-fit: contain;
+}
+
+.sobre-slide:not(.activo) .sobre-img {
+    filter: grayscale(0.4);
+}
+
+.sobre-icono {
+    display: grid;
+    place-items: center;
+    width: 148px;
+    height: 148px;
+    margin-inline: auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(214, 35, 47, .5), rgba(11, 16, 24, .25) 70%);
+    border: 1px solid rgba(214, 35, 47, .45);
+    box-shadow: 0 14px 30px rgba(214, 35, 47, .3);
+}
+
+.sobre-icono i {
+    font-size: 4rem;
+    color: #fff;
+}
+
+.sobre-detalle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 12px;
+}
+
+.sobre-estado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.sobre-estado.ok {
+    opacity: 1;
+}
+
+.sobre-contiene {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sobre-contiene li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sobre-contiene i {
+    font-size: 1.2rem;
+}
+
+.sobre-accion {
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------- Puntos ---------- */
+.carrusel-puntos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.carrusel-puntos button {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.4);
+    cursor: pointer;
+    transition: width 0.2s ease, background 0.2s ease;
+}
+
+.carrusel-puntos button.activo {
+    width: 28px;
+    border-radius: 6px;
+    background: currentColor;
+}
+
+/* ---------- Móvil: sin flechas, se desliza con el dedo ---------- */
+@media (max-width: 600px) {
+    .carrusel {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .carrusel-nav {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sobre-slide,
+    .carrusel-puntos button {
+        transition: none;
+    }
+}

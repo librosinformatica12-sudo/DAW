@@ -238,21 +238,17 @@ document.addEventListener('DOMContentLoaded', () => {
         formRegistro.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const nombre = document.getElementById('reg-nombre');
-            const apellido = document.getElementById('reg-apellido');
             const email = document.getElementById('reg-email');
             const usuario = document.getElementById('reg-usuario');
             const pass = document.getElementById('reg-pass');
             const pass2 = document.getElementById('reg-pass2');
 
-            const validNombre = setMsg(nombre, nombre && nombre.value.trim() !== '' ? '' : 'El nombre es obligatorio.');
-            const validApellido = setMsg(apellido, apellido && apellido.value.trim() !== '' ? '' : 'El apellido es obligatorio.');
             const validUsuario = setMsg(usuario, usuario && usuario.value.trim().length >= 3 ? '' : 'Mínimo 3 caracteres.');
             const validEmail = setMsg(email, email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()) ? '' : 'Correo no válido.');
-            const validPass = setMsg(pass, pass && pass.vxalue.length >= 4 ? '' : 'Mínimo 4 caracteres.');
+            const validPass = setMsg(pass, pass && pass.value.length >= 4 ? '' : 'Mínimo 4 caracteres.');
             const validPass2 = setMsg(pass2, pass2 && pass2.value === pass.value && pass2.value !== '' ? '' : 'Las contraseñas no coinciden.');
 
-            const esValido = validNombre && validApellido && validUsuario && validEmail && validPass && validPass2;
+            const esValido = validUsuario && validEmail && validPass && validPass2;
 
             if (!esValido) {
                 mostrarAviso('aviso-registro', 'Revisa los campos del formulario.', false);

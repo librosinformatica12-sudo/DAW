@@ -1,0 +1,41 @@
+===== INFORME DE CAMBIOS - dino-prueba ===== 
+Fecha: 12/10/2026 20:42:05,53 
+Descripcion: PONIENTO FOTOS 
+ 
+--- Archivos afectados --- 
+M  dino-prueba/dinopedia.php
+D  "dino-prueba/img/img-cartas/Iguanodon mantelli.png"
+A  dino-prueba/img/img-cartas/Triceratops.png
+A  "dino-prueba/img/img-cartas/Tyrannosaurus rex.png"
+?? dino-prueba/cambios/cambios_2026-10-12_2041.txt
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dino-prueba/dinopedia.php b/dino-prueba/dinopedia.php
+index 948c817..3403552 100644
+--- a/dino-prueba/dinopedia.php
++++ b/dino-prueba/dinopedia.php
+@@ -82,6 +82,12 @@ while ($fila = $res->fetch_assoc()) {
+                         </span>
+                         <h3><?= e($d['especie']) ?></h3>
+                         <p class="apodo">«<?= e($d['nombre']) ?>»</p>
++                            <div class="mini-stats">
++                                <span><b><?= e($d['hp']) ?></b><small>HP</small></span>
++                                <span><b><?= e($d['ataque']) ?></b><small>ATQ</small></span>
++                                <span><b><?= e($d['defensa']) ?></b><small>DEF</small></span>
++                                <span><b><?= e($d['agilidad']) ?></b><small>AGI</small></span>
++                            </div>
+                         <a class="btn-carta" href="dinopedia.php?id=<?= e($d['id']) ?>">
+                             <i class="bx bx-plus" aria-hidden="true"></i> Añadir
+                         </a>
+diff --git a/dino-prueba/img/img-cartas/Iguanodon mantelli.png b/dino-prueba/img/img-cartas/Iguanodon mantelli.png
+deleted file mode 100644
+index 9c50a5a..0000000
+Binary files a/dino-prueba/img/img-cartas/Iguanodon mantelli.png and /dev/null differ
+diff --git a/dino-prueba/img/img-cartas/Triceratops.png b/dino-prueba/img/img-cartas/Triceratops.png
+new file mode 100644
+index 0000000..b12819e
+Binary files /dev/null and b/dino-prueba/img/img-cartas/Triceratops.png differ
+diff --git a/dino-prueba/img/img-cartas/Tyrannosaurus rex.png b/dino-prueba/img/img-cartas/Tyrannosaurus rex.png
+new file mode 100644
+index 0000000..3d1a6b2
+Binary files /dev/null and b/dino-prueba/img/img-cartas/Tyrannosaurus rex.png differ

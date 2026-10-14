@@ -82,21 +82,26 @@ $porcentaje     = $progreso['porcentaje'];
                     <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Ir a por mi carta diaria</a>
                 </section>
             <?php else: ?>
+                <br>
                 <div class="toolbar">
                     <input type="search" id="filtro-coleccion" placeholder="Buscar por dinosaurio o apodo..." autocomplete="off" aria-label="Buscar en la colección">
                     <span class="contador" id="contador-coleccion"><?= e($especiesUnicas) ?> de <?= e($especiesUnicas) ?> especies</span>
                 </div>
-
+                
                 <ul class="cartas-grid" id="cartas-grid">
                     <?php foreach ($orden as $id): ?>
                         <?php $d = $mapa[$id] ?? null; if (!$d) { continue; } ?>
-                        <li class="carta-mini" data-especie="<?= e($d['especie']) ?>" data-apodo="<?= e($d['nombre']) ?>">
-                            <?php if (esRepetida($conteo[$id])): ?>
-                                <span class="badge">&times;<?= e($conteo[$id]) ?></span>
+                        <?php $rep = esRepetida($conteo[$id]); ?>
+                        <li class="carta-mini <?= $rep ? 'es-repetida' : '' ?>" data-especie="<?= e($d['especie']) ?>" data-apodo="<?= e($d['nombre']) ?>">
+                            <?php if ($rep): ?>
+                                <span class="badge" title="Tienes <?= e($conteo[$id]) ?> copias">
+                                    <i class="bx bx-copy-alt" aria-hidden="true"></i>&times;<?= e($conteo[$id]) ?>
+                                </span>
                             <?php endif; ?>
                             <span class="retrato">
                                 <?php if (!empty($d['imagen_url'])): ?>
-                                    <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
+                                    <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                    <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22266%22%3E%3Crect width=%22200%22 height=%22266%22 fill=%22%23121219%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%239aa3b2%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22%3EDNA%3C/text%3E%3C/svg%3E'; this.style.objectFit='contain'">
                                 <?php else: ?>
                                     <i class="bx bx-dna" aria-hidden="true"></i>
                                 <?php endif; ?>

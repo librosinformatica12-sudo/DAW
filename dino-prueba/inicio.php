@@ -50,6 +50,14 @@ $meses      = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', '
 $diaSemana  = $diasSemana[(int) date('w')];
 $mesActual  = $meses[(int) date('n') - 1];
 
+/* ---------- Sobre de prueba: espera entre aperturas ----------
+   300 = 5 minutos. Cámbialo aquí y solo aquí. */
+$esperaPrueba  = 300;
+$ultimaPrueba  = $usuarioActual['ultima_prueba'] ?? null;
+$pasadosPrueba = $ultimaPrueba ? (time() - strtotime((string) $ultimaPrueba)) : PHP_INT_MAX;
+$faltanPrueba  = max(0, $esperaPrueba - $pasadosPrueba);
+$pruebaListo   = $faltanPrueba === 0;
+
 /* ---------- Sobres ----------
    'disponible' => true activa el sobre.
    'contiene'   => lista que se muestra al ver el sobre en el carrusel. */
@@ -83,18 +91,23 @@ $sobres = [
         ],
     ],
     [
-        'id' => 'prueba',
-        'nombre' => 'Sobre de Prueba',
-        'icono' => 'bx-test-tube',
-        'imagen' => 'img/img-sobres/sobre3.png',
-        'disponible' => true,
-        'texto' => 'Abrelo cuando quieras y consigue 4 cartas.',
-        'estado' => 'Disponible',
-        'cartas' => 4,
-        'contiene' => [
-            ['bx-cube', '4 cartas de dinosaurio'],
-            ['bx-infinite', 'Sin limite diario'],
-            ['bx-shuffle', "Dinosaurios aleatorios"],
+        'id'         => 'prueba',
+        'nombre'     => 'Sobre de Prueba',
+        'icono'      => 'bx-test-tube',
+        'imagen'     => 'img/img-sobres/sobre3.png',
+        'disponible' => true, // siempre activo para hacer pruebas
+        'texto'      => $pruebaListo
+            ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 5 minutos.'
+            : 'Aún no puedes abrirlo. Vuelve en unos minutos.',
+        'estado'     => $pruebaListo ? 'Disponible' : 'En espera',
+        'boton'      => $pruebaListo ? 'Abrir sobre de prueba' : 'En espera',
+        'bloqueado'  => !$pruebaListo,
+        'espera'     => $faltanPrueba, // segundos que faltan (lo usará el JS)
+        'cartas'     => 4,
+        'contiene'   => [
+            ['bx-cube',    '4 cartas de dinosaurio'],
+            ['bx-time',    'Se repite cada 5 minutos'],
+            ['bx-shuffle', 'Dinosaurios aleatorios'],
         ],
     ],
     [
@@ -182,59 +195,74 @@ $sobres = [
                             </button>
 
                             <ul class="carrusel-pista" id="carrusel-pista">
-                                <?php foreach ($sobres as $i => $sobre): ?>
-                                    <li class="sobre-slide<?= $i === 0 ? ' activo' : '' ?>" data-indice="<?= e($i) ?>">
+                            <?php foreach ($sobres as $i => $sobre): ?>
+                            <?php
+                            // Solo el sobre del día no tiene 'id': conserva id="btn-sobre" para no romper inicio.js
+                            $esDiario = empty($sobre['id']);
+                            ?>
+                            <li class="sobre-slide<?= $i === 0 ? ' activo' : '' ?>" data-indice="<?= e($i) ?>">
 
-                                        <!-- Imagen y descripción -->
-                                        <div class="sobre-principal">
-                                            <figure class="sobre-box">
-                                                <?php if (!empty($sobre['imagen'])): ?>
-                                                    <img class="sobre-img" src="<?= e($sobre['imagen']) ?>" alt="<?= e($sobre['nombre']) ?>">
-                                                <?php else: ?>
-                                                    <span class="sobre-icono" aria-hidden="true">
-                                                        <i class="bx <?= e($sobre['icono']) ?>"></i>
-                                                    </span>
-                                                <?php endif; ?>
-                                                <figcaption>
-                                                    <h3><?= e($sobre['nombre']) ?></h3>
-                                                    <p<?= $sobre['disponible'] ? ' id="sobre-texto"' : '' ?>><?= e($sobre['texto']) ?></p>
-                                                </figcaption>
-                                            </figure>
-                                        </div>
+                                <!-- Imagen y descripción -->
+                                <div class="sobre-principal">
+                                    <figure class="sobre-box">
+                                        <?php if (!empty($sobre['imagen'])): ?>
+                                            <img class="sobre-img" src="<?= e($sobre['imagen']) ?>" alt="<?= e($sobre['nombre']) ?>">
+                                        <?php else: ?>
+                                            <span class="sobre-icono" aria-hidden="true">
+                                                <i class="bx <?= e($sobre['icono']) ?>"></i>
+                                            </span>
+                                        <?php endif; ?>
+                                        <figcaption>
+                                            <h3><?= e($sobre['nombre']) ?></h3>
+                                            <!-- id="sobre-texto" solo en el sobre del día (un id no puede repetirse) -->
+                                            <p<?= ($sobre['disponible'] && $esDiario) ? ' id="sobre-texto"' : '' ?>><?= e($sobre['texto']) ?></p>
+                                        </figcaption>
+                                    </figure>
+                                </div>
 
-                                        <!-- Qué contiene este sobre -->
-                                        <div class="sobre-detalle">
-                                            <p class="sobre-estado<?= $sobre['disponible'] ? ' ok' : '' ?>">
-                                                <i class="bx <?= e($sobre['icono']) ?>" aria-hidden="true"></i>
-                                                <?= e($sobre['estado']) ?>
-                                            </p>
+                                <!-- Qué contiene este sobre -->
+                                <div class="sobre-detalle">
+                                    <p class="sobre-estado<?= $sobre['disponible'] ? ' ok' : '' ?>">
+                                        <i class="bx <?= e($sobre['icono']) ?>" aria-hidden="true"></i>
+                                        <?= e($sobre['estado']) ?>
+                                    </p>
 
-                                            <ul class="sobre-contiene">
-                                                <?php foreach ($sobre['contiene'] as [$icono, $linea]): ?>
-                                                    <li>
-                                                        <i class="bx <?= e($icono) ?>" aria-hidden="true"></i>
-                                                        <?= e($linea) ?>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
+                                    <ul class="sobre-contiene">
+                                        <?php foreach ($sobre['contiene'] as [$icono, $linea]): ?>
+                                            <li>
+                                                <i class="bx <?= e($icono) ?>" aria-hidden="true"></i>
+                                                <?= e($linea) ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
 
-                                        <!-- Acción -->
-                                        <div class="sobre-accion">
-                                            <?php if ($sobre['disponible']): ?>
-                                                <button type="button" id="btn-sobre" class="btn-carta"<?= $yaObtenidaHoy ? ' disabled' : '' ?>>
-                                                    <i class="bx bx-gift" aria-hidden="true"></i>
-                                                    <?= $yaObtenidaHoy ? 'Ya abierto hoy' : 'Abrir sobre del día' ?>
-                                                </button>
-                                            <?php else: ?>
-                                                <button type="button" class="btn-carta" disabled>
-                                                    <i class="bx <?= e($sobre['icono']) ?>" aria-hidden="true"></i> Próximamente
-                                                </button>
-                                            <?php endif; ?>
-                                        </div>
+                                <!-- Acción -->
+                                <div class="sobre-accion">
+                                    <?php if ($sobre['disponible']): ?>
+                                        <?php
+                                        $bloqueado = $esDiario ? $yaObtenidaHoy : !empty($sobre['bloqueado']);
+                                        $textoBtn  = $esDiario
+                                            ? ($yaObtenidaHoy ? 'Ya abierto hoy' : 'Abrir sobre del día')
+                                            : ($sobre['boton'] ?? 'Abrir sobre');
+                                        ?>
+                                        <button type="button"
+                                                class="btn-carta"
+                                                <?= $esDiario ? 'id="btn-sobre"' : 'data-sobre="' . e($sobre['id']) . '"' ?>
+                                                <?= !empty($sobre['espera']) ? 'data-espera="' . e($sobre['espera']) . '"' : '' ?>
+                                                <?= $bloqueado ? 'disabled' : '' ?>>
+                                            <i class="bx bx-gift" aria-hidden="true"></i>
+                                            <?= e($textoBtn) ?>
+                                        </button>
+                                    <?php else: ?>
+                                        <button type="button" class="btn-carta" disabled>
+                                            <i class="bx <?= e($sobre['icono']) ?>" aria-hidden="true"></i> Próximamente
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
 
-                                    </li>
-                                <?php endforeach; ?>
+                            </li>
+                        <?php endforeach; ?>
                             </ul>
 
                             <button type="button" class="carrusel-nav" id="sobre-next" aria-label="Sobre siguiente">

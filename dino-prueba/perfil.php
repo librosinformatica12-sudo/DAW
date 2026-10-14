@@ -21,6 +21,14 @@ if (!$usuario) {
     exit;
 }
 
+try {
+    $ids       = PA_ObtenerColeccion($usuarioId);
+    $mapa      = dinosauriosPorIds($ids);
+    $totalDino = contarDinosaurios();
+} catch (Throwable $ex) {
+    $error = $ex->getMessage();
+}
+
 $nombre      = $usuario['username'] ?? 'Coleccionista';
 $email       = $usuario['email'] ?? '';
 $registro    = $usuario['fecha_registro'] ?? null;
@@ -35,8 +43,16 @@ $totalCartas   = $resumen['cartas'];
 $totalEspecies = $resumen['especies'];
 $ultimas       = ultimasCartas($usuarioId, 6);
 
+// Agrupar (con repetidos) y calcular el progreso usando las reglas.
+$ids     = PA_ObtenerColeccion($usuarioId);
+$agrupado = agruparColeccion($ids);
+$conteo   = $agrupado['conteo'];
+$orden    = $agrupado['orden'];
+
 $totalCatalogo = contarDinosaurios();
 $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalogo) * 100) : 0;
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -50,6 +66,7 @@ $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalo
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
     <link rel="stylesheet" href="styles/perfil.css?v=<?= @filemtime(__DIR__ . '/styles/perfil.css') ?>">
+    <script src="script/coleccion.js?v=<?= @filemtime(__DIR__ . '/script/coleccion.js') ?>"></script>
 </head>
 <body>
     
@@ -143,47 +160,7 @@ $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalo
                 </ul>
             </section>
 
-            <!-- Últimas cartas conseguidas -->
-            <section class="tarjeta perfil-ultimas" aria-labelledby="ultimas-titulo">
-                <h2 id="ultimas-titulo"><i class="bx bx-time-five" aria-hidden="true"></i> Últimas cartas</h2>
-
-                <?php if (empty($ultimas)): ?>
-                    <div class="vacio">
-                        <i class="bx bx-sad" aria-hidden="true"></i>
-                        <h3>Aún no has conseguido cartas</h3>
-                        <p>Abre tu sobre del día para empezar.</p>
-                        <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Ir a por mi carta</a>
-                    </div>
-                <?php else: ?>
-                    <ul class="cartas-grid">
-                        <?php foreach ($ultimas as $d): ?>
-                            <li class="carta-mini">
-                                <div class="retrato">
-                                    <?php if (!empty($d['imagen_url'])): ?>
-                                        <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>">
-                                    <?php else: ?>
-                                        <i class="bx bx-dna" aria-hidden="true"></i>
-                                    <?php endif; ?>
-                                </div>
-                                <h3><?= e($d['especie']) ?></h3>
-                                <p class="apodo">«<?= e($d['nombre']) ?>»</p>
-                                <div class="mini-stats">
-                                    <span><b><?= e($d['hp']) ?></b><small>HP</small></span>
-                                    <span><b><?= e($d['ataque']) ?></b><small>ATQ</small></span>
-                                    <span><b><?= e($d['defensa']) ?></b><small>DEF</small></span>
-                                    <span><b><?= e($d['agilidad']) ?></b><small>AGI</small></span>
-                                </div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php endif; ?>
-            </section>
-
-        </div>
-
-        <br>
-
-        <!-- Acciones rápidas -->
+                    <!-- Acciones rápidas -->
         <nav class="tarjeta perfil-acciones" aria-label="Acciones de la cuenta">
             <h2><i class="bx bx-grid-alt" aria-hidden="true"></i> Acciones</h2>
             <ul class="tiles">
@@ -207,6 +184,56 @@ $porcentaje    = $totalCatalogo > 0 ? (int) round(($totalEspecies / $totalCatalo
                 </li>
             </ul>
         </nav>
+        </div>
+
+        <br>
+            <!-- Últimas cartas conseguidas -->
+            <section class="tarjeta perfil-ultimas" aria-labelledby="ultimas-titulo">
+                <h2 id="ultimas-titulo"><i class="bx bx-time-five" aria-hidden="true"></i> Últimas cartas</h2>
+
+                <?php if (empty($ultimas)): ?>
+                    <div class="vacio">
+                        <i class="bx bx-sad" aria-hidden="true"></i>
+                        <h3>Aún no has conseguido cartas</h3>
+                        <p>Abre tu sobre del día para empezar.</p>
+                        <a class="btn-carta" href="inicio.php"><i class="bx bx-gift" aria-hidden="true"></i> Ir a por mi carta</a>
+                    </div>
+                <?php else: ?>
+                    <ul class="cartas-grid">
+                        <?php foreach ($ultimas as $d): ?>
+                            <?php
+                                $id = $d["id"] ?? null;
+                                $num = $id !== null ? ($conteo[$id] ?? 1) : 1; 
+                                $rep = esRepetida($num);
+                            ?>
+                            <li class="carta-mini" <?= $rep ? 'es-repetida' : '' ?>>
+                                <?php if ($rep): ?>
+                                    <span class="badge" title="Tienes <?= e($num) ?> copias">
+                                        <i class="bx bx-copy-alt" aria-hidden="true"></i>&times;<?= e($num) ?>
+                                    </span>
+                                <?php endif; ?>       
+                                <div class="retrato">
+                                     <?php if (!empty($d['imagen_url'])): ?>
+                                         <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                         <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['especie']) ?>" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22266%22%3E%3Crect width=%22200%22 height=%22266%22 fill=%22%23121219%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%239aa3b2%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22%3EDNA%3C/text%3E%3C/svg%3E'; this.style.objectFit='contain'">
+                                     <?php else: ?>
+                                         <i class="bx bx-dna" aria-hidden="true"></i>
+                                     <?php endif; ?>
+                                </div>
+                                <h3><?= e($d['especie']) ?></h3>
+                                <p class="apodo">«<?= e($d['nombre']) ?>»</p>
+                                <div class="mini-stats">
+                                    <span><b><?= e($d['hp']) ?></b><small>HP</small></span>
+                                    <span><b><?= e($d['ataque']) ?></b><small>ATQ</small></span>
+                                    <span><b><?= e($d['defensa']) ?></b><small>DEF</small></span>
+                                    <span><b><?= e($d['agilidad']) ?></b><small>AGI</small></span>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </section>
+
 
     </main>
 </body>

@@ -134,11 +134,12 @@ function ultimasCartas(int $usuarioId, int $limite = 6): array
 
     $limite = max(1, min(50, $limite));
     $stmt = $connection->prepare(
-        'SELECT d.*
+        'SELECT d.*, MAX(c.fecha_adquisicion) AS ultima
          FROM colecciones c
          JOIN dinosaurios d ON d.id = c.dinosaurio_id
          WHERE c.usuario_id = ?
-         ORDER BY c.fecha_adquisicion DESC, c.id DESC
+         GROUP BY d.id
+         ORDER BY ultima DESC, d.id DESC
          LIMIT ' . $limite
     );
     if (!$stmt) {

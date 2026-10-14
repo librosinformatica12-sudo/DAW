@@ -109,7 +109,7 @@ function obtenerUsuarioPorId(int $usuarioId): ?array
     }
 
     $stmt = $connection->prepare(
-        'SELECT id, username, email, fecha_registro, ultima_obtencion
+        'SELECT id, username, email, fecha_registro, ultima_obtencion, carta_prueba
          FROM usuarios WHERE id = ? LIMIT 1'
     );
     if (!$stmt) {
@@ -141,4 +141,22 @@ function marcarUltimaObtencion(int $usuarioId): void
     $stmt->bind_param('i', $usuarioId);
     $stmt->execute();
     $stmt->close();
+}
+
+/** Actualiza la fecha/hora de la última apertura del sobre de prueba. */
+function marcarCartaPrueba(int $usuarioId): void {
+    global $connection;
+
+    if ($connection-> connect_errno) {
+        return;
+    }
+
+    $stmt = $connection->prepare('UPDATE usuarios SET carta_prueba = NOW() WHERE id = ?');
+    if (!$stmt) {
+        return;
+    }
+
+    $stmt-> bind_param('i', $usuarioId);
+    $stmt-> execute();
+    $stmt-> close();
 }

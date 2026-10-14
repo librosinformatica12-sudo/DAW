@@ -1,0 +1,261 @@
+/* ============================================================
+   style.css - Estilos basicos de DinoCards
+   ============================================================ */
+
+/* Que el padding no rompa los tamaños */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #eef3ec;
+    color: #22331f;
+}
+
+/* ---------- Barra superior ---------- */
+.topbar {
+    background-color: #2f5d3a;
+    color: #ffffff;
+    padding: 12px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.topbar .titulo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.topbar nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 10px;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.topbar nav a:hover {
+    background-color: #3f7a4d;
+}
+
+.topbar nav a.activo {
+    background-color: #8bc34a;
+    color: #1c2b17;
+}
+
+/* ---------- Contenedor principal ---------- */
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.tarjeta {
+    background-color: #ffffff;
+    border: 1px solid #d5e0d0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+h1, h2, h3 {
+    color: #2f5d3a;
+}
+
+a {
+    color: #3d7531;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+    display: inline-block;
+    background-color: #4a8f3c;
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.boton:hover {
+    background-color: #3d7531;
+}
+
+.boton.secundario {
+    background-color: #77817a;
+}
+
+.boton.secundario:hover {
+    background-color: #616a63;
+}
+
+.boton:disabled {
+    background-color: #b0b8b2;
+    cursor: not-allowed;
+}
+
+/* ---------- Formularios ---------- */
+.campo {
+    margin-bottom: 12px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.campo input {
+    width: 100%;
+    padding: 9px;
+    border: 1px solid #c3cdbf;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+/* ---------- Avisos ---------- */
+.aviso {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+.aviso.ok {
+    background-color: #e2f5dc;
+    color: #276b1e;
+}
+
+.aviso.error {
+    background-color: #fde3e3;
+    color: #a12b2b;
+}
+
+/* ---------- Pestañas (login / registro) ---------- */
+.pestanas {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.pestanas button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #c3cdbf;
+    background-color: #f1f5ef;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.pestanas button.activa {
+    background-color: #4a8f3c;
+    color: #ffffff;
+    border-color: #4a8f3c;
+}
+
+.oculto {
+    display: none;
+}
+
+/* ---------- Rejilla de cartas ---------- */
+.cartas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+}
+
+.carta {
+    width: 190px;
+    background-color: #ffffff;
+    border: 1px solid #d5e0d0;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.carta img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.carta h3 {
+    font-size: 16px;
+    margin: 8px 0 2px;
+}
+
+.carta .apodo {
+    font-size: 13px;
+    color: #6b7a66;
+    margin: 0 0 8px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.stats span b {
+    display: block;
+    font-size: 14px;
+    color: #2f5d3a;
+}
+
+.badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #f0a500;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 10px;
+}
+
+/* ---------- Resumen (inicio / perfil) ---------- */
+.resumen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+}
+
+.resumen li {
+    flex: 1;
+    min-width: 120px;
+    background-color: #f1f5ef;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+}
+
+.resumen li b {
+    display: block;
+    font-size: 22px;
+    color: #2f5d3a;
+}
+
+/* ---------- Lista de datos (perfil) ---------- */
+.datos {
+    list-style: none;
+    padding: 0;
+}
+
+.datos li {
+    padding: 6px 0;
+    border-bottom: 1px solid #e3ebe0;
+}

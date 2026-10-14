@@ -1,169 +1,71 @@
 <?php
-session_start();
-define('APP', true);
+/**
+ * index.php
+ * Página de entrada: iniciar sesión o registrarse.
+ */
+require_once __DIR__ . '/includes/funciones.php';
 
-// Si ya hay sesión iniciada, redirige al inicio
-if (isset($_SESSION['usuario_id'])) { 
-    header('Location: inicio.php'); 
-    exit; 
+// Si ya hay sesión, al panel directamente
+if (esta_logueado()) {
+    header('Location: inicio.php');
+    exit;
 }
 
-require_once __DIR__ . '/src/AccesoDatos.php';
-
-function e(mixed $v): string {
-    return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8');
-}
-
-$accion = '';
-$email = '';
-$usuario = '';
-$errorRegistro = null;
-$exitoRegistro = null;
-$errorLogin = null;
-$exitoLogin = null;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $accion = $_POST['accion'] ?? '';
-
-    if ($accion === 'registro') {
-        require __DIR__ . '/php/registro.php';
-    } elseif ($accion === 'login') {
-        require __DIR__ . '/php/login.php';
-    }
-}
-
-// Qué pestaña se muestra al cargar
-$panelActivo = ($accion === 'registro') ? 'registro' : 'login';
+$titulo = 'Entrar';
+require __DIR__ . '/includes/cabecera.php';
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DinoCards - Portal del Coleccionista</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
-    
-    <script src="script/script.js" defer></script>
-</head>
-<body>
-    <header class="topbar">
-        <div class="logo">
-            <i class="bx bx-id-card"></i>
-            <div class="logo-text">
-                <strong>DinoCards<span class="version-code"> V1.0</span></strong>
-                <span>CLUB DE COLECCIONISTAS</span>
-            </div>
+
+<section class="hero">
+    <h1>Bienvenido al <span>Portal del Coleccionista</span></h1>
+    <p>Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio.</p>
+</section>
+
+<section class="panel panel-auth" id="auth" data-inicial="login">
+    <div class="pestanas">
+        <button type="button" class="pestana activa" data-panel="login">Iniciar sesión</button>
+        <button type="button" class="pestana" data-panel="registro">Registrarse</button>
+    </div>
+
+    <p id="aviso" class="aviso" hidden></p>
+
+    <!-- FORMULARIO DE LOGIN -->
+    <form id="form-login" class="formulario" novalidate>
+        <h2>Iniciar sesión</h2>
+
+        <label for="log-usuario">Usuario o correo</label>
+        <input type="text" id="log-usuario" name="usuario" autocomplete="username" required>
+
+        <label for="log-pass">Contraseña</label>
+        <div class="campo-clave">
+            <input type="password" id="log-pass" name="contrasena" autocomplete="current-password" required>
+            <button type="button" class="ver-clave" data-para="log-pass">Mostrar</button>
         </div>
-        <div class="topbar-der">
-            <span>Portal del Coleccionista</span>
-            <i class="bx bx-collection"></i>
+
+        <button type="submit" class="boton">Entrar</button>
+    </form>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <form id="form-registro" class="formulario" hidden novalidate>
+        <h2>Crear cuenta</h2>
+
+        <label for="reg-usuario">Usuario</label>
+        <input type="text" id="reg-usuario" name="usuario" maxlength="16" autocomplete="username" required>
+
+        <label for="reg-email">Correo electrónico</label>
+        <input type="email" id="reg-email" name="email" autocomplete="email" required>
+
+        <label for="reg-pass">Contraseña</label>
+        <div class="campo-clave">
+            <input type="password" id="reg-pass" name="contrasena" autocomplete="new-password" required>
+            <button type="button" class="ver-clave" data-para="reg-pass">Mostrar</button>
         </div>
-    </header>
 
-    <main class="pagina">
-        <section class="hero">
-            <h2>Bienvenido al <span>Portal del Coleccionista</span></h2>
-            <p>Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
-            <ul>
-                <li><i class="bx bx-gift"></i><div><b>Carta diaria</b><small>Abre tu sobre y consigue un dinosaurio nuevo.</small></div></li>
-                <li><i class="bx bx-collection"></i><div><b>Mi colección</b><small>Consulta las cartas que ya tienes.</small></div></li>
-                <li><i class="bx bx-book-open"></i><div><b>DinoPedia</b><small>Explora el catálogo completo de especies.</small></div></li>
-            </ul>
-        </section>
+        <label for="reg-pass2">Repite la contraseña</label>
+        <input type="password" id="reg-pass2" name="confirma" autocomplete="new-password" required>
 
-        <div class="container" data-panel="<?= e($panelActivo) ?>">
-            <div class="tabs" role="tablist">
-                <button class="btn" type="button" role="tab" data-ir="login">Iniciar sesión</button>
-                <button class="btn" type="button" role="tab" data-ir="registro">Registrarse</button>
-            </div>
+        <button type="submit" class="boton">Crear cuenta</button>
+    </form>
+</section>
 
-            <!-- LOGIN -->
-            <form id="form-login" method="POST" action="">
-                <h1>Iniciar Sesión</h1>
-                <br>
-                <input type="hidden" name="accion" value="login">
-
-                <div class="campo icono">
-                    <i class="bx bx-user"></i>
-                    <input type="text" name="usuario" placeholder="Usuario o email" maxlength="50" id="log-usuario" autocomplete="username" required>
-                </div>
-
-                <div class="campo icono">
-                    <i class="bx bx-lock-alt"></i>
-                    <div class="entrada">
-                        <input type="password" id="log-pass" name="contrasena" placeholder="Contraseña" autocomplete="current-password" required>
-                        <button type="button" class="rojo" data-para="log-pass">Mostrar</button>
-                    </div>
-                </div>
-
-                <div class="remember-password">
-                    <label><input type="checkbox" id="log-recordar"> Recordarme</label>
-                    <a href="#" id="olvide">¿Olvidaste tu contraseña?</a>
-                </div>
-
-                <button type="submit" class="enviar">Iniciar sesión</button>
-                <div class="aviso <?= $errorLogin !== null ? 'error' : 'ok' ?>" id="aviso-login" role="status"><?= e($errorLogin ?? $exitoLogin ?? '') ?></div>
-
-                <div class="separador"><span>o</span></div>
-
-                <p class="register-link">
-                    <a href="#" data-ir="registro">
-                        <i class="bx bx-user-plus"></i> Crear nueva cuenta
-                    </a>
-                </p>
-                
-                <p class="nota" style="text-align: center;">Portal exclusivo para miembros y coleccionistas de DinoCards</p>
-            </form>
-
-            <!-- REGISTRO -->
-            <form id="form-registro" method="POST" action="" novalidate hidden>
-                <input type="hidden" name="accion" value="registro">
-                
-                <h2>Crear cuenta</h2>
-                <p class="sub">Rellena tus datos para registrarte</p>
-                
-                <div class="campo">
-                    <label for="reg-usuario">Usuario</label>
-                    <input type="text" id="reg-usuario" name="usuario" maxlength="16" placeholder="3 a 16 caracteres">
-                </div>
-                
-                <div class="campo">
-                    <label for="reg-email">Correo electrónico</label>
-                    <input type="email" id="reg-email" name="email" maxlength="100" placeholder="tu@correo.com">
-                </div>
-                
-                <div class="campo">
-                    <label for="reg-pass">Contraseña</label>
-                    <div class="entrada">
-                        <input type="password" id="reg-pass" name="contrasena" placeholder="Mínimo 8 caracteres">
-                        <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
-                    </div>
-                </div>
-                
-                <div class="campo">
-                    <label for="reg-pass2">Repite la contraseña</label>
-                    <div class="entrada">
-                        <input type="password" id="reg-pass2" name="confirmaContrasena" placeholder="Repite la contraseña">
-                        <button type="button" class="rojo" data-para="reg-pass2">Mostrar</button>
-                    </div>
-                </div>
-
-                <button type="submit" class="enviar">Crear cuenta</button>
-
-                <p class="register-link">
-                    ¿Ya tienes cuenta?
-                    <a href="#" data-ir="login">
-                        <i class="bx bx-user"></i> Iniciar sesión
-                    </a>
-                </p>
-
-                <p class="nota" style="text-align: center;">Al registrarte, aceptas nuestros Términos y Condiciones de la comunidad de DinoCards</p>
-            </form>        
-        </div>
-    </main>
-</body>
-</html>
+<script type="module" src="js/index.js"></script>
+<?php require __DIR__ . '/includes/pie.php'; ?>

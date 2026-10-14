@@ -227,3 +227,56 @@ function dinosaurioAleatorio(): ?array
 
     return $fila ?: null;
 }
+
+/** Devuelve N dinosaurios al azar (sin repetir), o [] si no hay ninguno. */
+function dinosauriosAleatorios(int $n): array
+{
+    global $connection;
+
+    $n = max(1, min(50, $n));
+
+    if ($connection->connect_errno) {
+        return [];
+    }
+    
+    $res = $connection->query('SELECT * FROM dinosaurios ORDER BY RAND() LIMIT ' . $n);
+    if (!$res) {
+        return [];
+    }
+
+    $filas = [];
+    while ($fila = $res->fetch_assoc()){
+        $filas[] = $fila;
+    }
+    $res->free();
+
+    return $filas;
+}
+
+/**
+ * Inserta una carta en la colección del usuario SIN tocar ultima_obtencion.
+ * Sirve para el sobre de prueba, que no debe "gastar" el sobre del día.
+ * Devuelve true si se guardó bien.
+ */
+function insertarCarta(int $usuarioId, int $cartaId): bool {
+    global $connection;
+
+    if ($connection->connect_errno) {
+        return false;
+    }
+
+    $stmt = $connection->prepare(
+        'INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
+         VALUES (?, ?, NOW())'
+    );
+    if (!$stmt) {
+        return false;
+    }
+
+    $stmt-> bind_param('ii', $usuarioId, $cartaId);
+    $ok = $stmt->execute();
+    $stmt->close();
+
+    return $ok;
+
+}

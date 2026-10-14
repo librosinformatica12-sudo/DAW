@@ -53,7 +53,7 @@ $mesActual  = $meses[(int) date('n') - 1];
 /* ---------- Sobre de prueba: espera entre aperturas ----------
    300 = 5 minutos. Cámbialo aquí y solo aquí. */
 $esperaPrueba  = 300;
-$ultimaPrueba  = $usuarioActual['ultima_prueba'] ?? null;
+$ultimaPrueba  = $usuarioActual['carta_prueba'] ?? null;
 $pasadosPrueba = $ultimaPrueba ? (time() - strtotime((string) $ultimaPrueba)) : PHP_INT_MAX;
 $faltanPrueba  = max(0, $esperaPrueba - $pasadosPrueba);
 $pruebaListo   = $faltanPrueba === 0;

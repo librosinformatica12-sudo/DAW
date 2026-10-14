@@ -78,19 +78,6 @@ $sobres = [
         ],
     ],
     [
-        'nombre'     => 'Sobre semanal',
-        'icono'      => 'bx-calendar-week',
-        'imagen'     => 'img/img-sobres/sobre2.png',
-        'disponible' => true,
-        'texto'      => 'Ábrelo al completar 7 días seguidos de coleccionista.',
-        'estado'     => 'Próximamente',
-        'contiene'   => [
-            ['bx-cube',     '3 cartas de dinosaurio'],
-            ['bx-calendar', 'Se desbloquea con 7 días seguidos'],
-            ['bx-star',     'Más opciones de cartas poco comunes'],
-        ],
-    ],
-    [
         'id'         => 'prueba',
         'nombre'     => 'Sobre de Prueba',
         'icono'      => 'bx-test-tube',
@@ -110,6 +97,21 @@ $sobres = [
             ['bx-shuffle', 'Dinosaurios aleatorios'],
         ],
     ],
+    /* 
+    [
+        'nombre'     => 'Sobre semanal',
+        'icono'      => 'bx-calendar-week',
+        'imagen'     => 'img/img-sobres/sobre2.png',
+        'disponible' => true,
+        'texto'      => 'Ábrelo al completar 7 días seguidos de coleccionista.',
+        'estado'     => 'Próximamente',
+        'contiene'   => [
+            ['bx-cube',     '3 cartas de dinosaurio'],
+            ['bx-calendar', 'Se desbloquea con 7 días seguidos'],
+            ['bx-star',     'Más opciones de cartas poco comunes'],
+        ],
+    ],
+    */
     [
         'nombre'     => 'Sobre de evento',
         'icono'      => 'bx-party',
@@ -355,7 +357,7 @@ $sobres = [
                                 </a>
                             </li>
                             <li>
-                                <a class="prox" href="#" aria-disabled="true">
+                                <a href="dinopedia.php">
                                     <i class="bx bx-book-open" aria-hidden="true"></i>
                                     <b>DinoPedia</b>
                                     <small>Próximamente</small>

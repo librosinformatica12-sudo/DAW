@@ -54,7 +54,7 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Mi colección</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -62,7 +62,7 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
 <?php require "menu.php"; ?>
 
 <main>
-    <div class="tarjeta">
+    <div class="tarjeta panel-oscuro">
         <h1>Mi colección</h1>
         <p>Tienes <b><?= $total_especies ?></b> de <b><?= $total_catalogo ?></b> especies (<?= $porcentaje ?>%).</p>
 
@@ -74,23 +74,28 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
                 <input type="text" id="buscador" oninput="filtrarColeccion()" placeholder="Escribe un dinosaurio...">
             </div>
 
-            <ul class="cartas">
+            <ul class="cartas-grid">
                 <?php foreach ($orden as $id): ?>
                     <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
-                    <li class="carta" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
+                    <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
                         <?php if ($copias[$id] > 1): ?>
                             <span class="badge">x<?= $copias[$id] ?></span>
                         <?php endif; ?>
-                        <?php if (!empty($d["imagen_url"])): ?>
-                            <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["especie"]) ?>">
-                        <?php endif; ?>
-                        <h3><?= escapar($d["especie"]) ?></h3>
-                        <p class="apodo">«<?= escapar($d["nombre"]) ?>»</p>
-                        <div class="stats">
-                            <span><b><?= escapar($d["hp"]) ?></b>HP</span>
-                            <span><b><?= escapar($d["ataque"]) ?></b>ATQ</span>
-                            <span><b><?= escapar($d["defensa"]) ?></b>DEF</span>
-                            <span><b><?= escapar($d["agilidad"]) ?></b>AGI</span>
+                        <span class="retrato">
+                            <?php if (!empty($d["imagen_url"])): ?>
+                                <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <?php else: ?>
+                                <i class="bx bx-dna" aria-hidden="true"></i>
+                            <?php endif; ?>
+                        </span>
+                        <h3><?= escapar($d["nombre"]) ?></h3>
+                        <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
+                        <div class="mini-stats">
+                            <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
+                            <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
+                            <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
+                            <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
                         </div>
                     </li>
                 <?php endforeach; ?>

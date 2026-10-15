@@ -202,13 +202,88 @@ main {
 }
 
 .tarjeta {
-    background-color: #ffffff;
-    border: 1px solid var(--borde);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    color: var(--texto);
+    background-color: #181820;
+    border: 1px solid #282836;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    gap: 1.5rem;
 }
+
+/* ---------- Barra de progreso ---------- */
+.contenedor-barra {
+    margin-top: 1rem;
+}
+
+.progreso-catalogo {
+    margin-top: 1.25rem;
+}
+
+.barra-progreso {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gris);
+}
+
+.barra-progreso b {
+    color: var(--rojo);
+    font-size: 1rem;
+}
+
+.barra {
+    width: 100%;
+    height: 12px;
+    background: #e5e8ee;
+    border-radius: 999px;
+    overflow: hidden;
+    display: block;
+    border: 1px solid var(--borde);
+}
+
+.barra-relleno {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--rojo-osc), var(--rojo), #ff5b4d);
+    border-radius: 999px;
+    transition: width 0.6s ease, background 0.4s ease;
+}
+
+/* Color de la barra segun el progreso */
+.barra-relleno.nivel-bajo {
+    background: linear-gradient(90deg, var(--rojo-osc), var(--rojo));
+}
+
+.barra-relleno.nivel-medio {
+    background: linear-gradient(90deg, var(--rojo), #f6a623);
+}
+
+.barra-relleno.nivel-alto {
+    background: linear-gradient(90deg, #f6a623, #35d07f);
+}
+
+.barra-relleno.nivel-completo {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    box-shadow: 0 0 12px rgba(53, 208, 127, .65);
+}
+
+.barra-detalle {
+    margin: 0.6rem 0 0;
+    font-size: 0.82rem;
+    color: var(--gris);
+}
+
+.barra-detalle i {
+    color: var(--rojo);
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+
+
 
 h1, h2, h3 {
     color: var(--rojo-osc);
@@ -362,6 +437,12 @@ a {
     color: var(--rojo-osc);
 }
 
+.carta .boton {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .badge {
     position: absolute;
     top: 8px;
@@ -375,20 +456,23 @@ a {
 
 /* ---------- Resumen (inicio / perfil) ---------- */
 .resumen {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 0;
     list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
 }
 
 .resumen li {
-    flex: 1;
-    min-width: 120px;
-    background-color: #f1f5ef;
-    border-radius: 8px;
-    padding: 12px;
-    text-align: center;
+    background: #f5f7f4;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--borde);
+    color: var(--texto);
 }
 
 .resumen li b {
@@ -729,3 +813,164 @@ a {
         display: none;
     }
 }
+
+/* ============================================================
+   Cartas tipo DinoPedia (estilo dino-prueba)
+   Usadas en coleccion.php y dinopedia.php
+   ============================================================ */
+.tarjeta.panel-oscuro {
+    background: rgba(255, 255, 255, .03);
+    border-color: rgba(255, 255, 255, .1);
+    color: #ffffff;
+}
+
+.cartas-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.carta-mini {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-top: 3px solid rgba(214, 35, 47, .85);
+    background:
+        radial-gradient(circle at 85% 0%, rgba(214, 35, 47, .18), transparent 55%),
+        rgba(255, 255, 255, .04);
+    transition: transform .15s ease, border-color .15s ease;
+}
+
+.carta-mini:hover {
+    transform: translateY(-3px);
+    border-color: rgba(214, 35, 47, .6);
+}
+
+.carta-mini .retrato {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .08);
+    color: var(--rojo);
+    font-size: 2.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.carta-mini .retrato img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transition: transform .35s ease;
+}
+
+.carta-mini .retrato img.fondo {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    filter: blur(18px) brightness(.5) saturate(1.15);
+    transform: scale(1.2);
+}
+
+.carta-mini .retrato img:not(.fondo) {
+    position: relative;
+    z-index: 1;
+}
+
+.carta-mini:hover .retrato img:not(.fondo) {
+    transform: scale(1.04);
+}
+
+.carta-mini h3 {
+    font-size: 1rem;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.carta-mini .apodo {
+    font-size: .74rem;
+    color: #9aa3b2;
+    font-style: italic;
+}
+
+.carta-mini .mini-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-top: 2px;
+}
+
+.carta-mini .mini-stats span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 2px;
+    background: rgba(255, 255, 255, .06);
+    border-radius: 8px;
+}
+
+.carta-mini .mini-stats b {
+    font-size: .8rem;
+    color: #ffffff;
+}
+
+.carta-mini .mini-stats small {
+    font-size: .55rem;
+    color: #9aa3b2;
+    letter-spacing: .5px;
+}
+
+.carta-mini .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--rojo);
+    color: #ffffff;
+    font-size: .7rem;
+    font-weight: 200;
+}
+
+.btn-carta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--rojo), #ff5b4d);
+    color: #ffffff;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(214, 35, 47, .45);
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+
+.btn-carta i {
+    font-size: 1.25rem;
+}
+
+.btn-carta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(214, 35, 47, .55);
+    filter: brightness(1.05);
+}
+
+

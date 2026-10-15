@@ -27,6 +27,18 @@ $total_cartas   = (int) $resumen["total"];
 $total_especies = (int) $resumen["especies"];
 $total_catalogo = (int) $conexion->query("SELECT COUNT(*) AS total FROM dinosaurios")->fetch_assoc()["total"];
 $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo * 100) : 0;
+$faltan         = max(0, $total_catalogo - $total_especies);
+
+// Nivel de progreso (para el color de la barra)
+if ($porcentaje >= 100) {
+    $nivel = "completo";
+} elseif ($porcentaje >= 70) {
+    $nivel = "alto";
+} elseif ($porcentaje >= 40) {
+    $nivel = "medio";
+} else {
+    $nivel = "bajo";
+}
 
 $registro    = $usuario["fecha_registro"];
 $ultima      = $usuario["ultima_obtencion"];
@@ -38,7 +50,7 @@ $ultima      = $usuario["ultima_obtencion"];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Mi perfil</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -54,10 +66,24 @@ $ultima      = $usuario["ultima_obtencion"];
     <div class="tarjeta">
         <h2>Estadísticas</h2>
         <ul class="resumen">
-            <li><b><?= $total_cartas ?></b>cartas guardadas</li>
-            <li><b><?= $total_especies ?></b>especies distintas</li>
-            <li><b><?= $porcentaje ?>%</b>del catálogo (<?= $total_catalogo ?>)</li>
+            <li><b><?= $total_cartas ?></b> cartas guardadas</li>
+            <li><b><?= $total_especies ?></b> especies distintas</li>
+            <li><b><?= $porcentaje ?>%</b> del catálogo (<?= $total_catalogo ?>)</li>
         </ul>
+
+        <div class="progreso-catalogo">
+            <p class="barra-progreso"><span>Progreso del catálogo</span><b><?= $porcentaje ?>%</b></p>
+            <div class="barra" role="progressbar" aria-valuenow="<?= $porcentaje ?>" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso del catálogo">
+                <div class="barra-relleno nivel-<?= $nivel ?>" style="width: <?= $porcentaje ?>%"></div>
+            </div>
+            <p class="barra-detalle">
+                <?php if ($porcentaje >= 100): ?>
+                    <i class="bx bx-trophy"></i> ¡Colección completa! Tienes las <?= $total_catalogo ?> especies.
+                <?php else: ?>
+                    <i class="bx bx-collection"></i> <?= $total_especies ?> de <?= $total_catalogo ?> especies · te faltan <?= $faltan ?>
+                <?php endif; ?>
+            </p>
+        </div>
     </div>
 
     <div class="tarjeta">

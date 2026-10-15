@@ -38,7 +38,7 @@ function mostrarPestana(nombre) {
 // ---------- Buscar dentro de mi coleccion ----------
 function filtrarColeccion() {
     var texto = document.getElementById("buscador").value.toLowerCase();
-    var cartas = document.getElementsByClassName("carta");
+    var cartas = document.getElementsByClassName("carta-mini");
 
     for (var i = 0; i < cartas.length; i++) {
         var contenido = cartas[i].getAttribute("data-buscar");

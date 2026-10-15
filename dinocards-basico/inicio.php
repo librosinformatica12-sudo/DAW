@@ -73,7 +73,8 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Inicio</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -88,7 +89,7 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
     <?php if ($mensaje !== ""): ?>
         <p class="aviso ok"><?= escapar($mensaje) ?></p>
     <?php endif; ?>
-
+    
     <!-- Sobre del día -->
     <div class="tarjeta">
         <h2>Sobre del día</h2>

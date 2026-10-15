@@ -7,23 +7,42 @@
     box-sizing: border-box;
 }
 
+:root {
+    --rojo: #d6232f;      /* rojo principal de la marca */
+    --rojo-osc: #b01c26;  /* rojo oscuro (hover) */
+    --fondo: #0b1018;     /* azul muy oscuro de fondo */
+    --texto: #111827;     /* texto oscuro (para tarjetas claras) */
+    --gris: #6b7280;      /* gris de textos secundarios */
+    --borde: #d9dde5;     /* color de bordes claros */
+}
+
+/* Fondo oscuro con destellos rojos, como en dino-prueba */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #eef3ec;
-    color: #22331f;
+    min-height: 100vh;
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
+        var(--fondo);
 }
 
 /* ---------- Barra superior ---------- */
 .topbar {
-    background-color: #2f5d3a;
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background-color: rgba(8, 12, 20, .88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(214, 35, 47, .5);
     color: #ffffff;
-    padding: 12px 20px;
+    padding: 10px 20px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
 }
 
 .topbar .titulo {
@@ -31,21 +50,148 @@ body {
     font-weight: bold;
 }
 
-.topbar nav a {
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: #ffffff;
     text-decoration: none;
-    margin-left: 10px;
-    padding: 6px 10px;
+}
+
+.logo-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(140deg, var(--rojo), var(--rojo-osc));
+    box-shadow: 0 8px 18px rgba(214, 35, 47, .4);
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.logo-texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-texto strong {
+    font-size: 18px;
+}
+
+.logo-texto small {
+    font-size: 11px;
+    color: #9aa3b2;
+}
+
+/* Navegacion */
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 12px;
     border-radius: 6px;
+    font-size: 15px;
 }
 
-.topbar nav a:hover {
-    background-color: #3f7a4d;
+.nav-link i {
+    font-size: 18px;
+    margin-right: 2px;
 }
 
-.topbar nav a.activo {
-    background-color: #8bc34a;
-    color: #1c2b17;
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, .08);
+}
+
+.nav-link.activo {
+    background-color: rgba(214, 35, 47, .18);
+    color: #ffffff;
+}
+
+.nav-link.activo i {
+    color: var(--rojo);
+}
+
+/* Zona derecha: carta diaria + salir */
+.topbar-fin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    border: 1px solid rgba(53, 208, 127, .35);
+    background-color: rgba(53, 208, 127, .12);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.carta-badge i {
+    font-size: 20px;
+    color: #35d07f;
+}
+
+.carta-badge.abierta {
+    border-color: rgba(255, 255, 255, .15);
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.carta-badge.abierta i {
+    color: #9aa3b2;
+}
+
+.carta-badge-txt {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.carta-badge-txt small {
+    font-size: 10px;
+    color: #9fd9bd;
+}
+
+.carta-badge-txt b {
+    font-size: 13px;
+}
+
+.punto {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #35d07f;
+    box-shadow: 0 0 0 0 rgba(53, 208, 127, .7);
+    animation: pulso 1.8s infinite;
+}
+
+@keyframes pulso {
+    0%   { box-shadow: 0 0 0 0 rgba(53, 208, 127, .6); }
+    70%  { box-shadow: 0 0 0 7px rgba(53, 208, 127, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
+}
+
+.nav-link.salir {
+    border: 1px solid rgba(255, 255, 255, .2);
 }
 
 /* ---------- Contenedor principal ---------- */
@@ -57,24 +203,25 @@ main {
 
 .tarjeta {
     background-color: #ffffff;
-    border: 1px solid #d5e0d0;
+    border: 1px solid var(--borde);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
+    color: var(--texto);
 }
 
 h1, h2, h3 {
-    color: #2f5d3a;
+    color: var(--rojo-osc);
 }
 
 a {
-    color: #3d7531;
+    color: var(--rojo);
 }
 
 /* ---------- Botones ---------- */
 .boton {
     display: inline-block;
-    background-color: #4a8f3c;
+    background-color: var(--rojo);
     color: #ffffff;
     border: none;
     padding: 10px 16px;
@@ -85,7 +232,7 @@ a {
 }
 
 .boton:hover {
-    background-color: #3d7531;
+    background-color: var(--rojo-osc);
 }
 
 .boton.secundario {
@@ -155,9 +302,9 @@ a {
 }
 
 .pestanas button.activa {
-    background-color: #4a8f3c;
+    background-color: var(--rojo);
     color: #ffffff;
-    border-color: #4a8f3c;
+    border-color: var(--rojo);
 }
 
 .oculto {
@@ -176,17 +323,18 @@ a {
 .carta {
     width: 190px;
     background-color: #ffffff;
-    border: 1px solid #d5e0d0;
+    border: 1px solid var(--borde);
     border-radius: 10px;
     padding: 10px;
     text-align: center;
     position: relative;
+    color: var(--texto);
 }
 
 .carta img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: auto;          /* tamano natural: no se recorta ni se estira */
+    display: block;
     border-radius: 8px;
 }
 
@@ -197,7 +345,7 @@ a {
 
 .carta .apodo {
     font-size: 13px;
-    color: #6b7a66;
+    color: var(--gris);
     margin: 0 0 8px;
 }
 
@@ -211,7 +359,7 @@ a {
 .stats span b {
     display: block;
     font-size: 14px;
-    color: #2f5d3a;
+    color: var(--rojo-osc);
 }
 
 .badge {
@@ -246,7 +394,7 @@ a {
 .resumen li b {
     display: block;
     font-size: 22px;
-    color: #2f5d3a;
+    color: var(--rojo-osc);
 }
 
 /* ---------- Lista de datos (perfil) ---------- */
@@ -258,4 +406,326 @@ a {
 .datos li {
     padding: 6px 0;
     border-bottom: 1px solid #e3ebe0;
+}
+
+/* ============================================================
+   PORTAL DE ENTRADA (index.php)
+   ============================================================ */
+
+/* Zona derecha de la cabecera del portal */
+.topbar-der {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #cfd6e4;
+}
+
+.topbar-der i {
+    font-size: 1.6rem;
+    color: var(--rojo);
+}
+
+/* Dos columnas: hero + formulario */
+.pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding: 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+}
+
+/* Hero */
+.hero {
+    max-width: 520px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.hero h2 span {
+    display: block;
+    color: var(--rojo);
+}
+
+.hero p {
+    color: #d3d8e2;
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
+
+.hero ul {
+    list-style: none;
+    display: grid;
+    gap: 18px;
+    padding: 0;
+}
+
+.hero li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.hero li i {
+    font-size: 2rem;
+    color: var(--rojo);
+}
+
+.hero li b {
+    display: block;
+    color: #fff;
+}
+
+.hero li small {
+    color: #b9c0cf;
+}
+
+/* Tarjeta blanca del formulario */
+.container {
+    width: 100%;
+    max-width: 520px;
+    background: #fafafa;
+    color: var(--texto);
+    border-radius: 6px;
+    padding: 0 30px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+}
+
+/* Pestañas Iniciar sesión / Registrarse */
+.container > .btn {
+    order: -1;
+    flex: 1 1 50%;
+    background: none;
+    border: none;
+    border-bottom: 3px solid #e6e8ee;
+    padding: 20px 0 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gris);
+    cursor: pointer;
+}
+
+.container > .btn.activa {
+    color: var(--texto);
+    border-bottom-color: var(--rojo);
+}
+
+.container > .btn:hover {
+    color: var(--texto);
+}
+
+.container > form {
+    width: 100%;
+}
+
+.container > .aviso {
+    width: 100%;
+}
+
+/* Encabezados del formulario */
+#form-login h2,
+#form-registro h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--texto);
+    margin-top: 24px;
+    margin-bottom: 2px;
+}
+
+.sub {
+    font-size: .85rem;
+    color: var(--gris);
+    margin-top: 2px;
+    margin-bottom: 18px;
+    line-height: 1.3;
+}
+
+/* Campos del formulario */
+.campo {
+    margin-bottom: 16px;
+    position: relative;
+    text-align: left;
+}
+
+.campo label {
+    display: block;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--gris);
+    margin-bottom: 6px;
+}
+
+.campo input {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(214, 35, 47, .15);
+}
+
+/* Campo con icono a la izquierda (login) */
+.campo.icono > i {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    font-size: 1.3rem;
+    color: var(--gris);
+    z-index: 1;
+}
+
+.campo.icono input {
+    padding-left: 46px;
+}
+
+/* Contraseña + botón Mostrar */
+.entrada {
+    position: relative;
+}
+
+.entrada input {
+    padding-right: 90px;
+}
+
+.rojo {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--rojo);
+    font-weight: 600;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+.rojo:hover {
+    text-decoration: underline;
+}
+
+/* Botón enviar */
+.enviar {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 4px;
+    background: var(--rojo);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.enviar:hover {
+    background: var(--rojo-osc);
+}
+
+/* Separador "o" */
+.separador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 20px 0;
+    color: var(--gris);
+    font-size: .85rem;
+}
+
+.separador::before,
+.separador::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--borde);
+}
+
+/* Enlaces de registro / login */
+.register-link {
+    text-align: center;
+    font-size: .9rem;
+    color: var(--gris);
+}
+
+#form-login .register-link a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--texto);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#form-login .register-link a:hover {
+    background: #f1f2f6;
+}
+
+#form-registro .register-link {
+    margin-top: 18px;
+}
+
+#form-registro .register-link a {
+    color: var(--rojo);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#form-registro .register-link a:hover {
+    text-decoration: underline;
+}
+
+.nota {
+    text-align: center;
+    font-size: .75rem;
+    color: var(--gris);
+    margin-top: 26px;
+}
+
+/* Portal en movil */
+@media (max-width: 900px) {
+    .pagina {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 24px 16px;
+        min-height: auto;
+    }
+
+    .hero {
+        max-width: 100%;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    .topbar-der span {
+        display: none;
+    }
 }

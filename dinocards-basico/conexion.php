@@ -39,6 +39,12 @@ function escapar($texto)
     return htmlspecialchars($texto ?? "", ENT_QUOTES, "UTF-8");
 }
 
+// Alias corto de escapar() (lo usan algunas plantillas al estilo dino-prueba)
+function e($texto)
+{
+    return escapar($texto);
+}
+
 // Dice si el usuario ha iniciado sesion
 function esta_logueado()
 {

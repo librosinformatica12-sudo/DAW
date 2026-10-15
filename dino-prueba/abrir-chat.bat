@@ -2,5 +2,5 @@
 title DinoCards - Chat con opencode
 cd /d "C:\xampp\htdocs\ejer\dino-prueba"
 echo Abriendo el chat de DinoCards...
-"E:\opencode\bin\opencode.exe" -s ses_ecba0fdebffe30QqHvx45uD0MB
+"D:\opencode\bin\opencode.exe" -s ses_ecba0fdebffe30QqHvx45uD0MB
 pause

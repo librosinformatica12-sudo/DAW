@@ -8,7 +8,9 @@ echo   SINCRONIZAR TODO el repo DAW con GitHub
 echo ==========================================
 echo.
 
-for /f "delims=" %%t in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HHmm"') do set "TS=%%t"
+for /f "delims=" %%t in ('powershell -NoProfile -Command "(Get-Date).ToString(\"yyyy-MM-dd HH-mm\")"') do set "TS=%%t"
+set "DT_FMT=%date% %time%"
+for /f "delims=" %%t in ('powershell -NoProfile -Command "(Get-Date).ToString(\"yyyy-MM-dd HH:mm\")"') do set "MSG=Sincronizacion del %%t"
 set "REPORTE=cambios-todo\informe_%TS%.txt"
 
 echo [1/4] Descargando cambios de GitHub...
@@ -20,16 +22,12 @@ git add -A
 git diff --cached --quiet
 if not errorlevel 1 goto sin_cambios
 
-echo.
-set /p "DESC=Descripcion de los cambios  [Enter = automatica]: "
-if not defined DESC set "DESC=Cambios en DAW"
-
 echo [3/4] Creando informe de cambios...
 if not exist "cambios-todo" mkdir "cambios-todo"
 
 echo ===== INFORME DE CAMBIOS - TODO EL REPO ===== >"%REPORTE%"
 echo Fecha: %date% %time% >>"%REPORTE%"
-echo Descripcion: %DESC% >>"%REPORTE%"
+echo Descripcion: %MSG% >>"%REPORTE%"
 echo. >>"%REPORTE%"
 echo --- Archivos afectados --- >>"%REPORTE%"
 git status --short >>"%REPORTE%"
@@ -40,7 +38,7 @@ git diff --cached >>"%REPORTE%"
 git add cambios-todo
 
 echo [4/4] Subiendo cambios...
-git commit -m "%DESC%"
+git commit -m "%MSG%"
 git push
 
 echo.

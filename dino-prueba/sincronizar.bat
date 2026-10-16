@@ -1,55 +1,33 @@
 @echo off
 chcp 65001 >nul
-setlocal
-cd /d "%~dp0.."
+cd /d "%~dp0"
 
 echo ==========================================
-echo    SINCRONIZAR dino-prueba con GitHub
+echo   Sincronizar DinoCards con GitHub
+echo   Repo: dino-prueba
 echo ==========================================
 echo.
 
-for /f "delims=" %%t in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd_HHmm"') do set "TS=%%t"
-set "REPORTE=dino-prueba\cambios\cambios_%TS%.txt"
+set "MSG=%~1"
+if "%MSG%"=="" set "MSG=Sincronizacion del %DATE% a las %TIME%"
 
-echo [1/4] Descargando cambios de GitHub...
-git pull
+echo [1/3] Preparando cambios (git add -A)...
+git add -A
 
-echo [2/4] Preparando cambios locales...
-git add dino-prueba
+echo [2/3] Guardando commit...
+git commit -m "%MSG%"
+if errorlevel 1 echo   ^(No habia cambios nuevos que guardar^)
 
-git diff --cached --quiet -- dino-prueba
-if not errorlevel 1 goto sin_cambios
-
-echo.
-set /p "DESC=Descripcion de los cambios  [Enter = automatica]: "
-if not defined DESC set "DESC=Cambios en dino-prueba"
-
-echo [3/4] Creando informe de cambios...
-if not exist "dino-prueba\cambios" mkdir "dino-prueba\cambios"
-
-echo ===== INFORME DE CAMBIOS - dino-prueba ===== >"%REPORTE%"
-echo Fecha: %date% %time% >>"%REPORTE%"
-echo Descripcion: %DESC% >>"%REPORTE%"
-echo. >>"%REPORTE%"
-echo --- Archivos afectados --- >>"%REPORTE%"
-git status --short -- dino-prueba >>"%REPORTE%"
-echo. >>"%REPORTE%"
-echo --- Detalle de cambios - diff --- >>"%REPORTE%"
-git diff --cached -- dino-prueba >>"%REPORTE%"
-
-git add dino-prueba
-
-echo [4/4] Subiendo cambios...
-git commit -m "%DESC%"
+echo [3/3] Subiendo a GitHub (git push)...
 git push
+if errorlevel 1 (
+  echo.
+  echo   *** ERROR al subir. Lee los mensajes de arriba. ***
+  echo   *** Tus archivos locales NO se han tocado. ***
+) else (
+  echo.
+  echo   *** LISTO: cambios subidos a GitHub correctamente. ***
+)
 
-echo.
-echo LISTO. Informe guardado en: %REPORTE%
-goto fin
-
-:sin_cambios
-echo.
-echo No hay cambios que subir. Todo esta actualizado.
-:fin
 echo.
 pause

@@ -51,8 +51,8 @@ $diaSemana  = $diasSemana[(int) date('w')];
 $mesActual  = $meses[(int) date('n') - 1];
 
 /* ---------- Sobre de prueba: espera entre aperturas ----------
-   300 = 5 minutos. Cámbialo aquí y solo aquí. */
-$esperaPrueba  = 300;
+   120 = 2 minutos. Cámbialo aquí y solo aquí. */
+$esperaPrueba  = 120;
 $ultimaPrueba  = $usuarioActual['carta_prueba'] ?? null;
 $pasadosPrueba = $ultimaPrueba ? (time() - strtotime((string) $ultimaPrueba)) : PHP_INT_MAX;
 $faltanPrueba  = max(0, $esperaPrueba - $pasadosPrueba);
@@ -78,6 +78,27 @@ $sobres = [
         ],
     ],
     [
+        'id'         => 'prueba',
+        'nombre'     => 'Sobre de Prueba',
+        'icono'      => 'bx-test-tube',
+        'imagen'     => 'img/img-sobres/sobre3.png',
+        'disponible' => true, // siempre activo para hacer pruebas
+        'texto'      => $pruebaListo
+            ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 2 minutos.'
+            : 'Aún no puedes abrirlo. Vuelve en unos minutos.',
+        'estado'     => $pruebaListo ? 'Disponible' : 'En espera',
+        'boton'      => $pruebaListo ? 'Abrir sobre de prueba' : 'En espera',
+        'bloqueado'  => !$pruebaListo,
+        'espera'     => $faltanPrueba, // segundos que faltan (lo usará el JS)
+        'cartas'     => 4,
+        'contiene'   => [
+            ['bx-cube',    '4 cartas de dinosaurio'],
+            ['bx-time',    'Se repite cada 2 minutos'],
+            ['bx-shuffle', 'Dinosaurios aleatorios'],
+        ],
+    ],
+    /* 
+    [
         'nombre'     => 'Sobre semanal',
         'icono'      => 'bx-calendar-week',
         'imagen'     => 'img/img-sobres/sobre2.png',
@@ -90,26 +111,7 @@ $sobres = [
             ['bx-star',     'Más opciones de cartas poco comunes'],
         ],
     ],
-    [
-        'id'         => 'prueba',
-        'nombre'     => 'Sobre de Prueba',
-        'icono'      => 'bx-test-tube',
-        'imagen'     => 'img/img-sobres/sobre3.png',
-        'disponible' => true, // siempre activo para hacer pruebas
-        'texto'      => $pruebaListo
-            ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 5 minutos.'
-            : 'Aún no puedes abrirlo. Vuelve en unos minutos.',
-        'estado'     => $pruebaListo ? 'Disponible' : 'En espera',
-        'boton'      => $pruebaListo ? 'Abrir sobre de prueba' : 'En espera',
-        'bloqueado'  => !$pruebaListo,
-        'espera'     => $faltanPrueba, // segundos que faltan (lo usará el JS)
-        'cartas'     => 4,
-        'contiene'   => [
-            ['bx-cube',    '4 cartas de dinosaurio'],
-            ['bx-time',    'Se repite cada 5 minutos'],
-            ['bx-shuffle', 'Dinosaurios aleatorios'],
-        ],
-    ],
+    */
     [
         'nombre'     => 'Sobre de evento',
         'icono'      => 'bx-party',
@@ -355,7 +357,7 @@ $sobres = [
                                 </a>
                             </li>
                             <li>
-                                <a class="prox" href="#" aria-disabled="true">
+                                <a href="dinopedia.php">
                                     <i class="bx bx-book-open" aria-hidden="true"></i>
                                     <b>DinoPedia</b>
                                     <small>Próximamente</small>

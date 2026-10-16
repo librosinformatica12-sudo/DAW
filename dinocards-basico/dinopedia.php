@@ -43,38 +43,44 @@ while ($d = $res->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - DinoPedia</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
 <?php require "menu.php"; ?>
 
 <main>
-    <div class="tarjeta">
+    <div class="tarjeta panel-oscuro">
         <h1>DinoPedia</h1>
         <p>Catálogo completo. Pulsa «Añadir» para sumar un dinosaurio a tu colección.</p>
 
         <?php if ($aviso !== ""): ?>
             <p class="aviso ok"><?= escapar($aviso) ?></p>
         <?php endif; ?>
-    </div>
 
-    <div class="tarjeta">
-        <ul class="cartas">
+        <ul class="cartas-grid">
             <?php foreach ($dinos as $d): ?>
-                <li class="carta">
-                    <?php if (!empty($d["imagen_url"])): ?>
-                        <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["especie"]) ?>">
-                    <?php endif; ?>
-                    <h3><?= escapar($d["especie"]) ?></h3>
-                    <p class="apodo">«<?= escapar($d["nombre"]) ?>»</p>
-                    <div class="stats">
-                        <span><b><?= escapar($d["hp"]) ?></b>HP</span>
-                        <span><b><?= escapar($d["ataque"]) ?></b>ATQ</span>
-                        <span><b><?= escapar($d["defensa"]) ?></b>DEF</span>
-                        <span><b><?= escapar($d["agilidad"]) ?></b>AGI</span>
+                <li class="carta-mini">
+                    <span class="retrato">
+                        <?php if (!empty($d["imagen_url"])): ?>
+                            <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                        <?php else: ?>
+                            <i class="bx bx-dna" aria-hidden="true"></i>
+                        <?php endif; ?>
+                    </span>
+                    <h3><?= escapar($d["nombre"]) ?></h3>
+                    <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
+                    <div class="mini-stats">
+                        <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
+                        <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
+                        <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
+                        <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
                     </div>
-                    <a class="boton" href="dinopedia.php?id=<?= (int) $d["id"] ?>">Añadir</a>
+                    <a class="btn-carta" href="dinopedia.php?id=<?= (int) $d["id"] ?>">
+                        <i class="bx bx-plus" aria-hidden="true"></i> Añadir
+                    </a>
                 </li>
             <?php endforeach; ?>
         </ul>

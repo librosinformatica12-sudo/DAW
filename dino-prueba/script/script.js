@@ -142,25 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ---------- BARRA DE FUERZA DE CONTRASEÑA ----------
-    const passReg = document.getElementById('reg-pass');
-    const barra = document.getElementById('barra');
-
-    if (passReg && barra) {
-        passReg.addEventListener('input', () => {
-            const v = passReg.value;
-            let puntos = 0;
-            if (v.length >= 8) puntos++;
-            if (/[a-z]/.test(v) && /[A-Z]/.test(v)) puntos++;
-            if (/\d/.test(v)) puntos++;
-            if (/[^A-Za-z0-9]/.test(v)) puntos++;
-
-            const colores = ['#ff4d4d', '#ff4d4d', '#ffa500', '#ffd700', '#2ecc71'];
-            barra.style.width = (v.length === 0 ? 0 : puntos * 25) + '%';
-            barra.style.backgroundColor = colores[puntos];
-        });
-    }
-
     // ---------- UTILIDADES Y AVISOS ----------
     function setMsg(input, texto) {
         if (!input) return true;

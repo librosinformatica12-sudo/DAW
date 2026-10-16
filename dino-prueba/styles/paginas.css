@@ -50,7 +50,7 @@
         "acciones acciones";
 }
 
-/* Zonas del grid (grid-area) */
+/* ---------- Zonas del grid (grid-area) ---------- */
 .panel-hero { grid-area: hero; }
 .panel-resumen2 { grid-area: resumen; }
 .accesos-panel { grid-area: accesos; }
@@ -59,7 +59,7 @@
 .perfil-ultimas { grid-area: cartas; }
 .perfil-acciones { grid-area: acciones; }
 
-/* Bloques que envuelven cada zona de inicio.php */
+/* ---------- Bloques que envuelven cada zona de inicio.php ---------- */
 .bloque { min-width: 0; }
 .bloque-hero { grid-area: hero; }
 .bloque-sobres { grid-area: sobres; }
@@ -213,7 +213,7 @@
 }
 .carta-mini .mini-stats b { font-size: .8rem; color: #fff; }
 .carta-mini .mini-stats small { font-size: .55rem; color: #9aa3b2; letter-spacing: .5px; }
-/* Contador de repetidas (x2, x3...) */
+/* ---------- Contador de repetidas (x2, x3...) ---------- */
 .carta-mini .badge {
     position: absolute;
     top: -10px;
@@ -332,7 +332,7 @@
     flex-wrap: wrap;
     box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
 }
-/* Pestañas "Iniciar sesión" / "Registrarse" */
+/* ---------- Pestañas "Iniciar sesión" / "Registrarse" ---------- */
 .container > .btn {
     order: -1;
     flex: 1 1 50%;
@@ -389,7 +389,7 @@
     border-color: var(--rojo);
     box-shadow: 0 0 0 3px rgba(214, 35, 47, .15);
 }
-/* Campos con icono a la izquierda (login) */
+/* ---------- Campos con icono a la izquierda (login) ---------- */
 .campo.icono > i {
     position: absolute;
     left: 14px;
@@ -400,7 +400,7 @@
 }
 .campo.icono input { padding-left: 46px; }
 
-/* Contraseña + botón "Mostrar" */
+/* ---------- Contraseña + botón "Mostrar" ---------- */
 .entrada { position: relative; }
 .entrada input { padding-right: 90px; }
 .rojo {
@@ -417,16 +417,12 @@
 }
 .rojo:hover { text-decoration: underline; }
 
-/* Filas de dos campos */
+/* ---------- Filas de dos campos ---------- */
 .fila { display: flex; gap: 14px; }
 .fila .campo { flex: 1; min-width: 0; }
 
-/* Mensaje de validación bajo el campo */
+/* ---------- Mensaje de validación bajo el campo ---------- */
 .msg { color: var(--rojo); font-size: .8rem; min-height: 1em; margin-top: 4px; }
-
-/* Medidor de fuerza de contraseña */
-.fuerza { height: 6px; background: #e6e8ee; border-radius: 3px; margin-top: 8px; overflow: hidden; }
-.fuerza span { display: block; height: 100%; width: 0; transition: width .2s, background .2s; }
 
 /* ---------- Extras login/registro ---------- */
 .remember-password {
@@ -454,7 +450,7 @@
 }
 .enviar:hover { background: var(--rojo-osc); }
 
-/* Separador "o" con línea */
+/* ---------- Separador "o" con línea ---------- */
 .separador {
     display: flex;
     align-items: center;
@@ -473,7 +469,7 @@
 
 .register-link { text-align: center; font-size: .9rem; color: var(--gris); }
 
-/* Botón grande "Crear nueva cuenta" dentro de login */
+/* ---------- Botón grande "Crear nueva cuenta" dentro de login ---------- */
 #form-login .register-link a {
     display: flex;
     align-items: center;
@@ -529,7 +525,7 @@
     pointer-events: none;
     background: linear-gradient(120deg, transparent 55%, rgba(255, 255, 255, .06));
 }
-/* Avatar redondo con la inicial */
+/* ---------- Avatar redondo con la inicial ---------- */
 .avatar-hero {
     width: 86px;
     height: 86px;
@@ -548,7 +544,7 @@
 .panel-hero-texto h2 { font-size: 2rem; color: #fff; line-height: 1.2; }
 .panel-hero-texto h2 span { color: var(--rojo); }
 .panel-hero-texto p { margin-top: 6px; color: #c6cdda; line-height: 1.5; max-width: 60ch; }
-/* Bloque de fecha a la derecha */
+/* ---------- Bloque de fecha a la derecha ---------- */
 .panel-fecha {
     margin-left: auto;
     flex: 0 0 auto;
@@ -607,7 +603,6 @@
 .carta-img img { width: 100%; height: 100%; object-fit: cover; }
 .carta h3 { grid-area: nombre; font-size: 1.4rem; color: #fff; }
 .carta-especie { grid-area: especie; font-size: .92rem; color: #c6cdda; font-style: italic; }
-.carta-periodo { grid-area: periodo; display: inline-flex; align-items: center; gap: 5px; font-size: .8rem; color: #9aa3b2; }
 .carta-stats {
     grid-area: stats;
     list-style: none;

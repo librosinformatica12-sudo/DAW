@@ -1,32 +1,36 @@
 <?php
-/* ============================================================
-   conexion.php
-   ------------------------------------------------------------------
-   Aqui conectamos con la base de datos y escribimos algunas
-   funciones que usan casi todas las paginas.
-   ============================================================ */
+/**
+ * conexion.php
+ * ------------------------------------------------------------------
+ * Punto de entrada a la capa de datos: crea la conexión $conexion
+ * y define las funciones de ayuda que usan casi todas las paginas.
+ *
+ * Mismo estilo que AccesoDatos.php de dino-prueba.
+ * ------------------------------------------------------------------
+ */
 
 // Iniciamos la sesion (solo si no esta iniciada todavia)
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Datos de la base de datos (XAMPP)
-$host       = "127.0.0.1";
-$usuario_bd = "oscar";
-$clave_bd   = "561Cazadora#%";
-$base_datos = "dinocards";
+$host = '127.0.0.1';
+$port = 3306;
+$database = 'dinocards';
+$username = 'oscar';
+$password = '561Cazadora#%';
 
-// Creamos la conexion con MySQLi
-$conexion = new mysqli($host, $usuario_bd, $clave_bd, $base_datos);
+mysqli_report(MYSQLI_REPORT_OFF);
+$conexion = @new mysqli($host, $username, $password, $database, $port);
 
-// Si falla, mostramos un error y paramos
-if ($conexion->connect_error) {
+if ($conexion->connect_errno) {
     die("Error de conexion: " . $conexion->connect_error);
 }
 
-// Para que los acentos y las tildes se vean bien
-$conexion->set_charset("utf8mb4");
+$conexion->set_charset('utf8mb4');
+
+// Alias con el nombre usado en dino-prueba ($connection)
+$connection = $conexion;
 
 
 // ------------------------------------------------------------
@@ -37,6 +41,12 @@ $conexion->set_charset("utf8mb4");
 function escapar($texto)
 {
     return htmlspecialchars($texto ?? "", ENT_QUOTES, "UTF-8");
+}
+
+// Alias corto de escapar() (lo usan algunas plantillas al estilo dino-prueba)
+function e($texto)
+{
+    return escapar($texto);
 }
 
 // Dice si el usuario ha iniciado sesion
@@ -65,4 +75,3 @@ function anadir_a_coleccion($conexion, $usuario_id, $dinosaurio_id)
     $sentencia->execute();
     $sentencia->close();
 }
-?>

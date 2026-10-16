@@ -35,7 +35,11 @@ if (!is_numeric($usuarioId)) {
 }
 $usuarioId = (int) $usuarioId;
 
+<<<<<<< HEAD
+$ESPERA   = 120; // 2 minutos. Debe coincidir con $esperaPrueba de inicio.php
+=======
 $ESPERA   = 300; // 5 minutos. Debe coincidir con $esperaPrueba de inicio.php
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 $CUANTAS  = 4;   // nº de cartas distintas por sobre
 
 try {

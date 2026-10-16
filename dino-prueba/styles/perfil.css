@@ -1,12 +1,25 @@
-/* ==========================================================================
+/* ============================================================
    perfil.css · Estilos EXCLUSIVOS de perfil.php
-   --------------------------------------------------------------------------
-   Se carga junto con comun.css (que ya aporta el reset, las variables
-   --rojo/--fondo... , el fondo del body y la cabecera .topbar).
-   Por eso aquí NO se repiten ni :root ni body.
-   ========================================================================== */
+   ------------------------------------------------------------
+   Se carga junto con comun.css (que ya aporta el reset, las
+   variables --rojo/--fondo..., el fondo del body y la cabecera
+   .topbar). Por eso aquí NO se repiten ni :root ni body.
 
-/* Contenedor principal */
+   Orden de las secciones:
+     1. Layout del perfil
+     2. Banner del usuario
+     3. Rejilla y tarjetas
+     4. Datos de la cuenta
+     5. Cartas en miniatura
+     6. Estado vacío y botón
+     7. Acciones (tiles)
+   ============================================================ */
+
+/* ============================================================
+   1. LAYOUT DEL PERFIL
+   ============================================================ */
+
+/* ---------- Contenedor principal ---------- */
 .panel-perfil {
     max-width: 1200px;
     margin: 2rem auto;
@@ -15,7 +28,11 @@
     color: #e2e8f0;
 }
 
-/* Banner superior del usuario */
+/* ============================================================
+   2. BANNER DEL USUARIO
+   ============================================================ */
+
+/* ---------- Banner superior del usuario ---------- */
 .panel-hero {
     display: flex;
     align-items: center;
@@ -81,14 +98,18 @@
     border: 1px solid rgba(229, 62, 62, 0.3);
 }
 
-/* Rejilla del perfil (Layout 2 columnas) */
+/* ============================================================
+   3. REJILLA Y TARJETAS
+   ============================================================ */
+
+/* ---------- Rejilla del perfil (2 columnas) ---------- */
 .perfil-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
 }
 
-/* Tarjetas */
+/* ---------- Tarjeta ---------- */
 .tarjeta {
     background: #181820;
     border: 1px solid #282836;
@@ -110,7 +131,7 @@
     padding-bottom: 0.75rem;
 }
 
-/* Estadísticas Grid */
+/* ---------- Estadísticas (grid) ---------- */
 .stats-grid {
     list-style: none;
     padding: 0;
@@ -146,7 +167,7 @@
     font-size: 0.8rem;
 }
 
-/* Barra de progreso */
+/* ---------- Barra de progreso ---------- */
 .contenedor-barra {
     margin-top: 1rem;
 }
@@ -176,7 +197,11 @@
     transition: width 0.4s ease;
 }
 
-/* Lista de Datos */
+/* ============================================================
+   4. DATOS DE LA CUENTA
+   ============================================================ */
+
+/* ---------- Lista de datos ---------- */
 .datos-lista {
     list-style: none;
     padding: 0;
@@ -216,7 +241,11 @@
     font-size: 0.95rem;
 }
 
-/* Rejilla de cartas en miniatura */
+/* ============================================================
+   5. CARTAS EN MINIATURA
+   ============================================================ */
+
+/* ---------- Rejilla de cartas ---------- */
 .cartas-grid {
     list-style: none;
     padding: 0;
@@ -307,7 +336,11 @@
     color: #718096;
 }
 
-/* Estado vacío */
+/* ============================================================
+   6. ESTADO VACÍO Y BOTÓN
+   ============================================================ */
+
+/* ---------- Estado vacío ---------- */
 .vacio {
     text-align: center;
     padding: 2rem 1rem;
@@ -332,7 +365,11 @@
     margin-top: 1rem;
 }
 
-/* Botones de acción */
+/* ============================================================
+   7. ACCIONES (TILES)
+   ============================================================ */
+
+/* ---------- Lista de acciones ---------- */
 .tiles {
     list-style: none;
     padding: 0;

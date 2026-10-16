@@ -15,9 +15,13 @@ if (esta_logueado()) {
     exit;
 }
 
+<<<<<<< HEAD
+$pestana = "login"; // pestana que se muestra al cargar
+=======
 $aviso    = "";
 $correcto = true;    // true = aviso verde, false = aviso rojo
 $pestana  = "login"; // pestana que se muestra al cargar
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 
 // La logica de login y registro vive en php/login.php y php/registro.php
 // (endpoints JSON llamados con fetch, igual que en dino-prueba).
@@ -79,6 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </li>
         </ul>
     </section>
+<<<<<<< HEAD
+=======
 
     <div class="container" id="contenedor-pestanas" data-inicial="<?= escapar($pestana) ?>">
 

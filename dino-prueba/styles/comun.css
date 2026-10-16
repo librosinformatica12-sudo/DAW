@@ -5,15 +5,25 @@
               dinopedia.php · perfil.php (junto con perfil.css)
    Contiene SOLO lo común: reset básico, variables de color,
    fondo/tipografía del body y la CABECERA (.topbar).
+
+   Orden de las secciones:
+     1. Base (reset, variables y fondo)
+     2. Cabecera (.topbar)
+     3. Móvil
+   ============================================================ */
+
+/* ============================================================
+   1. BASE
+   Reset, variables de color y fondo/tipografía del body
    ============================================================ */
 
 /* ---------- Reset básico ---------- */
 * { box-sizing: border-box; }
 
-/* Oculta elementos con el atributo [hidden] (lo usa coleccion.js) */
+/* ---------- Oculta elementos con [hidden] (lo usa coleccion.js) ---------- */
 [hidden] { display: none !important; }
 
-/* Quitamos el margen del body (los márgenes internos se controlan por página) */
+/* ---------- Sin margen del body (los internos se controlan por página) ---------- */
 body { margin: 0; }
 
 /* ---------- Variables de color de DinoCards ---------- */
@@ -38,7 +48,7 @@ body {
 }
 
 /* ============================================================
-   CABECERA (barra superior pegada arriba)
+   2. CABECERA (barra superior pegada arriba)
    ============================================================ */
 .topbar {
     position: sticky;               /* se queda fija al hacer scroll */
@@ -68,7 +78,7 @@ body {
 .logo strong { font-size: 2rem; line-height: 1; color: var(--rojo); letter-spacing: 1px; }
 .logo span { font-size: .7rem; letter-spacing: 6px; margin-top: 2px; }
 
-/* Marca de la app (con recuadro rojo) — la usa partials/cabecera.php */
+/* ---------- Marca de la app (recuadro rojo) — partials/cabecera.php ---------- */
 .logo-app .logo-mark {
     width: 44px;
     height: 44px;
@@ -84,11 +94,11 @@ body {
 .logo-app .logo-texto strong { font-size: 1.35rem; line-height: 1; color: #fff; letter-spacing: .5px; }
 .logo-app .logo-texto small { margin-top: 2px; font-size: .62rem; letter-spacing: 2.5px; text-transform: uppercase; color: #9aa3b2; }
 
-/* Zona derecha de la cabecera (index.php) */
+/* ---------- Zona derecha de la cabecera (index.php) ---------- */
 .topbar-der { display: flex; align-items: center; gap: 10px; font-size: .95rem; }
 .topbar-der i { font-size: 1.6rem; }
 
-/* Zona derecha de la app: carta diaria + salir (partials/cabecera.php) */
+/* ---------- Zona derecha de la app: carta diaria + salir ---------- */
 .topbar-fin { display: flex; align-items: center; gap: 10px; }
 
 /* ---------- Chapa "Carta diaria" ---------- */
@@ -108,7 +118,7 @@ body {
 .carta-badge b { display: block; color: #fff; font-size: .85rem; line-height: 1.1; }
 .carta-badge small { display: block; color: #9fd9bd; font-size: .62rem; text-transform: uppercase; letter-spacing: .6px; }
 .carta-badge:hover { transform: translateY(-1px); background: rgba(53, 208, 127, .2); }
-/* Estado cuando la carta del día YA se abrió (se pone gris) */
+/* ---------- Estado de la carta del día YA abierta (se pone gris) ---------- */
 .carta-badge.abierta { border-color: rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .05); }
 .carta-badge.abierta i { color: #9aa3b2; }
 .carta-badge.abierta small { color: #9aa3b2; }
@@ -158,6 +168,10 @@ body {
     70%  { box-shadow: 0 0 0 7px rgba(53, 208, 127, 0); }
     100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
 }
+
+/* ============================================================
+   3. MÓVIL
+   ============================================================ */
 
 /* ---------- Cabecera en móvil ---------- */
 @media (max-width: 900px) {

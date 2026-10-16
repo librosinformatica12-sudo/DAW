@@ -44,12 +44,6 @@ $totalEspecies = $resumen['especies'];
 $totalCatalogo = contarDinosaurios();
 $porcentaje    = $totalCatalogo > 0 ? (int) round($totalEspecies / $totalCatalogo * 100) : 0;
 
-/* ---------- Fecha ---------- */
-$diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-$meses      = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-$diaSemana  = $diasSemana[(int) date('w')];
-$mesActual  = $meses[(int) date('n') - 1];
-
 /* ---------- Sobre de prueba: espera entre aperturas ----------
    120 = 2 minutos. Cámbialo aquí y solo aquí. */
 $esperaPrueba  = 120;
@@ -84,7 +78,11 @@ $sobres = [
         'imagen'     => 'img/img-sobres/sobre3.png',
         'disponible' => true, // siempre activo para hacer pruebas
         'texto'      => $pruebaListo
+<<<<<<< HEAD
             ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 2 minutos.'
+=======
+            ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 5 minutos.'
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             : 'Aún no puedes abrirlo. Vuelve en unos minutos.',
         'estado'     => $pruebaListo ? 'Disponible' : 'En espera',
         'boton'      => $pruebaListo ? 'Abrir sobre de prueba' : 'En espera',
@@ -93,7 +91,11 @@ $sobres = [
         'cartas'     => 4,
         'contiene'   => [
             ['bx-cube',    '4 cartas de dinosaurio'],
+<<<<<<< HEAD
             ['bx-time',    'Se repite cada 2 minutos'],
+=======
+            ['bx-time',    'Se repite cada 5 minutos'],
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             ['bx-shuffle', 'Dinosaurios aleatorios'],
         ],
     ],
@@ -161,24 +163,6 @@ $sobres = [
                  COLUMNA PRINCIPAL
                  ==================================================== -->
             <div class="col-principal">
-
-                <!-- 1 · BIENVENIDA -->
-                <div class="bloque bloque-hero">
-                    <header class="panel-hero">
-                        <p class="avatar-hero" aria-hidden="true"><?= e($inicial) ?></p>
-
-                        <div class="panel-hero-texto">
-                            <h2>Hola, <span><?= e($nombre) ?></span></h2>
-                            <p>Abre tu sobre del día y sigue completando tu colección de dinosaurios.</p>
-                        </div>
-
-                        <time class="panel-fecha" datetime="<?= e(date('Y-m-d')) ?>">
-                            <small><?= e($diaSemana) ?></small>
-                            <b><?= e(date('j')) ?></b>
-                            <span><?= e($mesActual) ?> <?= e(date('Y')) ?></span>
-                        </time>
-                    </header>
-                </div>
 
                 <!-- 2 · SOBRES (carrusel) -->
                 <div class="bloque bloque-sobres">
@@ -292,50 +276,11 @@ $sobres = [
                 </div>
 
             </div><!-- /.col-principal -->
-
-
+            
             <!-- ====================================================
                  COLUMNA LATERAL
                  ==================================================== -->
             <div class="col-lateral">
-
-                <!-- 4 · RESUMEN DE LA COLECCIÓN -->
-                <div class="bloque bloque-resumen">
-                    <aside class="panel-resumen2" aria-label="Resumen de tu colección">
-                        <h3>Tu colección</h3>
-
-                        <ul class="resumen-grid">
-                            <li class="resumen-item">
-                                <i class="bx bx-cube" aria-hidden="true"></i>
-                                <strong><?= e($totalCartas) ?></strong>
-                                <small>cartas guardadas</small>
-                            </li>
-                            <li class="resumen-item">
-                                <i class="bx bx-layer" aria-hidden="true"></i>
-                                <strong><?= e($totalEspecies) ?></strong>
-                                <small>especies distintas</small>
-                            </li>
-                            <li class="resumen-item">
-                                <i class="bx bx-target-lock" aria-hidden="true"></i>
-                                <strong><?= e($porcentaje) ?>%</strong>
-                                <small>del catálogo (<?= e($totalCatalogo) ?>)</small>
-                            </li>
-                            <li class="resumen-item">
-                                <i class="bx bx-gift" aria-hidden="true"></i>
-                                <strong><?= $yaObtenidaHoy ? 'Abierta' : 'Disponible' ?></strong>
-                                <small>carta de hoy</small>
-                            </li>
-                        </ul>
-
-                        <p class="resumen-progreso">
-                            <span>Progreso del catálogo</span><b><?= e($porcentaje) ?>%</b>
-                        </p>
-                        <span class="resumen-barra" role="progressbar" aria-valuenow="<?= e($porcentaje) ?>" aria-valuemin="0" aria-valuemax="100">
-                            <span style="width: <?= e($porcentaje) ?>%"></span>
-                        </span>
-                    </aside>
-                </div>
-
                 <!-- 5 · ACCESOS RÁPIDOS -->
                 <div class="bloque bloque-accesos">
                     <nav class="accesos-panel" aria-label="Accesos rápidos">

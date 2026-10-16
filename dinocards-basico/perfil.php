@@ -67,6 +67,7 @@ $ya_obtenida_hoy = ($ultima !== null
 
 <main class="panel panel-perfil">
 
+<<<<<<< HEAD
     <!-- Banner del perfil -->
     <header class="panel-hero">
         <div class="avatar-hero" aria-hidden="true"><?= escapar($inicial) ?></div>
@@ -80,6 +81,30 @@ $ya_obtenida_hoy = ($ultima !== null
         </section>
         <p class="perfil-id" title="Tu identificador de coleccionista">#<?= sprintf('%04d', $usuario_id) ?></p>
     </header>
+=======
+    <div class="tarjeta">
+        <h2>Estadísticas</h2>
+        <ul class="resumen">
+            <li><b><?= $total_cartas ?></b> cartas guardadas</li>
+            <li><b><?= $total_especies ?></b> especies distintas</li>
+            <li><b><?= $porcentaje ?>%</b> del catálogo (<?= $total_catalogo ?>)</li>
+        </ul>
+
+        <div class="progreso-catalogo">
+            <p class="barra-progreso"><span>Progreso del catálogo</span><b><?= $porcentaje ?>%</b></p>
+            <div class="barra" role="progressbar" aria-valuenow="<?= $porcentaje ?>" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso del catálogo">
+                <div class="barra-relleno nivel-<?= $nivel ?>" style="width: <?= $porcentaje ?>%"></div>
+            </div>
+            <p class="barra-detalle">
+                <?php if ($porcentaje >= 100): ?>
+                    <i class="bx bx-trophy"></i> ¡Colección completa! Tienes las <?= $total_catalogo ?> especies.
+                <?php else: ?>
+                    <i class="bx bx-collection"></i> <?= $total_especies ?> de <?= $total_catalogo ?> especies · te faltan <?= $faltan ?>
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 
     <!-- Rejilla con el contenido -->
     <div class="perfil-grid">

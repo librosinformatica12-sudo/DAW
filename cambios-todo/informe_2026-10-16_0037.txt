@@ -1,0 +1,3695 @@
+===== INFORME DE CAMBIOS - TODO EL REPO ===== 
+Fecha: 16/10/2026  0:37:35,07 
+Descripcion: casa acabada 
+ 
+--- Archivos afectados --- 
+A  dinocards-basico/CHAT-INFO.md
+A  dinocards-basico/README.md
+A  dinocards-basico/abrir-chat.bat
+A  dinocards-basico/abrir-dinocards.bat
+M  dinocards-basico/coleccion.php
+M  dinocards-basico/dinopedia.php
+M  dinocards-basico/index.php
+M  dinocards-basico/inicio.php
+M  dinocards-basico/perfil.php
+M  dinocards-basico/script.js
+M  dinocards-basico/style.css
+D  dinocards/README.md
+D  dinocards/api/abrir_prueba.php
+D  dinocards/api/anadir_carta.php
+D  dinocards/api/carta_diaria.php
+D  dinocards/api/coleccion.php
+D  dinocards/api/dinosaurios.php
+D  dinocards/api/login.php
+D  dinocards/api/registro.php
+D  dinocards/coleccion.php
+D  dinocards/css/estilos.css
+D  dinocards/dinopedia.php
+D  dinocards/img/img-cartas/1.png
+D  dinocards/img/img-cartas/10.png
+D  dinocards/img/img-cartas/100.png
+D  dinocards/img/img-cartas/11.png
+D  dinocards/img/img-cartas/12.png
+D  dinocards/img/img-cartas/13.png
+D  dinocards/img/img-cartas/14.png
+D  dinocards/img/img-cartas/15.png
+D  dinocards/img/img-cartas/16.png
+D  dinocards/img/img-cartas/17.png
+D  dinocards/img/img-cartas/18.png
+D  dinocards/img/img-cartas/19.png
+D  dinocards/img/img-cartas/2.png
+D  dinocards/img/img-cartas/20.png
+D  dinocards/img/img-cartas/21.png
+D  dinocards/img/img-cartas/22.png
+D  dinocards/img/img-cartas/23.png
+D  dinocards/img/img-cartas/24.png
+D  dinocards/img/img-cartas/25.png
+D  dinocards/img/img-cartas/26.png
+D  dinocards/img/img-cartas/27.png
+D  dinocards/img/img-cartas/28.png
+D  dinocards/img/img-cartas/29.png
+D  dinocards/img/img-cartas/3.png
+D  dinocards/img/img-cartas/30.png
+D  dinocards/img/img-cartas/31.png
+D  dinocards/img/img-cartas/32.png
+D  dinocards/img/img-cartas/33.png
+D  dinocards/img/img-cartas/34.png
+D  dinocards/img/img-cartas/35.png
+D  dinocards/img/img-cartas/36.png
+D  dinocards/img/img-cartas/37.png
+D  dinocards/img/img-cartas/38.png
+D  dinocards/img/img-cartas/39.png
+D  dinocards/img/img-cartas/4.png
+D  dinocards/img/img-cartas/40.png
+D  dinocards/img/img-cartas/41.png
+D  dinocards/img/img-cartas/42.png
+D  dinocards/img/img-cartas/43.png
+D  dinocards/img/img-cartas/44.png
+D  dinocards/img/img-cartas/45.png
+D  dinocards/img/img-cartas/46.png
+D  dinocards/img/img-cartas/47.png
+D  dinocards/img/img-cartas/48.png
+D  dinocards/img/img-cartas/49.png
+D  dinocards/img/img-cartas/5.png
+D  dinocards/img/img-cartas/50.png
+D  dinocards/img/img-cartas/51.png
+D  dinocards/img/img-cartas/52.png
+D  dinocards/img/img-cartas/53.png
+D  dinocards/img/img-cartas/54.png
+D  dinocards/img/img-cartas/55.png
+D  dinocards/img/img-cartas/56.png
+D  dinocards/img/img-cartas/57.png
+D  dinocards/img/img-cartas/58.png
+D  dinocards/img/img-cartas/59.png
+D  dinocards/img/img-cartas/6.png
+D  dinocards/img/img-cartas/60.png
+D  dinocards/img/img-cartas/61.png
+D  dinocards/img/img-cartas/62.png
+D  dinocards/img/img-cartas/63.png
+D  dinocards/img/img-cartas/64.png
+D  dinocards/img/img-cartas/65.png
+D  dinocards/img/img-cartas/66.png
+D  dinocards/img/img-cartas/67.png
+D  dinocards/img/img-cartas/68.png
+D  dinocards/img/img-cartas/69.png
+D  dinocards/img/img-cartas/7.png
+D  dinocards/img/img-cartas/70.jpg
+D  dinocards/img/img-cartas/71.png
+D  dinocards/img/img-cartas/72.png
+D  dinocards/img/img-cartas/73.png
+D  dinocards/img/img-cartas/74.png
+D  dinocards/img/img-cartas/75.png
+D  dinocards/img/img-cartas/76.png
+D  dinocards/img/img-cartas/77.png
+D  dinocards/img/img-cartas/78.png
+D  dinocards/img/img-cartas/79.png
+D  dinocards/img/img-cartas/8.png
+D  dinocards/img/img-cartas/80.png
+D  dinocards/img/img-cartas/81.png
+D  dinocards/img/img-cartas/82.png
+D  dinocards/img/img-cartas/83.png
+D  dinocards/img/img-cartas/84.png
+D  dinocards/img/img-cartas/85.png
+D  dinocards/img/img-cartas/86.png
+D  dinocards/img/img-cartas/87.png
+D  dinocards/img/img-cartas/88.png
+D  dinocards/img/img-cartas/89.png
+D  dinocards/img/img-cartas/9.png
+D  dinocards/img/img-cartas/90.png
+D  dinocards/img/img-cartas/91.png
+D  dinocards/img/img-cartas/92.png
+D  dinocards/img/img-cartas/93.png
+D  dinocards/img/img-cartas/94.png
+D  dinocards/img/img-cartas/95.png
+D  dinocards/img/img-cartas/96.png
+D  dinocards/img/img-cartas/97.png
+D  dinocards/img/img-cartas/98.png
+D  dinocards/img/img-cartas/99.png
+D  dinocards/img/img-sobres/sobre.png
+D  dinocards/img/img-sobres/sobre2.png
+D  dinocards/img/img-sobres/sobre3.png
+D  dinocards/includes/cabecera.php
+D  dinocards/includes/conexion.php
+D  dinocards/includes/funciones.php
+D  dinocards/includes/pie.php
+D  dinocards/index.php
+D  dinocards/inicio.php
+D  dinocards/js/coleccion.js
+D  dinocards/js/dinopedia.js
+D  dinocards/js/index.js
+D  dinocards/js/inicio.js
+D  dinocards/js/main.js
+D  dinocards/logout.php
+D  dinocards/perfil.php
+D  dinocards/sql/dinocards.sql
+?? cambios-todo/informe_2026-10-16_0037.txt
+?? dinocards-basico/sincronizar.bat
+ 
+--- Detalle de cambios - diff --- 
+diff --git a/dinocards-basico/CHAT-INFO.md b/dinocards-basico/CHAT-INFO.md
+new file mode 100644
+index 0000000..53c6bdd
+--- /dev/null
++++ b/dinocards-basico/CHAT-INFO.md
+@@ -0,0 +1,16 @@
++# Sesión de chat - DinoCards (básico)
++
++## Proyecto
++Ruta: C:/xampp/htdocs/ejer/dinocards-basico
++
++## Sesión de opencode
++ID de sesión: ses_ebec7cb03ffeg9ioaUmYfce53K
++Directorio de sesión: D:/opencode/bin
++
++## Para reanudar este chat
++Ejecuta: abrir-chat.bat
++
++## Notas
++- Este chat guarda su historial en `C:\Users\oscar\.local\share\opencode\opencode.db` (local a este PC).
++- Si lo abres en **otro ordenador**, este `.bat` no te reanudará el chat. Necesitarías copiar la carpeta `~/.local/share/opencode` o bien abrir opencode desde `C:\xampp\htdocs\ejer\dinocards-basico` y buscar el histórico.
++- También tienes `abrir-dinocards.bat` para arrancar el servidor PHP `localhost:8080`.
+diff --git a/dinocards-basico/README.md b/dinocards-basico/README.md
+new file mode 100644
+index 0000000..3528c36
+--- /dev/null
++++ b/dinocards-basico/README.md
+@@ -0,0 +1,116 @@
++# Dinocards Básico
++
++Una versión simplificada de **Dinocards** creada para practicar el funcionamiento de un portal de coleccionistas con **PHP, MySQL y sesiones**.
++
++El objetivo es tener una base clara, limpia y fácil de entender para seguir ampliando el proyecto poco a poco (carta diaria, colección, DinoPedia...).
++
++## Índice
++
++- [Descripción](#descripción)
++- [Tecnologías](#tecnologías)
++- [Estructura del proyecto](#estructura-del-proyecto)
++- [Base de datos](#base-de-datos)
++- [Instalación (XAMPP)](#instalación-xampp)
++- [Funcionamiento](#funcionamiento)
++- [Carpeta `img`](#carpeta-img)
++- [Notas](#notas)
++
++## Descripción
++
++Dinocards Básico permite:
++
++- Registrar un usuario (validación de campos, comprobación de usuario/email duplicados y hash de contraseña)
++- Iniciar/cerrar sesión
++- Ver un **panel de inicio** con los datos de la cuenta
++- Visualizar la **colección** de cartas del usuario
++- Consultar la **DinoPedia** con todas las cartas/dinosaurios disponibles
++
++Todo con una estructura sencilla, sin procedimientos almacenados, usando sentencias `mysqli` preparadas.
++
++## Tecnologías
++
++- [PHP](https://www.php.net/) (mysqli, sesiones)
++- [MySQL](https://www.mysql.com/)
++- [HTML5, CSS3 y JavaScript](https://developer.mozilla.org/es/)
++- [XAMPP](https://www.apachefriends.org/es/index.html) (entorno local)
++
++## Estructura del proyecto
++
++```text
++dinocards-basico/
++├── abrir-dinocards.bat
++├── cerrar.php
++├── coleccion.php
++├── conexion.php        # Conexión a BD + funciones auxiliares
++├── dinopedia.php       # Catálogo completo de dinosaurios
++├── img/                # Imágenes (cartas y sobres)
++├── index.php           # Login + Registro
++├── inicio.php          # Panel principal
++├── menu.php            # Cabecera/navegación reutilizable
++├── perfil.php
++├── script.js
++└── style.css
++```
++
++## Base de datos
++
++La base de datos se llama `dinocards`.
++
++Tablas principales:
++
++- **`usuarios`** – Datos del usuario (username, email, contraseña en MD5, fecha de registro, última obtención...)
++- **`dinosaurios`** – Catálogo de dinosaurios con sus estadísticas (nombre, especie, periodo, imagen, altura, largo, peso, hp, vigor, ataque, defensa, agilidad...)
++- **`colecciones`** – Relación `usuario_id` ↔ `dinosaurio_id` con `fecha_adquisicion`
++
++Los scripts SQL están disponibles en la carpeta `MySQL/` del repositorio `DAW` para importar fácilmente desde phpMyAdmin.
++
++## Instalación (XAMPP)
++
++1. **Clonar el repositorio**:
++
++   ```bash
++   git clone https://github.com/librosinformatica12-sudo/dinocards-basico.git
++   ```
++
++   O copiar la carpeta `dinocards-basico/` directamente en `C:\xampp\htdocs\`
++
++2. **Importar la base de datos**
++
++   - Abrir [phpMyAdmin](http://localhost/phpmyadmin)
++   - Crear la base `dinocards` (collation `utf8mb4_general_ci` o `utf8mb4_0900_ai_ci`)
++   - Importar los archivos `.sql` correspondientes (`usuarios`, `dinosaurios`, `colecciones`)
++
++3. **Configurar conexión**
++
++   Editar `conexion.php` con tus datos de MySQL:
++
++   ```php
++   $host       = "127.0.0.1";
++   $usuario_bd = "tu_usuario";
++   $clave_bd   = "tu_contraseña";
++   $base_datos = "dinocards";
++   ```
++
++4. **Arrancar y probar**
++
++   - Iniciar Apache y MySQL en XAMPP
++   - Acceder a: [http://localhost/dinocards-basico/](http://localhost/dinocards-basico/)
++   - Crear una cuenta desde el formulario de registro e iniciar sesión
++
++## Funcionamiento
++
++1. **Registro/Login** – `index.php` gestiona ambas pestañas. Al registrarse se guarda un hash MD5 de la contraseña.
++2. **Sesión** – `conexion.php` inicia sesión y comprueba con `esta_logueado()`.
++3. **Navegación** – `menu.php` se incluye para mantener el mismo menú en todas las páginas.
++4. **Colección** – `coleccion.php` muestra solo las cartas que tiene el usuario logueado.
++5. **DinoPedia** – `dinopedia.php` lista todo el catálogo con imagen, nombre y datos básicos.
++
++## Carpeta `img`
++
++Contiene las imágenes de cartas (`img-cartas/`) y sobres (`img-sobres/`). Se usan tanto en `coleccion.php` como en `dinopedia.php`.
++
++## Notas
++
++- Se utiliza `md5()` para el cifrado de contraseñas por simplicidad. Para un proyecto más real se recomienda migrar a [`password_hash()`](https://www.php.net/manual/es/function.password-hash.php) y [`password_verify()`](https://www.php.net/manual/es/function.password-verify.php).
++- El proyecto está pensado para **aprender y practicar**. Se irá mejorando añadiendo la "carta diaria", lógica de duplicados, etc.
++- Todos los datos se escapan con `htmlspecialchars()` (`function e()`/`escapar()`) para evitar XSS.
+\ No newline at end of file
+diff --git a/dinocards-basico/abrir-chat.bat b/dinocards-basico/abrir-chat.bat
+new file mode 100644
+index 0000000..b9add66
+--- /dev/null
++++ b/dinocards-basico/abrir-chat.bat
+@@ -0,0 +1,6 @@
++@echo off
++title DinoCards - Reanudar chat
++cd /d "C:\xampp\htdocs\ejer\dinocards-basico"
++echo Abriendo el chat de DinoCards...
++"D:\opencode\bin\opencode.exe" -s ses_ebec7cb03ffeg9ioaUmYfce53K
++pause
+diff --git a/dinocards-basico/abrir-dinocards.bat b/dinocards-basico/abrir-dinocards.bat
+new file mode 100644
+index 0000000..c497df1
+--- /dev/null
++++ b/dinocards-basico/abrir-dinocards.bat
+@@ -0,0 +1,4 @@
++@echo off
++cd /d C:\xampp\htdocs\ejer\dinocards-basico
++php -S localhost:8080 2>&1
++pause
+diff --git a/dinocards-basico/coleccion.php b/dinocards-basico/coleccion.php
+index ad82712..041972a 100644
+--- a/dinocards-basico/coleccion.php
++++ b/dinocards-basico/coleccion.php
+@@ -54,7 +54,7 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>DinoCards - Mi colección</title>
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="style.css?v=2">
++    <link rel="stylesheet" href="style.css?v=3">
+     <script src="script.js" defer></script>
+ </head>
+ <body>
+@@ -62,7 +62,7 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo
+ <?php require "menu.php"; ?>
+ 
+ <main>
+-    <div class="tarjeta">
++    <div class="tarjeta panel-oscuro">
+         <h1>Mi colección</h1>
+         <p>Tienes <b><?= $total_especies ?></b> de <b><?= $total_catalogo ?></b> especies (<?= $porcentaje ?>%).</p>
+ 
+@@ -74,23 +74,28 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo
+                 <input type="text" id="buscador" oninput="filtrarColeccion()" placeholder="Escribe un dinosaurio...">
+             </div>
+ 
+-            <ul class="cartas">
++            <ul class="cartas-grid">
+                 <?php foreach ($orden as $id): ?>
+                     <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
+-                    <li class="carta" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
++                    <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
+                         <?php if ($copias[$id] > 1): ?>
+                             <span class="badge">x<?= $copias[$id] ?></span>
+                         <?php endif; ?>
+-                        <?php if (!empty($d["imagen_url"])): ?>
+-                            <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["especie"]) ?>">
+-                        <?php endif; ?>
+-                        <h3><?= escapar($d["especie"]) ?></h3>
+-                        <p class="apodo">«<?= escapar($d["nombre"]) ?>»</p>
+-                        <div class="stats">
+-                            <span><b><?= escapar($d["hp"]) ?></b>HP</span>
+-                            <span><b><?= escapar($d["ataque"]) ?></b>ATQ</span>
+-                            <span><b><?= escapar($d["defensa"]) ?></b>DEF</span>
+-                            <span><b><?= escapar($d["agilidad"]) ?></b>AGI</span>
++                        <span class="retrato">
++                            <?php if (!empty($d["imagen_url"])): ?>
++                                <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                                <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                            <?php else: ?>
++                                <i class="bx bx-dna" aria-hidden="true"></i>
++                            <?php endif; ?>
++                        </span>
++                        <h3><?= escapar($d["nombre"]) ?></h3>
++                        <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
++                        <div class="mini-stats">
++                            <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
++                            <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
++                            <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
++                            <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
+                         </div>
+                     </li>
+                 <?php endforeach; ?>
+diff --git a/dinocards-basico/dinopedia.php b/dinocards-basico/dinopedia.php
+index 6f8b8b0..74911cc 100644
+--- a/dinocards-basico/dinopedia.php
++++ b/dinocards-basico/dinopedia.php
+@@ -12,73 +12,6 @@ pedir_login();
+ $usuario_id = (int) $_SESSION["usuario_id"];
+ $aviso = "";
+ 
+-function slugifyFoto(string $s): string
+-{
+-    $s = trim($s);
+-    if (function_exists('iconv')) {
+-        $t = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $s);
+-        if ($t !== false) {
+-            $s = $t;
+-        }
+-    }
+-    $s = strtolower($s);
+-    $s = preg_replace('/[^a-z0-9]+/', '_', $s);
+-    return trim($s, '_');
+-}
+-
+-function enlazarFotos($connection): array
+-{
+-    $dirRel = 'img/img-cartas';
+-    $dirAbs = __DIR__ . '/img/img-cartas';
+-    $permitidas = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'avif', 'bmp'];
+-
+-    $res = ['ok' => 0, 'archivos' => 0, 'sobrantes' => []];
+-    if (!is_dir($dirAbs)) {
+-        return $res;
+-    }
+-
+-    $porSlug = [];
+-    $porId = [];
+-    $archivos = [];
+-    foreach (scandir($dirAbs) as $f) {
+-        if ($f === '.' || $f === '..') {
+-            continue;
+-        }
+-        $ext = strtolower(pathinfo($f, PATHINFO_EXTENSION));
+-        if (!in_array($ext, $permitidas, true)) {
+-            continue;
+-        }
+-        $archivos[] = $f;
+-        $base = pathinfo($f, PATHINFO_FILENAME);
+-        $porSlug[slugifyFoto($base)] = $f;
+-        if (ctype_digit($base)) {
+-            $porId[(int) $base] = $f;
+-        }
+-    }
+-    $res['archivos'] = count($archivos);
+-
+-    $usados = [];
+-    $q = $connection->query('SELECT id, nombre, especie FROM dinosaurios ORDER BY id');
+-    while ($d = $q->fetch_assoc()) {
+-        $id = (int) $d['id'];
+-        $file = $porId[$id]
+-            ?? ($porSlug[slugifyFoto($d['especie'])] ?? null)
+-            ?? ($porSlug[slugifyFoto($d['nombre'])] ?? null);
+-        if ($file !== null) {
+-            $url = $dirRel . '/' . rawurlencode($file);
+-            $stmt = $connection->prepare('UPDATE dinosaurios SET imagen_url = ? WHERE id = ?');
+-            $stmt->bind_param('si', $url, $id);
+-            $stmt->execute();
+-            $stmt->close();
+-            $usados[$file] = true;
+-            $res['ok']++;
+-        }
+-    }
+-    $res['sobrantes'] = array_values(array_diff($archivos, array_keys($usados)));
+-    return $res;
+-}
+-
+-
+ // --- Añadir un dinosaurio a mi coleccion ---
+ if (isset($_GET["id"])) {
+     $id = (int) $_GET["id"];
+@@ -111,7 +44,7 @@ while ($d = $res->fetch_assoc()) {
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>DinoCards - DinoPedia</title>
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="style.css?v=2">
++    <link rel="stylesheet" href="style.css?v=3">
+ </head>
+ <body>
+ 
+@@ -125,33 +58,31 @@ while ($d = $res->fetch_assoc()) {
+         <?php if ($aviso !== ""): ?>
+             <p class="aviso ok"><?= escapar($aviso) ?></p>
+         <?php endif; ?>
+-    </div>
+ 
+-    <div class="tarjeta panel-oscuro">
+-            <ul class="cartas-grid">
+-                <?php foreach ($dinos as $d): ?>
+-                    <li class="carta-mini">
+-                        <span class="retrato">
+-                            <?php if (!empty($d['imagen_url'])): ?>
+-                                <img class="fondo" src="<?= e($d['imagen_url']) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+-                                <img src="<?= e($d['imagen_url']) ?>" alt="<?= e($d['nombre']) ?>" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22266%22%3E%3Crect width=%22200%22 height=%22266%22 fill=%22%23121219%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%239aa3b2%22 font-size=%2240%22 text-anchor=%22middle%22 dy=%22.3em%22%3EDNA%3C/text%3E%3C/svg%3E'; this.style.objectFit='contain'">
+-                            <?php else: ?>
+-                                <i class="bx bx-dna" aria-hidden="true"></i>
+-                            <?php endif; ?>
+-                        </span>
+-                        <h3><?= e($d['nombre']) ?></h3>
+-                        <p class="apodo">«<?= e($d['especie']) ?>»</p>
+-                            <div class="mini-stats">
+-                                <span><b><?= escapar($d['hp']) ?></b><small>HP</small></span>
+-                                <span><b><?= escapar($d['ataque']) ?></b><small>ATQ</small></span>
+-                                <span><b><?= escapar($d['defensa']) ?></b><small>DEF</small></span>
+-                                <span><b><?= escapar($d['agilidad']) ?></b><small>AGI</small></span>
+-                            </div>
+-                        <a class="btn-carta" href="dinopedia.php?id=<?= e($d['id']) ?>">
+-                            <i class="bx bx-plus" aria-hidden="true"></i> Añadir
+-                        </a>
+-                    </li>
+-                <?php endforeach; ?>
++        <ul class="cartas-grid">
++            <?php foreach ($dinos as $d): ?>
++                <li class="carta-mini">
++                    <span class="retrato">
++                        <?php if (!empty($d["imagen_url"])): ?>
++                            <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                            <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                        <?php else: ?>
++                            <i class="bx bx-dna" aria-hidden="true"></i>
++                        <?php endif; ?>
++                    </span>
++                    <h3><?= escapar($d["nombre"]) ?></h3>
++                    <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
++                    <div class="mini-stats">
++                        <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
++                        <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
++                        <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
++                        <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
++                    </div>
++                    <a class="btn-carta" href="dinopedia.php?id=<?= (int) $d["id"] ?>">
++                        <i class="bx bx-plus" aria-hidden="true"></i> Añadir
++                    </a>
++                </li>
++            <?php endforeach; ?>
+         </ul>
+     </div>
+ </main>
+diff --git a/dinocards-basico/index.php b/dinocards-basico/index.php
+index c72071f..ae83316 100644
+--- a/dinocards-basico/index.php
++++ b/dinocards-basico/index.php
+@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>DinoCards - Portal del Coleccionista</title>
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="style.css?v=2">
++    <link rel="stylesheet" href="style.css?v=3">
+     <script src="script.js" defer></script>
+ </head>
+ <body>
+diff --git a/dinocards-basico/inicio.php b/dinocards-basico/inicio.php
+index 5f48b84..69b50a6 100644
+--- a/dinocards-basico/inicio.php
++++ b/dinocards-basico/inicio.php
+@@ -74,7 +74,7 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>DinoCards - Inicio</title>
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="style.css?v=2">
++    <link rel="stylesheet" href="style.css?v=3">
+ </head>
+ <body>
+ 
+@@ -106,18 +106,23 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo
+     <?php if ($carta_nueva): ?>
+         <div class="tarjeta">
+             <h2>Tu carta de hoy</h2>
+-            <ul class="cartas">
+-                <li class="carta">
+-                    <?php if (!empty($carta_nueva["imagen_url"])): ?>
+-                        <img src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="<?= escapar($carta_nueva["especie"]) ?>">
+-                    <?php endif; ?>
+-                    <h3><?= escapar($carta_nueva["especie"]) ?></h3>
+-                    <p class="apodo">«<?= escapar($carta_nueva["nombre"]) ?>»</p>
+-                    <div class="stats">
+-                        <span><b><?= escapar($carta_nueva["hp"]) ?></b>HP</span>
+-                        <span><b><?= escapar($carta_nueva["ataque"]) ?></b>ATQ</span>
+-                        <span><b><?= escapar($carta_nueva["defensa"]) ?></b>DEF</span>
+-                        <span><b><?= escapar($carta_nueva["agilidad"]) ?></b>AGI</span>
++            <ul class="cartas-grid">
++                <li class="carta-mini">
++                    <span class="retrato">
++                        <?php if (!empty($carta_nueva["imagen_url"])): ?>
++                            <img class="fondo" src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                            <img src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="<?= escapar($carta_nueva["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                        <?php else: ?>
++                            <i class="bx bx-dna" aria-hidden="true"></i>
++                        <?php endif; ?>
++                    </span>
++                    <h3><?= escapar($carta_nueva["nombre"]) ?></h3>
++                    <p class="apodo">«<?= escapar($carta_nueva["especie"]) ?>»</p>
++                    <div class="mini-stats">
++                        <span><b><?= escapar($carta_nueva["hp"]) ?></b><small>HP</small></span>
++                        <span><b><?= escapar($carta_nueva["ataque"]) ?></b><small>ATQ</small></span>
++                        <span><b><?= escapar($carta_nueva["defensa"]) ?></b><small>DEF</small></span>
++                        <span><b><?= escapar($carta_nueva["agilidad"]) ?></b><small>AGI</small></span>
+                     </div>
+                 </li>
+             </ul>
+@@ -138,19 +143,24 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo
+     <?php if (count($cartas_prueba) > 0): ?>
+         <div class="tarjeta">
+             <h2>Cartas de prueba</h2>
+-            <ul class="cartas">
++            <ul class="cartas-grid">
+                 <?php foreach ($cartas_prueba as $d): ?>
+-                    <li class="carta">
+-                        <?php if (!empty($d["imagen_url"])): ?>
+-                            <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["especie"]) ?>">
+-                        <?php endif; ?>
+-                        <h3><?= escapar($d["especie"]) ?></h3>
+-                        <p class="apodo">«<?= escapar($d["nombre"]) ?>»</p>
+-                        <div class="stats">
+-                            <span><b><?= escapar($d["hp"]) ?></b>HP</span>
+-                            <span><b><?= escapar($d["ataque"]) ?></b>ATQ</span>
+-                            <span><b><?= escapar($d["defensa"]) ?></b>DEF</span>
+-                            <span><b><?= escapar($d["agilidad"]) ?></b>AGI</span>
++                    <li class="carta-mini">
++                        <span class="retrato">
++                            <?php if (!empty($d["imagen_url"])): ?>
++                                <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                                <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
++                            <?php else: ?>
++                                <i class="bx bx-dna" aria-hidden="true"></i>
++                            <?php endif; ?>
++                        </span>
++                        <h3><?= escapar($d["nombre"]) ?></h3>
++                        <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
++                        <div class="mini-stats">
++                            <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
++                            <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
++                            <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
++                            <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
+                         </div>
+                     </li>
+                 <?php endforeach; ?>
+diff --git a/dinocards-basico/perfil.php b/dinocards-basico/perfil.php
+index 0bc3956..45ff7b0 100644
+--- a/dinocards-basico/perfil.php
++++ b/dinocards-basico/perfil.php
+@@ -27,6 +27,18 @@ $total_cartas   = (int) $resumen["total"];
+ $total_especies = (int) $resumen["especies"];
+ $total_catalogo = (int) $conexion->query("SELECT COUNT(*) AS total FROM dinosaurios")->fetch_assoc()["total"];
+ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo * 100) : 0;
++$faltan         = max(0, $total_catalogo - $total_especies);
++
++// Nivel de progreso (para el color de la barra)
++if ($porcentaje >= 100) {
++    $nivel = "completo";
++} elseif ($porcentaje >= 70) {
++    $nivel = "alto";
++} elseif ($porcentaje >= 40) {
++    $nivel = "medio";
++} else {
++    $nivel = "bajo";
++}
+ 
+ $registro    = $usuario["fecha_registro"];
+ $ultima      = $usuario["ultima_obtencion"];
+@@ -38,7 +50,7 @@ $ultima      = $usuario["ultima_obtencion"];
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>DinoCards - Mi perfil</title>
+     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+-    <link rel="stylesheet" href="style.css?v=2">
++    <link rel="stylesheet" href="style.css?v=3">
+ </head>
+ <body>
+ 
+@@ -54,10 +66,24 @@ $ultima      = $usuario["ultima_obtencion"];
+     <div class="tarjeta">
+         <h2>Estadísticas</h2>
+         <ul class="resumen">
+-            <li><b><?= $total_cartas ?></b>cartas guardadas</li>
+-            <li><b><?= $total_especies ?></b>especies distintas</li>
+-            <li><b><?= $porcentaje ?>%</b>del catálogo (<?= $total_catalogo ?>)</li>
++            <li><b><?= $total_cartas ?></b> cartas guardadas</li>
++            <li><b><?= $total_especies ?></b> especies distintas</li>
++            <li><b><?= $porcentaje ?>%</b> del catálogo (<?= $total_catalogo ?>)</li>
+         </ul>
++
++        <div class="progreso-catalogo">
++            <p class="barra-progreso"><span>Progreso del catálogo</span><b><?= $porcentaje ?>%</b></p>
++            <div class="barra" role="progressbar" aria-valuenow="<?= $porcentaje ?>" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso del catálogo">
++                <div class="barra-relleno nivel-<?= $nivel ?>" style="width: <?= $porcentaje ?>%"></div>
++            </div>
++            <p class="barra-detalle">
++                <?php if ($porcentaje >= 100): ?>
++                    <i class="bx bx-trophy"></i> ¡Colección completa! Tienes las <?= $total_catalogo ?> especies.
++                <?php else: ?>
++                    <i class="bx bx-collection"></i> <?= $total_especies ?> de <?= $total_catalogo ?> especies · te faltan <?= $faltan ?>
++                <?php endif; ?>
++            </p>
++        </div>
+     </div>
+ 
+     <div class="tarjeta">
+diff --git a/dinocards-basico/script.js b/dinocards-basico/script.js
+index 792b716..9b377f3 100644
+--- a/dinocards-basico/script.js
++++ b/dinocards-basico/script.js
+@@ -38,7 +38,7 @@ function mostrarPestana(nombre) {
+ // ---------- Buscar dentro de mi coleccion ----------
+ function filtrarColeccion() {
+     var texto = document.getElementById("buscador").value.toLowerCase();
+-    var cartas = document.getElementsByClassName("carta");
++    var cartas = document.getElementsByClassName("carta-mini");
+ 
+     for (var i = 0; i < cartas.length; i++) {
+         var contenido = cartas[i].getAttribute("data-buscar");
+diff --git a/dinocards-basico/style.css b/dinocards-basico/style.css
+index e4237b8..5be8ce8 100644
+--- a/dinocards-basico/style.css
++++ b/dinocards-basico/style.css
+@@ -202,14 +202,89 @@ main {
+ }
+ 
+ .tarjeta {
+-    background-color: #ffffff;
++    background-color: #181820;
++    border: 1px solid #282836;
++    border-radius: 14px;
++    padding: 1.5rem;
++    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
++    align-items: center;
++    gap: 1.5rem;
++}
++
++/* ---------- Barra de progreso ---------- */
++.contenedor-barra {
++    margin-top: 1rem;
++}
++
++.progreso-catalogo {
++    margin-top: 1.25rem;
++}
++
++.barra-progreso {
++    display: flex;
++    justify-content: space-between;
++    font-size: 0.9rem;
++    margin-bottom: 0.5rem;
++    color: var(--gris);
++}
++
++.barra-progreso b {
++    color: var(--rojo);
++    font-size: 1rem;
++}
++
++.barra {
++    width: 100%;
++    height: 12px;
++    background: #e5e8ee;
++    border-radius: 999px;
++    overflow: hidden;
++    display: block;
+     border: 1px solid var(--borde);
+-    border-radius: 10px;
+-    padding: 20px;
+-    margin-bottom: 20px;
+-    color: var(--texto);
+ }
+ 
++.barra-relleno {
++    display: block;
++    height: 100%;
++    width: 0;
++    background: linear-gradient(90deg, var(--rojo-osc), var(--rojo), #ff5b4d);
++    border-radius: 999px;
++    transition: width 0.6s ease, background 0.4s ease;
++}
++
++/* Color de la barra segun el progreso */
++.barra-relleno.nivel-bajo {
++    background: linear-gradient(90deg, var(--rojo-osc), var(--rojo));
++}
++
++.barra-relleno.nivel-medio {
++    background: linear-gradient(90deg, var(--rojo), #f6a623);
++}
++
++.barra-relleno.nivel-alto {
++    background: linear-gradient(90deg, #f6a623, #35d07f);
++}
++
++.barra-relleno.nivel-completo {
++    background: linear-gradient(90deg, #22c55e, #16a34a);
++    box-shadow: 0 0 12px rgba(53, 208, 127, .65);
++}
++
++.barra-detalle {
++    margin: 0.6rem 0 0;
++    font-size: 0.82rem;
++    color: var(--gris);
++}
++
++.barra-detalle i {
++    color: var(--rojo);
++    margin-right: 4px;
++    vertical-align: middle;
++}
++
++
++
++
+ h1, h2, h3 {
+     color: var(--rojo-osc);
+ }
+@@ -362,6 +437,12 @@ a {
+     color: var(--rojo-osc);
+ }
+ 
++.carta .boton {
++    display: block;
++    width: 100%;
++    box-sizing: border-box;
++}
++
+ .badge {
+     position: absolute;
+     top: 8px;
+@@ -375,20 +456,23 @@ a {
+ 
+ /* ---------- Resumen (inicio / perfil) ---------- */
+ .resumen {
+-    display: flex;
+-    flex-wrap: wrap;
+-    gap: 15px;
+-    padding: 0;
+     list-style: none;
++    padding: 0;
++    margin: 0 0 1.5rem 0;
++    display: grid;
++    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
++    gap: 1rem;
+ }
+ 
+ .resumen li {
+-    flex: 1;
+-    min-width: 120px;
+-    background-color: #f1f5ef;
+-    border-radius: 8px;
+-    padding: 12px;
+-    text-align: center;
++    background: #f5f7f4;
++    padding: 1rem;
++    border-radius: 10px;
++    display: flex;
++    align-items: center;
++    gap: 0.75rem;
++    border: 1px solid var(--borde);
++    color: var(--texto);
+ }
+ 
+ .resumen li b {
+@@ -729,3 +813,164 @@ a {
+         display: none;
+     }
+ }
++
++/* ============================================================
++   Cartas tipo DinoPedia (estilo dino-prueba)
++   Usadas en coleccion.php y dinopedia.php
++   ============================================================ */
++.tarjeta.panel-oscuro {
++    background: rgba(255, 255, 255, .03);
++    border-color: rgba(255, 255, 255, .1);
++    color: #ffffff;
++}
++
++.cartas-grid {
++    list-style: none;
++    display: grid;
++    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
++    gap: 20px;
++    padding: 0;
++    margin: 0;
++}
++
++.carta-mini {
++    position: relative;
++    display: flex;
++    flex-direction: column;
++    gap: 10px;
++    padding: 16px;
++    border-radius: 18px;
++    border: 1px solid rgba(255, 255, 255, .1);
++    border-top: 3px solid rgba(214, 35, 47, .85);
++    background:
++        radial-gradient(circle at 85% 0%, rgba(214, 35, 47, .18), transparent 55%),
++        rgba(255, 255, 255, .04);
++    transition: transform .15s ease, border-color .15s ease;
++}
++
++.carta-mini:hover {
++    transform: translateY(-3px);
++    border-color: rgba(214, 35, 47, .6);
++}
++
++.carta-mini .retrato {
++    position: relative;
++    width: 100%;
++    aspect-ratio: 3 / 4;
++    display: flex;
++    align-items: center;
++    justify-content: center;
++    border-radius: 14px;
++    background: rgba(255, 255, 255, .08);
++    color: var(--rojo);
++    font-size: 2.6rem;
++    overflow: hidden;
++    border: 1px solid rgba(255, 255, 255, .08);
++}
++
++.carta-mini .retrato img {
++    width: 100%;
++    height: 100%;
++    object-fit: contain;
++    object-position: center;
++    display: block;
++    transition: transform .35s ease;
++}
++
++.carta-mini .retrato img.fondo {
++    position: absolute;
++    inset: 0;
++    object-fit: cover;
++    filter: blur(18px) brightness(.5) saturate(1.15);
++    transform: scale(1.2);
++}
++
++.carta-mini .retrato img:not(.fondo) {
++    position: relative;
++    z-index: 1;
++}
++
++.carta-mini:hover .retrato img:not(.fondo) {
++    transform: scale(1.04);
++}
++
++.carta-mini h3 {
++    font-size: 1rem;
++    color: #ffffff;
++    line-height: 1.2;
++}
++
++.carta-mini .apodo {
++    font-size: .74rem;
++    color: #9aa3b2;
++    font-style: italic;
++}
++
++.carta-mini .mini-stats {
++    display: grid;
++    grid-template-columns: repeat(4, 1fr);
++    gap: 5px;
++    margin-top: 2px;
++}
++
++.carta-mini .mini-stats span {
++    display: flex;
++    flex-direction: column;
++    align-items: center;
++    padding: 5px 2px;
++    background: rgba(255, 255, 255, .06);
++    border-radius: 8px;
++}
++
++.carta-mini .mini-stats b {
++    font-size: .8rem;
++    color: #ffffff;
++}
++
++.carta-mini .mini-stats small {
++    font-size: .55rem;
++    color: #9aa3b2;
++    letter-spacing: .5px;
++}
++
++.carta-mini .badge {
++    position: absolute;
++    top: -10px;
++    right: -10px;
++    padding: 2px 9px;
++    border-radius: 999px;
++    background: var(--rojo);
++    color: #ffffff;
++    font-size: .7rem;
++    font-weight: 200;
++}
++
++.btn-carta {
++    display: inline-flex;
++    align-items: center;
++    justify-content: center;
++    gap: 10px;
++    padding: 12px 20px;
++    border: none;
++    border-radius: 999px;
++    background: linear-gradient(135deg, var(--rojo), #ff5b4d);
++    color: #ffffff;
++    font-size: .9rem;
++    font-weight: 700;
++    cursor: pointer;
++    text-decoration: none;
++    box-shadow: 0 10px 26px rgba(214, 35, 47, .45);
++    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
++}
++
++.btn-carta i {
++    font-size: 1.25rem;
++}
++
++.btn-carta:hover {
++    transform: translateY(-2px);
++    box-shadow: 0 14px 32px rgba(214, 35, 47, .55);
++    filter: brightness(1.05);
++}
++
++
+diff --git a/dinocards/README.md b/dinocards/README.md
+deleted file mode 100644
+index 0ff369a..0000000
+--- a/dinocards/README.md
++++ /dev/null
+@@ -1,92 +0,0 @@
+-# DinoCards
+-
+-Aplicación web para coleccionar cartas de dinosaurios. Cada día puedes abrir un
+-sobre gratuito, consultar el catálogo completo y añadir dinosaurios a tu
+-colección personal.
+-
+-Proyecto de **Desarrollo de Aplicaciones Web (nivel medio)** realizado con
+-**HTML, CSS y JavaScript** en el frontend y **PHP + MySQL (PDO)** en el backend.
+-
+----
+-
+-## Funcionalidades
+-
+-- Registro e inicio de sesión de usuarios (contraseñas cifradas).
+-- **Sobre del día**: una carta gratuita cada 24 horas.
+-- **Sobre de prueba**: 4 cartas aleatorias cuando quieras.
+-- **Mi colección**: cartas agrupadas, con buscador, orden y barra de progreso.
+-- **DinoPedia**: catálogo completo con búsqueda, filtro por periodo y botón para
+-  añadir cada carta a la colección.
+-- **Mi perfil**: datos del usuario y estadísticas de su colección.
+-
+----
+-
+-## Estructura del proyecto
+-
+-```
+-dinocards/
+-├── index.php          Entrada: iniciar sesión / registrarse
+-├── inicio.php         Panel principal (sobres y resumen)
+-├── coleccion.php      Mi colección
+-├── dinopedia.php      Catálogo de dinosaurios
+-├── perfil.php         Ficha del usuario
+-├── logout.php         Cerrar sesión
+-├── includes/
+-│   ├── conexion.php   Conexión PDO a la base de datos
+-│   ├── funciones.php  Funciones de ayuda (sesión, escape, JSON)
+-│   ├── cabecera.php   Cabecera común (<head> + navegación)
+-│   └── pie.php        Pie de página común
+-├── api/               Endpoints que devuelven JSON (usados con fetch)
+-│   ├── login.php
+-│   ├── registro.php
+-│   ├── carta_diaria.php
+-│   ├── abrir_prueba.php
+-│   ├── anadir_carta.php
+-│   ├── dinosaurios.php
+-│   └── coleccion.php
+-├── css/
+-│   └── estilos.css    Estilos (variables, Flexbox, Grid, responsive)
+-├── js/                JavaScript moderno (módulos ES6)
+-│   ├── main.js        Funciones comunes (fetch, crear carta…)
+-│   ├── index.js
+-│   ├── inicio.js
+-│   ├── coleccion.js
+-│   └── dinopedia.js
+-├── img/
+-│   ├── img-cartas/    Imágenes de las cartas
+-│   └── img-sobres/    Imágenes de los sobres
+-├── sql/
+-│   └── dinocards.sql  Copia de la base de datos (estructura y datos)
+-└── README.md
+-```
+-
+----
+-
+-## Cómo ejecutar en XAMPP
+-
+-1. Copia la carpeta `dinocards` dentro de `C:\xampp\htdocs\ejer\`.
+-2. Arranca **Apache** y **MySQL** desde el panel de control de XAMPP.
+-3. Crea la base de datos (una sola vez) importando el script SQL:
+-   - Opción A (phpMyAdmin): importa `sql/dinocards.sql`.
+-   - Opción B (línea de comandos):
+-     ```
+-     C:\xampp\mysql\bin\mysql.exe -u oscar -p < sql\dinocards.sql
+-     ```
+-4. Revisa las credenciales en `includes/conexion.php`
+-   (`DB_USER`, `DB_PASS`, `DB_NAME`).
+-5. Abre en el navegador:
+-   ```
+-   http://localhost:8080/ejer/dinocards/
+-   ```
+-
+-> Usuario de prueba: **oscar@gmail.com** / **1234**
+-
+----
+-
+-## Notas técnicas
+-
+-- Las consultas usan **PDO con sentencias preparadas** (evitan inyecciones SQL).
+-- Las nuevas contraseñas se guardan con `password_hash()`; el login también
+-  admite contraseñas antiguas en md5 para no perder usuarios ya existentes.
+-- El frontend consume la carpeta `api/` mediante `fetch` y JSON.
+-- La interfaz es **responsive** y usa variables CSS, Flexbox y Grid.
+diff --git a/dinocards/api/abrir_prueba.php b/dinocards/api/abrir_prueba.php
+deleted file mode 100644
+index 8db6853..0000000
+--- a/dinocards/api/abrir_prueba.php
++++ /dev/null
+@@ -1,43 +0,0 @@
+-<?php
+-/**
+- * api/abrir_prueba.php
+- * Sobre de prueba: entrega 4 cartas aleatorias (sin límite diario).
+- * Responde en JSON con la lista de dinosaurios obtenidos.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if (!esta_logueado()) {
+-    responder_json(['ok' => false, 'mensaje' => 'Debes iniciar sesión.'], 401);
+-}
+-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+-    responder_json(['ok' => false, 'mensaje' => 'Método no permitido.'], 405);
+-}
+-
+-$uid = usuario_actual();
+-
+-try {
+-    $dinos = $pdo->query('SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 4')->fetchAll();
+-    if (!$dinos) {
+-        responder_json(['ok' => false, 'mensaje' => 'No hay dinosaurios disponibles.'], 500);
+-    }
+-
+-    $pdo->beginTransaction();
+-    $ins = $pdo->prepare('INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
+-                          VALUES (:u, :d, NOW())');
+-    foreach ($dinos as $d) {
+-        $ins->execute([':u' => $uid, ':d' => $d['id']]);
+-    }
+-    $pdo->commit();
+-
+-    responder_json([
+-        'ok'          => true,
+-        'mensaje'     => '¡Has conseguido ' . count($dinos) . ' cartas de prueba!',
+-        'dinosaurios' => $dinos,
+-    ]);
+-} catch (Throwable $e) {
+-    if ($pdo->inTransaction()) {
+-        $pdo->rollBack();
+-    }
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/api/anadir_carta.php b/dinocards/api/anadir_carta.php
+deleted file mode 100644
+index e5b8d62..0000000
+--- a/dinocards/api/anadir_carta.php
++++ /dev/null
+@@ -1,44 +0,0 @@
+-<?php
+-/**
+- * api/anadir_carta.php
+- * Añade un dinosaurio concreto a la colección del usuario.
+- * Recibe el id por POST y responde en JSON.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if (!esta_logueado()) {
+-    responder_json(['ok' => false, 'mensaje' => 'Debes iniciar sesión.'], 401);
+-}
+-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+-    responder_json(['ok' => false, 'mensaje' => 'Método no permitido.'], 405);
+-}
+-
+-$uid = usuario_actual();
+-$id  = (int) ($_POST['dinosaurio_id'] ?? 0);
+-
+-if ($id <= 0) {
+-    responder_json(['ok' => false, 'mensaje' => 'Dinosaurio no indicado.'], 422);
+-}
+-
+-try {
+-    $stmt = $pdo->prepare('SELECT * FROM dinosaurios WHERE id = :id');
+-    $stmt->execute([':id' => $id]);
+-    $dino = $stmt->fetch();
+-
+-    if (!$dino) {
+-        responder_json(['ok' => false, 'mensaje' => 'Ese dinosaurio no existe.'], 404);
+-    }
+-
+-    $pdo->prepare('INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
+-                   VALUES (:u, :d, NOW())')
+-        ->execute([':u' => $uid, ':d' => $id]);
+-
+-    responder_json([
+-        'ok'         => true,
+-        'mensaje'    => 'Añadido a tu colección: ' . $dino['especie'] . ' «' . $dino['nombre'] . '»',
+-        'dinosaurio' => $dino,
+-    ]);
+-} catch (PDOException $e) {
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/api/carta_diaria.php b/dinocards/api/carta_diaria.php
+deleted file mode 100644
+index 0c7145d..0000000
+--- a/dinocards/api/carta_diaria.php
++++ /dev/null
+@@ -1,56 +0,0 @@
+-<?php
+-/**
+- * api/carta_diaria.php
+- * Abre el sobre del día: da una carta aleatoria y solo una vez al día.
+- * Responde en JSON con el dinosaurio obtenido.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if (!esta_logueado()) {
+-    responder_json(['ok' => false, 'mensaje' => 'Debes iniciar sesión.'], 401);
+-}
+-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+-    responder_json(['ok' => false, 'mensaje' => 'Método no permitido.'], 405);
+-}
+-
+-$uid = usuario_actual();
+-
+-try {
+-    // ¿Ya se ha abierto hoy? Comparamos solo la fecha
+-    $stmt = $pdo->prepare('SELECT ultima_obtencion FROM usuarios WHERE id = :id');
+-    $stmt->execute([':id' => $uid]);
+-    $usuario = $stmt->fetch();
+-
+-    $hoy = date('Y-m-d');
+-    if ($usuario && $usuario['ultima_obtencion'] !== null
+-        && substr($usuario['ultima_obtencion'], 0, 10) === $hoy) {
+-        responder_json(['ok' => false, 'mensaje' => 'Ya has abierto tu sobre hoy. Vuelve mañana.'], 409);
+-    }
+-
+-    // Dinosaurio al azar
+-    $dino = $pdo->query('SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 1')->fetch();
+-    if (!$dino) {
+-        responder_json(['ok' => false, 'mensaje' => 'No hay dinosaurios disponibles.'], 500);
+-    }
+-
+-    // Guardamos la carta y marcamos la fecha
+-    $pdo->beginTransaction();
+-    $pdo->prepare('INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
+-                   VALUES (:u, :d, NOW())')
+-        ->execute([':u' => $uid, ':d' => $dino['id']]);
+-    $pdo->prepare('UPDATE usuarios SET ultima_obtencion = NOW() WHERE id = :u')
+-        ->execute([':u' => $uid]);
+-    $pdo->commit();
+-
+-    responder_json([
+-        'ok'         => true,
+-        'mensaje'    => '¡Has conseguido una carta nueva!',
+-        'dinosaurio' => $dino,
+-    ]);
+-} catch (Throwable $e) {
+-    if ($pdo->inTransaction()) {
+-        $pdo->rollBack();
+-    }
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/api/coleccion.php b/dinocards/api/coleccion.php
+deleted file mode 100644
+index d577376..0000000
+--- a/dinocards/api/coleccion.php
++++ /dev/null
+@@ -1,58 +0,0 @@
+-<?php
+-/**
+- * api/coleccion.php
+- * Devuelve la colección del usuario actual (agrupada) y un resumen.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if (!esta_logueado()) {
+-    responder_json(['ok' => false, 'mensaje' => 'Debes iniciar sesión.'], 401);
+-}
+-
+-$uid = usuario_actual();
+-
+-try {
+-    $stmt = $pdo->prepare('SELECT dinosaurio_id FROM colecciones WHERE usuario_id = :u');
+-    $stmt->execute([':u' => $uid]);
+-    $ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
+-
+-    // Contamos cuántas copias hay de cada dinosaurio
+-    $copias = [];
+-    foreach ($ids as $id) {
+-        $id = (int) $id;
+-        $copias[$id] = ($copias[$id] ?? 0) + 1;
+-    }
+-
+-    // Traemos los datos de esos dinosaurios
+-    $cartas = [];
+-    if ($copias) {
+-        $lista = array_keys($copias);
+-        $marcas = implode(',', array_fill(0, count($lista), '?'));
+-        $st = $pdo->prepare("SELECT * FROM dinosaurios WHERE id IN ($marcas) ORDER BY id");
+-        $st->execute($lista);
+-
+-        foreach ($st->fetchAll() as $dino) {
+-            $dino['copias'] = $copias[(int) $dino['id']];
+-            $cartas[] = $dino;
+-        }
+-    }
+-
+-    $total_catalogo = (int) $pdo->query('SELECT COUNT(*) FROM dinosaurios')->fetchColumn();
+-    $total_especies = count($copias);
+-    $total_cartas   = count($ids);
+-    $porcentaje     = $total_catalogo > 0 ? (int) round($total_especies / $total_catalogo * 100) : 0;
+-
+-    responder_json([
+-        'ok'      => true,
+-        'cartas'  => $cartas,
+-        'resumen' => [
+-            'cartas'     => $total_cartas,
+-            'especies'   => $total_especies,
+-            'catalogo'   => $total_catalogo,
+-            'porcentaje' => $porcentaje,
+-        ],
+-    ]);
+-} catch (PDOException $e) {
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/api/dinosaurios.php b/dinocards/api/dinosaurios.php
+deleted file mode 100644
+index 4cfbee8..0000000
+--- a/dinocards/api/dinosaurios.php
++++ /dev/null
+@@ -1,18 +0,0 @@
+-<?php
+-/**
+- * api/dinosaurios.php
+- * Devuelve el catálogo completo de dinosaurios en JSON.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if (!esta_logueado()) {
+-    responder_json(['ok' => false, 'mensaje' => 'Debes iniciar sesión.'], 401);
+-}
+-
+-try {
+-    $dinos = $pdo->query('SELECT * FROM dinosaurios ORDER BY id')->fetchAll();
+-    responder_json(['ok' => true, 'dinosaurios' => $dinos]);
+-} catch (PDOException $e) {
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/api/login.php b/dinocards/api/login.php
+deleted file mode 100644
+index a88f352..0000000
+--- a/dinocards/api/login.php
++++ /dev/null
+@@ -1,45 +0,0 @@
+-<?php
+-/**
+- * api/login.php
+- * Inicia sesión. Recibe usuario/email y contraseña por POST.
+- * Responde en JSON.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+-    responder_json(['ok' => false, 'mensaje' => 'Método no permitido.'], 405);
+-}
+-
+-$usuario = trim($_POST['usuario'] ?? '');
+-$clave   = $_POST['contrasena'] ?? '';
+-
+-if ($usuario === '' || $clave === '') {
+-    responder_json(['ok' => false, 'mensaje' => 'Rellena usuario y contraseña.'], 422);
+-}
+-
+-try {
+-    // Se usan dos parámetros distintos porque con prepares nativos
+-    // no se puede repetir el mismo marcador (:usuario) dos veces.
+-    $stmt = $pdo->prepare(
+-        'SELECT id, username, password_hash
+-         FROM usuarios
+-         WHERE email = :email OR username = :usuario
+-         LIMIT 1'
+-    );
+-    $stmt->execute([':email' => $usuario, ':usuario' => $usuario]);
+-    $user = $stmt->fetch();
+-
+-    if (!$user || !verificar_password($clave, $user['password_hash'])) {
+-        responder_json(['ok' => false, 'mensaje' => 'Usuario o contraseña incorrectos.'], 401);
+-    }
+-
+-    // Guardamos los datos del usuario en la sesión
+-    session_regenerate_id(true);
+-    $_SESSION['usuario_id'] = (int) $user['id'];
+-    $_SESSION['usuario']    = $user['username'];
+-
+-    responder_json(['ok' => true, 'mensaje' => 'Bienvenido, ' . $user['username'] . '!']);
+-} catch (PDOException $e) {
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/api/registro.php b/dinocards/api/registro.php
+deleted file mode 100644
+index f076794..0000000
+--- a/dinocards/api/registro.php
++++ /dev/null
+@@ -1,55 +0,0 @@
+-<?php
+-/**
+- * api/registro.php
+- * Crea una cuenta nueva. Valida los datos en el servidor y responde en JSON.
+- */
+-require_once __DIR__ . '/../includes/funciones.php';
+-require_once __DIR__ . '/../includes/conexion.php';
+-
+-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+-    responder_json(['ok' => false, 'mensaje' => 'Método no permitido.'], 405);
+-}
+-
+-$usuario = trim($_POST['usuario'] ?? '');
+-$email   = trim($_POST['email'] ?? '');
+-$clave1  = $_POST['contrasena'] ?? '';
+-$clave2  = $_POST['confirma'] ?? '';
+-
+-// --- Validación en el servidor ---
+-$errores = [];
+-if (mb_strlen($usuario) < 3) {
+-    $errores[] = 'El usuario debe tener al menos 3 caracteres.';
+-}
+-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+-    $errores[] = 'El correo no es válido.';
+-}
+-if (strlen($clave1) < 4) {
+-    $errores[] = 'La contraseña debe tener al menos 4 caracteres.';
+-}
+-if ($clave1 !== $clave2) {
+-    $errores[] = 'Las contraseñas no coinciden.';
+-}
+-if ($errores) {
+-    responder_json(['ok' => false, 'mensaje' => implode(' ', $errores)], 422);
+-}
+-
+-try {
+-    // ¿Ya existe ese usuario o email?
+-    $stmt = $pdo->prepare('SELECT id FROM usuarios WHERE username = :u OR email = :e LIMIT 1');
+-    $stmt->execute([':u' => $usuario, ':e' => $email]);
+-    if ($stmt->fetch()) {
+-        responder_json(['ok' => false, 'mensaje' => 'Ese usuario o correo ya está registrado.'], 409);
+-    }
+-
+-    // Guardamos la contraseña cifrada de forma segura
+-    $hash = password_hash($clave1, PASSWORD_DEFAULT);
+-    $ins  = $pdo->prepare(
+-        'INSERT INTO usuarios (username, email, password_hash, fecha_registro)
+-         VALUES (:u, :e, :p, NOW())'
+-    );
+-    $ins->execute([':u' => $usuario, ':e' => $email, ':p' => $hash]);
+-
+-    responder_json(['ok' => true, 'mensaje' => 'Registro completado. ¡Ya puedes iniciar sesión!']);
+-} catch (PDOException $e) {
+-    responder_json(['ok' => false, 'mensaje' => 'Error del servidor.'], 500);
+-}
+diff --git a/dinocards/coleccion.php b/dinocards/coleccion.php
+deleted file mode 100644
+index 9d75580..0000000
+--- a/dinocards/coleccion.php
++++ /dev/null
+@@ -1,37 +0,0 @@
+-<?php
+-/**
+- * coleccion.php
+- * Muestra la colección del usuario. Los datos se cargan por fetch.
+- */
+-require_once __DIR__ . '/includes/funciones.php';
+-pedir_login();
+-
+-$titulo = 'Mi colección';
+-require __DIR__ . '/includes/cabecera.php';
+-?>
+-
+-<section class="panel">
+-    <h1>Mi colección</h1>
+-
+-    <div class="progreso">
+-        <div class="barra"><span id="barra-interior" style="width:0"></span></div>
+-        <p id="texto-progreso">Cargando…</p>
+-    </div>
+-
+-    <div class="filtros">
+-        <input type="search" id="buscador" class="buscador" placeholder="Buscar por nombre o especie…">
+-        <select id="orden">
+-            <option value="id">Orden del catálogo</option>
+-            <option value="nombre">Nombre (A–Z)</option>
+-            <option value="copias">Más copias primero</option>
+-        </select>
+-    </div>
+-</section>
+-
+-<section class="panel">
+-    <ul class="cartas" id="lista-coleccion"></ul>
+-    <p id="vacio" class="vacio" hidden>Todavía no tienes cartas. ¡Abre algún sobre!</p>
+-</section>
+-
+-<script type="module" src="js/coleccion.js"></script>
+-<?php require __DIR__ . '/includes/pie.php'; ?>
+diff --git a/dinocards/css/estilos.css b/dinocards/css/estilos.css
+deleted file mode 100644
+index 4281e61..0000000
+--- a/dinocards/css/estilos.css
++++ /dev/null
+@@ -1,599 +0,0 @@
+-/* ============================================================
+-   DinoCards · estilos.css
+-   Hoja de estilos principal.
+-   Organización:
+-     1. Variables y base
+-     2. Cabecera y navegación
+-     3. Estructura general (contenedor, paneles, hero)
+-     4. Botones y formularios
+-     5. Sobres
+-     6. Cartas (grid)
+-     7. Estadísticas y progreso
+-     8. Perfil
+-     9. Responsive (móvil)
+-   ============================================================ */
+-
+-/* ---------- 1. Variables y base ---------- */
+-:root {
+-    --color-fondo: #0f1720;
+-    --color-panel: #17222f;
+-    --color-panel-claro: #1e2b3a;
+-    --color-borde: #2b3b4e;
+-    --color-texto: #e7eef6;
+-    --color-texto-suave: #93a4b8;
+-    --color-principal: #3ddc84;
+-    --color-principal-oscuro: #22a35f;
+-    --color-acento: #ffb020;
+-    --color-error: #ff6b6b;
+-    --radio: 14px;
+-    --radio-sm: 8px;
+-    --sombra: 0 10px 30px rgba(0, 0, 0, .35);
+-    --transicion: .25s ease;
+-    --max-ancho: 1150px;
+-}
+-
+-* {
+-    box-sizing: border-box;
+-    margin: 0;
+-    padding: 0;
+-}
+-
+-body {
+-    font-family: "Segoe UI", system-ui, Roboto, Arial, sans-serif;
+-    background: radial-gradient(1200px 600px at 50% -10%, #1b2a3a 0%, var(--color-fondo) 60%);
+-    color: var(--color-texto);
+-    min-height: 100vh;
+-    line-height: 1.5;
+-}
+-
+-img {
+-    max-width: 100%;
+-    display: block;
+-}
+-
+-a {
+-    color: inherit;
+-    text-decoration: none;
+-}
+-
+-h1, h2, h3 {
+-    line-height: 1.2;
+-}
+-
+-/* ---------- 2. Cabecera y navegación ---------- */
+-.cabecera {
+-    position: sticky;
+-    top: 0;
+-    z-index: 20;
+-    display: flex;
+-    align-items: center;
+-    justify-content: space-between;
+-    gap: 1rem;
+-    padding: .9rem 1.5rem;
+-    background: rgba(15, 23, 32, .85);
+-    backdrop-filter: blur(8px);
+-    border-bottom: 1px solid var(--color-borde);
+-}
+-
+-.marca {
+-    font-size: 1.4rem;
+-    font-weight: 800;
+-    letter-spacing: .5px;
+-}
+-
+-.marca span {
+-    color: var(--color-principal);
+-}
+-
+-.nav {
+-    display: flex;
+-    align-items: center;
+-    gap: .4rem;
+-    flex-wrap: wrap;
+-}
+-
+-.nav a {
+-    padding: .5rem .85rem;
+-    border-radius: var(--radio-sm);
+-    color: var(--color-texto-suave);
+-    transition: background var(--transicion), color var(--transicion);
+-}
+-
+-.nav a:hover {
+-    background: var(--color-panel-claro);
+-    color: var(--color-texto);
+-}
+-
+-.nav a.activo {
+-    color: var(--color-fondo);
+-    background: var(--color-principal);
+-    font-weight: 600;
+-}
+-
+-.nav a.salir {
+-    color: var(--color-error);
+-}
+-
+-/* ---------- 3. Estructura general ---------- */
+-.contenedor {
+-    width: 100%;
+-    max-width: var(--max-ancho);
+-    margin: 0 auto;
+-    padding: 2rem 1.5rem 4rem;
+-    display: flex;
+-    flex-direction: column;
+-    gap: 1.75rem;
+-}
+-
+-.hero {
+-    text-align: center;
+-    padding: 1rem 0;
+-}
+-
+-.hero h1 {
+-    font-size: clamp(1.8rem, 4vw, 2.6rem);
+-}
+-
+-.hero h1 span {
+-    color: var(--color-principal);
+-}
+-
+-.hero p {
+-    color: var(--color-texto-suave);
+-    margin-top: .5rem;
+-}
+-
+-.panel {
+-    background: var(--color-panel);
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio);
+-    padding: 1.5rem;
+-    box-shadow: var(--sombra);
+-}
+-
+-.panel h1,
+-.panel h2 {
+-    margin-bottom: .75rem;
+-}
+-
+-.subtitulo {
+-    margin-top: 1.5rem;
+-}
+-
+-/* ---------- 4. Botones y formularios ---------- */
+-.boton {
+-    display: inline-block;
+-    border: none;
+-    cursor: pointer;
+-    font: inherit;
+-    font-weight: 600;
+-    color: var(--color-fondo);
+-    background: var(--color-principal);
+-    padding: .7rem 1.3rem;
+-    border-radius: var(--radio-sm);
+-    transition: transform var(--transicion), background var(--transicion), box-shadow var(--transicion);
+-}
+-
+-.boton:hover:not(:disabled) {
+-    background: var(--color-principal-oscuro);
+-    transform: translateY(-2px);
+-    box-shadow: 0 8px 18px rgba(61, 220, 132, .25);
+-}
+-
+-.boton:disabled {
+-    opacity: .55;
+-    cursor: not-allowed;
+-}
+-
+-.boton.secundario {
+-    background: transparent;
+-    color: var(--color-texto);
+-    border: 1px solid var(--color-borde);
+-}
+-
+-.boton.secundario:hover:not(:disabled) {
+-    background: var(--color-panel-claro);
+-    box-shadow: none;
+-}
+-
+-.boton.pequeno {
+-    width: 100%;
+-    margin-top: auto;
+-    padding: .55rem 1rem;
+-}
+-
+-.boton.ok {
+-    background: var(--color-acento);
+-}
+-
+-.panel-auth {
+-    max-width: 460px;
+-    margin: 0 auto;
+-    width: 100%;
+-}
+-
+-.pestanas {
+-    display: flex;
+-    gap: .5rem;
+-    background: var(--color-fondo);
+-    padding: .35rem;
+-    border-radius: var(--radio-sm);
+-    margin-bottom: 1.25rem;
+-}
+-
+-.pestana {
+-    flex: 1;
+-    border: none;
+-    background: transparent;
+-    color: var(--color-texto-suave);
+-    font: inherit;
+-    font-weight: 600;
+-    padding: .55rem;
+-    border-radius: var(--radio-sm);
+-    cursor: pointer;
+-    transition: background var(--transicion), color var(--transicion);
+-}
+-
+-.pestana.activo {
+-    background: var(--color-panel-claro);
+-    color: var(--color-texto);
+-}
+-
+-.formulario {
+-    display: flex;
+-    flex-direction: column;
+-    gap: .4rem;
+-}
+-
+-.formulario h2 {
+-    margin-bottom: .5rem;
+-}
+-
+-.formulario label {
+-    font-size: .85rem;
+-    color: var(--color-texto-suave);
+-    margin-top: .4rem;
+-}
+-
+-.formulario input {
+-    width: 100%;
+-    padding: .7rem .9rem;
+-    background: var(--color-fondo);
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio-sm);
+-    color: var(--color-texto);
+-    font: inherit;
+-    transition: border var(--transicion), box-shadow var(--transicion);
+-}
+-
+-.formulario input:focus {
+-    outline: none;
+-    border-color: var(--color-principal);
+-    box-shadow: 0 0 0 3px rgba(61, 220, 132, .15);
+-}
+-
+-.formulario .boton {
+-    margin-top: 1rem;
+-}
+-
+-.campo-clave {
+-    position: relative;
+-}
+-
+-.campo-clave input {
+-    padding-right: 5.5rem;
+-}
+-
+-.ver-clave {
+-    position: absolute;
+-    right: .5rem;
+-    top: 50%;
+-    transform: translateY(-50%);
+-    background: transparent;
+-    border: none;
+-    color: var(--color-texto-suave);
+-    font: inherit;
+-    font-size: .8rem;
+-    cursor: pointer;
+-}
+-
+-.ver-clave:hover {
+-    color: var(--color-principal);
+-}
+-
+-.aviso {
+-    padding: .75rem 1rem;
+-    border-radius: var(--radio-sm);
+-    margin-bottom: 1rem;
+-    font-size: .9rem;
+-    background: rgba(255, 107, 107, .12);
+-    border: 1px solid var(--color-error);
+-    color: var(--color-error);
+-}
+-
+-.aviso.ok {
+-    background: rgba(61, 220, 132, .12);
+-    border-color: var(--color-principal);
+-    color: var(--color-principal);
+-}
+-
+-/* ---------- 5. Sobres ---------- */
+-.grid-sobres {
+-    display: grid;
+-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+-    gap: 1.25rem;
+-}
+-
+-.sobre {
+-    background: linear-gradient(160deg, var(--color-panel-claro), var(--color-panel));
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio);
+-    padding: 1.75rem;
+-    display: flex;
+-    flex-direction: column;
+-    gap: .75rem;
+-    box-shadow: var(--sombra);
+-    transition: transform var(--transicion), border var(--transicion);
+-}
+-
+-.sobre:hover {
+-    transform: translateY(-4px);
+-    border-color: var(--color-principal);
+-}
+-
+-.sobre h2 {
+-    color: var(--color-principal);
+-}
+-
+-.sobre p {
+-    color: var(--color-texto-suave);
+-}
+-
+-.sobre .boton {
+-    margin-top: auto;
+-}
+-
+-.estado {
+-    min-height: 1.2rem;
+-    font-size: .85rem;
+-    color: var(--color-acento);
+-}
+-
+-/* ---------- 6. Cartas (grid) ---------- */
+-.cartas {
+-    list-style: none;
+-    display: grid;
+-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+-    gap: 1.25rem;
+-}
+-
+-.carta {
+-    background: var(--color-panel-claro);
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio);
+-    overflow: hidden;
+-    display: flex;
+-    flex-direction: column;
+-    padding: .75rem;
+-    gap: .5rem;
+-    transition: transform var(--transicion), box-shadow var(--transicion), border var(--transicion);
+-}
+-
+-.carta:hover {
+-    transform: translateY(-6px);
+-    border-color: var(--color-principal);
+-    box-shadow: 0 14px 28px rgba(0, 0, 0, .45);
+-}
+-
+-.carta-imagen {
+-    position: relative;
+-    border-radius: var(--radio-sm);
+-    overflow: hidden;
+-    background: var(--color-fondo);
+-}
+-
+-.carta-imagen img {
+-    width: 100%;
+-    height: 180px;
+-    object-fit: cover;
+-    transition: transform .4s ease;
+-}
+-
+-.carta:hover .carta-imagen img {
+-    transform: scale(1.06);
+-}
+-
+-.copias {
+-    position: absolute;
+-    top: .4rem;
+-    right: .4rem;
+-    background: var(--color-acento);
+-    color: #1a1a1a;
+-    font-size: .75rem;
+-    font-weight: 700;
+-    padding: .15rem .5rem;
+-    border-radius: 999px;
+-}
+-
+-.carta-info h3 {
+-    font-size: 1.05rem;
+-}
+-
+-.carta-info .especie {
+-    font-style: italic;
+-    color: var(--color-principal);
+-    font-size: .9rem;
+-}
+-
+-.carta-info .periodo {
+-    color: var(--color-texto-suave);
+-    font-size: .8rem;
+-}
+-
+-.stats {
+-    list-style: none;
+-    display: flex;
+-    gap: .35rem;
+-    margin-top: .6rem;
+-    flex-wrap: wrap;
+-}
+-
+-.stats li {
+-    background: var(--color-fondo);
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio-sm);
+-    font-size: .72rem;
+-    padding: .2rem .45rem;
+-}
+-
+-.stats li span {
+-    color: var(--color-texto-suave);
+-    font-weight: 700;
+-}
+-
+-.vacio {
+-    color: var(--color-texto-suave);
+-    text-align: center;
+-    padding: 1.5rem;
+-}
+-
+-/* ---------- 7. Estadísticas y progreso ---------- */
+-.resumen {
+-    list-style: none;
+-    display: grid;
+-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+-    gap: 1rem;
+-}
+-
+-.resumen li {
+-    background: var(--color-panel-claro);
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio);
+-    padding: 1.25rem;
+-    text-align: center;
+-    display: flex;
+-    flex-direction: column;
+-    gap: .25rem;
+-}
+-
+-.resumen b {
+-    font-size: 1.8rem;
+-    color: var(--color-principal);
+-}
+-
+-.resumen span {
+-    color: var(--color-texto-suave);
+-    font-size: .85rem;
+-}
+-
+-.progreso {
+-    margin: 1rem 0;
+-}
+-
+-.barra {
+-    height: 14px;
+-    background: var(--color-fondo);
+-    border: 1px solid var(--color-borde);
+-    border-radius: 999px;
+-    overflow: hidden;
+-}
+-
+-.barra span {
+-    display: block;
+-    height: 100%;
+-    background: linear-gradient(90deg, var(--color-principal), var(--color-acento));
+-    transition: width .6s ease;
+-}
+-
+-#texto-progreso {
+-    margin-top: .5rem;
+-    color: var(--color-texto-suave);
+-    font-size: .9rem;
+-}
+-
+-.filtros {
+-    display: flex;
+-    gap: .75rem;
+-    flex-wrap: wrap;
+-    margin-top: 1rem;
+-}
+-
+-.buscador,
+-.filtros select {
+-    padding: .6rem .9rem;
+-    background: var(--color-fondo);
+-    border: 1px solid var(--color-borde);
+-    border-radius: var(--radio-sm);
+-    color: var(--color-texto);
+-    font: inherit;
+-}
+-
+-.buscador {
+-    flex: 1;
+-    min-width: 200px;
+-}
+-
+-.buscador:focus,
+-.filtros select:focus {
+-    outline: none;
+-    border-color: var(--color-principal);
+-}
+-
+-/* ---------- 8. Perfil ---------- */
+-.perfil {
+-    display: flex;
+-    align-items: center;
+-    justify-content: space-between;
+-    gap: 1.5rem;
+-    flex-wrap: wrap;
+-}
+-
+-.perfil dl {
+-    display: grid;
+-    grid-template-columns: auto 1fr;
+-    gap: .35rem 1rem;
+-    margin-top: 1rem;
+-}
+-
+-.perfil dt {
+-    color: var(--color-texto-suave);
+-}
+-
+-.avatar {
+-    width: 180px;
+-    height: 180px;
+-    object-fit: cover;
+-    border-radius: var(--radio);
+-    border: 2px solid var(--color-principal);
+-}
+-
+-/* ---------- 9. Responsive (móvil) ---------- */
+-@media (max-width: 640px) {
+-    .contenedor {
+-        padding: 1.25rem 1rem 3rem;
+-    }
+-
+-    .cabecera {
+-        flex-direction: column;
+-        align-items: flex-start;
+-        gap: .6rem;
+-    }
+-
+-    .nav {
+-        width: 100%;
+-    }
+-
+-    .nav a {
+-        flex: 1 1 auto;
+-        text-align: center;
+-    }
+-
+-    .cartas {
+-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+-    }
+-
+-    .perfil {
+-        flex-direction: column;
+-        text-align: center;
+-    }
+-}
+diff --git a/dinocards/dinopedia.php b/dinocards/dinopedia.php
+deleted file mode 100644
+index 36cbc79..0000000
+--- a/dinocards/dinopedia.php
++++ /dev/null
+@@ -1,31 +0,0 @@
+-<?php
+-/**
+- * dinopedia.php
+- * Catálogo completo de dinosaurios. Se carga por fetch y permite
+- * añadir cualquier carta a la colección.
+- */
+-require_once __DIR__ . '/includes/funciones.php';
+-pedir_login();
+-
+-$titulo = 'DinoPedia';
+-require __DIR__ . '/includes/cabecera.php';
+-?>
+-
+-<section class="panel">
+-    <h1>DinoPedia</h1>
+-    <p>Consulta todos los dinosaurios disponibles y añádelos a tu colección.</p>
+-
+-    <div class="filtros">
+-        <input type="search" id="buscador" class="buscador" placeholder="Buscar por nombre o especie…">
+-        <select id="filtro-periodo">
+-            <option value="">Todos los periodos</option>
+-        </select>
+-    </div>
+-</section>
+-
+-<section class="panel">
+-    <ul class="cartas" id="lista-dinopedia"></ul>
+-</section>
+-
+-<script type="module" src="js/dinopedia.js"></script>
+-<?php require __DIR__ . '/includes/pie.php'; ?>
+diff --git a/dinocards/img/img-cartas/1.png b/dinocards/img/img-cartas/1.png
+deleted file mode 100644
+index 3d1a6b2..0000000
+Binary files a/dinocards/img/img-cartas/1.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/10.png b/dinocards/img/img-cartas/10.png
+deleted file mode 100644
+index ed24b1d..0000000
+Binary files a/dinocards/img/img-cartas/10.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/100.png b/dinocards/img/img-cartas/100.png
+deleted file mode 100644
+index 25d82fb..0000000
+Binary files a/dinocards/img/img-cartas/100.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/11.png b/dinocards/img/img-cartas/11.png
+deleted file mode 100644
+index 1fb4f89..0000000
+Binary files a/dinocards/img/img-cartas/11.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/12.png b/dinocards/img/img-cartas/12.png
+deleted file mode 100644
+index 9fc797d..0000000
+Binary files a/dinocards/img/img-cartas/12.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/13.png b/dinocards/img/img-cartas/13.png
+deleted file mode 100644
+index 1d45e5b..0000000
+Binary files a/dinocards/img/img-cartas/13.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/14.png b/dinocards/img/img-cartas/14.png
+deleted file mode 100644
+index 81bc5ba..0000000
+Binary files a/dinocards/img/img-cartas/14.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/15.png b/dinocards/img/img-cartas/15.png
+deleted file mode 100644
+index babf37d..0000000
+Binary files a/dinocards/img/img-cartas/15.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/16.png b/dinocards/img/img-cartas/16.png
+deleted file mode 100644
+index 8d19300..0000000
+Binary files a/dinocards/img/img-cartas/16.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/17.png b/dinocards/img/img-cartas/17.png
+deleted file mode 100644
+index 9f8acb5..0000000
+Binary files a/dinocards/img/img-cartas/17.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/18.png b/dinocards/img/img-cartas/18.png
+deleted file mode 100644
+index 988fcee..0000000
+Binary files a/dinocards/img/img-cartas/18.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/19.png b/dinocards/img/img-cartas/19.png
+deleted file mode 100644
+index 01a34f5..0000000
+Binary files a/dinocards/img/img-cartas/19.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/2.png b/dinocards/img/img-cartas/2.png
+deleted file mode 100644
+index b12819e..0000000
+Binary files a/dinocards/img/img-cartas/2.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/20.png b/dinocards/img/img-cartas/20.png
+deleted file mode 100644
+index 44ed4a8..0000000
+Binary files a/dinocards/img/img-cartas/20.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/21.png b/dinocards/img/img-cartas/21.png
+deleted file mode 100644
+index 6f382be..0000000
+Binary files a/dinocards/img/img-cartas/21.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/22.png b/dinocards/img/img-cartas/22.png
+deleted file mode 100644
+index 077b5fd..0000000
+Binary files a/dinocards/img/img-cartas/22.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/23.png b/dinocards/img/img-cartas/23.png
+deleted file mode 100644
+index 5b27102..0000000
+Binary files a/dinocards/img/img-cartas/23.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/24.png b/dinocards/img/img-cartas/24.png
+deleted file mode 100644
+index d7d1434..0000000
+Binary files a/dinocards/img/img-cartas/24.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/25.png b/dinocards/img/img-cartas/25.png
+deleted file mode 100644
+index 37dadde..0000000
+Binary files a/dinocards/img/img-cartas/25.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/26.png b/dinocards/img/img-cartas/26.png
+deleted file mode 100644
+index 3f80417..0000000
+Binary files a/dinocards/img/img-cartas/26.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/27.png b/dinocards/img/img-cartas/27.png
+deleted file mode 100644
+index fcaf5c0..0000000
+Binary files a/dinocards/img/img-cartas/27.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/28.png b/dinocards/img/img-cartas/28.png
+deleted file mode 100644
+index 6dafd71..0000000
+Binary files a/dinocards/img/img-cartas/28.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/29.png b/dinocards/img/img-cartas/29.png
+deleted file mode 100644
+index fb4361c..0000000
+Binary files a/dinocards/img/img-cartas/29.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/3.png b/dinocards/img/img-cartas/3.png
+deleted file mode 100644
+index 3185b40..0000000
+Binary files a/dinocards/img/img-cartas/3.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/30.png b/dinocards/img/img-cartas/30.png
+deleted file mode 100644
+index add0772..0000000
+Binary files a/dinocards/img/img-cartas/30.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/31.png b/dinocards/img/img-cartas/31.png
+deleted file mode 100644
+index 8e05caa..0000000
+Binary files a/dinocards/img/img-cartas/31.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/32.png b/dinocards/img/img-cartas/32.png
+deleted file mode 100644
+index 7e563a5..0000000
+Binary files a/dinocards/img/img-cartas/32.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/33.png b/dinocards/img/img-cartas/33.png
+deleted file mode 100644
+index 70e4cd9..0000000
+Binary files a/dinocards/img/img-cartas/33.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/34.png b/dinocards/img/img-cartas/34.png
+deleted file mode 100644
+index d050fd9..0000000
+Binary files a/dinocards/img/img-cartas/34.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/35.png b/dinocards/img/img-cartas/35.png
+deleted file mode 100644
+index 2c087a2..0000000
+Binary files a/dinocards/img/img-cartas/35.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/36.png b/dinocards/img/img-cartas/36.png
+deleted file mode 100644
+index e33e143..0000000
+Binary files a/dinocards/img/img-cartas/36.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/37.png b/dinocards/img/img-cartas/37.png
+deleted file mode 100644
+index 7ee7554..0000000
+Binary files a/dinocards/img/img-cartas/37.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/38.png b/dinocards/img/img-cartas/38.png
+deleted file mode 100644
+index 6e865e9..0000000
+Binary files a/dinocards/img/img-cartas/38.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/39.png b/dinocards/img/img-cartas/39.png
+deleted file mode 100644
+index 89cf50c..0000000
+Binary files a/dinocards/img/img-cartas/39.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/4.png b/dinocards/img/img-cartas/4.png
+deleted file mode 100644
+index ad01839..0000000
+Binary files a/dinocards/img/img-cartas/4.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/40.png b/dinocards/img/img-cartas/40.png
+deleted file mode 100644
+index 5447eae..0000000
+Binary files a/dinocards/img/img-cartas/40.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/41.png b/dinocards/img/img-cartas/41.png
+deleted file mode 100644
+index 4a6a5c1..0000000
+Binary files a/dinocards/img/img-cartas/41.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/42.png b/dinocards/img/img-cartas/42.png
+deleted file mode 100644
+index fda1ea4..0000000
+Binary files a/dinocards/img/img-cartas/42.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/43.png b/dinocards/img/img-cartas/43.png
+deleted file mode 100644
+index 2e07822..0000000
+Binary files a/dinocards/img/img-cartas/43.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/44.png b/dinocards/img/img-cartas/44.png
+deleted file mode 100644
+index 7e24004..0000000
+Binary files a/dinocards/img/img-cartas/44.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/45.png b/dinocards/img/img-cartas/45.png
+deleted file mode 100644
+index bb635fc..0000000
+Binary files a/dinocards/img/img-cartas/45.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/46.png b/dinocards/img/img-cartas/46.png
+deleted file mode 100644
+index fcd5063..0000000
+Binary files a/dinocards/img/img-cartas/46.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/47.png b/dinocards/img/img-cartas/47.png
+deleted file mode 100644
+index 4ea7220..0000000
+Binary files a/dinocards/img/img-cartas/47.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/48.png b/dinocards/img/img-cartas/48.png
+deleted file mode 100644
+index 37fad80..0000000
+Binary files a/dinocards/img/img-cartas/48.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/49.png b/dinocards/img/img-cartas/49.png
+deleted file mode 100644
+index 092d92b..0000000
+Binary files a/dinocards/img/img-cartas/49.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/5.png b/dinocards/img/img-cartas/5.png
+deleted file mode 100644
+index 2c544e6..0000000
+Binary files a/dinocards/img/img-cartas/5.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/50.png b/dinocards/img/img-cartas/50.png
+deleted file mode 100644
+index b8ed60d..0000000
+Binary files a/dinocards/img/img-cartas/50.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/51.png b/dinocards/img/img-cartas/51.png
+deleted file mode 100644
+index f9c51c6..0000000
+Binary files a/dinocards/img/img-cartas/51.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/52.png b/dinocards/img/img-cartas/52.png
+deleted file mode 100644
+index e8c10ea..0000000
+Binary files a/dinocards/img/img-cartas/52.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/53.png b/dinocards/img/img-cartas/53.png
+deleted file mode 100644
+index 8e464ae..0000000
+Binary files a/dinocards/img/img-cartas/53.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/54.png b/dinocards/img/img-cartas/54.png
+deleted file mode 100644
+index 51ac903..0000000
+Binary files a/dinocards/img/img-cartas/54.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/55.png b/dinocards/img/img-cartas/55.png
+deleted file mode 100644
+index 30b0ef0..0000000
+Binary files a/dinocards/img/img-cartas/55.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/56.png b/dinocards/img/img-cartas/56.png
+deleted file mode 100644
+index 07ff582..0000000
+Binary files a/dinocards/img/img-cartas/56.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/57.png b/dinocards/img/img-cartas/57.png
+deleted file mode 100644
+index 9c88a2a..0000000
+Binary files a/dinocards/img/img-cartas/57.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/58.png b/dinocards/img/img-cartas/58.png
+deleted file mode 100644
+index 8ce384a..0000000
+Binary files a/dinocards/img/img-cartas/58.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/59.png b/dinocards/img/img-cartas/59.png
+deleted file mode 100644
+index ccedda6..0000000
+Binary files a/dinocards/img/img-cartas/59.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/6.png b/dinocards/img/img-cartas/6.png
+deleted file mode 100644
+index a669e21..0000000
+Binary files a/dinocards/img/img-cartas/6.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/60.png b/dinocards/img/img-cartas/60.png
+deleted file mode 100644
+index b709545..0000000
+Binary files a/dinocards/img/img-cartas/60.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/61.png b/dinocards/img/img-cartas/61.png
+deleted file mode 100644
+index 6de6890..0000000
+Binary files a/dinocards/img/img-cartas/61.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/62.png b/dinocards/img/img-cartas/62.png
+deleted file mode 100644
+index cbb599c..0000000
+Binary files a/dinocards/img/img-cartas/62.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/63.png b/dinocards/img/img-cartas/63.png
+deleted file mode 100644
+index 9046005..0000000
+Binary files a/dinocards/img/img-cartas/63.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/64.png b/dinocards/img/img-cartas/64.png
+deleted file mode 100644
+index 2733050..0000000
+Binary files a/dinocards/img/img-cartas/64.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/65.png b/dinocards/img/img-cartas/65.png
+deleted file mode 100644
+index ebbf570..0000000
+Binary files a/dinocards/img/img-cartas/65.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/66.png b/dinocards/img/img-cartas/66.png
+deleted file mode 100644
+index a45103a..0000000
+Binary files a/dinocards/img/img-cartas/66.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/67.png b/dinocards/img/img-cartas/67.png
+deleted file mode 100644
+index fd1beeb..0000000
+Binary files a/dinocards/img/img-cartas/67.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/68.png b/dinocards/img/img-cartas/68.png
+deleted file mode 100644
+index 0b4a5ed..0000000
+Binary files a/dinocards/img/img-cartas/68.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/69.png b/dinocards/img/img-cartas/69.png
+deleted file mode 100644
+index 8b4026f..0000000
+Binary files a/dinocards/img/img-cartas/69.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/7.png b/dinocards/img/img-cartas/7.png
+deleted file mode 100644
+index 4aa5a6c..0000000
+Binary files a/dinocards/img/img-cartas/7.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/70.jpg b/dinocards/img/img-cartas/70.jpg
+deleted file mode 100644
+index 8453d33..0000000
+Binary files a/dinocards/img/img-cartas/70.jpg and /dev/null differ
+diff --git a/dinocards/img/img-cartas/71.png b/dinocards/img/img-cartas/71.png
+deleted file mode 100644
+index 7161887..0000000
+Binary files a/dinocards/img/img-cartas/71.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/72.png b/dinocards/img/img-cartas/72.png
+deleted file mode 100644
+index 11df4e3..0000000
+Binary files a/dinocards/img/img-cartas/72.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/73.png b/dinocards/img/img-cartas/73.png
+deleted file mode 100644
+index 53f958e..0000000
+Binary files a/dinocards/img/img-cartas/73.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/74.png b/dinocards/img/img-cartas/74.png
+deleted file mode 100644
+index 1d36766..0000000
+Binary files a/dinocards/img/img-cartas/74.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/75.png b/dinocards/img/img-cartas/75.png
+deleted file mode 100644
+index afc15b4..0000000
+Binary files a/dinocards/img/img-cartas/75.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/76.png b/dinocards/img/img-cartas/76.png
+deleted file mode 100644
+index 6912cec..0000000
+Binary files a/dinocards/img/img-cartas/76.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/77.png b/dinocards/img/img-cartas/77.png
+deleted file mode 100644
+index f2e1d5f..0000000
+Binary files a/dinocards/img/img-cartas/77.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/78.png b/dinocards/img/img-cartas/78.png
+deleted file mode 100644
+index fba18d2..0000000
+Binary files a/dinocards/img/img-cartas/78.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/79.png b/dinocards/img/img-cartas/79.png
+deleted file mode 100644
+index 4848115..0000000
+Binary files a/dinocards/img/img-cartas/79.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/8.png b/dinocards/img/img-cartas/8.png
+deleted file mode 100644
+index c5c2bf6..0000000
+Binary files a/dinocards/img/img-cartas/8.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/80.png b/dinocards/img/img-cartas/80.png
+deleted file mode 100644
+index cfd80de..0000000
+Binary files a/dinocards/img/img-cartas/80.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/81.png b/dinocards/img/img-cartas/81.png
+deleted file mode 100644
+index 9e0b42a..0000000
+Binary files a/dinocards/img/img-cartas/81.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/82.png b/dinocards/img/img-cartas/82.png
+deleted file mode 100644
+index 2cb4765..0000000
+Binary files a/dinocards/img/img-cartas/82.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/83.png b/dinocards/img/img-cartas/83.png
+deleted file mode 100644
+index 110b13b..0000000
+Binary files a/dinocards/img/img-cartas/83.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/84.png b/dinocards/img/img-cartas/84.png
+deleted file mode 100644
+index cf17093..0000000
+Binary files a/dinocards/img/img-cartas/84.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/85.png b/dinocards/img/img-cartas/85.png
+deleted file mode 100644
+index 75116ca..0000000
+Binary files a/dinocards/img/img-cartas/85.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/86.png b/dinocards/img/img-cartas/86.png
+deleted file mode 100644
+index eeb0816..0000000
+Binary files a/dinocards/img/img-cartas/86.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/87.png b/dinocards/img/img-cartas/87.png
+deleted file mode 100644
+index 18610f2..0000000
+Binary files a/dinocards/img/img-cartas/87.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/88.png b/dinocards/img/img-cartas/88.png
+deleted file mode 100644
+index bd59452..0000000
+Binary files a/dinocards/img/img-cartas/88.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/89.png b/dinocards/img/img-cartas/89.png
+deleted file mode 100644
+index 1772a46..0000000
+Binary files a/dinocards/img/img-cartas/89.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/9.png b/dinocards/img/img-cartas/9.png
+deleted file mode 100644
+index 737ff71..0000000
+Binary files a/dinocards/img/img-cartas/9.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/90.png b/dinocards/img/img-cartas/90.png
+deleted file mode 100644
+index bcc3437..0000000
+Binary files a/dinocards/img/img-cartas/90.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/91.png b/dinocards/img/img-cartas/91.png
+deleted file mode 100644
+index abfa655..0000000
+Binary files a/dinocards/img/img-cartas/91.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/92.png b/dinocards/img/img-cartas/92.png
+deleted file mode 100644
+index 72f0010..0000000
+Binary files a/dinocards/img/img-cartas/92.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/93.png b/dinocards/img/img-cartas/93.png
+deleted file mode 100644
+index 1da466e..0000000
+Binary files a/dinocards/img/img-cartas/93.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/94.png b/dinocards/img/img-cartas/94.png
+deleted file mode 100644
+index 5cdaeca..0000000
+Binary files a/dinocards/img/img-cartas/94.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/95.png b/dinocards/img/img-cartas/95.png
+deleted file mode 100644
+index 1ce49b7..0000000
+Binary files a/dinocards/img/img-cartas/95.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/96.png b/dinocards/img/img-cartas/96.png
+deleted file mode 100644
+index 449b2b0..0000000
+Binary files a/dinocards/img/img-cartas/96.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/97.png b/dinocards/img/img-cartas/97.png
+deleted file mode 100644
+index 1a38e6d..0000000
+Binary files a/dinocards/img/img-cartas/97.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/98.png b/dinocards/img/img-cartas/98.png
+deleted file mode 100644
+index ad7df3f..0000000
+Binary files a/dinocards/img/img-cartas/98.png and /dev/null differ
+diff --git a/dinocards/img/img-cartas/99.png b/dinocards/img/img-cartas/99.png
+deleted file mode 100644
+index 7a084ba..0000000
+Binary files a/dinocards/img/img-cartas/99.png and /dev/null differ
+diff --git a/dinocards/img/img-sobres/sobre.png b/dinocards/img/img-sobres/sobre.png
+deleted file mode 100644
+index 679128d..0000000
+Binary files a/dinocards/img/img-sobres/sobre.png and /dev/null differ
+diff --git a/dinocards/img/img-sobres/sobre2.png b/dinocards/img/img-sobres/sobre2.png
+deleted file mode 100644
+index 99362f6..0000000
+Binary files a/dinocards/img/img-sobres/sobre2.png and /dev/null differ
+diff --git a/dinocards/img/img-sobres/sobre3.png b/dinocards/img/img-sobres/sobre3.png
+deleted file mode 100644
+index 67638b5..0000000
+Binary files a/dinocards/img/img-sobres/sobre3.png and /dev/null differ
+diff --git a/dinocards/includes/cabecera.php b/dinocards/includes/cabecera.php
+deleted file mode 100644
+index 3e839b4..0000000
+--- a/dinocards/includes/cabecera.php
++++ /dev/null
+@@ -1,46 +0,0 @@
+-<?php
+-/**
+- * cabecera.php
+- * ------------------------------------------------------------
+- * Parte superior común (head + cabecera de navegación).
+- * Cada página define antes la variable $titulo.
+- * ------------------------------------------------------------
+- */
+-require_once __DIR__ . '/funciones.php';
+-
+-$titulo = $titulo ?? 'DinoCards';
+-$pagina = basename($_SERVER['PHP_SELF']);
+-
+-// Enlaces del menú (solo se muestran si hay sesión)
+-$menu = [
+-    'inicio.php'    => 'Inicio',
+-    'coleccion.php' => 'Mi colección',
+-    'dinopedia.php' => 'DinoPedia',
+-    'perfil.php'    => 'Mi perfil',
+-];
+-?>
+-<!DOCTYPE html>
+-<html lang="es">
+-<head>
+-    <meta charset="UTF-8">
+-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+-    <title><?= escapar($titulo) ?> · DinoCards</title>
+-    <link rel="stylesheet" href="css/estilos.css">
+-</head>
+-<body>
+-    <header class="cabecera">
+-        <a class="marca" href="<?= esta_logueado() ? 'inicio.php' : 'index.php' ?>">
+-            Dino<span>Cards</span>
+-        </a>
+-
+-        <?php if (esta_logueado()): ?>
+-            <nav class="nav">
+-                <?php foreach ($menu as $url => $texto): ?>
+-                    <a href="<?= $url ?>" class="<?= $pagina === $url ? 'activo' : '' ?>"><?= $texto ?></a>
+-                <?php endforeach; ?>
+-                <a href="logout.php" class="salir">Salir</a>
+-            </nav>
+-        <?php endif; ?>
+-    </header>
+-
+-    <main class="contenedor">
+diff --git a/dinocards/includes/conexion.php b/dinocards/includes/conexion.php
+deleted file mode 100644
+index 716fe49..0000000
+--- a/dinocards/includes/conexion.php
++++ /dev/null
+@@ -1,38 +0,0 @@
+-<?php
+-/**
+- * conexion.php
+- * ------------------------------------------------------------
+- * Conexión única a la base de datos mediante PDO.
+- * Se definen las credenciales como constantes para no repetirlas.
+- * ------------------------------------------------------------
+- */
+-
+-// Datos de la base de datos en XAMPP
+-const DB_HOST = '127.0.0.1';
+-const DB_PORT = 3306;
+-const DB_NAME = 'dinocards';
+-const DB_USER = 'oscar';
+-const DB_PASS = '561Cazadora#%';
+-
+-/**
+- * Crea y devuelve una conexión PDO lista para usar.
+- * Lanza una excepción si no se puede conectar.
+- */
+-function conectar_bd(): PDO
+-{
+-    $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+-
+-    $opciones = [
+-        // Que los errores salgan como excepciones (más fácil de depurar)
+-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+-        // Que los resultados vengan como array asociativo
+-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+-        // Usar consultas preparadas reales (más seguras)
+-        PDO::ATTR_EMULATE_PREPARES   => false,
+-    ];
+-
+-    return new PDO($dsn, DB_USER, DB_PASS, $opciones);
+-}
+-
+-// Conexión global reutilizable
+-$pdo = conectar_bd();
+diff --git a/dinocards/includes/funciones.php b/dinocards/includes/funciones.php
+deleted file mode 100644
+index aa4fef1..0000000
+--- a/dinocards/includes/funciones.php
++++ /dev/null
+@@ -1,66 +0,0 @@
+-<?php
+-/**
+- * funciones.php
+- * ------------------------------------------------------------
+- * Funciones de ayuda que se usan en varias páginas y en la API:
+- * sesión, escape de HTML y respuestas JSON.
+- * ------------------------------------------------------------
+- */
+-
+-// Arrancamos la sesión una sola vez
+-if (session_status() === PHP_SESSION_NONE) {
+-    session_start();
+-}
+-
+-/** Escapa un texto para poder mostrarlo en HTML sin peligro. */
+-function escapar(?string $texto): string
+-{
+-    return htmlspecialchars($texto ?? '', ENT_QUOTES, 'UTF-8');
+-}
+-
+-/** ¿Hay un usuario con la sesión iniciada? */
+-function esta_logueado(): bool
+-{
+-    return isset($_SESSION['usuario_id']);
+-}
+-
+-/** Devuelve el id del usuario actual (o null). */
+-function usuario_actual(): ?int
+-{
+-    return esta_logueado() ? (int) $_SESSION['usuario_id'] : null;
+-}
+-
+-/** Si no hay sesión, redirige a la página de entrada. */
+-function pedir_login(): void
+-{
+-    if (!esta_logueado()) {
+-        header('Location: index.php');
+-        exit;
+-    }
+-}
+-
+-/**
+- * Envía una respuesta en JSON y termina la ejecución.
+- * Se usa desde los archivos de la carpeta api/.
+- */
+-function responder_json(array $datos, int $codigo = 200): void
+-{
+-    http_response_code($codigo);
+-    header('Content-Type: application/json; charset=utf-8');
+-    echo json_encode($datos, JSON_UNESCAPED_UNICODE);
+-    exit;
+-}
+-
+-/**
+- * Comprueba la contraseña admitiendo también hashes antiguos en md5.
+- * Los usuarios nuevos se guardan con password_hash() y se validan con
+- * password_verify(); los antiguos (32 caracteres) se validan con md5().
+- */
+-function verificar_password(string $clave, string $hash): bool
+-{
+-    if (password_verify($clave, $hash)) {
+-        return true;
+-    }
+-    // Compatibilidad con contraseñas antiguas guardadas en md5
+-    return strlen($hash) === 32 && hash_equals($hash, md5($clave));
+-}
+diff --git a/dinocards/includes/pie.php b/dinocards/includes/pie.php
+deleted file mode 100644
+index 2de0fa8..0000000
+--- a/dinocards/includes/pie.php
++++ /dev/null
+@@ -1,7 +0,0 @@
+-    </main>
+-
+-    <footer class="pie">
+-        <p>DinoCards · Proyecto de Desarrollo de Aplicaciones Web · <?= date('Y') ?></p>
+-    </footer>
+-</body>
+-</html>
+diff --git a/dinocards/index.php b/dinocards/index.php
+deleted file mode 100644
+index 915f7c7..0000000
+--- a/dinocards/index.php
++++ /dev/null
+@@ -1,71 +0,0 @@
+-<?php
+-/**
+- * index.php
+- * Página de entrada: iniciar sesión o registrarse.
+- */
+-require_once __DIR__ . '/includes/funciones.php';
+-
+-// Si ya hay sesión, al panel directamente
+-if (esta_logueado()) {
+-    header('Location: inicio.php');
+-    exit;
+-}
+-
+-$titulo = 'Entrar';
+-require __DIR__ . '/includes/cabecera.php';
+-?>
+-
+-<section class="hero">
+-    <h1>Bienvenido al <span>Portal del Coleccionista</span></h1>
+-    <p>Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio.</p>
+-</section>
+-
+-<section class="panel panel-auth" id="auth" data-inicial="login">
+-    <div class="pestanas">
+-        <button type="button" class="pestana activa" data-panel="login">Iniciar sesión</button>
+-        <button type="button" class="pestana" data-panel="registro">Registrarse</button>
+-    </div>
+-
+-    <p id="aviso" class="aviso" hidden></p>
+-
+-    <!-- FORMULARIO DE LOGIN -->
+-    <form id="form-login" class="formulario" novalidate>
+-        <h2>Iniciar sesión</h2>
+-
+-        <label for="log-usuario">Usuario o correo</label>
+-        <input type="text" id="log-usuario" name="usuario" autocomplete="username" required>
+-
+-        <label for="log-pass">Contraseña</label>
+-        <div class="campo-clave">
+-            <input type="password" id="log-pass" name="contrasena" autocomplete="current-password" required>
+-            <button type="button" class="ver-clave" data-para="log-pass">Mostrar</button>
+-        </div>
+-
+-        <button type="submit" class="boton">Entrar</button>
+-    </form>
+-
+-    <!-- FORMULARIO DE REGISTRO -->
+-    <form id="form-registro" class="formulario" hidden novalidate>
+-        <h2>Crear cuenta</h2>
+-
+-        <label for="reg-usuario">Usuario</label>
+-        <input type="text" id="reg-usuario" name="usuario" maxlength="16" autocomplete="username" required>
+-
+-        <label for="reg-email">Correo electrónico</label>
+-        <input type="email" id="reg-email" name="email" autocomplete="email" required>
+-
+-        <label for="reg-pass">Contraseña</label>
+-        <div class="campo-clave">
+-            <input type="password" id="reg-pass" name="contrasena" autocomplete="new-password" required>
+-            <button type="button" class="ver-clave" data-para="reg-pass">Mostrar</button>
+-        </div>
+-
+-        <label for="reg-pass2">Repite la contraseña</label>
+-        <input type="password" id="reg-pass2" name="confirma" autocomplete="new-password" required>
+-
+-        <button type="submit" class="boton">Crear cuenta</button>
+-    </form>
+-</section>
+-
+-<script type="module" src="js/index.js"></script>
+-<?php require __DIR__ . '/includes/pie.php'; ?>
+diff --git a/dinocards/inicio.php b/dinocards/inicio.php
+deleted file mode 100644
+index 83a1c66..0000000
+--- a/dinocards/inicio.php
++++ /dev/null
+@@ -1,63 +0,0 @@
+-<?php
+-/**
+- * inicio.php
+- * Panel principal. Carga el resumen con fetch y abre los sobres.
+- */
+-require_once __DIR__ . '/includes/funciones.php';
+-require_once __DIR__ . '/includes/conexion.php';
+-pedir_login();
+-
+-$uid = usuario_actual();
+-
+-$stmt = $pdo->prepare('SELECT username, ultima_obtencion FROM usuarios WHERE id = :id');
+-$stmt->execute([':id' => $uid]);
+-$usuario = $stmt->fetch();
+-
+-$hoy = date('Y-m-d');
+-$ya_cogida = $usuario['ultima_obtencion'] !== null
+-    && substr($usuario['ultima_obtencion'], 0, 10) === $hoy;
+-
+-$titulo = 'Inicio';
+-require __DIR__ . '/includes/cabecera.php';
+-?>
+-
+-<section class="hero">
+-    <h1>Hola, <span><?= escapar($usuario['username']) ?></span></h1>
+-    <p>Hoy es <?= date('d/m/Y') ?>. Abre tu sobre del día y sigue completando tu colección.</p>
+-</section>
+-
+-<div class="grid-sobres">
+-    <article class="sobre">
+-        <h2>Sobre del día</h2>
+-        <p>Consigue un dinosaurio nuevo gratis cada día.</p>
+-        <button id="btn-diario" class="boton" data-cogida="<?= $ya_cogida ? '1' : '0' ?>"
+-                <?= $ya_cogida ? 'disabled' : '' ?>>
+-            <?= $ya_cogida ? 'Ya abierto hoy' : 'Abrir sobre del día' ?>
+-        </button>
+-        <p class="estado" id="estado-diario"></p>
+-    </article>
+-
+-    <article class="sobre">
+-        <h2>Sobre de prueba</h2>
+-        <p>Ábrelo cuando quieras y consigue 4 cartas de golpe.</p>
+-        <button id="btn-prueba" class="boton secundario">Abrir sobre de prueba</button>
+-        <p class="estado" id="estado-prueba"></p>
+-    </article>
+-</div>
+-
+-<section class="panel">
+-    <h2>Resumen de tu colección</h2>
+-    <ul class="resumen">
+-        <li><b id="r-cartas">–</b><span>cartas guardadas</span></li>
+-        <li><b id="r-especies">–</b><span>especies distintas</span></li>
+-        <li><b id="r-porcentaje">–</b><span>del catálogo</span></li>
+-    </ul>
+-</section>
+-
+-<section class="panel" id="resultado" hidden>
+-    <h2 id="resultado-titulo">Cartas obtenidas</h2>
+-    <ul class="cartas" id="lista-resultado"></ul>
+-</section>
+-
+-<script type="module" src="js/inicio.js"></script>
+-<?php require __DIR__ . '/includes/pie.php'; ?>
+diff --git a/dinocards/js/coleccion.js b/dinocards/js/coleccion.js
+deleted file mode 100644
+index 5954f71..0000000
+--- a/dinocards/js/coleccion.js
++++ /dev/null
+@@ -1,56 +0,0 @@
+-/**
+- * coleccion.js
+- * Carga la colección por fetch, permite buscar y ordenar las cartas.
+- */
+-import { pedir, crearCarta } from './main.js';
+-
+-const lista = document.getElementById('lista-coleccion');
+-const vacio = document.getElementById('vacio');
+-const buscador = document.getElementById('buscador');
+-const orden = document.getElementById('orden');
+-const barra = document.getElementById('barra-interior');
+-const textoProgreso = document.getElementById('texto-progreso');
+-
+-let cartas = [];
+-
+-/** Descarga la colección del usuario. */
+-async function cargar() {
+-    try {
+-        const datos = await pedir('api/coleccion.php');
+-        cartas = datos.cartas;
+-
+-        const { resumen } = datos;
+-        barra.style.width = resumen.porcentaje + '%';
+-        textoProgreso.textContent =
+-            `${resumen.especies} de ${resumen.catalogo} especies (${resumen.porcentaje}%) · ${resumen.cartas} cartas`;
+-
+-        pintar();
+-    } catch (error) {
+-        textoProgreso.textContent = error.message;
+-    }
+-}
+-
+-/** Aplica búsqueda y orden y dibuja las cartas. */
+-function pintar() {
+-    const texto = buscador.value.trim().toLowerCase();
+-
+-    const visibles = cartas.filter((d) =>
+-        d.nombre.toLowerCase().includes(texto) ||
+-        d.especie.toLowerCase().includes(texto)
+-    );
+-
+-    if (orden.value === 'nombre') {
+-        visibles.sort((a, b) => a.nombre.localeCompare(b.nombre));
+-    } else if (orden.value === 'copias') {
+-        visibles.sort((a, b) => b.copias - a.copias);
+-    }
+-
+-    lista.innerHTML = '';
+-    visibles.forEach((dino) => lista.appendChild(crearCarta(dino, { copias: dino.copias })));
+-    vacio.hidden = visibles.length > 0;
+-}
+-
+-buscador.addEventListener('input', pintar);
+-orden.addEventListener('change', pintar);
+-
+-cargar();
+diff --git a/dinocards/js/dinopedia.js b/dinocards/js/dinopedia.js
+deleted file mode 100644
+index 0f4b417..0000000
+--- a/dinocards/js/dinopedia.js
++++ /dev/null
+@@ -1,84 +0,0 @@
+-/**
+- * dinopedia.js
+- * Muestra el catálogo completo y permite añadir cartas a la colección.
+- */
+-import { pedir, crearCarta } from './main.js';
+-
+-const lista = document.getElementById('lista-dinopedia');
+-const buscador = document.getElementById('buscador');
+-const filtroPeriodo = document.getElementById('filtro-periodo');
+-
+-let dinosaurios = [];
+-
+-/** Descarga el catálogo completo. */
+-async function cargar() {
+-    try {
+-        const datos = await pedir('api/dinosaurios.php');
+-        dinosaurios = datos.dinosaurios;
+-        rellenarPeriodos();
+-        pintar();
+-    } catch (error) {
+-        lista.innerHTML = `<li class="vacio">${error.message}</li>`;
+-    }
+-}
+-
+-/** Rellena el desplegable de periodos sin repetir. */
+-function rellenarPeriodos() {
+-    const periodos = [...new Set(dinosaurios.map((d) => d.periodo))].sort();
+-    periodos.forEach((periodo) => {
+-        const opcion = document.createElement('option');
+-        opcion.value = periodo;
+-        opcion.textContent = periodo;
+-        filtroPeriodo.appendChild(opcion);
+-    });
+-}
+-
+-/** Aplica búsqueda y filtro y dibuja las cartas. */
+-function pintar() {
+-    const texto = buscador.value.trim().toLowerCase();
+-    const periodo = filtroPeriodo.value;
+-
+-    const visibles = dinosaurios.filter((d) => {
+-        const coincide =
+-            d.nombre.toLowerCase().includes(texto) ||
+-            d.especie.toLowerCase().includes(texto);
+-        return coincide && (!periodo || d.periodo === periodo);
+-    });
+-
+-    lista.innerHTML = '';
+-    visibles.forEach((dino) => {
+-        const carta = crearCarta(dino);
+-
+-        const boton = document.createElement('button');
+-        boton.className = 'boton pequeno';
+-        boton.textContent = 'Añadir';
+-        boton.addEventListener('click', () => anadir(dino, boton));
+-
+-        carta.appendChild(boton);
+-        lista.appendChild(carta);
+-    });
+-}
+-
+-/** Envía la petición para añadir una carta. */
+-async function anadir(dino, boton) {
+-    boton.disabled = true;
+-    boton.textContent = 'Añadiendo…';
+-
+-    const cuerpo = new FormData();
+-    cuerpo.append('dinosaurio_id', dino.id);
+-
+-    try {
+-        await pedir('api/anadir_carta.php', { method: 'POST', body: cuerpo });
+-        boton.textContent = '¡Añadido!';
+-        boton.classList.add('ok');
+-    } catch (error) {
+-        boton.textContent = error.message;
+-        boton.disabled = false;
+-        setTimeout(() => { boton.textContent = 'Añadir'; }, 2000);
+-    }
+-}
+-
+-buscador.addEventListener('input', pintar);
+-filtroPeriodo.addEventListener('change', pintar);
+-
+-cargar();
+diff --git a/dinocards/js/index.js b/dinocards/js/index.js
+deleted file mode 100644
+index d243819..0000000
+--- a/dinocards/js/index.js
++++ /dev/null
+@@ -1,102 +0,0 @@
+-/**
+- * index.js
+- * Controla la página de entrada: pestañas login/registro y envío por fetch.
+- */
+-import { pedir, activarVerClave } from './main.js';
+-
+-const formLogin = document.getElementById('form-login');
+-const formRegistro = document.getElementById('form-registro');
+-const aviso = document.getElementById('aviso');
+-const pestanas = document.querySelectorAll('.pestana');
+-
+-activarVerClave();
+-
+-/** Muestra un mensaje de aviso en la parte superior del formulario. */
+-function mostrarAviso(mensaje, tipo = 'error') {
+-    aviso.textContent = mensaje;
+-    aviso.className = 'aviso ' + tipo;
+-    aviso.hidden = false;
+-}
+-
+-function ocultarAviso() {
+-    aviso.hidden = true;
+-}
+-
+-// --- Cambio de pestaña ---
+-pestanas.forEach((pestana) => {
+-    pestana.addEventListener('click', () => {
+-        pestanas.forEach((p) => p.classList.toggle('activo', p === pestana));
+-
+-        const panel = pestana.dataset.panel;
+-        formLogin.hidden = panel !== 'login';
+-        formRegistro.hidden = panel !== 'registro';
+-        ocultarAviso();
+-    });
+-});
+-
+-// --- Iniciar sesión ---
+-formLogin.addEventListener('submit', async (evento) => {
+-    evento.preventDefault();
+-
+-    const usuario = formLogin.usuario.value.trim();
+-    const contrasena = formLogin.contrasena.value;
+-
+-    if (!usuario || !contrasena) {
+-        mostrarAviso('Rellena todos los campos.');
+-        return;
+-    }
+-
+-    try {
+-        const datos = await pedir('api/login.php', {
+-            method: 'POST',
+-            body: new FormData(formLogin),
+-        });
+-        mostrarAviso(datos.mensaje, 'ok');
+-        window.location.href = 'inicio.php';
+-    } catch (error) {
+-        mostrarAviso(error.message);
+-    }
+-});
+-
+-// --- Registro (con validación en el cliente) ---
+-formRegistro.addEventListener('submit', async (evento) => {
+-    evento.preventDefault();
+-
+-    const usuario = formRegistro.usuario.value.trim();
+-    const email = formRegistro.email.value.trim();
+-    const clave1 = formRegistro.contrasena.value;
+-    const clave2 = formRegistro.confirma.value;
+-
+-    if (usuario.length < 3) {
+-        mostrarAviso('El usuario debe tener al menos 3 caracteres.');
+-        return;
+-    }
+-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+-        mostrarAviso('El correo no es válido.');
+-        return;
+-    }
+-    if (clave1.length < 4) {
+-        mostrarAviso('La contraseña debe tener al menos 4 caracteres.');
+-        return;
+-    }
+-    if (clave1 !== clave2) {
+-        mostrarAviso('Las contraseñas no coinciden.');
+-        return;
+-    }
+-
+-    try {
+-        const datos = await pedir('api/registro.php', {
+-            method: 'POST',
+-            body: new FormData(formRegistro),
+-        });
+-        mostrarAviso(datos.mensaje, 'ok');
+-        formRegistro.reset();
+-
+-        // Volvemos a la pestaña de login después de un momento
+-        setTimeout(() => {
+-            document.querySelector('.pestana[data-panel="login"]').click();
+-        }, 1200);
+-    } catch (error) {
+-        mostrarAviso(error.message);
+-    }
+-});
+diff --git a/dinocards/js/inicio.js b/dinocards/js/inicio.js
+deleted file mode 100644
+index 61d3cff..0000000
+--- a/dinocards/js/inicio.js
++++ /dev/null
+@@ -1,70 +0,0 @@
+-/**
+- * inicio.js
+- * Panel principal: resumen de la colección y apertura de sobres.
+- */
+-import { pedir, crearCarta } from './main.js';
+-
+-const btnDiario = document.getElementById('btn-diario');
+-const btnPrueba = document.getElementById('btn-prueba');
+-const resultado = document.getElementById('resultado');
+-const resultadoTitulo = document.getElementById('resultado-titulo');
+-const listaResultado = document.getElementById('lista-resultado');
+-
+-/** Trae el resumen y lo pinta en las tarjetas de estadísticas. */
+-async function cargarResumen() {
+-    try {
+-        const { resumen } = await pedir('api/coleccion.php');
+-        document.getElementById('r-cartas').textContent = resumen.cartas;
+-        document.getElementById('r-especies').textContent = resumen.especies;
+-        document.getElementById('r-porcentaje').textContent = resumen.porcentaje + '%';
+-    } catch {
+-        // Si falla el resumen no bloqueamos la página
+-    }
+-}
+-
+-/** Muestra las cartas obtenidas en la sección de resultado. */
+-function mostrarResultado(titulo, dinosaurios) {
+-    resultadoTitulo.textContent = titulo;
+-    listaResultado.innerHTML = '';
+-    dinosaurios.forEach((dino) => listaResultado.appendChild(crearCarta(dino)));
+-
+-    resultado.hidden = false;
+-    resultado.scrollIntoView({ behavior: 'smooth', block: 'start' });
+-}
+-
+-// Sobre del día
+-btnDiario?.addEventListener('click', async () => {
+-    const estado = document.getElementById('estado-diario');
+-    estado.textContent = '';
+-    btnDiario.disabled = true;
+-
+-    try {
+-        const datos = await pedir('api/carta_diaria.php', { method: 'POST', body: new FormData() });
+-        mostrarResultado('Sobre del día', [datos.dinosaurio]);
+-        estado.textContent = datos.mensaje;
+-        cargarResumen();
+-    } catch (error) {
+-        estado.textContent = error.message;
+-        btnDiario.disabled = false;
+-    }
+-});
+-
+-// Sobre de prueba
+-btnPrueba?.addEventListener('click', async () => {
+-    const estado = document.getElementById('estado-prueba');
+-    estado.textContent = 'Abriendo sobre…';
+-    btnPrueba.disabled = true;
+-
+-    try {
+-        const datos = await pedir('api/abrir_prueba.php', { method: 'POST', body: new FormData() });
+-        mostrarResultado('Sobre de prueba', datos.dinosaurios);
+-        estado.textContent = datos.mensaje;
+-        cargarResumen();
+-    } catch (error) {
+-        estado.textContent = error.message;
+-    } finally {
+-        btnPrueba.disabled = false;
+-    }
+-});
+-
+-cargarResumen();
+diff --git a/dinocards/js/main.js b/dinocards/js/main.js
+deleted file mode 100644
+index b21c651..0000000
+--- a/dinocards/js/main.js
++++ /dev/null
+@@ -1,66 +0,0 @@
+-/**
+- * main.js
+- * Funciones comunes a todas las páginas (se importa como módulo ES6).
+- */
+-
+-/** Escapa un texto para insertarlo en HTML sin peligro. */
+-export function escapar(texto) {
+-    const div = document.createElement('div');
+-    div.textContent = texto ?? '';
+-    return div.innerHTML;
+-}
+-
+-/** Petición fetch que devuelve JSON y lanza error si la respuesta falla. */
+-export async function pedir(url, opciones = {}) {
+-    const respuesta = await fetch(url, {
+-        credentials: 'same-origin',
+-        ...opciones,
+-    });
+-
+-    const datos = await respuesta.json();
+-    if (!respuesta.ok) {
+-        throw new Error(datos.mensaje || 'Error de conexión con el servidor.');
+-    }
+-    return datos;
+-}
+-
+-/** Crea el elemento <li> de una carta a partir de un dinosaurio. */
+-export function crearCarta(dino, { copias = 0 } = {}) {
+-    const li = document.createElement('li');
+-    li.className = 'carta';
+-    li.dataset.id = dino.id;
+-
+-    li.innerHTML = `
+-        <div class="carta-imagen">
+-            <img src="${escapar(dino.imagen_url)}" alt="${escapar(dino.nombre)}" loading="lazy">
+-            ${copias > 1 ? `<span class="copias">x${copias}</span>` : ''}
+-        </div>
+-        <div class="carta-info">
+-            <h3>${escapar(dino.nombre)}</h3>
+-            <p class="especie">${escapar(dino.especie)}</p>
+-            <p class="periodo">${escapar(dino.periodo)}</p>
+-            <ul class="stats">
+-                <li><span>HP</span> ${dino.hp}</li>
+-                <li><span>ATQ</span> ${dino.ataque}</li>
+-                <li><span>DEF</span> ${dino.defensa}</li>
+-                <li><span>AGI</span> ${dino.agilidad}</li>
+-            </ul>
+-        </div>
+-    `;
+-
+-    return li;
+-}
+-
+-/** Activa los botones "Mostrar/Ocultar" de los campos de contraseña. */
+-export function activarVerClave() {
+-    document.querySelectorAll('.ver-clave').forEach((boton) => {
+-        boton.addEventListener('click', () => {
+-            const campo = document.getElementById(boton.dataset.para);
+-            if (!campo) return;
+-
+-            const oculta = campo.type === 'password';
+-            campo.type = oculta ? 'text' : 'password';
+-            boton.textContent = oculta ? 'Ocultar' : 'Mostrar';
+-        });
+-    });
+-}
+diff --git a/dinocards/logout.php b/dinocards/logout.php
+deleted file mode 100644
+index 39348fd..0000000
+--- a/dinocards/logout.php
++++ /dev/null
+@@ -1,12 +0,0 @@
+-<?php
+-/**
+- * logout.php
+- * Cierra la sesión del usuario y vuelve a la página de entrada.
+- */
+-require_once __DIR__ . '/includes/funciones.php';
+-
+-$_SESSION = [];
+-session_destroy();
+-
+-header('Location: index.php');
+-exit;
+diff --git a/dinocards/perfil.php b/dinocards/perfil.php
+deleted file mode 100644
+index ce2a25a..0000000
+--- a/dinocards/perfil.php
++++ /dev/null
+@@ -1,83 +0,0 @@
+-<?php
+-/**
+- * perfil.php
+- * Ficha del usuario y estadísticas de su colección (renderizado en servidor).
+- */
+-require_once __DIR__ . '/includes/funciones.php';
+-require_once __DIR__ . '/includes/conexion.php';
+-pedir_login();
+-
+-$uid = usuario_actual();
+-
+-// Datos del usuario
+-$stmt = $pdo->prepare('SELECT username, email, fecha_registro, ultima_obtencion
+-                       FROM usuarios WHERE id = :id');
+-$stmt->execute([':id' => $uid]);
+-$usuario = $stmt->fetch();
+-
+-// Estadísticas de la colección
+-$stmt = $pdo->prepare('SELECT COUNT(*) AS cartas, COUNT(DISTINCT dinosaurio_id) AS especies
+-                       FROM colecciones WHERE usuario_id = :u');
+-$stmt->execute([':u' => $uid]);
+-$stats = $stmt->fetch();
+-
+-$total_catalogo = (int) $pdo->query('SELECT COUNT(*) FROM dinosaurios')->fetchColumn();
+-$porcentaje = $total_catalogo > 0
+-    ? (int) round($stats['especies'] / $total_catalogo * 100)
+-    : 0;
+-
+-// Su carta más fuerte (suma de estadísticas)
+-$stmt = $pdo->prepare(
+-    'SELECT d.* FROM colecciones c
+-     JOIN dinosaurios d ON d.id = c.dinosaurio_id
+-     WHERE c.usuario_id = :u
+-     ORDER BY (d.hp + d.vigor + d.ataque + d.defensa + d.agilidad) DESC
+-     LIMIT 1'
+-);
+-$stmt->execute([':u' => $uid]);
+-$mejor = $stmt->fetch();
+-
+-$formato = static fn (?string $fecha): string
+-    => $fecha ? date('d/m/Y H:i', strtotime($fecha)) : '—';
+-
+-$titulo = 'Mi perfil';
+-require __DIR__ . '/includes/cabecera.php';
+-?>
+-
+-<section class="panel perfil">
+-    <div class="perfil-datos">
+-        <h1><?= escapar($usuario['username']) ?></h1>
+-        <dl>
+-            <dt>Correo</dt>
+-            <dd><?= escapar($usuario['email']) ?></dd>
+-            <dt>Registrado el</dt>
+-            <dd><?= $formato($usuario['fecha_registro']) ?></dd>
+-            <dt>Último sobre</dt>
+-            <dd><?= $formato($usuario['ultima_obtencion']) ?></dd>
+-        </dl>
+-    </div>
+-
+-    <img class="avatar"
+-         src="<?= $mejor ? escapar($mejor['imagen_url']) : 'img/img-sobres/sobre.png' ?>"
+-         alt="Carta destacada">
+-</section>
+-
+-<section class="panel">
+-    <h2>Estadísticas</h2>
+-    <ul class="resumen">
+-        <li><b><?= (int) $stats['cartas'] ?></b><span>cartas en total</span></li>
+-        <li><b><?= (int) $stats['especies'] ?></b><span>especies distintas</span></li>
+-        <li><b><?= $porcentaje ?>%</b><span>del catálogo completo</span></li>
+-    </ul>
+-
+-    <?php if ($mejor): ?>
+-        <h2 class="subtitulo">Tu carta más fuerte</h2>
+-        <p>
+-            <strong><?= escapar($mejor['nombre']) ?></strong> —
+-            <?= escapar($mejor['especie']) ?>
+-            (<?= escapar($mejor['periodo']) ?>)
+-        </p>
+-    <?php endif; ?>
+-</section>
+-
+-<?php require __DIR__ . '/includes/pie.php'; ?>
+diff --git a/dinocards/sql/dinocards.sql b/dinocards/sql/dinocards.sql
+deleted file mode 100644
+index a4ce845..0000000
+--- a/dinocards/sql/dinocards.sql
++++ /dev/null
+@@ -1,285 +0,0 @@
+--- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
+---
+--- Host: 127.0.0.1    Database: dinocards
+--- ------------------------------------------------------
+--- Server version	8.0.36
+-
+-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+-/*!40101 SET NAMES utf8mb4 */;
+-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+-/*!40103 SET TIME_ZONE='+00:00' */;
+-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+-
+---
+--- Current Database: `dinocards`
+---
+-
+-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `dinocards` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+-
+-USE `dinocards`;
+-
+---
+--- Table structure for table `colecciones`
+---
+-
+-DROP TABLE IF EXISTS `colecciones`;
+-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+-/*!40101 SET character_set_client = utf8 */;
+-CREATE TABLE `colecciones` (
+-  `id` int NOT NULL AUTO_INCREMENT,
+-  `usuario_id` int DEFAULT NULL,
+-  `dinosaurio_id` int DEFAULT NULL,
+-  `fecha_adquisicion` datetime DEFAULT NULL,
+-  PRIMARY KEY (`id`),
+-  KEY `usuario_id` (`usuario_id`),
+-  KEY `dinosaurio_id` (`dinosaurio_id`),
+-  CONSTRAINT `colecciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+-  CONSTRAINT `colecciones_ibfk_2` FOREIGN KEY (`dinosaurio_id`) REFERENCES `dinosaurios` (`id`)
+-) ENGINE=InnoDB AUTO_INCREMENT=325 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-/*!40101 SET character_set_client = @saved_cs_client */;
+-
+---
+--- Dumping data for table `colecciones`
+---
+-
+-LOCK TABLES `colecciones` WRITE;
+-/*!40000 ALTER TABLE `colecciones` DISABLE KEYS */;
+-INSERT INTO `colecciones` VALUES (1,1,74,'2025-10-21 21:54:39'),(2,1,91,'2025-10-22 14:33:01'),(3,1,84,'2025-11-06 02:00:05'),(4,1,81,'2025-11-11 12:34:21'),(5,2,65,'2025-12-07 06:51:21'),(6,2,47,'2025-12-08 13:07:24'),(7,2,41,'2025-12-11 17:38:00'),(8,1,22,'2025-12-18 01:21:30'),(9,1,90,'2026-01-11 07:17:42'),(10,1,42,'2026-01-14 08:29:12'),(11,1,57,'2026-01-15 03:35:52'),(12,1,62,'2026-01-21 10:52:55'),(13,3,85,'2026-01-30 13:31:29'),(14,1,85,'2026-02-04 23:35:11'),(15,1,91,'2026-02-05 02:12:27'),(16,4,71,'2026-02-09 20:20:54'),(17,4,90,'2026-02-10 15:50:45'),(18,4,28,'2026-02-11 08:44:57'),(19,4,29,'2026-02-12 10:39:47'),(20,4,100,'2026-02-17 11:21:31'),(21,5,56,'2026-02-18 17:13:54'),(22,4,21,'2026-02-19 08:35:25'),(23,4,96,'2026-02-19 14:10:52'),(24,4,71,'2026-02-20 22:16:11'),(25,1,58,'2026-02-22 20:53:20'),(26,1,83,'2026-02-28 02:47:52'),(27,4,79,'2026-02-28 03:52:49'),(28,4,21,'2026-03-07 12:38:38'),(29,4,31,'2026-03-07 17:31:15'),(30,5,79,'2026-03-09 12:22:56'),(31,4,65,'2026-03-09 21:30:27'),(32,4,31,'2026-03-10 04:52:37'),(33,4,53,'2026-03-10 16:47:14'),(34,4,19,'2026-03-11 12:24:01'),(35,4,96,'2026-03-13 08:32:52'),(36,4,34,'2026-03-14 12:28:44'),(37,4,59,'2026-03-14 12:32:47'),(38,4,80,'2026-03-15 03:30:51'),(39,1,53,'2026-03-15 09:28:46'),(40,4,13,'2026-03-19 06:22:15'),(41,1,33,'2026-03-19 14:46:23'),(42,4,7,'2026-03-19 18:49:04'),(43,1,47,'2026-03-22 13:23:44'),(44,4,36,'2026-03-23 17:59:51'),(45,4,77,'2026-03-23 23:39:47'),(46,4,38,'2026-03-25 12:10:54'),(47,4,95,'2026-03-26 05:24:05'),(48,4,81,'2026-03-27 13:59:00'),(49,4,100,'2026-03-30 03:18:48'),(50,6,13,'2026-03-30 04:24:24'),(51,4,41,'2026-04-01 21:01:53'),(52,4,51,'2026-04-04 07:00:18'),(53,4,15,'2026-04-10 12:06:31'),(54,5,76,'2026-04-15 19:43:34'),(55,5,85,'2026-04-15 21:41:48'),(56,4,64,'2026-04-16 22:42:30'),(57,4,65,'2026-04-17 00:26:00'),(58,4,2,'2026-04-18 17:15:30'),(59,4,7,'2026-04-20 07:46:09'),(60,4,95,'2026-04-21 05:50:20'),(61,4,62,'2026-04-25 13:12:25'),(62,4,64,'2026-04-29 04:50:35'),(63,4,53,'2026-05-01 02:53:51'),(64,4,82,'2026-05-01 19:54:44'),(65,4,27,'2026-05-04 00:28:14'),(66,5,14,'2026-05-04 15:41:13'),(67,4,36,'2026-05-04 17:21:02'),(68,4,21,'2026-05-04 23:26:33'),(69,4,89,'2026-05-05 06:03:04'),(70,4,58,'2026-05-06 11:43:58'),(71,1,31,'2026-05-06 17:03:00'),(72,4,89,'2026-05-07 16:05:32'),(73,4,65,'2026-05-08 20:31:42'),(74,4,11,'2026-05-09 17:43:31'),(75,4,14,'2026-05-10 23:32:02'),(76,4,64,'2026-05-11 15:33:23'),(77,4,34,'2026-05-12 11:00:07'),(78,4,25,'2026-05-12 19:47:04'),(79,4,99,'2026-05-13 06:35:00'),(80,5,17,'2026-05-14 17:04:03'),(81,4,61,'2026-05-15 04:10:19'),(82,4,41,'2026-05-19 14:37:12'),(83,4,95,'2026-05-21 06:07:55'),(84,4,19,'2026-05-23 12:52:18'),(85,4,91,'2026-05-24 04:58:40'),(86,4,24,'2026-05-24 12:50:27'),(87,1,50,'2026-05-25 03:22:00'),(88,4,4,'2026-05-25 20:16:18'),(89,4,60,'2026-05-26 02:47:07'),(90,4,47,'2026-05-26 16:26:09'),(91,4,33,'2026-05-28 19:56:33'),(92,4,24,'2026-06-05 04:34:28'),(93,7,50,'2026-06-05 04:39:57'),(94,4,83,'2026-06-08 03:39:55'),(95,7,99,'2026-06-08 05:31:07'),(96,4,96,'2026-06-08 06:26:13'),(97,6,16,'2026-06-12 05:29:43'),(98,1,48,'2026-06-14 10:32:28'),(99,7,8,'2026-06-14 15:44:00'),(100,1,100,'2026-06-14 20:22:25'),(101,4,18,'2026-06-15 20:53:10'),(102,2,46,'2026-06-16 14:05:00'),(103,4,76,'2026-06-18 16:02:20'),(104,7,71,'2026-06-19 15:52:19'),(105,7,93,'2026-06-20 02:01:16'),(106,7,52,'2026-06-20 05:58:07'),(107,4,2,'2026-06-22 03:51:19'),(108,7,55,'2026-06-22 04:57:26'),(109,7,35,'2026-06-23 07:42:23'),(110,7,38,'2026-06-23 21:46:50'),(111,4,84,'2026-06-24 02:46:19'),(112,4,97,'2026-06-24 14:38:01'),(113,8,39,'2026-06-25 07:48:31'),(114,8,83,'2026-06-25 08:16:00'),(115,7,48,'2026-06-25 17:53:31'),(116,8,12,'2026-06-25 19:11:31'),(117,7,50,'2026-06-26 07:06:12'),(118,9,53,'2026-06-26 09:44:05'),(119,9,8,'2026-06-26 15:10:11'),(120,5,90,'2026-06-26 21:48:48'),(121,8,94,'2026-06-27 09:00:52'),(122,4,95,'2026-06-27 10:17:46'),(123,8,73,'2026-06-27 20:25:41'),(124,8,66,'2026-06-27 20:58:22'),(125,7,56,'2026-06-28 11:30:23'),(126,8,74,'2026-06-28 16:26:40'),(127,8,85,'2026-06-30 12:21:08'),(128,9,90,'2026-07-01 04:17:44'),(129,8,51,'2026-07-02 02:11:25'),(130,9,38,'2026-07-02 02:58:06'),(131,8,74,'2026-07-02 07:57:13'),(132,7,9,'2026-07-04 19:51:42'),(133,8,90,'2026-07-05 02:12:39'),(134,8,100,'2026-07-05 05:57:57'),(135,8,84,'2026-07-08 14:01:06'),(136,7,37,'2026-07-09 20:00:36'),(137,9,52,'2026-07-11 05:04:41'),(138,8,23,'2026-07-11 05:39:40'),(139,1,34,'2026-07-11 16:31:12'),(140,9,53,'2026-07-12 23:54:33'),(141,4,13,'2026-07-13 00:46:32'),(142,8,96,'2026-07-13 03:33:47'),(143,9,7,'2026-07-13 04:03:22'),(144,1,6,'2026-07-14 01:13:13'),(145,8,26,'2026-07-15 14:35:51'),(146,9,80,'2026-07-15 15:21:59'),(147,7,17,'2026-07-15 19:06:41'),(148,8,47,'2026-07-15 22:23:53'),(149,8,71,'2026-07-15 23:37:35'),(150,9,94,'2026-07-16 02:20:12'),(151,8,25,'2026-07-16 10:49:29'),(152,9,15,'2026-07-16 12:07:12'),(153,7,98,'2026-07-16 15:02:53'),(154,9,3,'2026-07-16 17:37:39'),(155,7,80,'2026-07-17 11:29:06'),(156,8,87,'2026-07-17 21:24:16'),(157,7,84,'2026-07-18 01:41:19'),(158,8,28,'2026-07-18 13:48:01'),(159,8,65,'2026-07-20 03:57:28'),(160,4,18,'2026-07-21 01:08:22'),(161,8,74,'2026-07-21 01:31:02'),(162,8,87,'2026-07-21 15:37:45'),(163,8,90,'2026-07-22 08:46:32'),(164,8,1,'2026-07-22 08:49:42'),(165,8,12,'2026-07-22 15:48:44'),(166,3,35,'2026-07-22 22:48:24'),(167,4,42,'2026-07-23 11:49:43'),(168,3,100,'2026-07-23 18:21:29'),(169,1,80,'2026-07-24 09:26:39'),(170,8,89,'2026-07-24 11:49:57'),(171,4,53,'2026-07-25 07:26:04'),(172,4,56,'2026-07-25 09:30:11'),(173,8,58,'2026-07-26 18:36:28'),(174,8,42,'2026-07-26 20:21:33'),(175,4,86,'2026-07-27 05:25:10'),(176,4,51,'2026-07-27 18:57:24'),(177,5,94,'2026-07-28 02:42:30'),(178,4,52,'2026-07-29 08:31:17'),(179,9,26,'2026-07-29 15:01:38'),(180,4,26,'2026-07-31 19:19:35'),(181,8,70,'2026-08-01 10:30:13'),(182,7,42,'2026-08-01 17:07:00'),(183,8,37,'2026-08-02 07:23:43'),(184,9,49,'2026-08-02 21:42:57'),(185,8,66,'2026-08-03 14:51:07'),(186,8,67,'2026-08-04 00:57:17'),(187,8,68,'2026-08-04 04:39:57'),(188,9,80,'2026-08-04 10:44:21'),(189,4,81,'2026-08-05 05:19:52'),(190,9,60,'2026-08-05 11:14:50'),(191,8,34,'2026-08-05 20:38:24'),(192,7,50,'2026-08-06 09:30:18'),(193,9,13,'2026-08-07 03:14:55'),(194,5,26,'2026-08-07 14:28:38'),(195,9,36,'2026-08-08 00:19:04'),(196,8,65,'2026-08-08 12:38:05'),(197,5,81,'2026-08-09 03:31:49'),(198,8,98,'2026-08-09 18:17:29'),(199,4,47,'2026-08-10 02:28:59'),(200,4,24,'2026-08-11 00:07:26'),(201,8,37,'2026-08-11 01:06:42'),(202,9,59,'2026-08-11 08:58:23'),(203,4,28,'2026-08-12 02:46:45'),(204,4,36,'2026-08-12 14:05:15'),(205,4,41,'2026-08-12 20:11:43'),(206,9,82,'2026-08-13 19:47:18'),(207,1,67,'2026-08-14 05:57:19'),(208,8,8,'2026-08-14 21:29:54'),(209,9,99,'2026-08-15 05:37:43'),(210,8,81,'2026-08-15 14:00:57'),(211,7,65,'2026-08-15 23:26:26'),(212,8,91,'2026-08-16 07:10:22'),(213,8,65,'2026-08-16 08:38:45'),(214,8,96,'2026-08-16 09:47:57'),(215,8,58,'2026-08-16 20:56:36'),(216,4,85,'2026-08-17 06:18:27'),(217,9,90,'2026-08-17 16:48:51'),(218,7,70,'2026-08-17 21:32:23'),(219,1,72,'2026-08-18 06:01:19'),(220,3,89,'2026-08-18 18:33:06'),(221,8,21,'2026-08-18 23:40:06'),(222,4,93,'2026-08-19 07:55:58'),(223,8,55,'2026-08-19 13:58:03'),(224,8,73,'2026-08-19 23:58:50'),(225,8,46,'2026-08-20 04:34:05'),(226,8,66,'2026-08-21 14:18:36'),(227,8,44,'2026-08-21 22:42:44'),(228,7,50,'2026-08-22 11:41:04'),(229,4,42,'2026-08-24 04:31:12'),(230,8,3,'2026-08-25 08:40:53'),(231,7,53,'2026-08-25 09:52:55'),(232,8,65,'2026-08-25 12:49:45'),(233,8,54,'2026-08-25 18:28:24'),(234,8,35,'2026-08-25 19:10:46'),(235,7,16,'2026-08-26 10:09:21'),(236,2,45,'2026-08-26 12:32:25'),(237,8,66,'2026-08-26 21:31:58'),(238,9,13,'2026-08-27 01:48:58'),(239,8,28,'2026-08-28 01:56:40'),(240,7,13,'2026-08-28 02:03:55'),(241,3,24,'2026-08-28 11:23:03'),(242,4,82,'2026-08-28 21:51:03'),(243,8,24,'2026-08-29 12:45:20'),(244,9,36,'2026-08-29 15:03:58'),(245,8,49,'2026-08-30 10:18:49'),(246,9,23,'2026-08-31 18:47:26'),(247,7,59,'2026-08-31 18:51:27'),(248,1,42,'2026-09-01 11:02:20'),(249,8,72,'2026-09-01 13:42:25'),(250,1,17,'2026-09-02 11:21:42'),(251,8,22,'2026-09-03 02:46:50'),(252,7,43,'2026-09-03 15:14:55'),(253,9,65,'2026-09-05 04:39:26'),(254,8,34,'2026-09-05 10:14:29'),(255,7,51,'2026-09-06 10:21:47'),(256,8,47,'2026-09-08 10:34:03'),(257,10,95,'2026-09-08 19:53:51'),(258,7,59,'2026-09-09 05:06:44'),(259,9,47,'2026-09-09 09:38:53'),(260,9,33,'2026-09-10 15:13:55'),(261,9,77,'2026-09-10 21:50:53'),(262,8,65,'2026-09-10 23:40:42'),(263,1,53,'2026-09-11 00:26:54'),(264,7,57,'2026-09-11 12:20:12'),(265,8,83,'2026-09-11 12:31:41'),(266,8,96,'2026-09-11 13:24:24'),(267,7,55,'2026-09-11 15:07:59'),(268,9,73,'2026-09-11 16:22:53'),(269,10,40,'2026-09-11 16:34:24'),(270,7,65,'2026-09-11 22:45:34'),(271,4,50,'2026-09-12 19:37:26'),(272,9,74,'2026-09-12 20:04:27'),(273,8,57,'2026-09-12 22:43:44'),(274,7,34,'2026-09-13 02:58:33'),(275,9,48,'2026-09-14 01:43:07'),(276,4,27,'2026-09-14 04:43:47'),(277,10,68,'2026-09-15 02:45:20'),(278,10,75,'2026-09-15 16:59:47'),(279,7,89,'2026-09-15 17:17:40'),(280,9,75,'2026-09-15 19:51:10'),(281,9,13,'2026-09-16 04:23:30'),(282,8,98,'2026-09-17 23:20:36'),(283,4,38,'2026-09-18 03:58:11'),(284,4,91,'2026-09-18 18:00:23'),(285,4,22,'2026-09-19 02:22:00'),(286,8,100,'2026-09-19 16:40:42'),(287,10,56,'2026-09-19 19:10:57'),(288,10,36,'2026-09-20 12:53:49'),(289,7,19,'2026-09-20 18:16:21'),(290,7,24,'2026-09-21 14:34:30'),(291,7,73,'2026-09-21 17:50:06'),(292,8,21,'2026-09-22 02:10:24'),(293,10,81,'2026-09-22 09:20:56'),(294,4,18,'2026-09-22 09:45:53'),(295,8,59,'2026-09-23 08:31:36'),(296,8,65,'2026-09-23 17:20:38'),(297,9,29,'2026-09-24 08:00:26'),(298,9,65,'2026-09-25 03:08:00'),(299,4,97,'2026-09-25 03:15:51'),(300,1,96,'2026-09-25 15:33:58'),(301,10,7,'2026-09-25 19:18:37'),(302,8,46,'2026-09-26 02:36:52'),(303,9,98,'2026-09-26 21:33:13'),(304,9,74,'2026-09-27 09:41:51'),(305,4,24,'2026-09-27 19:22:13'),(306,10,42,'2026-09-28 01:00:53'),(307,5,42,'2026-10-12 17:59:09'),(308,19,29,'2026-10-12 18:33:54'),(311,19,3,'2026-10-12 20:36:13'),(312,20,1,'2026-10-12 21:21:30'),(313,20,13,'2026-10-12 21:22:26'),(316,20,1,'2026-10-12 21:53:23'),(317,20,1,'2026-10-12 21:53:24'),(318,20,13,'2026-10-14 09:57:37'),(324,19,53,'2026-10-14 12:52:09');
+-/*!40000 ALTER TABLE `colecciones` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+---
+--- Table structure for table `dinosaurios`
+---
+-
+-DROP TABLE IF EXISTS `dinosaurios`;
+-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+-/*!40101 SET character_set_client = utf8 */;
+-CREATE TABLE `dinosaurios` (
+-  `id` int NOT NULL AUTO_INCREMENT,
+-  `nombre` varchar(64) DEFAULT NULL,
+-  `especie` varchar(1024) DEFAULT NULL,
+-  `periodo` varchar(1024) DEFAULT NULL,
+-  `imagen_url` varchar(1024) DEFAULT NULL,
+-  `altura` decimal(4,2) DEFAULT NULL,
+-  `largo` decimal(4,2) DEFAULT NULL,
+-  `peso` decimal(6,3) DEFAULT NULL,
+-  `hp` int DEFAULT NULL,
+-  `vigor` int DEFAULT NULL,
+-  `ataque` int DEFAULT NULL,
+-  `defensa` int DEFAULT NULL,
+-  `agilidad` int DEFAULT NULL,
+-  PRIMARY KEY (`id`)
+-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-/*!40101 SET character_set_client = @saved_cs_client */;
+-
+---
+--- Dumping data for table `dinosaurios`
+---
+-
+-LOCK TABLES `dinosaurios` WRITE;
+-/*!40000 ALTER TABLE `dinosaurios` DISABLE KEYS */;
+-INSERT INTO `dinosaurios` VALUES (1,'Tiranosaurio Rex','Tyrannosaurus rex','Cretácico Superior (68-66 Ma)','img/img-cartas/1.png',4.00,12.50,8.400,92,85,98,72,45),(2,'Triceratops','Triceratops horridus','Cretácico Superior (67-66 Ma)','img/img-cartas/2.png',2.80,9.00,6.500,88,80,78,92,38),(3,'Velociraptor','Velociraptor mongoliensis','Cretácico Superior (75-71 Ma)','img/img-cartas/3.png',0.50,1.80,0.015,32,48,82,42,96),(4,'Estegosaurio','Stegosaurus stenops','Jurásico Superior (155-150 Ma)','img/img-cartas/4.png',2.90,9.00,2.000,85,75,68,96,35),(5,'Braquiosaurio','Brachiosaurus altithorax','Jurásico Superior (154-153 Ma)','img/img-cartas/5.png',13.00,26.00,56.000,98,92,45,88,22),(6,'Espinosauro','Spinosaurus aegyptiacus','Cretácico Superior (112-97 Ma)','img/img-cartas/6.png',5.20,17.00,7.000,94,87,96,75,42),(7,'Parasaurolofus','Parasaurolophus walkeri','Cretácico Superior (75-72 Ma)','img/img-cartas/7.png',2.50,9.50,2.500,72,70,48,65,62),(8,'Anquilosaurio','Ankylosaurus magniventris','Cretácico Superior (68-66 Ma)','img/img-cartas/8.png',1.70,10.50,4.800,86,78,52,98,28),(9,'Pteranodon','Pteranodon longiceps','Cretácico Superior (88-86 Ma)','img/img-cartas/9.png',1.80,7.50,0.020,38,52,58,38,88),(10,'Allosaurio','Allosaurus fragilis','Jurásico Superior (155-145 Ma)','img/img-cartas/10.png',2.70,8.50,2.300,78,75,92,62,68),(11,'Diplodoco','Diplodocus longus','Jurásico Superior (154-152 Ma)','img/img-cartas/11.png',3.60,27.00,16.000,82,85,38,72,35),(12,'Trictops Bebé','Triceratops prorsus','Cretácico Superior (68-66 Ma)','img/img-cartas/12.png',1.20,2.50,0.150,42,48,45,72,58),(13,'Compsognato','Compsognathus longipes','Jurásico Superior (150-148 Ma)','img/img-cartas/13.png',0.25,0.90,0.003,18,35,68,22,98),(14,'Argentinosaurio','Argentinosaurus huinculensis','Cretácico Superior (95-100 Ma)','img/img-cartas/14.png',18.00,35.00,70.000,99,95,42,92,18),(15,'Ictiosaurio','Ichthyosaurus communis','Jurásico Inferior (194-189 Ma)','img/img-cartas/15.png',1.80,2.00,0.190,62,68,72,52,78),(16,'Plesiosaurio','Plesiosaurus dolichodeirus','Jurásico Inferior (200-175 Ma)','img/img-cartas/16.png',1.50,11.50,4.500,75,72,76,65,74),(17,'Mosasaurio','Mosasaurus missouriensis','Cretácico Superior (82-66 Ma)','img/img-cartas/17.png',3.00,17.50,15.000,90,82,94,68,58),(18,'Iguanodonte','Iguanodon bernissartensis','Cretácico Inferior (130-125 Ma)','img/img-cartas/18.png',4.00,10.00,3.500,74,72,62,68,52),(19,'Ceratosaurio','Carnotaurus sastrei','Cretácico Inferior (100-95 Ma)','img/img-cartas/19.png',2.50,7.50,1.950,76,73,88,58,72),(20,'Tarbosauro','Tarbosaurus bataar','Cretácico Superior (70-66 Ma)','img/img-cartas/20.png',3.80,12.00,5.000,86,80,94,68,52),(21,'Protosaurio','Protosauropod theodor','Triásico Superior (228-220 Ma)','img/img-cartas/21.png',1.20,2.50,0.080,35,42,42,38,68),(22,'Pterodáctilo','Pterodactyl kochi','Jurásico Superior (150-148 Ma)','img/img-cartas/22.png',0.80,3.50,0.008,28,42,52,32,92),(23,'Quetzalcóatl','Quetzalcoatlus northropi','Cretácico Superior (70-66 Ma)','img/img-cartas/23.png',3.50,11.00,0.150,52,62,68,45,85),(24,'Sinornitosaurio','Sinosauropteryx prima','Cretácico Inferior (125-122 Ma)','img/img-cartas/24.png',0.60,1.00,0.002,25,38,65,28,95),(25,'Apatosaurio','Apatosaurus louisae','Jurásico Superior (154-150 Ma)','img/img-cartas/25.png',8.50,21.00,18.000,88,88,48,82,28),(26,'Tricerátope de Larga Corna','Torosaurus latus','Cretácico Superior (68-66 Ma)','img/img-cartas/26.png',3.20,8.50,5.500,85,78,72,88,42),(27,'Ovirraptor','Oviraptor philceratops','Cretácico Superior (81-75 Ma)','img/img-cartas/27.png',1.50,2.50,0.025,38,52,78,48,88),(28,'Gallimimo','Gallimimus bullatus','Cretácico Superior (75-71 Ma)','img/img-cartas/28.png',2.00,6.00,0.350,48,58,54,42,92),(29,'Iguanodón Mayor','Iguanodon mantelli','Cretácico Inferior (135-125 Ma)','img/img-cartas/29.png',4.50,11.00,4.200,78,75,65,72,48),(30,'Deinoquiro','Deinochirus mirificus','Cretácico Superior (80-73 Ma)','img/img-cartas/30.png',3.50,11.00,0.600,62,68,72,52,78),(31,'Tiranosaurio Bebé','Tyrannosaurus rex (juvenil)','Cretácico Superior (68-66 Ma)','img/img-cartas/31.png',2.00,5.00,0.500,52,58,72,52,68),(32,'Placerias','Placerias hesternus','Triásico Superior (227-220 Ma)','img/img-cartas/32.png',1.10,3.50,0.200,48,55,48,62,35),(33,'Nothosauro','Nothosaurus mirabilis','Triásico Superior (235-228 Ma)','img/img-cartas/33.png',0.80,1.50,0.015,42,50,68,38,80),(34,'Ópistocélico','Opisthoteuthis granulosa','Jurásico Medio (175-160 Ma)','img/img-cartas/34.png',2.20,7.50,0.400,55,60,62,48,75),(35,'Saurópodo Pequeño','Camarasaurus supremus','Jurásico Superior (155-145 Ma)','img/img-cartas/35.png',6.00,18.00,20.000,84,86,45,78,32),(36,'Dimetrodonte','Dimetrodon grandis','Pérmico Superior (260-254 Ma)','img/img-cartas/36.png',0.40,1.20,0.008,32,45,58,35,72),(37,'Giganotosauro','Giganotosaurus carolinii','Cretácico Inferior (100-93 Ma)','img/img-cartas/37.png',4.20,13.20,8.800,93,86,97,70,48),(38,'Maniraptorá','Deinonychus antirrhopus','Cretácico Inferior (125-120 Ma)','img/img-cartas/38.png',1.10,3.40,0.073,42,55,85,45,92),(39,'Therizinosaurio','Therizinosaurus cheloniformis','Cretácico Superior (90-88 Ma)','img/img-cartas/39.png',3.00,5.50,5.000,78,75,68,85,35),(40,'Trodonte','Troodon formosus','Cretácico Superior (77-75 Ma)','img/img-cartas/40.png',0.60,2.00,0.050,35,48,72,38,94),(41,'Sauroposeidón','Sauroposeidon proteles','Cretácico Inferior (125-120 Ma)','img/img-cartas/41.png',15.50,34.00,60.000,98,93,48,89,20),(42,'Ictiteria','Ichthyomis dispar','Cretácico Superior (85-80 Ma)','img/img-cartas/42.png',0.30,0.40,0.001,20,38,58,25,88),(43,'Paquicefalosauro','Pachycephalosaurus wyomingensis','Cretácico Superior (69-66 Ma)','img/img-cartas/43.png',2.40,4.60,0.400,68,70,75,82,58),(44,'Ornitorrinco Prehistórico','Stegoceras validum','Cretácico Superior (75-72 Ma)','img/img-cartas/44.png',1.80,2.10,0.150,48,55,62,68,68),(45,'Saurópodo Acuático','Rebbachisaurus gaundi','Cretácico Inferior (125-113 Ma)','img/img-cartas/45.png',8.00,21.00,25.000,90,88,42,80,30),(46,'Raptor Mayor','Utahraptor ostrommaysorum','Cretácico Inferior (125-120 Ma)','img/img-cartas/46.png',1.80,7.00,0.500,58,65,88,55,85),(47,'Dinosaurio Volador','Archaeopteryx lithographica','Jurásico Superior (150-148 Ma)','img/img-cartas/47.png',0.40,0.50,0.001,28,42,48,32,90),(48,'Rinoceronte Marino','Leedsichthys problematics','Jurásico Medio (168-155 Ma)','img/img-cartas/48.png',4.00,16.50,45.000,92,84,76,72,42),(49,'Espinosaurido Acuático','Baryonyx walkeri','Cretácico Inferior (130-125 Ma)','img/img-cartas/49.png',2.50,8.50,1.700,74,72,84,58,66),(50,'Microrraptor','Microraptor zhaoianus','Cretácico Inferior (125-122 Ma)','img/img-cartas/50.png',0.35,1.20,0.001,24,40,76,35,97),(51,'Ankylosaurus Coludo','Edmontosaurus regalis','Cretácico Superior (76-74 Ma)','img/img-cartas/51.png',2.20,7.50,2.000,68,66,48,85,56),(52,'Titanosaurio Enano','Diamantinasaurus matildae','Cretácico Inferior (105-100 Ma)','img/img-cartas/52.png',5.00,16.00,12.000,82,84,40,76,26),(53,'Aviador Antiguo','Eudimorphodon ranzii','Triásico Superior (223-220 Ma)','img/img-cartas/53.png',0.30,0.75,0.001,22,38,50,28,89),(54,'Mosasaurio Gigante','Tylosaurus proriger','Cretácico Superior (85-80 Ma)','img/img-cartas/54.png',3.50,20.00,20.000,92,84,95,70,55),(55,'Ceratopsio Menor','Protoceratops andrewsi','Cretácico Superior (80-75 Ma)','img/img-cartas/55.png',0.90,1.80,0.180,38,48,52,65,72),(56,'Plesiosaurio Largo','Cryptocleidus oxoniensis','Jurásico Medio (165-155 Ma)','img/img-cartas/56.png',1.20,13.00,5.000,78,75,74,68,72),(57,'Pterosaurio Dentado','Anhanguera blittersdorfi','Cretácico Inferior (112-108 Ma)','img/img-cartas/57.png',1.50,4.20,0.020,36,50,62,40,87),(58,'Dromeosaurio Primitivo','Rahonavis ostromi','Cretácico Superior (70-66 Ma)','img/img-cartas/58.png',0.50,0.80,0.008,28,44,74,36,96),(59,'Saurópodo de Cuello Corto','Mamenchisaurus sinocanadorum','Jurásico Superior (160-155 Ma)','img/img-cartas/59.png',7.50,25.00,22.000,86,87,44,80,25),(60,'Espinosaurio Menor','Sigilmassasaurus brevicollis','Cretácico Inferior (120-116 Ma)','img/img-cartas/60.png',3.80,12.00,4.000,78,75,88,68,55),(61,'Ictiosaurio Gigante','Temnodontosaurus platyodon','Jurásico Inferior (195-190 Ma)','img/img-cartas/61.png',2.50,9.00,5.000,82,78,85,62,75),(62,'Ornitomímido','Ornithomimus edmontonensis','Cretácico Superior (75-71 Ma)','img/img-cartas/62.png',1.80,4.50,0.150,42,62,48,38,94),(63,'Ceratopsio Gigante','Pentaceratops sternbergii','Cretácico Superior (75-72 Ma)','img/img-cartas/63.png',3.50,8.20,8.000,86,82,75,90,42),(64,'Pteranodon Gigante','Pteranodon ingens','Cretácico Superior (89-85 Ma)','img/img-cartas/64.png',2.50,10.50,0.035,44,58,64,42,86),(65,'Eosimio Volador','Icaronycteris index','Cretácico Superior (50-48 Ma)','img/img-cartas/65.png',0.15,0.35,0.001,18,35,45,22,92),(66,'Paquicefalosaurio Pequeño','Homalocephale calathocercos','Cretácico Superior (75-72 Ma)','img/img-cartas/66.png',1.50,2.00,0.080,44,52,58,72,65),(67,'Nodosaurio Blindado','Polacanthus foxii','Cretácico Inferior (130-125 Ma)','img/img-cartas/67.png',1.60,8.00,3.500,82,76,48,96,32),(68,'Reptil Marino Corto','Nothosaurus longispinus','Triásico Medio (242-235 Ma)','img/img-cartas/68.png',1.20,2.20,0.028,48,54,72,42,78),(69,'Carnosaurio Emplumado','Guanlong wucaii','Jurásico Superior (155-150 Ma)','img/img-cartas/69.png',2.20,6.00,1.100,68,70,85,55,75),(70,'Estegosaurio Temprano','Huayangosaurus taibaii','Jurásico Medio (170-165 Ma)','img/img-cartas/70.jpg',1.80,4.00,0.400,58,62,52,82,52),(71,'Ictiosaurio Pequeño','Mixosaurus cornalianus','Triásico Medio (245-242 Ma)','img/img-cartas/71.png',0.80,1.00,0.012,35,46,62,38,82),(72,'Tiranosáurido Enano','Dilong paradoxus','Cretácico Inferior (130-125 Ma)','img/img-cartas/72.png',1.80,3.80,0.400,48,54,78,48,72),(73,'Arqueopterix','Archaeopteryx siemensii','Jurásico Superior (150-148 Ma)','img/img-cartas/73.png',0.25,0.60,0.001,26,40,52,35,92),(74,'Troodón','Troodon inequalis','Cretácico Superior (77-74 Ma)','img/img-cartas/74.png',0.50,2.40,0.050,36,50,75,40,95),(75,'Eoraptor','Eoraptor lunensis','Triásico Superior (228-225 Ma)','img/img-cartas/75.png',0.80,1.60,0.008,32,45,82,38,94),(76,'Tiranosáurido Plumado','Yutyrannus huali','Cretácico Inferior (125-122 Ma)','img/img-cartas/76.png',2.80,9.00,1.400,68,70,88,58,65),(77,'Paquicéfalo','Dracorex hogwartsia','Cretácico Superior (75-72 Ma)','img/img-cartas/77.png',1.60,2.20,0.100,46,54,65,75,68),(78,'Camposaurio Acuático','Suchomimus tenerensis','Cretácico Inferior (121-112 Ma)','img/img-cartas/78.png',3.50,11.00,3.200,76,72,86,60,64),(79,'Tiranosáurido Primitivo','Eotyrannus lengi','Cretácico Inferior (130-125 Ma)','img/img-cartas/79.png',2.40,4.60,0.500,54,62,85,52,68),(80,'Ceratopsio de Cuerno Largo','Kosmoceratops richardsoni','Cretácico Superior (76-74 Ma)','img/img-cartas/80.png',2.80,6.50,3.500,82,78,72,88,48),(81,'Pterosaurio Corto','Dimorphodon macronyx','Jurásico Inferior (199-196 Ma)','img/img-cartas/81.png',0.60,1.00,0.003,28,42,58,36,90),(82,'Carnosaurio Ágil','Megalosaurus bucklandii','Jurásico Medio (170-166 Ma)','img/img-cartas/82.png',2.50,7.50,1.100,72,74,90,54,68),(83,'Dinosaurio Pico de Pato Corto','Hypacrosaurus altispinus','Cretácico Superior (76-74 Ma)','img/img-cartas/83.png',2.70,9.50,2.200,74,72,48,78,56),(84,'Reptil Marino Primitivo','Placodus gigas','Triásico Medio (242-235 Ma)','img/img-cartas/84.png',1.40,2.80,0.045,52,58,68,48,72),(85,'Sauropodomorfo Primitivo','Panphagia protos','Triásico Superior (228-225 Ma)','img/img-cartas/85.png',0.90,1.20,0.010,34,48,42,56,78),(86,'Ictiosaurio Largo','Shonisaurus popularis','Triásico Superior (228-220 Ma)','img/img-cartas/86.png',3.20,15.50,18.000,90,84,82,68,48),(87,'Nodosaurio Gigante','Edmontonia longicauda','Cretácico Superior (75-72 Ma)','img/img-cartas/87.png',1.50,7.50,2.800,80,74,42,94,28),(88,'Pterosaurio Gigante','Azhdarchidae rex','Cretácico Superior (68-66 Ma)','img/img-cartas/88.png',4.20,10.80,0.180,58,64,72,52,74),(89,'Plesiosaurio Marino Gigante','Plesiosauru macrocephalus','Jurásico Inferior (195-190 Ma)','img/img-cartas/89.png',2.20,14.50,8.500,84,80,76,72,64),(90,'Dromeosaurio Volador','Archaeoraptor liaoningensis','Cretácico Inferior (122-120 Ma)','img/img-cartas/90.png',0.45,1.30,0.006,26,42,76,38,94),(91,'Carnosaurio Temprano','Herrerasaurus ischigualastensis','Triásico Superior (228-225 Ma)','img/img-cartas/91.png',1.60,4.20,0.210,46,52,84,44,82),(92,'Anquilosauro con Pica','Saichania chulsanensis','Cretácico Superior (80-75 Ma)','img/img-cartas/92.png',1.70,8.00,3.500,82,76,48,96,26),(93,'Terópodo de Cuello Largo','Erlikoaurus andrewsi','Cretácico Superior (98-92 Ma)','img/img-cartas/93.png',3.50,7.80,8.200,78,65,72,45,68),(94,'Ornitomímido Veloz','Struthiomimus altus','Cretácico Superior (99-66 Ma)','img/img-cartas/94.png',1.80,2.60,0.450,35,75,28,25,92),(95,'Iguanodon Primitivo','Hypsilophodon foxii','Cretácico Inferior (130-125 Ma)','img/img-cartas/95.png',1.20,1.80,0.180,38,68,32,35,85),(96,'Ceratopsio sin Cuernos','Leptoceratops gracilis','Cretácico Superior (100-66 Ma)','img/img-cartas/96.png',1.50,2.10,0.350,42,60,30,40,78),(97,'Plesiosaurio Depredador','Kronosaurus queenslandicus','Cretácico Inferior (130-100 Ma)','img/img-cartas/97.png',1.80,10.50,12.800,88,55,82,68,42),(98,'Saurópodo Gigante','Patagotitan mayorum','Cretácico Superior (100-95 Ma)','img/img-cartas/98.png',18.50,37.00,77.000,98,40,48,85,12),(99,'Ictiosaurio Depredador','Stenopterygius quadriscissus','Jurásico Medio (175-168 Ma)','img/img-cartas/99.png',1.20,4.20,1.800,48,70,65,40,80),(100,'Pterosaurio Cazador','Anhanguera piscator','Cretácico Superior (112-66 Ma)','img/img-cartas/100.png',1.50,3.80,0.850,42,72,58,38,88);
+-/*!40000 ALTER TABLE `dinosaurios` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+---
+--- Table structure for table `usuarios`
+---
+-
+-DROP TABLE IF EXISTS `usuarios`;
+-/*!40101 SET @saved_cs_client     = @@character_set_client */;
+-/*!40101 SET character_set_client = utf8 */;
+-CREATE TABLE `usuarios` (
+-  `id` int NOT NULL AUTO_INCREMENT,
+-  `username` varchar(64) DEFAULT NULL,
+-  `email` varchar(256) DEFAULT NULL,
+-  `password_hash` varchar(1024) DEFAULT NULL,
+-  `fecha_registro` datetime DEFAULT NULL,
+-  `ultima_obtencion` datetime DEFAULT NULL,
+-  `carta_prueba` datetime DEFAULT NULL,
+-  PRIMARY KEY (`id`),
+-  UNIQUE KEY `username` (`username`),
+-  UNIQUE KEY `email` (`email`)
+-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-/*!40101 SET character_set_client = @saved_cs_client */;
+-
+---
+--- Dumping data for table `usuarios`
+---
+-
+-LOCK TABLES `usuarios` WRITE;
+-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+-INSERT INTO `usuarios` VALUES (1,'triceraantonio75','antonio.suarez36@icloud.com','263767ec6d91aa58da1c2ad5fda96476','2025-10-21 02:47:43','2026-09-25 15:33:58',NULL),(2,'eva_saurio93','eva.gallardo@gmail.com','0d4acc123a9b88e689ad66f653f8cf62','2025-12-05 19:49:05','2026-08-26 12:32:25',NULL),(3,'estherdel55','esther.delgado@gmail.com','e1a3582bbd2f9c4a52def22f0d5d480a','2026-01-29 01:38:21','2026-08-28 11:23:03',NULL),(4,'cretacicosalvador55','salvador.sanz@icloud.com','0e471cac6e3bbab3dd538fd9f328f186','2026-02-09 13:41:26','2026-09-27 19:22:13',NULL),(5,'stegojulia30','julia.ferrer@icloud.com','38d1512f32820763c30ade6d691cae94','2026-02-18 08:36:53','2026-10-12 17:59:09',NULL),(6,'mariaflo59','maria.flores@gmail.com','6d5a5cce9e2ab3b33cb7a92f2543e574','2026-03-28 08:46:57','2026-06-12 05:29:43',NULL),(7,'araceli_raptor6','araceli.martinez@gmail.com','a2e4bcade15582a5457fcc0bf99366e9','2026-06-05 02:01:48','2026-09-21 17:50:06',NULL),(8,'armando_tricera57','armando.ortiz@icloud.com','0fca78eb359b46b6fad87389360ce143','2026-06-23 16:21:35','2026-09-26 02:36:52',NULL),(9,'rexleire49','leire.guerrero@comcast.net','9fbfb391dcd78c072784de93d78f89e4','2026-06-25 11:07:53','2026-09-27 09:41:51',NULL),(10,'miguel_rex91','miguel.ortiz@icloud.com','b579717c9d3458ac8637bdcdf493b0cd','2026-09-08 00:33:12','2026-09-28 01:00:53',NULL),(19,'oscar','oscar@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','2026-10-12 18:32:46','2026-10-14 12:52:09',NULL),(20,'admin','admin@gmail.com','81dc9bdb52d04dc20036dbd8313ed055','2026-10-12 19:44:00','2026-10-14 09:57:37',NULL);
+-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+-UNLOCK TABLES;
+-
+---
+--- Dumping routines for database 'dinocards'
+---
+-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+-/*!50003 DROP PROCEDURE IF EXISTS `AñadirNuevaCartaAColeccion` */;
+-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+-/*!50003 SET character_set_client  = utf8mb4 */ ;
+-/*!50003 SET character_set_results = utf8mb4 */ ;
+-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+-DELIMITER ;;
+-CREATE DEFINER=`oscar`@`%` PROCEDURE `AñadirNuevaCartaAColeccion`(
+-  IN _usuario_id INT,
+-  IN _carta_id   INT,
+-  OUT _res       INT
+-)
+-BEGIN
+-  DECLARE u INT DEFAULT NULL;
+-  DECLARE d INT DEFAULT NULL;
+-
+-  SELECT id INTO u FROM usuarios    WHERE id = _usuario_id;
+-  SELECT id INTO d FROM dinosaurios WHERE id = _carta_id;
+-
+-  IF u IS NULL THEN
+-    SET _res = -1;                       -- usuario no existe
+-  ELSEIF d IS NULL THEN
+-    SET _res = -2;                       -- dinosaurio no existe
+-  ELSE
+-    INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
+-    VALUES (_usuario_id, _carta_id, SYSDATE());
+-
+-    UPDATE usuarios SET ultima_obtencion = SYSDATE() WHERE id = _usuario_id;
+-    SET _res = 0;                        -- OK
+-  END IF;
+-END ;;
+-DELIMITER ;
+-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+-/*!50003 SET character_set_client  = @saved_cs_client */ ;
+-/*!50003 SET character_set_results = @saved_cs_results */ ;
+-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+-/*!50003 DROP PROCEDURE IF EXISTS `Login` */;
+-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+-/*!50003 SET character_set_client  = utf8mb4 */ ;
+-/*!50003 SET character_set_results = utf8mb4 */ ;
+-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+-DELIMITER ;;
+-CREATE DEFINER=`oscar`@`%` PROCEDURE `Login`(
+-  IN _usuario  VARCHAR(256),
+-  IN _password VARCHAR(1024),
+-  OUT _res     INT
+-)
+-BEGIN
+-  DECLARE aux VARCHAR(64);
+-  SET aux = NULL;
+-
+-  IF (_usuario IS NULL OR _usuario = '') THEN
+-    SET _res = -1;                       -- usuario/email vacio
+-  ELSEIF (_password IS NULL OR _password = '') THEN
+-    SET _res = -2;                       -- contrasena vacia
+-  ELSE
+-    SELECT username INTO aux FROM usuarios
+-      WHERE (email = _usuario OR username = _usuario)
+-        AND password_hash = _password
+-      LIMIT 1;
+-
+-    IF (aux IS NULL) THEN
+-      SET _res = -3;                     -- credenciales incorrectas
+-    ELSE
+-      SET _res = 0;                      -- OK
+-      SELECT * FROM usuarios
+-        WHERE (email = _usuario OR username = _usuario)
+-          AND password_hash = _password;
+-    END IF;
+-  END IF;
+-END ;;
+-DELIMITER ;
+-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+-/*!50003 SET character_set_client  = @saved_cs_client */ ;
+-/*!50003 SET character_set_results = @saved_cs_results */ ;
+-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+-/*!50003 DROP PROCEDURE IF EXISTS `ObtenerColeccion` */;
+-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+-/*!50003 SET character_set_client  = utf8mb4 */ ;
+-/*!50003 SET character_set_results = utf8mb4 */ ;
+-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+-DELIMITER ;;
+-CREATE DEFINER=`oscar`@`%` PROCEDURE `ObtenerColeccion`(
+-  IN _usuario_id INT,
+-  OUT _res       INT
+-)
+-BEGIN
+-  SET _res = 0;
+-  SELECT dinosaurio_id
+-  FROM colecciones
+-  WHERE usuario_id = _usuario_id
+-  ORDER BY dinosaurio_id ASC;
+-END ;;
+-DELIMITER ;
+-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+-/*!50003 SET character_set_client  = @saved_cs_client */ ;
+-/*!50003 SET character_set_results = @saved_cs_results */ ;
+-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+-/*!50003 DROP PROCEDURE IF EXISTS `Registro` */;
+-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+-/*!50003 SET character_set_client  = utf8mb4 */ ;
+-/*!50003 SET character_set_results = utf8mb4 */ ;
+-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+-DELIMITER ;;
+-CREATE DEFINER=`oscar`@`%` PROCEDURE `Registro`(
+-  IN _username VARCHAR(64),
+-  IN _email    VARCHAR(256),
+-  IN _password VARCHAR(1024),
+-  OUT _res     INT
+-)
+-BEGIN
+-  DECLARE aux VARCHAR(16);
+-  SET aux = NULL;
+-
+-  SELECT username FROM usuarios
+-    WHERE username LIKE _username OR email LIKE _email
+-    INTO aux;
+-
+-  IF (_username LIKE '' OR _email LIKE '') THEN
+-    SET _res = -1;                       -- usuario/email vacio
+-  ELSEIF (aux IS NOT NULL) THEN
+-    SET _res = -2;                       -- ya existe
+-  ELSEIF (_password LIKE '') THEN
+-    SET _res = -3;                       -- contrasena vacia
+-  ELSE
+-    INSERT INTO usuarios (username, email, password_hash, fecha_registro)
+-    VALUES (_username, _email, _password, SYSDATE());
+-    SET _res = 0;                        -- OK
+-  END IF;
+-END ;;
+-DELIMITER ;
+-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+-/*!50003 SET character_set_client  = @saved_cs_client */ ;
+-/*!50003 SET character_set_results = @saved_cs_results */ ;
+-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+-
+-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-
+--- Dump completed on 2026-10-14 13:06:48

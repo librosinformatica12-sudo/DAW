@@ -3,8 +3,12 @@
    index.php
    ------------------------------------------------------------------
    Portal de entrada (diseño tipo dino-prueba).
+<<<<<<< HEAD
    El login y el registro se resuelven en php/login.php y
    php/registro.php (endpoints JSON llamados con fetch).
+=======
+   El login y el registro se resuelven en esta misma pagina.
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
    ============================================================ */
 
 require_once "conexion.php";
@@ -15,7 +19,13 @@ if (esta_logueado()) {
     exit;
 }
 
+<<<<<<< HEAD
 $pestana = "login"; // pestana que se muestra al cargar
+=======
+$aviso    = "";
+$correcto = true;    // true = aviso verde, false = aviso rojo
+$pestana  = "login"; // pestana que se muestra al cargar
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 
 // La logica de login y registro vive en php/login.php y php/registro.php
 // (endpoints JSON llamados con fetch, igual que en dino-prueba).
@@ -37,8 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Portal del Coleccionista</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="style.css?v=<?= @filemtime(__DIR__ . '/style.css') ?>">
     <script src="script.js?v=<?= @filemtime(__DIR__ . '/script.js') ?>" defer></script>
+=======
+    <link rel="stylesheet" href="style.css?v=3">
+    <script src="script.js" defer></script>
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 </head>
 <body>
 
@@ -59,8 +74,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <main class="pagina">
 
     <section class="hero">
+<<<<<<< HEAD
         <h2 id="hero-title">Bienvenido al <span>Portal del Coleccionista</span></h2>
         <p id="hero-description">Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
+=======
+        <h2>Bienvenido al <span>Portal del Coleccionista</span></h2>
+        <p>Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
         <ul>
             <li>
                 <i class="bx bx-gift"></i>
@@ -76,14 +96,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </li>
         </ul>
     </section>
+<<<<<<< HEAD
+=======
 
     <div class="container" id="contenedor-pestanas" data-inicial="<?= escapar($pestana) ?>">
 
+        <button type="button" id="btn-login" class="btn<?= $pestana === "login" ? " activa" : "" ?>" onclick="mostrarPestana('login')">Iniciar sesión</button>
+        <button type="button" id="btn-registro" class="btn<?= $pestana === "registro" ? " activa" : "" ?>" onclick="mostrarPestana('registro')">Registrarse</button>
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
+
+    <div class="container" id="contenedor-pestanas" data-inicial="<?= escapar($pestana) ?>">
+
+<<<<<<< HEAD
             <button class="btn" type="button" role="tab" data-ir="login">Iniciar sesión</button>
             <button class="btn" type="button" role="tab" data-ir="registro">Registrarse</button>
 
         <!-- LOGIN -->
         <form id="form-login" method="POST" action="php/login.php" class="<?= $pestana === "registro" ? "oculto" : "" ?>">
+=======
+        <!-- LOGIN -->
+        <form id="form-login" method="POST" action="index.php" class="<?= $pestana === "registro" ? "oculto" : "" ?>">
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             <h2>Iniciar sesión</h2>
             <p class="sub">Rellena con tu usuario y contraseña para acceder a DinoCards</p>
 
@@ -104,8 +137,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit" class="enviar">Iniciar sesión</button>
 
+<<<<<<< HEAD
             <div class="aviso ok" id="aviso-login" role="status" style="display: none;"></div>
 
+=======
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             <div class="separador"><span>o</span></div>
 
             <p class="register-link">
@@ -118,7 +154,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
 
         <!-- REGISTRO -->
+<<<<<<< HEAD
         <form id="form-registro" method="POST" action="php/registro.php" class="<?= $pestana === "login" ? "oculto" : "" ?>">
+=======
+        <form id="form-registro" method="POST" action="index.php" class="<?= $pestana === "login" ? "oculto" : "" ?>">
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             <h2>Crear cuenta</h2>
             <p class="sub">Rellena tus datos para registrarte</p>
 
@@ -152,8 +192,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit" class="enviar">Crear cuenta</button>
 
+<<<<<<< HEAD
             <div class="aviso ok" id="aviso-registro" role="status" style="display: none;"></div>
 
+=======
+>>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             <p class="register-link">
                 ¿Ya tienes cuenta?
                 <a href="#" onclick="mostrarPestana('login'); return false;">

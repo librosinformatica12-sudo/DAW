@@ -6,15 +6,15 @@
    dinosaurios a la coleccion.
    ============================================================ */
 
-require_once "conexion.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 $aviso = "";
 
-// --- Añadir un dinosaurio a mi coleccion ---
-if (isset($_GET["id"])) {
-    $id = (int) $_GET["id"];
+// --- Añadir un dinosaurio a mi coleccion (por POST) ---
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
+    $id = (int) $_POST["id"];
 
     $consulta = $conexion->prepare("SELECT * FROM dinosaurios WHERE id = ?");
     $consulta->bind_param("i", $id);
@@ -23,7 +23,7 @@ if (isset($_GET["id"])) {
     $consulta->close();
 
     if ($dino) {
-        anadir_a_coleccion($conexion, $usuario_id, $id);
+        anadirCarta($usuario_id, $id);
         $aviso = "Añadido a tu colección: " . $dino["especie"] . " «" . $dino["nombre"] . "»";
     } else {
         $aviso = "Ese dinosaurio no existe.";
@@ -44,7 +44,8 @@ while ($d = $res->fetch_assoc()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - DinoPedia</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
 </head>
 <body>
 
@@ -78,9 +79,12 @@ while ($d = $res->fetch_assoc()) {
                         <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
                         <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
                     </div>
-                    <a class="btn-carta" href="dinopedia.php?id=<?= (int) $d["id"] ?>">
-                        <i class="bx bx-plus" aria-hidden="true"></i> Añadir
-                    </a>
+                    <form method="POST" action="dinopedia.php" class="form-anadir">
+                        <input type="hidden" name="id" value="<?= (int) $d["id"] ?>">
+                        <button type="submit" class="btn-carta">
+                            <i class="bx bx-plus" aria-hidden="true"></i> Añadir
+                        </button>
+                    </form>
                 </li>
             <?php endforeach; ?>
         </ul>

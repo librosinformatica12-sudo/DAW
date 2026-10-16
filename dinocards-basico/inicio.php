@@ -2,104 +2,154 @@
 /* ============================================================
    inicio.php
    ------------------------------------------------------------------
-   Panel principal. Aqui se abren los sobres y se ve el resumen
-   de la coleccion.
+   Panel principal. Solo presentacion: los datos los pide a los
+   servicios de src/ y la logica de abrir los sobres esta en los
+   endpoints php/cartaDiaria.php y php/abrirSobrePrueba.php.
    ============================================================ */
 
-require_once "conexion.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 
+// --- Resultado del ultimo sobre abierto (lo deja el endpoint en sesion) ---
 $mensaje       = "";
 $carta_nueva   = null;
 $cartas_prueba = [];
 
+if (isset($_SESSION["sobre_flash"])) {
+    $flash = $_SESSION["sobre_flash"];
+    unset($_SESSION["sobre_flash"]);
+
+    $mensaje       = $flash["mensaje"] ?? "";
+    $carta_nueva   = $flash["carta"]   ?? null;
+    $cartas_prueba = $flash["cartas"]  ?? [];
+}
+
 // --- Datos del usuario ---
-$consulta = $conexion->prepare("SELECT * FROM usuarios WHERE id = ?");
-$consulta->bind_param("i", $usuario_id);
-$consulta->execute();
-$usuario = $consulta->get_result()->fetch_assoc();
-$consulta->close();
-
-// --- ¿Ya ha cogido la carta de hoy? (miramos solo la fecha) ---
-$hoy = date("Y-m-d");
-$ya_cogida_hoy = ($usuario["ultima_obtencion"] !== null
-    && substr($usuario["ultima_obtencion"], 0, 10) === $hoy);
-
-// --- Abrir el sobre del día ---
-if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["accion"] ?? "") === "diario") {
-    if ($ya_cogida_hoy) {
-        $mensaje = "Ya has abierto tu sobre hoy. Vuelve mañana.";
-    } else {
-        // Cogemos un dinosaurio al azar
-        $azar = $conexion->query("SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 1")->fetch_assoc();
-        if ($azar) {
-            anadir_a_coleccion($conexion, $usuario_id, (int) $azar["id"]);
-            $conexion->query("UPDATE usuarios SET ultima_obtencion = NOW() WHERE id = " . $usuario_id);
-            $carta_nueva = $azar;
-            $ya_cogida_hoy = true;
-            $mensaje = "¡Has conseguido una carta nueva!";
-        } else {
-            $mensaje = "No hay dinosaurios disponibles.";
-        }
-    }
+$usuario = obtenerUsuarioPorId($usuario_id);
+if (!$usuario) {
+    header("Location: index.php");
+    exit;
 }
 
-// --- Abrir el sobre de prueba (4 cartas) ---
-if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["accion"] ?? "") === "prueba") {
-    $azar = $conexion->query("SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 4");
-    while ($d = $azar->fetch_assoc()) {
-        anadir_a_coleccion($conexion, $usuario_id, (int) $d["id"]);
-        $cartas_prueba[] = $d;
-    }
-    $mensaje = "¡Has conseguido " . count($cartas_prueba) . " cartas de prueba!";
-}
+// --- Espera del sobre del día (24 horas desde la última apertura) ---
+$espera_dia    = 24 * 60 * 60;
+$faltan_dia    = segundosRestantes($usuario["ultima_obtencion"] ?? null, $espera_dia);
+$ya_cogida_hoy = ($faltan_dia > 0);
+
+// --- Espera del sobre de prueba (2 minutos) ---
+$espera_prueba = 120;
+$faltan_prueba = segundosRestantes($usuario["carta_prueba"] ?? null, $espera_prueba);
+$prueba_listo  = ($faltan_prueba === 0);
 
 // --- Resumen de la coleccion ---
-$resumen = $conexion->query(
-    "SELECT COUNT(*) AS total, COUNT(DISTINCT dinosaurio_id) AS especies
-     FROM colecciones WHERE usuario_id = " . $usuario_id
-)->fetch_assoc();
-
-$total_cartas   = (int) $resumen["total"];
-$total_especies = (int) $resumen["especies"];
-$total_catalogo = (int) $conexion->query("SELECT COUNT(*) AS total FROM dinosaurios")->fetch_assoc()["total"];
+$resumen        = resumenColeccion($usuario_id);
+$total_cartas   = $resumen["cartas"];
+$total_especies = $resumen["especies"];
+$total_catalogo = contarDinosaurios();
 $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo * 100) : 0;
+
+// --- Datos para el banner de bienvenida (estilo dino-prueba) ---
+$nombre = $usuario["username"] ?? "Coleccionista";
+
+$inicial = strtoupper(mb_substr($nombre, 0, 1, "UTF-8"));
+if ($inicial === "") {
+    $inicial = "?";
+}
+
+$dias_semana = [
+    "Domingo", "Lunes", "Martes", "Miércoles",
+    "Jueves", "Viernes", "Sábado",
+];
+$meses = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+];
+$diaSemana = $dias_semana[(int) date("w")];
+$mesActual = $meses[(int) date("n") - 1];
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Inicio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
 </head>
 <body>
 
 <?php require "menu.php"; ?>
 
-<main>
-    <div class="tarjeta">
-        <h1>Hola, <?= escapar($usuario["username"]) ?></h1>
-        <p>Hoy es <?= date("d/m/Y") ?>. Abre tu sobre del día y sigue completando tu colección.</p>
-    </div>
+<main class="panel-inicio">
+
+    <!-- Banner de bienvenida (estilo dino-prueba) -->
+    <header class="panel-hero">
+        <p class="avatar-hero" aria-hidden="true"><?= escapar($inicial) ?></p>
+
+        <div class="panel-hero-texto">
+            <h2>Hola, <span><?= escapar($nombre) ?></span></h2>
+            <p>Abre tu sobre del día y sigue completando tu colección de dinosaurios.</p>
+        </div>
+
+        <time class="panel-fecha" datetime="<?= escapar(date("Y-m-d")) ?>">
+            <small><?= escapar($diaSemana ?? "") ?></small>
+            <b><?= escapar(date("j")) ?></b>
+            <span><?= escapar($mesActual ?? "") ?> <?= escapar(date("Y")) ?></span>
+        </time>
+    </header>
 
     <?php if ($mensaje !== ""): ?>
         <p class="aviso ok"><?= escapar($mensaje) ?></p>
     <?php endif; ?>
     
-    <!-- Sobre del día -->
-    <div class="tarjeta">
-        <h2>Sobre del día</h2>
-        <p>Consigue un dinosaurio nuevo gratis cada día.</p>
-        <form method="POST" action="inicio.php">
-            <input type="hidden" name="accion" value="diario">
-            <button type="submit" class="boton" <?= $ya_cogida_hoy ? "disabled" : "" ?>>
-                <?= $ya_cogida_hoy ? "Ya abierto hoy" : "Abrir sobre del día" ?>
-            </button>
-        </form>
+    <!-- Sobres: el del día a la izquierda y el de prueba a la derecha -->
+    <div class="sobres-fila">
+
+        <!-- Sobre del día -->
+        <div class="tarjeta sobre-card">
+            <figure class="sobre-card-figura">
+                <img src="img/img-sobres/sobre.png" alt="Sobre del día" loading="lazy" decoding="async">
+            </figure>
+            <div class="sobre-card-texto">
+                <h2>Sobre del día</h2>
+                <p>Consigue un dinosaurio nuevo gratis. Se puede abrir cada 24 horas.</p>
+                <form method="POST" action="php/cartaDiaria.php">
+                    <button type="submit" class="boton"
+                            data-espera="<?= (int) $faltan_dia ?>"
+                            data-label="Abrir sobre del día"
+                            <?= $ya_cogida_hoy ? "disabled" : "" ?>>
+                        <?= $ya_cogida_hoy ? "Sobre en espera" : "Abrir sobre del día" ?>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sobre de prueba -->
+        <div class="tarjeta sobre-card">
+            <figure class="sobre-card-figura">
+                <img src="img/img-sobres/sobre2.png" alt="Sobre de prueba" loading="lazy" decoding="async">
+            </figure>
+            <div class="sobre-card-texto">
+                <h2>Sobre de prueba</h2>
+                <p>Consigue 4 cartas de golpe. Debes esperar 2 minutos entre aperturas.</p>
+                <form method="POST" action="php/abrirSobrePrueba.php">
+                    <button type="submit" class="boton secundario"
+                            data-espera="<?= (int) $faltan_prueba ?>"
+                            data-label="Abrir sobre de prueba"
+                            <?= $prueba_listo ? "" : "disabled" ?>>
+                        <?= $prueba_listo ? "Abrir sobre de prueba" : "En espera" ?>
+                    </button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
     <!-- Carta conseguida hoy -->
@@ -128,16 +178,6 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
             </ul>
         </div>
     <?php endif; ?>
-
-    <!-- Sobre de prueba -->
-    <div class="tarjeta">
-        <h2>Sobre de prueba</h2>
-        <p>Ábrelo las veces que quieras para conseguir 4 cartas de golpe.</p>
-        <form method="POST" action="inicio.php">
-            <input type="hidden" name="accion" value="prueba">
-            <button type="submit" class="boton secundario">Abrir sobre de prueba</button>
-        </form>
-    </div>
 
     <!-- Cartas de prueba conseguidas -->
     <?php if (count($cartas_prueba) > 0): ?>
@@ -178,6 +218,8 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
         </ul>
     </div>
 </main>
+
+<script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>"></script>
 
 </body>
 </html>

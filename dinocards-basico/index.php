@@ -3,10 +3,11 @@
    index.php
    ------------------------------------------------------------------
    Portal de entrada (diseño tipo dino-prueba).
-   El login y el registro se resuelven en esta misma pagina.
+   El login y el registro se resuelven en php/login.php y
+   php/registro.php (endpoints JSON llamados con fetch).
    ============================================================ */
 
-require_once "conexion.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 
 // Si ya esta dentro, lo mandamos al panel
 if (esta_logueado()) {
@@ -18,96 +19,16 @@ $aviso    = "";
 $correcto = true;    // true = aviso verde, false = aviso rojo
 $pestana  = "login"; // pestana que se muestra al cargar
 
+// La logica de login y registro vive en php/login.php y php/registro.php
+// (endpoints JSON llamados con fetch, igual que en dino-prueba).
+// Este dispatch solo actua como respaldo si el formulario se envia sin JavaScript.
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $accion = $_POST["accion"] ?? "";
 
-    // ---------------- REGISTRO ----------------
     if ($accion === "registro") {
-        $pestana = "registro";
-        $usuario = trim($_POST["usuario"] ?? "");
-        $email   = trim($_POST["email"] ?? "");
-        $clave1  = $_POST["contrasena"] ?? "";
-        $clave2  = $_POST["confirma"] ?? "";
-
-        if ($usuario === "" || $email === "" || $clave1 === "") {
-            $aviso = "Rellena todos los campos.";
-            $correcto = false;
-        } elseif (strlen($usuario) < 3) {
-            $aviso = "El usuario debe tener al menos 3 caracteres.";
-            $correcto = false;
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $aviso = "El correo no es válido.";
-            $correcto = false;
-        } elseif (strlen($clave1) < 4) {
-            $aviso = "La contraseña debe tener al menos 4 caracteres.";
-            $correcto = false;
-        } elseif ($clave1 !== $clave2) {
-            $aviso = "Las contraseñas no coinciden.";
-            $correcto = false;
-        } else {
-            // Miramos si ese usuario o email ya existen
-            $consulta = $conexion->prepare("SELECT id FROM usuarios WHERE username = ? OR email = ?");
-            $consulta->bind_param("ss", $usuario, $email);
-            $consulta->execute();
-            $consulta->store_result();
-
-            if ($consulta->num_rows > 0) {
-                $aviso = "Ese usuario o correo ya está registrado.";
-                $correcto = false;
-            } else {
-                // Guardamos la contraseña cifrada con md5
-                $hash = md5($clave1);
-                $alta = $conexion->prepare(
-                    "INSERT INTO usuarios (username, email, password_hash, fecha_registro)
-                     VALUES (?, ?, ?, NOW())"
-                );
-                $alta->bind_param("sss", $usuario, $email, $hash);
-
-                if ($alta->execute()) {
-                    $aviso = "Registro completado. ¡Ya puedes iniciar sesión!";
-                    $pestana = "login";
-                } else {
-                    $aviso = "No se pudo completar el registro.";
-                    $correcto = false;
-                }
-                $alta->close();
-            }
-            $consulta->close();
-        }
-    }
-
-    // ---------------- LOGIN ----------------
-    if ($accion === "login") {
-        $pestana = "login";
-        $usuario = trim($_POST["usuario"] ?? "");
-        $clave   = $_POST["contrasena"] ?? "";
-
-        if ($usuario === "" || $clave === "") {
-            $aviso = "Escribe tu usuario o correo y tu contraseña.";
-            $correcto = false;
-        } else {
-            $hash = md5($clave);
-            $consulta = $conexion->prepare(
-                "SELECT id, username FROM usuarios
-                 WHERE (email = ? OR username = ?) AND password_hash = ?
-                 LIMIT 1"
-            );
-            $consulta->bind_param("sss", $usuario, $usuario, $hash);
-            $consulta->execute();
-            $fila = $consulta->get_result()->fetch_assoc();
-            $consulta->close();
-
-            if ($fila) {
-                // Guardamos el usuario en la sesion
-                $_SESSION["usuario_id"] = (int) $fila["id"];
-                $_SESSION["usuario"]    = $fila["username"];
-                header("Location: inicio.php");
-                exit;
-            } else {
-                $aviso = "Usuario o contraseña incorrectos.";
-                $correcto = false;
-            }
-        }
+        require __DIR__ . "/php/registro.php";
+    } elseif ($accion === "login") {
+        require __DIR__ . "/php/login.php";
     }
 }
 ?>
@@ -118,8 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Portal del Coleccionista</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+    <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>" defer></script>
 </head>
 <body>
 
@@ -140,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <main class="pagina">
 
     <section class="hero">
-        <h2>Bienvenido al <span>Portal del Coleccionista</span></h2>
-        <p>Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
+        <h2 id="hero-title">Bienvenido al <span>Portal del Coleccionista</span></h2>
+        <p id="hero-description">Reclama una carta nueva cada día, consulta tu colección y descubre las estadísticas de cada dinosaurio... todo desde un solo lugar.</p>
         <ul>
             <li>
                 <i class="bx bx-gift"></i>
@@ -160,15 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <div class="container" id="contenedor-pestanas" data-inicial="<?= escapar($pestana) ?>">
 
-        <button type="button" id="btn-login" class="btn<?= $pestana === "login" ? " activa" : "" ?>" onclick="mostrarPestana('login')">Iniciar sesión</button>
-        <button type="button" id="btn-registro" class="btn<?= $pestana === "registro" ? " activa" : "" ?>" onclick="mostrarPestana('registro')">Registrarse</button>
-
-        <?php if ($aviso !== ""): ?>
-            <p class="aviso <?= $correcto ? "ok" : "error" ?>"><?= escapar($aviso) ?></p>
-        <?php endif; ?>
+        <button class="btn<?= $pestana === "login" ? " activa" : "" ?>" type="button" role="tab" data-ir="login">Iniciar sesión</button>
+        <button class="btn<?= $pestana === "registro" ? " activa" : "" ?>" type="button" role="tab" data-ir="registro">Registrarse</button>
 
         <!-- LOGIN -->
-        <form id="form-login" method="POST" action="index.php" class="<?= $pestana === "registro" ? "oculto" : "" ?>">
+        <form id="form-login" method="POST" action="php/login.php" class="<?= $pestana === "registro" ? "oculto" : "" ?>">
             <h2>Iniciar sesión</h2>
             <p class="sub">Rellena con tu usuario y contraseña para acceder a DinoCards</p>
 
@@ -189,6 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit" class="enviar">Iniciar sesión</button>
 
+            <div class="aviso ok" id="aviso-login" role="status" style="display: none;"></div>
+
             <div class="separador"><span>o</span></div>
 
             <p class="register-link">
@@ -201,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
 
         <!-- REGISTRO -->
-        <form id="form-registro" method="POST" action="index.php" class="<?= $pestana === "login" ? "oculto" : "" ?>">
+        <form id="form-registro" method="POST" action="php/registro.php" class="<?= $pestana === "login" ? "oculto" : "" ?>">
             <h2>Crear cuenta</h2>
             <p class="sub">Rellena tus datos para registrarte</p>
 
@@ -234,6 +154,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
 
             <button type="submit" class="enviar">Crear cuenta</button>
+
+            <div class="aviso ok" id="aviso-registro" role="status" style="display: none;"></div>
 
             <p class="register-link">
                 ¿Ya tienes cuenta?

@@ -338,7 +338,6 @@ $consulta->close();
         </section>
 
     </div>
->>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 
 </main>
 

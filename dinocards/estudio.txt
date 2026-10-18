@@ -1,0 +1,316 @@
+==================================================================
+   DEFENSA DINOCARDS - GUION DE ESTUDIO
+   Preguntas posibles del examen (DWES + DWEC)
+==================================================================
+
+
+==================================================================
+PARTE 1 - DWES (BACKEND)
+==================================================================
+
+------------------------------------------------------------------
+1. ESTRUCTURA DEL BACKEND
+------------------------------------------------------------------
+Arquitectura en capas (MVC simplificado), todo bajo require_once de
+src/AccesoDatos.php como unico punto de entrada:
+
+- src/ -> capa de datos y logica:
+  * AccesoDatos.php: abre la sesion (comprobando session_status()
+    === PHP_SESSION_NONE), crea la conexion mysqli
+    (127.0.0.1:3306, base de datos "dinocards", charset utf8mb4)
+    y define funciones de ayuda:
+      - escapar() / e()  -> proteccion contra XSS
+      - esta_logueado()  -> comprueba $_SESSION["usuario_id"]
+      - pedir_login()    -> si no hay sesion, redirige a index.php
+  * UsuarioService.php: trae los datos del usuario y marca las
+    fechas "ultima_obtencion" (sobre del dia) y "carta_prueba"
+    (sobre de prueba).
+  * ColeccionService.php: anadirCarta(), resumenColeccion()
+    (COUNT y COUNT DISTINCT), dinosaurioAleatorio() (ORDER BY
+    RAND()), dinosauriosPorIds(), ultimasCartas() con JOIN.
+  * ReglasColeccion.php: funciones PURAS sin acceso a BD
+    (faciles de probar): segundosRestantes(), agruparColeccion(),
+    calcularProgreso(), calcularNivel().
+  * Respuesta.php: funcion responder() que emite el JSON
+    {ok, mensaje} y termina con exit. Antes estaba copiada en
+    cada endpoint y saltaba el error "Cannot redeclare
+    responder()".
+
+- php/ -> endpoints (login, registro, cartaDiaria,
+  abrirSobrePrueba, cerrar).
+
+- Paginas (index, inicio, coleccion, dinopedia, perfil): solo
+  pintan HTML. menu.php es la cabecera comun incluida con
+  require en todas las paginas privadas.
+
+------------------------------------------------------------------
+2. LOGIN Y REGISTRO: como lo he hecho y que he utilizado
+------------------------------------------------------------------
+FRONT (script/script.js):
+- Intercepta el evento submit con e.preventDefault().
+- Valida en cliente: usuario >= 3 caracteres, email con regex,
+  contrasena >= 4 y que las dos contrasenas coincidan.
+- Envia con fetch() + FormData al endpoint PHP.
+
+BACK (php/login.php y php/registro.php):
+- Prepared statement con bind_param:
+    SELECT id, username, password_hash FROM usuarios
+    WHERE email = ? OR username = ? LIMIT 1
+- El registro guarda la contrasena con
+  password_hash($clave, PASSWORD_DEFAULT).
+- El login verifica con password_verify($clave, $guardado).
+- Registro: validaciones con filter_var(FILTER_VALIDATE_EMAIL),
+  longitudes, comprobacion de duplicados (num_rows > 0) y INSERT
+  preparado.
+- Sesion: session_regenerate_id(true) al entrar (proteccion
+  contra session fixation). $_SESSION["usuario_id"] y
+  $_SESSION["usuario"].
+- Cierre (php/cerrar.php): se vacia $_SESSION, se borra la cookie
+  de sesion (time() - 42000) y se llama a session_destroy().
+
+------------------------------------------------------------------
+3. LOGICA DE NEGOCIO PHP (validaciones, md5, errores)
+------------------------------------------------------------------
+DONDE SE VALIDA:
+- Server-side en php/registro.php lineas 24-38: campos vacios,
+  usuario >= 3, filter_var para el email, contrasena >= 4 y
+  coincidencia de claves. El servidor SIEMPRE es quien manda.
+- Client-side se replica en script.js (lineas 175-198) para dar
+  respuesta inmediata, pero si alguien lo salta, el servidor
+  vuelve a validar.
+
+DONDE ESTA EL MD5:
+- php/login.php linea 50:
+    elseif (strlen($guardado) === 32 && hash_equals($guardado,
+    md5($clave)))
+  Si el hash guardado tiene 32 caracteres (formato antiguo md5),
+  se verifica con md5 y DE PASO se actualiza automaticamente a
+  password_hash (migracion de usuarios antiguos).
+- Se puede ver en la tabla usuarios, columna password_hash: los
+  antiguos son hexadecimales de 32 caracteres (md5) y los nuevos
+  empiezan por $2y$ (bcrypt).
+
+DONDE VER SI ESTA ESTE ERROR Y QUE PASA:
+- El endpoint devuelve JSON {ok: false, mensaje: "..."}.
+- script.js lo pinta en la caja de aviso (#aviso-login o
+  #aviso-registro) con la clase "error" (rojo) via mostrarAviso().
+- Si falla la red, el catch del fetch muestra "No se pudo
+  conectar con el servidor."
+- En el navegador: pestaña Network -> Response.
+- En servidor: informes de error de Apache/PHP.
+
+SEGURIDAD RELACIONADA:
+- mysqli_report(MYSQLI_REPORT_OFF) + connect_errno -> die() con
+  el mensaje de conexion.
+- escapar() = htmlspecialchars($texto, ENT_QUOTES, "UTF-8") en
+  TODA salida -> proteccion contra XSS.
+- session_regenerate_id(true) -> anti session fixation.
+
+------------------------------------------------------------------
+4. LIMPIEZA DE ACCESO A MYSQL (como se prepara todo)
+------------------------------------------------------------------
+- Todas las consultas con datos de entrada usan prepared
+  statements: $conexion->prepare() + bind_param("i"/"s") +
+  execute(). Asi se evita la SQL Injection.
+  Ejemplos: login.php, registro.php, obtenerUsuarioPorId(),
+  anadirCarta(), resumenColeccion(), ultimasCartas()...
+- Donde se concatenan valores en la SQL, se sanearon antes:
+  * dinosauriosPorIds(): array_map('intval', $ids) -> solo
+    numeros, no hay peligro.
+  * LIMIT: max(1, min(50, $n)) para acotar el limite.
+- set_charset('utf8mb4') para soportar tildes y eñe.
+- mysqli_report(MYSQLI_REPORT_OFF) para controlar los errores a
+  mano en vez de excepciones automaticas.
+
+------------------------------------------------------------------
+5. PROCEDIMIENTOS ALMACENADOS (4 en la base de datos)
+------------------------------------------------------------------
+Todos con parametros IN / OUT. El OUT devuelve codigos:
+0 = OK, valores negativos = error.
+
+1) Login(IN _usuario, IN _password, OUT _res)  [tabla usuarios]
+   - Si usuario/email vacio -> -1
+   - Si contrasena vacia -> -2
+   - Si no encuentra credenciales -> -3
+   - Si esta bien -> 0 y devuelve la fila del usuario.
+
+2) Registro(IN _username, IN _email, IN _password, OUT _res)
+   [tabla usuarios]
+   - Campo vacio -> -1
+   - Usuario o email ya existe -> -2
+   - Contrasena vacia -> -3
+   - Si no: INSERT con SYSDATE() -> 0.
+
+3) ObtenerColeccion(IN _usuario_id, OUT _res) [tabla colecciones]
+   - Devuelve los dinosaurio_id del usuario ordenados ASC.
+
+4) AnadirNuevaCartaAColeccion(IN _usuario_id, IN _carta_id,
+   OUT _res) [colecciones + usuarios]
+   - Valida que el usuario exista -> si no, -1.
+   - Valida que el dinosaurio exista -> si no, -2.
+   - Si existen ambos: INSERT en colecciones + UPDATE de
+     ultima_obtencion en usuarios -> 0.
+   - Ventaja: toda la operacion es atomica dentro de la BD.
+
+QUE HE APORTADO / CAMBIADO:
+- La validacion fuerte (duplicados, existencia de filas, codigos
+  de error en OUT) esta delegada en la BD.
+- Las 3 tablas implicadas: usuarios (Login, Registro),
+  colecciones (ObtenerColeccion, AnadirNuevaCartaAColeccion) y
+  dinosaurios (consultada para validar).
+- Nota honesta para el examen: en la version actual del codigo
+  PHP, la capa de servicios (src/) ejecuta las mismas operaciones
+  con prepared statements en vez de con CALL. Si preguntan por
+  los procedimientos, se explican como la logica de validacion
+  vivida en la BD (se pueden invocar con CALL _res).
+
+------------------------------------------------------------------
+6. RESPUESTA DEL PROCESADOR AL FRONTEND (viaje del dato)
+------------------------------------------------------------------
+A) LOGIN / REGISTRO (respuesta JSON):
+   formulario -> JS fetch() POST con FormData ->
+   php/login.php -> header("Content-Type: application/json") ->
+   responder() imprime {ok, mensaje} -> JS res.json() ->
+   mostrarAviso() en pantalla -> si ok, setTimeout 1000 ms ->
+   window.location.href = "inicio.php".
+
+B) SOBRES (patron POST -> REDIRECT -> GET):
+   <form method="POST" action="php/cartaDiaria.php"> ->
+   el endpoint comprueba sesion y metodo POST ->
+   segundosRestantes() para ver si toca ->
+   si toca: dinosaurioAleatorio() + anadirCarta() +
+   marcarUltimaObtencion() ->
+   guarda el resultado en $_SESSION["sobre_flash"] ->
+   header("Location: ../inicio.php") (el redirect evita que F5
+   reenvie el formulario) ->
+   inicio.php lee y borra el flash y pinta el HTML.
+
+C) CONTADORES EN FRONT:
+   El boton lleva data-espera (segundos) y data-label ->
+   script.js decrementa cada 1 s con setInterval ->
+   al llegar a 0: clearInterval, habilita el boton y restaura
+   el texto.
+
+
+==================================================================
+PARTE 2 - DWEC (FRONTEND)
+==================================================================
+
+------------------------------------------------------------------
+1. ESTRUCTURA HTML
+----------------------------------------------------------------==
+- Documento HTML5: lang="es", <meta charset="UTF-8">, viewport.
+- Cabecera comun generada por menu.php en todas las paginas
+  privadas: logo + <nav> con 4 enlaces (Inicio, Mi coleccion,
+  DinoPedia, Mi perfil) + badge de "carta diaria" + Salir.
+  El enlace activo se marca con basename($_SERVER["PHP_SELF"]).
+- Semantica y accesibilidad: header, nav, main, section,
+  figure, time, h1/h2/h3, aria-label, aria-hidden,
+  role="progressbar" con aria-valuenow, alt en las imagenes.
+- Componentes reutilizados: .carta-mini dentro de .cartas-grid
+  (se usa en inicio, coleccion y DinoPedia), .tarjeta,
+  .aviso con .ok / .error.
+- index.php: hero (titulo + descripcion + 3 features) y
+  #contenedor-pestanas con dos formularios (login y registro)
+  alternados con la clase .oculto.
+- Imagenes con loading="lazy" y onerror de respaldo.
+
+------------------------------------------------------------------
+2. FUNCIONALIDAD EN JAVASCRIPT (script/script.js)
+------------------------------------------------------------------
+- alternarClave(): muestra u oculta la contrasena cambiando el
+  atributo type del input (password <-> text).
+- mostrarPestana() + cambiarHero(): cambia entre login y
+  registro con classList.add/remove("oculto") y reescribe el
+  hero (innerHTML, textContent y querySelector sobre las
+  features).
+- enviarFormulario(): funcion async con fetch + FormData que
+  devuelve el JSON del servidor.
+- Validacion en cliente del registro (longitudes, regex de
+  email, coincidencia de claves) antes de enviar.
+- mostrarAviso(): pinta avisos en la caja con clase "ok"
+  (verde) o "error" (rojo).
+- filtrarColeccion(): buscador en vivo en coleccion.php; lee
+  el atributo data-buscar, filtra con indexOf y oculta con
+  style.display = "none".
+- Contadores de espera de los sobres: lee data-espera y
+  data-label, setInterval de 1000 ms, formato hh:mm:ss con
+  padStart, clearInterval al terminar y habilita el boton.
+- Inicializacion con window.onload (pestana inicial) y
+  DOMContentLoaded (contadores); listeners con
+  addEventListener y querySelectorAll.
+
+------------------------------------------------------------------
+3. NAVEGACION ENTRE VISTAS (estilo tradicional vs SPA)
+------------------------------------------------------------------
+- Estilo TRADICIONAL multipagina: cada vista es un archivo PHP
+  completo (inicio.php, coleccion.php, dinopedia.php,
+  perfil.php). Los enlaces <a href> provocan una peticion nueva
+  y recarga completa de la pagina. menu.php marca la pagina
+  activa.
+- Mini-SPA dentro de index.php: el cambio login <-> registro y
+  el contenido del hero cambian SIN recarga, solo con clases
+  de JavaScript.
+- Login y registro viajan con fetch (JSON) y la redireccion a
+  inicio.php la hace el propio JavaScript.
+- Los sobres usan el patron POST -> Redirect -> GET (el
+  servidor provoca el cambio de vista).
+- No hay router ni history.pushState: gana en simplicidad;
+  se podria evolucionar a SPA completa usando fetch + innerHTML
+  + History API.
+
+------------------------------------------------------------------
+4. ESTETICA / CSS
+------------------------------------------------------------------
+Tres hojas de estilo:
+- styles/comun.css (base compartida por TODAS las paginas):
+  * Variables en :root (--rojo #d6232f, --rojo-osc, --fondo
+    #0b1018, --texto, --gris, --borde).
+  * box-sizing: border-box en *.
+  * body con dos radial-gradient sobre fondo oscuro.
+  * .topbar con position: sticky, backdrop-filter: blur(10px)
+    y borde rojo.
+  * Tarjetas, botones, avisos, barra de progreso y grid de
+    cartas con repeat(auto-fit, minmax(160px, 1fr)).
+- styles/paginas.css (660 lineas): hero, pestañas, sobres,
+  DinoPedia, grid con repeat(auto-fill, minmax(190px, 1fr)).
+- styles/perfil.css: perfil-grid con
+  repeat(auto-fit, minmax(320px, 1fr)) y stats 1fr 1fr.
+
+Tecnicas usadas:
+- Variables CSS, Flexbox (topbar, botones, stats), Grid
+  responsive (auto-fill / auto-fit), position: sticky,
+  gradientes radiales, backdrop-filter, transiciones y hover,
+  clases utilitarias (.oculto, .activo, .ok, .error),
+  pseudo-clases.
+- Responsive con 4 media queries: 900px, 700px y 460px.
+- Tipografia Google Fonts (Bricolage Grotesque + IBM Plex
+  Sans), iconos Boxicons.
+- Anti-caché: styles y scripts se enlazan con
+  ?v=<?= filemtime(...) ?> para que el navegador no guarde
+  versiones viejas.
+
+------------------------------------------------------------------
+5. DEMO EN VIVO (guion de la prueba % de DAW)
+------------------------------------------------------------------
+1. Entrar en index.php y CREAR UN USUARIO nuevo (validaciones
+   JS y PHP) -> "Registro completado".
+2. INICIAR SESION -> respuesta JSON -> redireccion a inicio.php.
+3. Abrir el SOBRE DEL DIA (1 carta, espera 24 h) y el SOBRE DE
+   PRUEBA (4 cartas, espera 2 minutos) con contador regresivo.
+4. MI COLECCION: buscador en vivo, badge x2 de repetidas,
+   porcentaje de progreso.
+5. DINOPEDIA: las especies que tienes a color y las que faltan
+   en gris.
+6. PERFIL: estadisticas, barra de progreso con niveles,
+   ultimas cartas y fechas.
+7. SALIR: sesion destruida y vuelta a index.php.
+
+PUNTOS EXTRA PARA DESTACAR EN LA DEMO:
+- Migracion automatica de contraseñas md5 a password_hash.
+- session_regenerate_id(true) al iniciar sesion.
+- Prepared statements contra SQL Injection.
+- htmlspecialchars contra XSS.
+- Patron POST -> Redirect -> GET en los sobres.
+
+==================================================================

@@ -1,0 +1,17 @@
+DEFENSA DE PROYECTO GUILLE DINOCARDS
+ 
+posibles preguntas DinoCards DWES
+-Estructura del Backend
+-tema de login y registro como lo has hecho y que has utilizado para el registro
+-lógica de negocio PHP (donde se valida algunas cosas de php, donde esta para la contraseña md5, donde puedo ver si esta este eroror q pasa)
+-limpieza de acceso MySQL (donde se prepara todo el mysql)
+-procedimientos almacenados MySQL q has aportado que has cambiado de todos los procedimientos que casos has hecho mas tablas o que has hecho en cada tabla etc
+-respuesta de lo procesador al frontEND (viaje del dato, respuesta y el gestión de iniciar sesión y recibir datos)
+ 
+ 
+posibles preguntas DInocards DWEC
+-Estructura HTML
+-funcionalidad en js (si tienes varios js y cosas q has hecho en tu pagina con javascript pues esplicarlo )
+-Naveaciocion vistas (entre los diferentes php q has hecho, donde se hacen los cambios de paneles, de paginas "estilo tradicional vs SPA)
+-Estetica todo el css 💀💀💀
+-Look % deel (te pide que crees un usuario y y lo inicies sesion ... ) extra lo de las diferentes cartas y sobres

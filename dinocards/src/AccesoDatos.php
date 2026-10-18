@@ -60,7 +60,7 @@ $connection = $conexion;
  * Limpia un texto antes de mostrarlo en el HTML.
  * Evita problemas de seguridad (XSS).
  */
-function escapar($texto)
+function escapar(mixed $texto): string
 {
     return htmlspecialchars($texto ?? "", ENT_QUOTES, "UTF-8");
 }
@@ -69,7 +69,7 @@ function escapar($texto)
  * Alias corto de escapar() (lo usan algunas plantillas
  * al estilo dino-prueba).
  */
-function e($texto)
+function e(mixed $texto)
 {
     return escapar($texto);
 }

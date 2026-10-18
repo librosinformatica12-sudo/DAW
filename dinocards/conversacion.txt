@@ -1,0 +1,260 @@
+==================================================================
+ CONVERSACION DE ESTUDIO - DINOCARDS (opencode)
+ Fecha: 18/10/2026
+ Ficheros relacionados: estudio.txt (guion completo de preguntas),
+ dinocards.txt (todo el codigo junto para Notebook Gemini)
+==================================================================
+
+------------------------------------------------------------------
+[USUARIO] Buenas, vete a xampp/htdocs/ejer/dinocards porfa
+------------------------------------------------------------------
+[YO] Encontrado en C:\xampp\htdocs\ejer\dinocards (no en D:\).
+Contenido: index.php, inicio.php, coleccion.php, dinopedia.php,
+perfil.php, menu.php, carpetas img/, php/, script/, SQL/, src/,
+styles/, sincronizar.bat y preguntas exa.txt.
+
+------------------------------------------------------------------
+[USUARIO] Vale, hazlo otra vez que acabo de añadir un .txt
+------------------------------------------------------------------
+[YO] Unico .txt: "preguntas exa.txt" (modificado 18/10 17:57).
+Contenido: posibles preguntas de defensa del proyecto DinoCards:
+  - DWES: estructura backend, login/registro, logica de negocio
+    PHP (validaciones, md5, errores), limpieza de acceso MySQL,
+    procedimientos almacenados, respuesta backend->frontend.
+  - DWEC: estructura HTML, funcionalidad JS, navegacion vistas
+    (tradicional vs SPA), CSS, y demo en vivo (crear usuario,
+    iniciar sesion, cartas y sobres).
+
+------------------------------------------------------------------
+[USUARIO] Correcto (prepara las respuestas de defensa)
+------------------------------------------------------------------
+[YO] Prepare el guion completo de defensa basado en el codigo real
+(guardado luego en estudio.txt). Resumen de los 6 puntos DWES y 5
+puntos DWEC.
+
+------------------------------------------------------------------
+[USUARIO] Hazlo que se llame estudio.txt porfa
+------------------------------------------------------------------
+[YO] Hecho:
+  1) ARREGLADO BUG en php/cerrar.php: la linea 1 tenia una marca
+     de codigo "```php" fuera de <?php -> imprimia texto antes del
+     header() y el logout fallaba con "headers already sent".
+  2) CREADO dinocards/estudio.txt con todo el guion.
+
+------------------------------------------------------------------
+[USUARIO] Quiero una carpeta en ejer llamada dinocards.txt con
+todos los archivos para estudiar con Notebook Gemini (me hara un
+audio con la defensa)
+------------------------------------------------------------------
+[YO] Pregunte formato y eligio: UN SOLO .txt con todo el codigo.
+CREADO C:\xampp\htdocs\ejer\dinocards.txt (215 KB, UTF-8) con 27
+ficheros concatenados y separadores "FICHERO: ruta": paginas PHP,
+endpoints php/, servicios src/, script.js, 3 CSS, 4 SQL,
+sincronizar.bat, estudio.txt y preguntas exa.txt. Sin imagenes.
+
+------------------------------------------------------------------
+[USUARIO] Puedes decirme el code y lo del examen que esta en el .txt
+------------------------------------------------------------------
+[YO] Resumen del codigo (app de cartas de dinosaurios: capas
+src/php/paginas) y de las preguntas clave del examen.
+
+------------------------------------------------------------------
+[USUARIO] Okey, ahora ve poco a poco explicando uno, profe
+------------------------------------------------------------------
+[YO] Explico la Pregunta 1 (Estructura del Backend):
+ - src/AccesoDatos.php es la puerta de entrada (require unico):
+   session_start(), conexion mysqli 127.0.0.1:3306 bd "dinocards",
+   charset utf8mb4, y helpers escapar()/esta_logueado()/pedir_login().
+ - Servicios: UsuarioService, ColeccionService (prepared), 
+   ReglasColeccion (funciones puras sin BD), Respuesta (JSON).
+ - Endpoints php/ devuelven JSON o redirigen.
+ - Paginas solo pintan HTML; menu.php es la cabecera comun.
+ Esquema: Navegador -> php/*.php -> src/ -> MySQL.
+
+==================================================================
+ EXPLICACION COMPLETA PREGUNTA A PREGUNTA (clase)
+==================================================================
+
+--- MAPA DE ARCHIVOS ---
+src/AccesoDatos.php   -> Sesion + conexion MySQL + helpers
+src/*Service.php      -> Consultas (acciones contra la BD)
+src/ReglasColeccion   -> Calculos puros sin BD
+src/Respuesta.php     -> Helper para devolver JSON
+php/login.php         -> Endpoint JSON de inicio de sesion
+php/registro.php      -> Endpoint JSON de registro
+php/cartaDiaria.php   -> Abre el sobre del dia
+php/abrirSobrePrueba.php -> Abre el sobre de prueba (4 cartas)
+php/cerrar.php        -> Destruye la sesion
+menu.php              -> Cabecera comun de paginas privadas
+index/inicio/coleccion/dinopedia/perfil.php -> Solo pintan HTML
+
+--- PREGUNTA 1: ESTRUCTURA DEL BACKEND ---
+Tres capas: src/ (datos+logica) -> php/ (endpoints) -> paginas
+(HTML). Todo entra por require_once src/AccesoDatos.php que abre
+sesion, crea la conexion y da escapar()/pedir_login().
+Extra: ReglasColeccion.php no toca la BD porque son funciones
+puras, testables sin MySQL.
+
+--- PREGUNTA 2: LOGIN Y REGISTRO ---
+1) index.php:89-166 -> dos formularios (#form-login, #form-registro)
+   con action="php/login.php" y hidden "accion". Pestanas sin
+   recarga con mostrarPestana().
+2) script.js:140-168 -> e.preventDefault(), fetch con FormData
+   (enviarFormulario :115), res.json(), mostrarAviso(), y si ok
+   setTimeout 1s -> window.location.href="inicio.php".
+3) php/login.php -> header JSON, metodo POST (sino 405),
+   prepared SELECT ... WHERE email = ? OR username = ? LIMIT 1,
+   bind_param("ss"), password_verify().
+4) Sesion -> session_regenerate_id(true) (anti session fixation),
+   $_SESSION["usuario_id"] y $_SESSION["usuario"]. Las paginas
+   protegidas llaman pedir_login().
+5) registro.php -> validaciones, duplicados con num_rows > 0,
+   password_hash($clave, PASSWORD_DEFAULT) + INSERT preparado.
+6) cerrar.php -> $_SESSION=[], borra cookie (time()-42000),
+   session_destroy(), Location: ../index.php.
+
+--- PREGUNTA 3: LOGICA DE NEGOCIO, MD5 Y ERRORES ---
+a) Validaciones en servidor: registro.php lineas 24-38 (vacios,
+   usuario>=3, filter_var email, contrasena>=4, coincidencia).
+   El JS (script.js:183-198) las replica pero manda el servidor.
+b) md5 en login.php:50:
+   if (password_verify(...)) ok moderna
+   elseif (strlen($guardado)===32 && hash_equals($guardado, md5($clave)))
+     -> acepta hash antiguo de 32 caracteres y lo MIGRA automaticamente
+        a password_hash con un UPDATE.
+   Como verlo: tabla usuarios.password_hash -> antiguos hex de 32
+   caracteres (81dc9bdb52d04dc20036dbd8313ed055 = md5 de "1234"),
+   nuevos empiezan por $2y$. md5 es rapido y vulnerable a rainbow
+   tables; hash_equals evita el timing attack.
+c) Errores: conexion -> mysqli_report(MYSQLI_REPORT_OFF) +
+   connect_errno -> die(). Negocio -> responder(false, "mensaje")
+   JSON -> mostrarAviso() en rojo. Red -> catch en JS. Para verlo:
+   F12 -> Network -> Response, o la caja #aviso-login en rojo.
+
+--- PREGUNTA 4: LIMPIEZA DE ACCESO MYSQL ---
+Todas las consultas con datos de entrada usan prepare() +
+bind_param("i"/"s") -> previene SQL Injection (ejemplo:
+ColeccionService.php:17-23 con INSERT ... VALUES (?, ?, NOW())).
+Concatenacion solo donde se saneo antes: dinosauriosPorIds usa
+array_map('intval', $ids) ("son numeros, no hay peligro") y los
+LIMIT van con max(1, min(50, $n)).
+Complementos: set_charset('utf8mb4') para tildes/ñ, y escapar()
+(htmlspecialchars) en la salida ESO es contra XSS, no contra SQL.
+
+--- PREGUNTA 5: PROCEDIMIENTOS ALMACENADOS (4) ---
+Parametros IN/OUT; OUT: 0 = OK, negativos = error.
+1) Login(IN usuario, IN password, OUT res) [usuarios]:
+   vacio -1, contrasena vacia -2, credenciales mal -3, OK 0 + fila.
+2) Registro(IN username, IN email, IN password, OUT res) [usuarios]:
+   vacio -1, duplicado LIKE -2, contrasena vacia -3,
+   si no INSERT con SYSDATE() -> 0.
+3) ObtenerColeccion(IN usuario_id, OUT res) [colecciones]:
+   devuelve dinosaurio_id ordenados ASC.
+4) AnadirNuevaCartaAColeccion(IN usuario_id, IN carta_id, OUT res)
+   [colecciones + usuarios]: valida usuario (-1) y dinosaurio (-2),
+   luego INSERT en colecciones + UPDATE ultima_obtencion -> 0.
+   Ventaja: operacion atomica en la BD.
+Por tabla: usuarios (Login, Registro), colecciones (ObtenerColeccion,
+AnadirNuevaCartaAColeccion), dinosaurios consultada para validar.
+Nota honesta: el PHP actual usa prepare() desde src/ en vez de CALL;
+la logica fuerte de validacion vive en los procedimientos.
+
+--- PREGUNTA 6: VIAJE DEL DATO ---
+A) JSON (login/registro): submit -> e.preventDefault() -> fetch
+   POST FormData -> PHP valida/sesion -> responder() imprime
+   {ok, mensaje} y exit -> res.json() -> mostrarAviso() ->
+   si ok setTimeout 1s -> location.href = "inicio.php".
+B) Sobres (POST -> REDIRECT -> GET): form POST ->
+   php/cartaDiaria.php (esta_logueado, REQUEST_METHOD,
+   segundosRestantes con espera 86400 s) -> si toca:
+   dinosaurioAleatorio() + anadirCarta() + marcarUltimaObtencion()
+   -> guarda el resultado en $_SESSION["sobre_flash"] ->
+   header("Location: ../inicio.php") -> inicio.php lee y borra el
+   flash y pinta. El redirect evita que F5 reenvie el formulario.
+   Contadores: data-espera en el boton -> setInterval de 1 s ->
+   clearInterval y habilita al llegar a 0.
+
+==================================================================
+ PARTE DWEC
+==================================================================
+
+--- PREGUNTA 1: ESTRUCTURA HTML ---
+HTML5 completo (lang="es", charset, viewport), CSS con anti-cache
+?v=<?= filemtime(...) ?> (si cambia el CSS, el navegador no usa
+cache). Paginas privadas: require "menu.php" + <main>.
+menu.php genera header.topbar: logo, nav de 4 enlaces, badge de
+carta diaria y Salir; marca el activo con
+basename($_SERVER["PHP_SELF"]).
+Semantica: header/nav/main/section/figure/time; accesibilidad:
+aria-hidden, aria-label, alt, role="progressbar" + aria-valuenow.
+Componente reutilizado: .carta-mini dentro de .cartas-grid se usa
+en inicio, coleccion y DinoPedia.
+
+--- PREGUNTA 2: FUNCIONALIDAD JS (script/script.js) ---
+- alternarClave() :6 -> cambia input.type password<->text.
+- mostrarPestana() :19 -> classList.add/remove("oculto").
+- cambiarHero() :91 -> objeto textosHero, innerHTML/textContent.
+- filtrarColeccion() :39 -> lee data-buscar, indexOf, oculta con
+  style.display="none" (buscador en vivo).
+- enviarFormulario() :115 -> async + fetch + FormData + json().
+- Validacion cliente :175-198 -> longitudes, regex de email,
+  coincidencia.
+- mostrarAviso() :106 -> caja con clase ok (verde) o error (rojo).
+- Contadores :229-263 -> DOMContentLoaded, setInterval 1000 ms,
+  formato con padStart, clearInterval al 0.
+Conceptos: DOM, eventos (addEventListener, submit,
+DOMContentLoaded), API Fetch, async/await, JSON, classList.
+
+--- PREGUNTA 3: NAVEGACION VISTAS (TRADICIONAL vs SPA) ---
+Tradicional: cada vista es un .php distinto, los <a href> provocan
+peticion nueva y recarga completa; menu.php sabe la pagina actual.
+SPA: una sola pagina, el JS cambia el contenido con fetch +
+innerHTML + history.pushState sin recargar.
+Proyecto hibrido (respuesta ideal): navegacion por recarga entre
+inicio/coleccion/dinopedia/perfil + mini-SPA en index (pestanas y
+hero sin recarga) + login/registro por fetch con redirect de JS +
+sobres con POST-Redirect-GET del servidor.
+
+--- PREGUNTA 4: ESTETICA CSS ---
+3 hojas:
+- comun.css (base): variables :root (--rojo #d6232f, --fondo
+  #0b1018...), box-sizing border-box, body con dos
+  radial-gradient, .topbar sticky con backdrop-filter blur,
+  tarjetas/botones/avisos/barra de progreso, grid
+  repeat(auto-fit, minmax(160px,1fr)).
+- paginas.css (660 lineas): hero, pestanas, sobres, DinoPedia,
+  grid repeat(auto-fill, minmax(190px,1fr)), media queries en
+  900px, 700px (x2) y 460px.
+- perfil.css: perfil-grid repeat(auto-fit, minmax(320px,1fr)),
+  stats 1fr 1fr.
+Tecnicas: variables, Flexbox, Grid responsive, sticky, gradientes,
+transiciones, clases utilitarias (.oculto/.activo/.ok/.error),
+tema oscuro + rojo, Google Fonts (Bricolage Grotesque + IBM Plex
+Sans), iconos Boxicons.
+
+--- PREGUNTA 5: DEMO EN VIVO (% de DAW) ---
+1. Registro en index.php (validaciones JS + PHP).
+2. Login -> JSON -> redirect a inicio.php.
+3. Sobre del dia (1 carta / 24 h) y sobre de prueba (4 cartas /
+   2 min) con contadores regresivos.
+4. Mi coleccion: buscador, badge x2 de repetidas, porcentaje.
+5. DinoPedia: especies propias a color, faltantes en gris.
+6. Perfil: estadisticas, barra por niveles, ultimas cartas (JOIN).
+7. Salir -> sesion destruida.
+Premios para destacar: migracion md5 -> password_hash,
+session_regenerate_id(true), prepared statements, htmlspecialchars,
+POST-Redirect-GET, filemtime anti-cache.
+
+==================================================================
+ NOTAS TECNICAS DE ESTA SESION
+==================================================================
+- BUG ARREGLADO: php/cerrar.php empezaba con "```php" (marca de
+  markdown) antes de <?php -> causaba "headers already sent" y el
+  logout no redirigia. Ya corregido.
+- CREADOS: estudio.txt (guion de preguntas), dinocards.txt en
+  C:\xampp\htdocs\ejer\ (todo el codigo junto para Notebook Gemini),
+  abrir_chat.bat (abre opencode en la carpeta del proyecto).
+- BD: 3 tablas (usuarios, dinosaurios, colecciones con claves
+  foraneas) + 4 procedimientos almacenados.
+- Usuario de BD en src/AccesoDatos.php: oscar / 1234.
+==================================================================

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Alex Carter, Junior Web Developer. Modern, accessible and responsive websites for businesses and creators.">
+  <meta name="author" content="Alex Carter">
+  <title>Alex Carter | Junior Web Developer</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- ============================= HEADER / NAV ============================= -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Primary navigation">
+      <a href="#hero" class="nav__logo" aria-label="Alex Carter — home">
+        AC<span class="nav__logo-dot">.</span>
+      </a>
+
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+
+      <ul class="nav__menu" id="nav-menu">
+        <li class="nav__item"><a href="#about" class="nav__link"><span>01.</span> About</a></li>
+        <li class="nav__item"><a href="#skills" class="nav__link"><span>02.</span> Skills</a></li>
+        <li class="nav__item"><a href="#projects" class="nav__link"><span>03.</span> Projects</a></li>
+        <li class="nav__item"><a href="#services" class="nav__link"><span>04.</span> Services</a></li>
+        <li class="nav__item"><a href="#contact" class="nav__link nav__link--cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="hero container" id="hero" aria-labelledby="hero-title">
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <p class="hero__eyebrow reveal">Hi, my name is</p>
+
+      <h1 class="hero__title reveal" id="hero-title" style="--delay:.1s">
+        Alex Carter<span class="accent">.</span>
+      </h1>
+
+      <h2 class="hero__subtitle reveal" style="--delay:.2s">
+        I craft digital experiences for the
+        <span class="text-gradient">web</span>.
+      </h2>
+
+      <p class="hero__roles reveal" style="--delay:.3s">
+        <span class="sr-only">Roles:</span>
+        <span class="typed" aria-hidden="true"></span><span class="typed-cursor" aria-hidden="true">&#9608;</span>
+      </p>
+
+      <p class="hero__intro reveal" style="--delay:.4s">
+        I'm a final-year <strong>Web Development Technician</strong> student focused on building
+        clean, accessible and responsive websites. I turn ideas into fast, memorable
+        interfaces — and I'm currently looking for my next challenge.
+      </p>
+
+      <div class="hero__actions reveal" style="--delay:.5s">
+        <a href="#projects" class="btn btn--primary">See my work</a>
+        <a href="#contact" class="btn btn--ghost">Get in touch</a>
+      </div>
+
+      <a href="#about" class="hero__scroll" aria-label="Scroll down to the About section">
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+        scroll
+      </a>
+    </section>
+
+    <!-- ============================= ABOUT ============================= -->
+    <section class="section container" id="about" aria-labelledby="about-title">
+      <h2 class="section__title reveal"><span class="section__number">01.</span> About me</h2>
+
+      <div class="about__grid">
+        <div class="about__text">
+          <p class="reveal">
+            Hello! My name is Alex and I enjoy creating things that live on the internet.
+            My interest in web development started back in 2023, when I built my first
+            HTML page for a school project — and I've been hooked ever since.
+          </p>
+          <p class="reveal" style="--delay:.1s">
+            Today, as a final-year <strong>Web Development Technician</strong> student, I spend
+            most of my time sharpening my skills in <strong>HTML, CSS and JavaScript</strong>,
+            designing responsive layouts and learning something new every week.
+            My goal is simple: build products that are useful, beautiful and accessible to everyone.
+          </p>
+          <p class="reveal" style="--delay:.2s">
+            I'm open to <strong>freelance projects, internships and junior positions</strong>
+            where I can keep learning while delivering real value.
+          </p>
+
+          <ul class="about__facts reveal" style="--delay:.3s">
+            <li>Final-year Web Development Technician certification</li>
+            <li>Based in Spain — available for remote work</li>
+            <li>Fast learner, detail-oriented, team player</li>
+            <li>Currently exploring: Web Performance &amp; Accessibility</li>
+          </ul>
+        </div>
+
+        <div class="about__photo reveal" style="--delay:.2s">
+          <figure class="photo-frame">
+            <img
+              src="https://placehold.co/480x480/151a26/8b5cf6?text=AC"
+              alt="Placeholder portrait of Alex Carter"
+              width="480"
+              height="480"
+              loading="lazy">
+            <figcaption class="photo-frame__caption" aria-hidden="true">
+              <span class="photo-frame__label">// placeholder-photo.jpg</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= SKILLS ============================= -->
+    <section class="section container" id="skills" aria-labelledby="skills-title">
+      <h2 class="section__title reveal"><span class="section__number">02.</span> Skills &amp; tools</h2>
+      <p class="section__lead reveal">
+        Technologies I use to design, build and ship websites.
+      </p>
+
+      <div class="skills__grid">
+        <article class="skill-card reveal">
+          <h3 class="skill-card__title">
+            <span class="skill-card__icon" aria-hidden="true">{&nbsp;}</span> Front-end
+          </h3>
+          <ul class="skill-card__list">
+            <li class="badge">HTML5 — semantic &amp; accessible</li>
+            <li class="badge">CSS3 — Flexbox &amp; Grid</li>
+            <li class="badge">JavaScript (ES6+)</li>
+            <li class="badge">Responsive Web Design</li>
+            <li class="badge">CSS Animations</li>
+            <li class="badge">Bootstrap 5</li>
+          </ul>
+        </article>
+
+        <article class="skill-card reveal" style="--delay:.1s">
+          <h3 class="skill-card__title">
+            <span class="skill-card__icon" aria-hidden="true">&#9729;</span> Tools &amp; workflow
+          </h3>
+          <ul class="skill-card__list">
+            <li class="badge">Git &amp; GitHub</li>
+            <li class="badge">VS Code</li>
+            <li class="badge">Chrome DevTools</li>
+            <li class="badge">Figma (basic UI)</li>
+            <li class="badge">npm basics</li>
+            <li class="badge">Command line</li>
+          </ul>
+        </article>
+
+        <article class="skill-card reveal" style="--delay:.2s">
+          <h3 class="skill-card__title">
+            <span class="skill-card__icon" aria-hidden="true">&#10022;</span> Best practices
+          </h3>
+          <ul class="skill-card__list">
+            <li class="badge">Mobile-first development</li>
+            <li class="badge">Web accessibility (WCAG basics)</li>
+            <li class="badge">SEO fundamentals</li>
+            <li class="badge">Clean, maintainable code</li>
+            <li class="badge">Cross-browser testing</li>
+            <li class="badge">Basic Web Performance</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================= PROJECTS ============================= -->
+    <section class="section container" id="projects" aria-labelledby="projects-title">
+      <h2 class="section__title reveal"><span class="section__number">03.</span> Projects</h2>
+      <p class="section__lead reveal">
+        A selection of academic and personal projects. Each one taught me something new.
+      </p>
+
+      <div class="projects__grid">
+
+        <article class="project-card reveal">
+          <header class="project-card__header">
+            <span class="project-card__icon" aria-hidden="true">&#128203;</span>
+            <h3 class="project-card__title">TaskFlow</h3>
+          </header>
+          <p class="project-card__desc">
+            A drag-and-drop kanban board to organise daily tasks. Fully client-side:
+            your data is saved in the browser with LocalStorage, no backend required.
+          </p>
+          <ul class="project-card__tags">
+            <li>HTML</li><li>CSS Grid</li><li>JavaScript</li><li>LocalStorage</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" class="link-arrow" aria-label="TaskFlow live demo (placeholder link)">Live demo</a>
+            <a href="#" class="link-arrow" aria-label="TaskFlow source code (placeholder link)">Source code</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal" style="--delay:.1s">
+          <header class="project-card__header">
+            <span class="project-card__icon" aria-hidden="true">&#127780;</span>
+            <h3 class="project-card__title">Weather Lens</h3>
+          </header>
+          <p class="project-card__desc">
+            A weather dashboard that consumes a public REST API. Search any city or use
+            geolocation, and see current conditions plus a 5-day forecast with charts.
+          </p>
+          <ul class="project-card__tags">
+            <li>JavaScript</li><li>Fetch API</li><li>REST API</li><li>Chart.js</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" class="link-arrow" aria-label="Weather Lens live demo (placeholder link)">Live demo</a>
+            <a href="#" class="link-arrow" aria-label="Weather Lens source code (placeholder link)">Source code</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal" style="--delay:.2s">
+          <header class="project-card__header">
+            <span class="project-card__icon" aria-hidden="true">&#128717;</span>
+            <h3 class="project-card__title">EcoStore Landing</h3>
+          </header>
+          <p class="project-card__desc">
+            Responsive landing page for a fictional sustainable-products brand.
+            Built mobile-first with an SEO-friendly structure and animated sections.
+          </p>
+          <ul class="project-card__tags">
+            <li>HTML5</li><li>CSS3</li><li>Flexbox</li><li>SEO</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" class="link-arrow" aria-label="EcoStore Landing live demo (placeholder link)">Live demo</a>
+            <a href="#" class="link-arrow" aria-label="EcoStore Landing source code (placeholder link)">Source code</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal" style="--delay:.3s">
+          <header class="project-card__header">
+            <span class="project-card__icon" aria-hidden="true">&#129414;</span>
+            <h3 class="project-card__title">Pokédex Explorer</h3>
+          </header>
+          <p class="project-card__desc">
+            A searchable, filterable Pokédex that consumes the PokéAPI. Includes
+            infinite scroll, type filters and a responsive card layout.
+          </p>
+          <ul class="project-card__tags">
+            <li>JavaScript</li><li>PokéAPI</li><li>Async/Await</li><li>Responsive</li>
+          </ul>
+          <div class="project-card__links">
+            <a href="#" class="link-arrow" aria-label="Pokédex Explorer live demo (placeholder link)">Live demo</a>
+            <a href="#" class="link-arrow" aria-label="Pokédex Explorer source code (placeholder link)">Source code</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================= SERVICES ============================= -->
+    <section class="section container" id="services" aria-labelledby="services-title">
+      <h2 class="section__title reveal"><span class="section__number">04.</span> Services</h2>
+      <p class="section__lead reveal">
+        What I can do for you as a freelance junior developer.
+      </p>
+
+      <div class="services__grid">
+        <article class="service-card reveal">
+          <span class="service-card__number" aria-hidden="true">01</span>
+          <h3 class="service-card__title">Web design &amp; development</h3>
+          <p class="service-card__desc">
+            Custom landing pages and multi-section websites built from scratch,
+            with a unique visual identity that matches your brand.
+          </p>
+        </article>
+
+        <article class="service-card reveal" style="--delay:.1s">
+          <span class="service-card__number" aria-hidden="true">02</span>
+          <h3 class="service-card__title">Responsive &amp; mobile-first</h3>
+          <p class="service-card__desc">
+            Your site will look and work great on phones, tablets and desktops —
+            tested on real screen sizes, not just resized windows.
+          </p>
+        </article>
+
+        <article class="service-card reveal" style="--delay:.2s">
+          <span class="service-card__number" aria-hidden="true">03</span>
+          <h3 class="service-card__title">Performance &amp; accessibility</h3>
+          <p class="service-card__desc">
+            Fast load times, semantic HTML and WCAG-friendly practices so everyone
+            can use your website, on any device or browser.
+          </p>
+        </article>
+
+        <article class="service-card reveal" style="--delay:.3s">
+          <span class="service-card__number" aria-hidden="true">04</span>
+          <h3 class="service-card__title">Updates &amp; maintenance</h3>
+          <p class="service-card__desc">
+            Need changes, new sections or content updates? I keep your website
+            fresh, secure and error-free after launch.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================= CONTACT ============================= -->
+    <section class="section section--contact container" id="contact" aria-labelledby="contact-title">
+      <h2 class="section__title reveal"><span class="section__number">05.</span> Get in touch</h2>
+      <p class="section__lead reveal">
+        Have a project in mind, or just want to say hi? My inbox is always open —
+        I'll get back to you as soon as I can.
+      </p>
+
+      <div class="contact__grid">
+        <div class="contact__info reveal">
+          <ul class="contact__list">
+            <li>
+              <a href="mailto:alex.carter.dev@example.com" class="contact__item">
+                <span class="contact__icon" aria-hidden="true">&#9993;</span>
+                <span>
+                  <span class="contact__label">Email</span>
+                  alex.carter.dev@example.com
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contact__item">
+                <span class="contact__icon" aria-hidden="true">&#9737;</span>
+                <span>
+                  <span class="contact__label">GitHub</span>
+                  github.com/alexcarter-dev
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="contact__item">
+                <span class="contact__icon" aria-hidden="true">in</span>
+                <span>
+                  <span class="contact__label">LinkedIn</span>
+                  linkedin.com/in/alexcarter-dev
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <form class="contact__form reveal" style="--delay:.1s" id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required
+                   aria-required="true" placeholder="Jane Doe">
+            <p class="form-field__error" id="name-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required
+                   aria-required="true" placeholder="jane@example.com">
+            <p class="form-field__error" id="email-error" aria-live="polite"></p>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required aria-required="true"
+                      placeholder="Tell me about your project..."></textarea>
+            <p class="form-field__error" id="message-error" aria-live="polite"></p>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--block">Send message</button>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>Designed &amp; built by <span class="accent">Alex Carter</span> &copy; <span id="year">2026</span></p>
+      <p class="site-footer__note">Hand-coded with HTML, CSS &amp; JavaScript — no frameworks.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

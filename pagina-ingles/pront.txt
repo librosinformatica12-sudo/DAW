@@ -1,0 +1,24 @@
+Create a modern, creative, and visually impressive landing page for a student in the final year of a Web Development Technician certification. The goal is to showcase my skills, projects, and services to attract potential clients and employers.
+
+**Design requirements:**
+- Create a professional portfolio with a unique visual identity.
+- Use a modern dark theme with vibrant accent colors, smooth animations, and elegant typography.
+- Include a hero section with my name, the title "Junior Web Developer", a short introduction, and clear call-to-action buttons.
+- Add an About Me section explaining my passion for web development and my professional goals.
+- Create a Skills section showcasing HTML, CSS, JavaScript, responsive design, Git, and other relevant technologies.
+- Include a Projects section with attractive project cards, descriptions, technologies used, and links to demos or source code.
+- Add a Services section presenting the web development services I can offer.
+- Include a Contact section with email, GitHub, LinkedIn, and a contact form.
+- Make the website fully responsive for desktop, tablet, and mobile devices.
+- Add subtle hover effects, smooth scrolling, and tasteful animations.
+- Follow accessibility best practices and use clean, maintainable code.
+- Use reusable components and a clear project structure.
+- If a framework is already configured, use the existing setup. Otherwise, choose a suitable modern stack.
+
+**Creative direction:**
+Take inspiration from the portfolios of famous web developers and creative developers such as Brittany Chiang, Bruno Simon, and Lee Robinson. Use their websites as references for originality, presentation, and user experience, but do not copy their designs. Create an original portfolio that feels personal, polished, and memorable.
+
+**Important:**
+Use placeholder content for personal details that I have not provided. Do not invent real qualifications, work experience, or client testimonials. Make sure the website runs correctly and explain how to launch it locally.
+
+The final result should look like a portfolio ready to present to potential employers or clients, not a generic template.

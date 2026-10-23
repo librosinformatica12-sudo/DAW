@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    script.js - Funciones sencillas de las paginas
    ============================================================ */
 
@@ -33,7 +33,9 @@ function mostrarPestana(nombre) {
     cambiarHero(nombre);
 }
 
-// ---------- Buscar dentro de mi coleccion ----------
+// ============================================================
+//    BUSCAR EN MI COLECCIÓN
+// ============================================================
 function filtrarColeccion() {
     var texto = document.getElementById("buscador").value.toLowerCase();
     var cartas = document.getElementsByClassName("carta-mini");
@@ -49,7 +51,9 @@ function filtrarColeccion() {
     }
 }
 
-// ---------- Al cargar la pagina ----------
+// ============================================================
+//    AL CARGAR LA PÁGINA
+// ============================================================
 window.onload = function () {
     // Si estamos en index.php, mostramos la pestana inicial
     var contenedor = document.getElementById("contenedor-pestanas");
@@ -75,7 +79,7 @@ const features = document.querySelectorAll('main.pagina .hero ul li');
         },
         registro: {
             titulo: '¡Regístrate <span>Crea tu Cuenta de </span> Coleccionista!',
-            descripcion: 'Regístrate para guardar tu progreso, abrir sobres diarios y completar el catalogo de dinosaurios. ¡Únete a nuestra comunidad de coleccionistas!',
+            descripcion: 'Regístrate para guardar tu progreso, abrir sobres diarios y completar el catalogo de dinosaurios. ¡Únete a nuestra comunidad de Coleccionistas!',
             features: [
                 { titulo: 'Primer Sobre Gratis', texto: 'Empieza tu colección desde el minuto uno.' },
                 { titulo: 'Guardado en la Nube', texto: 'No pierdas nunca tus cartas ni tu avance.' },
@@ -128,7 +132,9 @@ document.querySelectorAll(".btn[data-ir]").forEach(function (boton) {
     });
 });
 
-// ---------- LOGIN ----------
+// ============================================================
+//    LOGIN
+// ============================================================
 var formLogin = document.getElementById("form-login");
 if (formLogin) {
     formLogin.addEventListener("submit", async function (e) {
@@ -161,7 +167,9 @@ if (formLogin) {
     });
 }
 
-// ---------- REGISTRO ----------
+// ============================================================
+//    REGISTRO
+// ============================================================
 var formRegistro = document.getElementById("form-registro");
 if (formRegistro) {
     formRegistro.addEventListener("submit", async function (e) {
@@ -210,3 +218,49 @@ if (formRegistro) {
         }
     });
 }
+
+// ============================================================
+//    CONTADORES DE ESPERA DE LOS SOBRES (inicio.php)
+//    ------------------------------------------------------------
+//    Sobre del día: 24 horas desde la última apertura
+//    Sobre de prueba: 2 minutos desde la última apertura
+//    Lee data-espera (segundos) y data-label (texto al acabar)
+// ============================================================
+document.addEventListener("DOMContentLoaded", function () {
+    var botones = document.querySelectorAll("[data-espera]");
+
+    botones.forEach(function (boton) {
+        var restante = parseInt(boton.getAttribute("data-espera"), 10) || 0;
+        if (restante <= 0) return;
+
+        var etiqueta = boton.getAttribute("data-label") || boton.textContent.trim();
+        boton.disabled = true;
+
+        function pintar() {
+            var h = Math.floor(restante / 3600);
+            var m = Math.floor((restante % 3600) / 60);
+            var s = restante % 60;
+            var texto = (h > 0 ? h + ":" + String(m).padStart(2, "0") : m) +
+                ":" + String(s).padStart(2, "0");
+            boton.textContent = "En espera (" + texto + ")";
+        }
+
+        pintar();
+
+        var id = setInterval(function () {
+            restante -= 1;
+
+            if (restante <= 0) {
+                clearInterval(id);
+                boton.disabled = false;
+                boton.textContent = etiqueta;
+                return;
+            }
+
+            pintar();
+        }, 1000);
+    });
+});
+
+
+

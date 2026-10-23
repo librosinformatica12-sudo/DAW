@@ -5,7 +5,7 @@
    Muestra las cartas que tiene el usuario.
    ============================================================ */
 
-require_once "conexion.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
@@ -54,8 +54,9 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - Mi colección</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+    <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>" defer></script>
 </head>
 <body>
 

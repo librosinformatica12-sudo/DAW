@@ -6,21 +6,17 @@
    Devuelve: { "ok": true/false, "mensaje": "..." }
    ============================================================ */
 
-require_once __DIR__ . "/../conexion.php";
+require_once __DIR__ . "/../src/AccesoDatos.php";
+require_once __DIR__ . "/../src/Respuesta.php";
 
 header("Content-Type: application/json; charset=utf-8");
-
-function responder(bool $ok, string $mensaje, array $extra = []): void
-{
-    echo json_encode(array_merge(["ok" => $ok, "mensaje" => $mensaje], $extra), JSON_UNESCAPED_UNICODE);
-    exit;
-}
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(405);
     responder(false, "Metodo no permitido.");
 }
 
+// se guarda la info q poner en el registro
 $usuario = trim($_POST["usuario"] ?? "");
 $email   = trim($_POST["email"] ?? "");
 $clave1  = $_POST["contrasena"] ?? "";
@@ -54,8 +50,8 @@ if ($consulta->num_rows > 0) {
 }
 $consulta->close();
 
-// Guardamos la contraseña cifrada con md5
-$hash = md5($clave1);
+// Guardamos la contraseña cifrada de forma segura (password_hash)
+$hash = password_hash($clave1, PASSWORD_DEFAULT);
 $alta = $conexion->prepare(
     "INSERT INTO usuarios (username, email, password_hash, fecha_registro)
      VALUES (?, ?, ?, NOW())"

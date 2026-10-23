@@ -6,16 +6,20 @@
    Estructura: logo - navegacion - carta diaria y salir.
    ============================================================ */
 
+// Asegurarnos de que la sesión esté iniciada por si no se llamó antes
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Sabemos en que pagina estamos para marcar el enlace activo
 $pagina_actual = basename($_SERVER["PHP_SELF"]);
 
 // ¿Ya ha cogido la carta de hoy?
 $menu_usuario_id = (int) ($_SESSION["usuario_id"] ?? 0);
 $menu_ultima     = null;
-<<<<<<< HEAD
-$menu_obtenida_hoy = false;
 
-if (isset($conexion) && $conexion instanceof mysqli) {
+// Validamos que la conexión exista y que el usuario esté logueado antes de consultar
+if (isset($conexion) && $conexion && $menu_usuario_id > 0) {
     $menu_consulta = $conexion->prepare("SELECT ultima_obtencion FROM usuarios WHERE id = ?");
     if ($menu_consulta) {
         $menu_consulta->bind_param("i", $menu_usuario_id);
@@ -27,27 +31,11 @@ if (isset($conexion) && $conexion instanceof mysqli) {
             $menu_ultima = $menu_fila["ultima_obtencion"];
         }
     }
-
-    $menu_obtenida_hoy = ($menu_ultima !== null
-        && substr($menu_ultima, 0, 10) === date("Y-m-d"));
-}
-
-=======
-
-$menu_consulta = $conexion->prepare("SELECT ultima_obtencion FROM usuarios WHERE id = ?");
-$menu_consulta->bind_param("i", $menu_usuario_id);
-$menu_consulta->execute();
-$menu_fila = $menu_consulta->get_result()->fetch_assoc();
-$menu_consulta->close();
-
-if ($menu_fila) {
-    $menu_ultima = $menu_fila["ultima_obtencion"];
 }
 
 $menu_obtenida_hoy = ($menu_ultima !== null
     && substr($menu_ultima, 0, 10) === date("Y-m-d"));
 
->>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
 // Enlaces de navegacion: [archivo, icono, texto]
 $menu_enlaces = [
     ["inicio.php",    "bx-home",       "Inicio"],
@@ -85,7 +73,7 @@ $menu_enlaces = [
             <?php endif; ?>
         </a>
 
-        <a class="nav-link salir" href="cerrar.php" title="Cerrar sesión">
+        <a class="nav-link salir" href="php/cerrar.php" title="Cerrar sesión">
             <i class="bx bx-log-out"></i>
             <span>Salir</span>
         </a>

@@ -2,35 +2,19 @@
 /* ============================================================
    dinopedia.php
    ------------------------------------------------------------------
-   Catalogo completo de dinosaurios. Desde aqui se pueden añadir
-   dinosaurios a la coleccion.
+   Album de dinosaurios. Las especies que el usuario ya tiene en su
+   coleccion se ven a color; las que le faltan, en gris.
    ============================================================ */
 
-require_once "conexion.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
-$aviso = "";
 
-// --- Añadir un dinosaurio a mi coleccion ---
-if (isset($_GET["id"])) {
-    $id = (int) $_GET["id"];
+// --- Especies que ya tengo (se ven a color) frente a las que no (en gris) ---
+$mios = array_flip(obtenerIdsColeccion($usuario_id));
 
-    $consulta = $conexion->prepare("SELECT * FROM dinosaurios WHERE id = ?");
-    $consulta->bind_param("i", $id);
-    $consulta->execute();
-    $dino = $consulta->get_result()->fetch_assoc();
-    $consulta->close();
-
-    if ($dino) {
-        anadir_a_coleccion($conexion, $usuario_id, $id);
-        $aviso = "Añadido a tu colección: " . $dino["especie"] . " «" . $dino["nombre"] . "»";
-    } else {
-        $aviso = "Ese dinosaurio no existe.";
-    }
-}
-
-// --- Traigo todos los dinosaurios ---
+// --- Traigo todos los dinosaurios del catalogo ---
 $dinos = [];
 $res = $conexion->query("SELECT * FROM dinosaurios ORDER BY id");
 while ($d = $res->fetch_assoc()) {
@@ -44,7 +28,8 @@ while ($d = $res->fetch_assoc()) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DinoCards - DinoPedia</title>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
 </head>
 <body>
 
@@ -53,19 +38,16 @@ while ($d = $res->fetch_assoc()) {
 <main>
     <div class="tarjeta panel-oscuro">
         <h1>DinoPedia</h1>
-        <p>Catálogo completo. Pulsa «Añadir» para sumar un dinosaurio a tu colección.</p>
-
-        <?php if ($aviso !== ""): ?>
-            <p class="aviso ok"><?= escapar($aviso) ?></p>
-        <?php endif; ?>
+        <p>Tu álbum: ya tienes <b><?= count($mios) ?></b> de <b><?= count($dinos) ?></b> especies. Las que te faltan se ven en gris.</p>
 
         <ul class="cartas-grid">
             <?php foreach ($dinos as $d): ?>
-                <li class="carta-mini">
+                <li class="carta-mini<?= isset($mios[$d["id"]]) ? "" : " bloqueada" ?>">
                     <span class="retrato">
-                        <?php if (!empty($d["imagen_url"])): ?>
-                            <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                            <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                        <?php $img_ok = false; $img_path = $d["imagen_url"] ?? null; if (!empty($img_path)) { $full = __DIR__ . "/" . ltrim($img_path, '/\\'); $img_ok = is_readable($full); } ?>
+                        <?php if ($img_ok): ?>
+                            <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
                         <?php else: ?>
                             <i class="bx bx-dna" aria-hidden="true"></i>
                         <?php endif; ?>
@@ -78,9 +60,6 @@ while ($d = $res->fetch_assoc()) {
                         <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
                         <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
                     </div>
-                    <a class="btn-carta" href="dinopedia.php?id=<?= (int) $d["id"] ?>">
-                        <i class="bx bx-plus" aria-hidden="true"></i> Añadir
-                    </a>
                 </li>
             <?php endforeach; ?>
         </ul>

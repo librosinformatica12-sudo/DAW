@@ -27,7 +27,6 @@ $usuario_id = (int) $_SESSION["usuario_id"];
 $espera_dia = 24 * 60 * 60;
 
 $usuario = obtenerUsuarioPorId($usuario_id);
-// bloquear doble  reclamo
 $faltan  = segundosRestantes($usuario["ultima_obtencion"] ?? null, $espera_dia);
 
 if ($faltan > 0) {
@@ -35,7 +34,7 @@ if ($faltan > 0) {
         "tipo"    => "error",
         "mensaje" => "Ya has abierto tu sobre del día. Vuelve en unas horas.",
     ];
-} else { // dar diaria
+} else {
     $azar = dinosaurioAleatorio();
 
     if ($azar) {

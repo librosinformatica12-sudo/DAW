@@ -13,7 +13,7 @@
 function anadirCarta(int $usuario_id, int $dinosaurio_id): void
 {
     global $conexion;
-    // guardar carta en
+
     $consulta = $conexion->prepare(
         "INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
          VALUES (?, ?, NOW())"
@@ -49,7 +49,6 @@ function resumenColeccion(int $usuario_id): array
 {
     global $conexion;
 
-    // contar cartas
     $consulta = $conexion->prepare(
         "SELECT COUNT(*) AS total, COUNT(DISTINCT dinosaurio_id) AS especies
          FROM colecciones WHERE usuario_id = ?"
@@ -80,7 +79,6 @@ function dinosaurioAleatorio(): ?array
 {
     global $conexion;
 
-    // dino aleatorio
     $fila = $conexion->query("SELECT * FROM dinosaurios ORDER BY RAND() LIMIT 1")->fetch_assoc();
 
     return $fila ?: null;
@@ -132,7 +130,7 @@ function ultimasCartas(int $usuario_id, int $limite = 6): array
     global $conexion;
 
     $limite = max(1, min(50, $limite));
-    // sacar collecion del jugador para darme las ultimas cartas
+
     $consulta = $conexion->prepare(
         "SELECT d.*
          FROM colecciones c

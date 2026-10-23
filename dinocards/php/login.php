@@ -20,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     responder(false, "Metodo no permitido.");
 }
 
-// se guarda la info q poner en el inicar sesion
 $usuario = trim($_POST["usuario"] ?? "");
 $clave   = $_POST["contrasena"] ?? "";
 
@@ -30,7 +29,6 @@ if ($usuario === "" || $clave === "") {
 
 // Buscamos la cuenta por usuario o correo. La contrasena se comprueba
 // despues, para poder aceptar tambien los hashes antiguos (md5).
-// buscar usurio por email
 $consulta = $conexion->prepare(
     "SELECT id, username, password_hash FROM usuarios
      WHERE email = ? OR username = ?
@@ -45,11 +43,11 @@ $correcto = false;
 
 if ($fila) {
     $guardado = (string) $fila["password_hash"];
-    // verificar contra
+
     if (password_verify($clave, $guardado)) {
         // Contrasena moderna (password_hash).
         $correcto = true;
-    } elseif (strlen($guardado) === 32 && hash_equals($guardado, md5($clave))) { // contra vieja a nueva
+    } elseif (strlen($guardado) === 32 && hash_equals($guardado, md5($clave))) {
         // Contrasena antigua guardada con md5: la aceptamos y de paso
         // la actualizamos al formato nuevo (password_hash).
         $correcto = true;
@@ -63,8 +61,6 @@ if ($fila) {
 
 if ($correcto) {
     // Nueva sesion segura (como en dino-prueba)
-    // genermaos nueva sesion
-    // guardamos usuario en sesion
     session_regenerate_id(true);
     $_SESSION["usuario_id"] = (int) $fila["id"];
     $_SESSION["usuario"]    = $fila["username"];

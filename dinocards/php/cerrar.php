@@ -1,4 +1,3 @@
-```php
 <?php
 // Iniciar la sesión para poder cerrarla correctamente.
 if (session_status() === PHP_SESSION_NONE) {

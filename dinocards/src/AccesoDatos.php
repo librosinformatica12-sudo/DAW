@@ -60,23 +60,20 @@ $connection = $conexion;
  * Limpia un texto antes de mostrarlo en el HTML.
  * Evita problemas de seguridad (XSS).
  */
-/* funciones seguridad */
-function escapar($texto)
+function escapar(mixed $texto): string
 {
     return htmlspecialchars($texto ?? "", ENT_QUOTES, "UTF-8");
 }
 
-/* funciones seguridad */
 /**
  * Alias corto de escapar() (lo usan algunas plantillas
  * al estilo dino-prueba).
  */
-function e($texto)
+function e(mixed $texto)
 {
     return escapar($texto);
 }
 
-/* funciones control y sesion */
 /**
  * Devuelve true si el usuario ha iniciado sesion.
  */
@@ -85,7 +82,6 @@ function esta_logueado()
     return isset($_SESSION["usuario_id"]);
 }
 
-/* funciones control y sesion */
 /**
  * Si el usuario no ha iniciado sesion, lo manda a la pagina
  * de entrada (index.php) y detiene la ejecucion.

@@ -26,7 +26,6 @@ $espera_prueba = 120; // 2 minutos
 $cuantas       = 4;   // nº de cartas por sobre de prueba
 
 $usuario = obtenerUsuarioPorId($usuario_id);
-// no dar doble carta prueba
 $faltan  = segundosRestantes($usuario["carta_prueba"] ?? null, $espera_prueba);
 
 if ($faltan > 0) {
@@ -34,7 +33,7 @@ if ($faltan > 0) {
         "tipo"    => "error",
         "mensaje" => "Aún no puedes abrir el sobre de prueba. Espera a que termine el contador.",
     ];
-} else { // dar sobre preua = 4 cartas
+} else {
     $dinos = dinosauriosAleatorios($cuantas);
 
     if (count($dinos) >= $cuantas) {

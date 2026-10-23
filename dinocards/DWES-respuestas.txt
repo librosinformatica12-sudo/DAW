@@ -1,0 +1,263 @@
+==================================================================
+   DEFENSA DINOCARDS - PARTE DWES (BACKEND)
+   Respuestas con el codigo del proyecto
+==================================================================
+
+
+------------------------------------------------------------------
+1. ESTRUCTURA DEL BACKEND
+------------------------------------------------------------------
+Arquitectura en capas (MVC simplificado). Todo entra por
+src/AccesoDatos.php (unico punto de entrada que hace require_once):
+
+dinocards/
+  src/          -> capa de datos y logica
+     AccesoDatos.php       sesion + conexion mysqli + helpers
+     UsuarioService.php    datos del usuario y fechas
+     ColeccionService.php  consultas de coleccion/catalogo
+     ReglasColeccion.php   funciones PURAS (sin BD)
+     Respuesta.php         respuesta JSON estandar
+  php/          -> endpoints (login, registro, cartaDiaria,
+                   abrirSobrePrueba, cerrar)
+  *.php         -> paginas que solo pintan HTML (index, inicio,
+                   coleccion, dinopedia, perfil) + menu.php
+                   (cabecera comun)
+
+AccesoDatos.php hace 3 cosas (lineas 25-52):
+
+  if (session_status() === PHP_SESSION_NONE) session_start();   // 1. sesion
+  mysqli_report(MYSQLI_REPORT_OFF);
+  $conexion = @new mysqli('127.0.0.1','oscar','1234','dinocards',3306); // 2. conexion
+  $conexion->set_charset('utf8mb4');
+  $connection = $conexion;   // alias estilo dino-prueba
+  // 3. helpers: escapar(), esta_logueado(), pedir_login()
+
+Y al final encadena los servicios (lineas 103-105):
+  require_once __DIR__ . '/ReglasColeccion.php';
+  require_once __DIR__ . '/UsuarioService.php';
+  require_once __DIR__ . '/ColeccionService.php';
+
+Las paginas privadas siempre empiezan igual:
+  require_once __DIR__ . "/src/AccesoDatos.php";
+  pedir_login();
+
+
+------------------------------------------------------------------
+2. LOGIN Y REGISTRO: COMO LO HE HECHO Y QUE HE UTILIZADO
+------------------------------------------------------------------
+FRONT (script/script.js):
+  - intercepta el submit con e.preventDefault().
+  - valida en cliente (usuario >= 3, regex email, clave >= 4,
+    coincidencia de claves).
+  - envia con fetch() + FormData (lineas 211-214).
+
+BACK - REGISTRO (php/registro.php):
+  // lineas 41-42  comprobar duplicados con prepared statement
+  $consulta = $conexion->prepare("SELECT id FROM usuarios WHERE username = ? OR email = ?");
+  $consulta->bind_param("ss", $usuario, $email);
+  ...
+  // lineas 53-58  cifrado e INSERT
+  $hash = password_hash($clave1, PASSWORD_DEFAULT);
+  $alta = $conexion->prepare("INSERT INTO usuarios (username, email, password_hash, fecha_registro) VALUES (?, ?, ?, NOW())");
+  $alta->bind_param("sss", $usuario, $email, $hash);
+
+BACK - LOGIN (php/login.php):
+  // lineas 32-40  buscar por usuario O email
+  $consulta = $conexion->prepare("SELECT id, username, password_hash FROM usuarios WHERE email = ? OR username = ? LIMIT 1");
+  $consulta->bind_param("ss", $usuario, $usuario);
+  ...
+  // linea 47  verificar
+  if (password_verify($clave, $guardado)) { $correcto = true; }
+  // lineas 64-66  crear sesion segura
+  session_regenerate_id(true);              // anti session fixation
+  $_SESSION["usuario_id"] = (int) $fila["id"];
+  $_SESSION["usuario"]    = $fila["username"];
+
+QUE HE UTILIZADO: mysqli con prepared statements, password_hash /
+password_verify (bcrypt), validaciones con filter_var y sesiones
+PHP. La respuesta siempre es JSON {ok, mensaje}.
+
+LOGOUT (php/cerrar.php): vacia $_SESSION, borra la cookie de sesion
+(time() - 42000) y llama a session_destroy().
+
+
+------------------------------------------------------------------
+3. LOGICA DE NEGOCIO PHP (validaciones, md5, errores)
+------------------------------------------------------------------
+DONDE SE VALIDA - servidor en php/registro.php lineas 24-38
+(el servidor SIEMPRE manda):
+  if ($usuario === "" || $email === "" || $clave1 === "") responder(false, "Rellena todos los campos.");
+  if (strlen($usuario) < 3)  responder(false, "El usuario debe tener al menos 3 caracteres.");
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) responder(false, "El correo no es valido.");
+  if (strlen($clave1) < 4)   responder(false, "La contrasena debe tener al menos 4 caracteres.");
+  if ($clave1 !== $clave2)   responder(false, "Las contrasenas no coinciden.");
+
+Se replica en cliente (script.js lineas 305-323) para dar respuesta
+inmediata, pero si alguien lo salta, el servidor vuelve a validar.
+
+DONDE ESTA EL MD5 - php/login.php lineas 50-58 (migracion
+automatica de usuarios antiguos):
+  } elseif (strlen($guardado) === 32 && hash_equals($guardado, md5($clave))) {
+      // contrasena antigua en md5: la acepto y la actualizo a bcrypt
+      $correcto = true;
+      $nuevo = password_hash($clave, PASSWORD_DEFAULT);
+      $actualizar = $conexion->prepare("UPDATE usuarios SET password_hash = ? WHERE id = ?");
+      $actualizar->bind_param("si", $nuevo, $fila["id"]);
+      $actualizar->execute();
+  }
+
+  En la tabla usuarios se distingue: los antiguos son hex de 32
+  caracteres (md5, ej. 81dc9bdb52d04dc20036dbd8313ed055 = "1234")
+  y los nuevos empiezan por $2y$ (bcrypt).
+
+DONDE VER EL ERROR:
+  - el endpoint devuelve {ok:false, mensaje:"..."}.
+  - el JS lo pinta en #aviso-login / #aviso-registro con la clase
+    .error (rojo) mediante mostrarAviso().
+  - navegador: pestana Network -> Response.
+  - servidor: logs de error de Apache/PHP.
+
+
+------------------------------------------------------------------
+4. LIMPIEZA DE ACCESO A MYSQL (como se prepara todo)
+------------------------------------------------------------------
+- TODAS las consultas con datos de entrada usan prepared statements:
+  $conexion->prepare() + bind_param("i"/"s") + execute() -> evita
+  SQL Injection. Ejemplos: login.php:32, registro.php:41,
+  obtenerUsuarioPorId() (UsuarioService.php:19),
+  anadirCarta() (ColeccionService.php:17),
+  resumenColeccion() (ColeccionService.php:52),
+  ultimasCartas() (ColeccionService.php:134).
+
+- Donde se concatena, se sanea antes:
+    // ColeccionService.php:111-116  solo numeros
+    $ids = array_values(array_unique(array_filter($ids, 'is_numeric')));
+    $lista = implode(",", array_map('intval', $ids)); // no hay peligro
+    ...
+    $n = max(1, min(50, $n));   // LIMIT acotado (lineas 92 y 132)
+
+- $conexion->set_charset('utf8mb4') para tildes y ene
+  (AccesoDatos.php:49).
+- mysqli_report(MYSQLI_REPORT_OFF) + connect_errno -> control
+  manual de errores (AccesoDatos.php:40-46).
+- Salida XSS-safe: escapar() = htmlspecialchars(..., ENT_QUOTES,
+  "UTF-8") (AccesoDatos.php:63-66).
+
+Esquema de las 3 tablas (con claves foraneas):
+  - usuarios: id PK, username UNIQUE, email UNIQUE, password_hash,
+    fecha_registro, ultima_obtencion, carta_prueba.
+  - dinosaurios: id PK, nombre, especie, periodo, imagen_url,
+    altura, largo, peso, hp, vigor, ataque, defensa, agilidad.
+  - colecciones: id PK, usuario_id FK->usuarios,
+    dinosaurio_id FK->dinosaurios, fecha_adquisicion.
+
+
+------------------------------------------------------------------
+5. PROCEDIMIENTOS ALMACENADOS MYSQL (4 en la base de datos)
+------------------------------------------------------------------
+Todos con parametros IN / OUT. El OUT devuelve codigos:
+  0 = OK, valores negativos = error.
+
+1) Login(IN _usuario, IN _password, OUT _res)   [tabla usuarios]
+   IF (_usuario IS NULL OR _usuario = '') THEN SET _res = -1;        -- vacio
+   ELSEIF (_password IS NULL OR _password = '') THEN SET _res = -2;  -- sin clave
+   ELSE
+     SELECT username INTO aux FROM usuarios
+       WHERE (email = _usuario OR username = _usuario)
+         AND password_hash = _password LIMIT 1;
+     IF (aux IS NULL) THEN SET _res = -3;   -- credenciales incorrectas
+     ELSE
+       SET _res = 0;                        -- OK
+       SELECT * FROM usuarios WHERE (email = _usuario OR username = _usuario)
+         AND password_hash = _password;
+     END IF;
+   END IF;
+
+2) Registro(IN _username, IN _email, IN _password, OUT _res)  [usuarios]
+   SELECT username FROM usuarios
+     WHERE username LIKE _username OR email LIKE _email INTO aux;
+   IF (_username LIKE '' OR _email LIKE '') THEN SET _res = -1;  -- vacio
+   ELSEIF (aux IS NOT NULL) THEN SET _res = -2;                  -- ya existe
+   ELSEIF (_password LIKE '') THEN SET _res = -3;                -- sin clave
+   ELSE
+     INSERT INTO usuarios (username, email, password_hash, fecha_registro)
+     VALUES (_username, _email, _password, SYSDATE());
+     SET _res = 0;                                               -- OK
+   END IF;
+
+3) ObtenerColeccion(IN _usuario_id, OUT _res)  [colecciones]
+   SET _res = 0;
+   SELECT dinosaurio_id FROM colecciones
+   WHERE usuario_id = _usuario_id ORDER BY dinosaurio_id ASC;
+
+4) AnadirNuevaCartaAColeccion(IN _usuario_id, IN _carta_id, OUT _res)
+   [colecciones + usuarios]
+   SELECT id INTO u FROM usuarios    WHERE id = _usuario_id;
+   SELECT id INTO d FROM dinosaurios WHERE id = _carta_id;
+   IF u IS NULL THEN SET _res = -1;            -- usuario no existe
+   ELSEIF d IS NULL THEN SET _res = -2;        -- dinosaurio no existe
+   ELSE
+     INSERT INTO colecciones (usuario_id, dinosaurio_id, fecha_adquisicion)
+     VALUES (_usuario_id, _carta_id, SYSDATE());
+     UPDATE usuarios SET ultima_obtencion = SYSDATE() WHERE id = _usuario_id;
+     SET _res = 0;                             -- OK (operacion atomica)
+   END IF;
+
+QUE HE APORTADO / CAMBIADO:
+  - La validacion fuerte (duplicados, existencia de filas, codigos
+    de error en OUT) esta delegada en la BD.
+  - Las 3 tablas implicadas: usuarios (Login, Registro),
+    colecciones (ObtenerColeccion, AnadirNuevaCartaAColeccion) y
+    dinosaurios (consultada para validar).
+  - El procedimiento 4 es atomico: insert + update en una sola
+    operacion dentro de la BD.
+
+NOTA HONESTA PARA EL EXAMEN:
+  En la version actual del PHP, la capa src/ ejecuta esas mismas
+  operaciones con prepared statements en vez de con CALL. Los
+  procedimientos existen en la BD (vienen del proyecto dino-prueba,
+  se ven con SHOW PROCEDURE STATUS WHERE Db='dinocards') y se
+  invocarian con CALL Login(?, ?, @res). El motivo del cambio fue
+  simplificar y unificar los codigos de error en PHP.
+
+
+------------------------------------------------------------------
+6. RESPUESTA DEL PROCESADOR AL FRONTEND (VIAJE DEL DATO)
+------------------------------------------------------------------
+A) LOGIN / REGISTRO (respuesta JSON):
+   formulario -> JS fetch() POST con FormData -> php/login.php ->
+   header("Content-Type: application/json") ->
+   responder() imprime {ok, mensaje} -> JS: await respuesta.json()
+   -> mostrarAviso() en pantalla -> si ok: setTimeout 1000 ms ->
+   window.location.href = "inicio.php".
+
+   responder() (Respuesta.php:21-27) es la salida unica:
+     function responder(bool $ok, string $mensaje, array $extra = []): void {
+       echo json_encode(array_merge(["ok" => $ok, "mensaje" => $mensaje], $extra),
+                        JSON_UNESCAPED_UNICODE);
+       exit;
+     }
+
+B) SOBRES (patron POST -> REDIRECT -> GET):
+   <form method="POST" action="php/cartaDiaria.php"> ->
+   el endpoint comprueba sesion y metodo POST ->
+   segundosRestantes() para ver si toca ->
+   dinosaurioAleatorio() + anadirCarta() + marcarUltimaObtencion() ->
+   guarda el resultado en $_SESSION["sobre_flash"] ->
+   header("Location: ../inicio.php") (el redirect evita que F5
+   reenvie el formulario) ->
+   inicio.php lee y BORRA (unset) el flash y pinta el HTML.
+   (cartaDiaria.php:33-57, inicio.php:20-27)
+
+C) CONTADORES EN FRONT:
+   el boton lleva data-espera (segundos) y data-label ->
+   script.js decrementa cada 1 s con setInterval ->
+   al llegar a 0: clearInterval, habilita el boton y restaura
+   el texto (script.js:364-413).
+
+GESTION DE SESION:
+   $_SESSION["usuario_id"] es el estado compartido; esta_logueado()
+   y pedir_login() protegen cada pagina; menu.php recalcula el
+   badge "Carta diaria" en cada carga.
+
+==================================================================

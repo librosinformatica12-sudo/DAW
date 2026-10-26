@@ -1,19 +1,37 @@
 <?php
+
 // PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio)
+session_start();
 
 // PASO B: Inicializar el array de citas 'lista_citas'en la sesión si no existe aún
+if (!isset($_SESSION["lista_citas"])) {
+    $_SESSION["lista_citas"] = array();
+}
 
 // PASO C: Comprobar si se ha solicitado borrar todas las citas
+if ($_POST["boton-cancelar"] == "borrar"){
+    session_destroy();
+
+}
 
 // PASO D: Si se recibe una nueva cita individual por $_POST, se procesa
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1. Capturamos los datos que viajan en el POST
-    
-    // 2. Acumulamos la nueva cita dentro del array guardado en la SESIÓN
+    if (isset($_POST["paciente"], $_POST["especialidad"], $_POST["fecha_hora"])) {
+        $nueva_cita = [
+            "paciente" => $_POST["paciente"],
+            "especialidad" => $_POST["especialidad"],
+            "fecha_hora" => $_POST["fecha_hora"]
+        ];
 
+        // 2. Acumulamos la nueva cita dentro del array guardado en la SESIÓN
+        $_SESSION["lista_citas"][] = $nueva_cita;
+    }
+}
 
-// Mensaje para mostrar
-$mensaje = "El código de esta página no está completo.";
+    $mensaje = "Cita añadida";
+
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +63,9 @@ $mensaje = "El código de esta página no está completo.";
             <tbody>
                 <?php foreach ($_SESSION['lista_citas'] as $indice => $cita): ?>
                     <tr>
-                        <td><?php echo "algo" ?></td>
-                        <td><?php echo "algo" ?></td>
-                        <td><?php echo "algo" ?></td>
+                        <td><?php echo $cita["paciente"]; ?></td>
+                        <td><?php echo $cita["especialidad"]; ?></td>
+                        <td><?php echo $cita["fecha_hora"]; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -56,8 +74,8 @@ $mensaje = "El código de esta página no está completo.";
 
         <!-- Formulario para vaciar la sesión -->
         <form action="gestionar_citas.php" method="post">
-            <input type="hidden" name="accion" value="borrar_todas">
-            <button type="submit">
+            <input type="hidden" name="accion" value="borrar_citas">
+            <button type="submit" name="boton-cancelar" value="borrar"> 
                 Cancelar todas las citas
             </button>
         </form>

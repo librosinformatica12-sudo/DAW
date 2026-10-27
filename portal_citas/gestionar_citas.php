@@ -9,8 +9,11 @@ if (!isset($_SESSION["lista_citas"])) {
 }
 
 // PASO C: Comprobar si se ha solicitado borrar todas las citas
-if ($_POST["boton-cancelar"] == "borrar"){
-    session_destroy();
+if ($_POST ["accion"] ===  "borrar_citas") {
+    // borrar todas las citas de la sesion
+    ($_SESSION["lista_citas"] = array());
+    // mensaje para mostrar
+    $mensaje ="Todas las cietas han sido canceladas.";
 
 }
 

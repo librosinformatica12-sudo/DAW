@@ -28,5 +28,5 @@ echo Subiendo a origin/main...
 git push origin main
 
 echo.
-echo ¡Sincronizacion completada!
+echo ¡Ajuste completada!
 pause

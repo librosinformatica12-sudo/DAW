@@ -1,7 +1,13 @@
 body {
-    background-color: aquamarine;
+    background-color: rgb(21, 255, 177);
 }
 
 .panel {
-    border: 1px;
+    border: 1px solid #ddfff0ff;
+    background-color: blueviolet
+}
+
+.tablero{
+    border: 2px solid #000000;
+    margin: 0.25px;
 }

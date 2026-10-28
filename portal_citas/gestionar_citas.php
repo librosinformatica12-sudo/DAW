@@ -5,24 +5,22 @@ session_start();
 
 // PASO B: Inicializar el array de citas 'lista_citas'en la sesión si no existe aún
 if (!isset($_SESSION["lista_citas"])) {
-    $_SESSION["lista_citas"] = array();
-}
-
-// PASO C: Comprobar si se ha solicitado borrar todas las citas
-if ($_POST ["accion"] ===  "borrar_citas") {
-    // borrar todas las citas de la sesion
-    unset($_SESSION["lista_citas"]);
     $_SESSION["lista_citas"] = [];
-    // mensaje para mostrar
-    $mensaje ="Todas las cietas han sido canceladas.";
-
 }
-
-// PASO D: Si se recibe una nueva cita individual por $_POST, se procesa
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // 1. Capturamos los datos que viajan en el POST
-    if (isset($_POST["paciente"], $_POST["especialidad"], $_POST["fecha_hora"])) {
+    // PASO C: Comprobar si se ha solicitado borrar todas las citas
+    if (isset($_POST["accion"]) && $_POST["accion"] === "borrar_citas") {
+        // borrar todas las citas de la sesion
+        unset($_SESSION["lista_citas"]);
+        $_SESSION["lista_citas"] = [];
+        // mensaje para mostrar
+        $mensaje = "Todas las citas han sido canceladas.";
+    
+
+        // PASO D: Si se recibe una nueva cita individual por $_POST, se procesa
+        // 1. Capturamos los datos que viajan en el POST
+    } elseif (isset($_POST["paciente"], $_POST["especialidad"], $_POST["fecha_hora"])) {
         $nueva_cita = [
             "paciente" => $_POST["paciente"],
             "especialidad" => $_POST["especialidad"],
@@ -31,10 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // 2. Acumulamos la nueva cita dentro del array guardado en la SESIÓN
         $_SESSION["lista_citas"][] = $nueva_cita;
+
+        $mensaje = "Cita añadida";
     }
 }
 
-    $mensaje = "Cita añadida";
 
 ?>
 

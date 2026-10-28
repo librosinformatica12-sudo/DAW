@@ -20,8 +20,8 @@ let P;
 let Q;
 
 // Primer arranque
-panelConfigurador.style.display = "block";
-panelSimulador.style.display = "none";
+panelConfigurador.style.display = "";
+panelSimulador.style.display = "";
 
 // funcion donde depende de lo q ponga el cliente se hace la tabla
 function pintarTablero(){

@@ -8,9 +8,9 @@ echo Añadiendo cambios...
 git add .
 
 echo.
-set /p COMMIT_MSG="Mensaje del commit (pulsa Enter para usar uno automático): "
+set /p COMMIT_MSG="Mensaje del commit (pulsa Enter para usar uno automatico): "
 if "%COMMIT_MSG%"=="" (
-    set COMMIT_MSG=Actualización %DATE% %TIME%
+    set COMMIT_MSG=Actualizacion %DATE% %TIME%
 )
 
 echo.
@@ -28,5 +28,5 @@ echo Subiendo a origin/main...
 git push origin main
 
 echo.
-echo ¡Sincronización completada!
+echo ¡Sincronizacion completada!
 pause

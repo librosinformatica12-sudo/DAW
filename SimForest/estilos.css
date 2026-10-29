@@ -1,5 +1,6 @@
 body {
     background-color: rgb(21, 255, 177);
+    background-image: url();
 }
 
 .panel {
@@ -8,18 +9,14 @@ body {
 }
 
 .tablero {
-    width: 500px;
-    height: 500px;
     border-collapse: collapse; /* Une los bordes de las celdas en una sola línea */
+    border: 2px soild #000;
 }
 
-
-.tablero td {
-    width: 50%;
-    height: 50%;
-    border: 2px soild #333;
-    text-align: center;
-    font-size: 2rem;
+td {
+    width: 15px;
+    height: 15px;
+    padding: 0;
 }
 
 .vacio { background-color: #8b5a2b; }

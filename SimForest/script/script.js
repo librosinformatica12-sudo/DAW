@@ -40,9 +40,9 @@ function pintarTablero(){
     let tablaDOM = document.createElement("table");
     tablaDOM.setAttribute("class", "tablero");
 
-    for(let i = 0; i < M; i++){
+    for(let i = 0; i < N; i++){
         let filaDOM = document.createElement("tr");
-        for(let j = 0; j < N; j++){
+        for(let j = 0; j < M; j++){
             let celdaDOM = document.createElement("td");
             celdaDOM.setAttribute("class", CLASES[bosque[i][j]]);
             filaDOM.appendChild(celdaDOM);

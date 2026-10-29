@@ -8,6 +8,20 @@ body {
 }
 
 .tablero{
-    border: 2px solid #000000;
-    margin: 0.25px;
+    width: 50%;
+    height: 5%;
+    border-collapse: collapse; /* Une los bordes de las celdas en una sola línea */
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+
+td {
+    width: 5;
+    height: 5;
+}
+
+.vacio { background-color: #8b5a2b; }
+.arbol { background-color: #2e8b57; }
+.fuego { background-color: #ff4500; }

@@ -1,6 +1,6 @@
 // Variables Vista
 const panelConfigurador = document.getElementById("panel-configurador")
-const panelSimulador = document.getElementById("cabezera")
+const panelSimulador = document.getElementById("panel-simulador")
 
 const tableroDOM = document.getElementById("tablero")
 const tableroDIV = document.getElementById("tablero")
@@ -19,38 +19,49 @@ let N;
 let P;
 let Q;
 
+// Constantes del modelo
+const VACIO = 0;
+const ARBOL = 1;
+const FUEGO = 2;
+
+const CLASES = ["vacio", "arbol", "fuego"];
+
+let bosque;
+
 // Primer arranque
 panelConfigurador.style.display = "";
-panelSimulador.style.display = "";
+panelSimulador.style.display = "none";
 
 // funcion donde depende de lo q ponga el cliente se hace la tabla
 function pintarTablero(){
+    // Limpiamos el tablero por si se pulsa "Iniciar" más de una vez
+    tableroDIV.innerHTML = "";
+
     let tablaDOM = document.createElement("table");
-    tableroDOM.setAttribute("class","tablero")
+    tablaDOM.setAttribute("class", "tablero");
 
     for(let i = 0; i < M; i++){
         let filaDOM = document.createElement("tr");
         for(let j = 0; j < N; j++){
             let celdaDOM = document.createElement("td");
-            filaDOM
+            celdaDOM.setAttribute("class", CLASES[bosque[i][j]]);
+            filaDOM.appendChild(celdaDOM);
         }
+        tablaDOM.appendChild(filaDOM);
     }
 
-
-
-    tableroDIV.appendChild(tablaDOM)
-
+    tableroDIV.appendChild(tablaDOM);
 }
 
 function prepararTablero() {
     // Variables modelo
-    M = parseInt(contenedorM.value);
-    N = parseInt(contenedorN.value);
-    P = parseFloat(contenedorP.value);
-    Q = parseFloat(contenedorQ.value);
+    M = parseInt(anchura_bosque.value);
+    N = parseInt(altura_bosque.value);
+    P = parseFloat(probabilidad_arbol.value);
+    Q = parseFloat(probabilidad_indencio.value);
 
     panelConfigurador.style.display = "none";
-    panelsimulador.style.display = "block";
+    panelSimulador.style.display = "";
 
     // construccion tablero
     bosque = new Array(M);
@@ -58,13 +69,14 @@ function prepararTablero() {
         bosque[i] = new Array(N);
     }
 
-    // Inicializamos el bosque con todas las casiilas
+    // Inicializamos el bosque con todas las casillas
     for (let i = 0; i < M; i++) {
-
+        for (let j = 0; j < N; j++){
+            bosque[i][j] = (Math.random() < P) ? ARBOL : VACIO;
+        }
     }
 
-
-    
+    pintarTablero();
 }
 
-btn_iniciar.addEventListener("click", (prepararTablero));
+btn_iniciar.addEventListener("click", prepararTablero);

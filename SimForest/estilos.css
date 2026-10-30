@@ -9,12 +9,10 @@ body{
 
 }
 #Bienvenidos{
+    color: black;
     background-position: center;
 }
 
-#Bienvenidos h1{
-    color: black;
-}
 .panel {
     border: 1px solid #ddfff0ff;
     background-color: blueviolet
@@ -34,6 +32,18 @@ body{
     height: 20px;
     line-height: 1.6;
     margin-bottom: 24px;
+}
+
+
+#panel-configurador{
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 300px;
+    font-family: sans-serif;
+    color: #333333;
+    box-sizing: border-box;
 }
 
 

@@ -8,8 +8,12 @@
     <script src="script/script.js" defer></script></head>
 <body>
     <div id="cabezera">
-        <h1>Sim Forest</h1>
-        <p>Bienvenidos a Sim Forest</p>
+        <div id="Bienvenidos">
+
+            <h1>Sim Forest</h1>
+            <p>Bienvenidos a Sim Forest</p>
+
+        </div>
 
         <div id="panel-simulador">
             <div id="tablero">
@@ -43,6 +47,10 @@
         <span>Probabilidad de nacimiento de árbol</span>
         <div>
             <input type="number" id="spin_probabilidad_arbol" placeholder="P (Probabilidad crear arbol)">
+        </div>
+        <br>
+        <span>Probabilidad incendio</span>
+        <div>
             <input type="number" id="spin_probabilidad_incendio" placeholder="Q (Probabilidad incendio)">
         </div>
         
@@ -51,7 +59,7 @@
     <button id="btn_tabla">Iniciarr</button>
 
     <div id="panel-controles">
-        <br>
+        <button id="btn-atrasar" title="Atrasar">⏪</button>
         <button id="btn-parar" title="Parar">&#9632;</button>
         <button id="btn-seguir" title="Seguir">&#9658;</button>
         <button id="btn-adelantar" title="Adelantar">&#9193;</button>

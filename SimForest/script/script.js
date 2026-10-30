@@ -60,9 +60,6 @@ function prepararTablero() {
     P = parseFloat(probabilidad_arbol.value);
     Q = parseFloat(probabilidad_indencio.value);
 
-    panelConfigurador.style.display = "none";
-    panelSimulador.style.display = "";
-
     // construccion tablero
     bosque = new Array(M);
     for(let i = 0; i < M; i++){
@@ -72,9 +69,12 @@ function prepararTablero() {
     // Inicializamos el bosque con todas las casillas
     for (let i = 0; i < M; i++) {
         for (let j = 0; j < N; j++){
-            bosque[i][j] = (Math.random() < P) ? ARBOL : VACIO;
+            bosque[i][j] = 1;  //(Math.random() < P) ? ARBOL : VACIO;
         }
     }
+
+    panelConfigurador.style.display = "none";
+    panelSimulador.style.display = "";
 
     pintarTablero();
 }

@@ -1,23 +1,42 @@
-body {
-    background-color: rgb(21, 255, 177);
-    /* background-image: url(foto\ fondo.jpg); */
+body{
+    background-image: url(foto\ fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    color: white;
+    margin: 0;
+
+}
+#Bienvenidos{
+    background-position: center;
 }
 
+#Bienvenidos h1{
+    color: black;
+}
 .panel {
     border: 1px solid #ddfff0ff;
     background-color: blueviolet
 }
 
 .tablero tr td{
+    border: 1px soild #000;
     width: 30px;
     height: 30px;
+    max-width: 800px;
     border-collapse: collapse; /* Une los bordes de las celdas en una sola línea */
-    border: 1px soild #000;
+    flex-direction: column;
+}
+
+.btn-parar{
+    width: 20px;
+    height: 20px;
+    line-height: 1.6;
+    margin-bottom: 24px;
 }
 
 
-
-
-.vacio { background-color: #8b5a2b; }
+.vacio { background-color: #fffffe; }
 .arbol { background-color: #2e8b57; }
 .fuego { background-color: #ff4500; }

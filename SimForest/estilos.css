@@ -1,6 +1,6 @@
 body {
     background-color: rgb(21, 255, 177);
-    background-image: url(foto\ fondo.jpg);
+    /* background-image: url(foto\ fondo.jpg); */
 }
 
 .panel {
@@ -8,16 +8,15 @@ body {
     background-color: blueviolet
 }
 
-.tablero {
+.tablero tr td{
+    width: 30px;
+    height: 30px;
     border-collapse: collapse; /* Une los bordes de las celdas en una sola línea */
-    border: 2px soild #000;
+    border: 1px soild #000;
 }
 
-td {
-    width: 15px;
-    height: 15px;
-    padding: 0;
-}
+
+
 
 .vacio { background-color: #8b5a2b; }
 .arbol { background-color: #2e8b57; }

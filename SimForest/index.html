@@ -8,8 +8,12 @@
     <script src="script/script.js" defer></script></head>
 <body>
     <div id="cabezera">
-        <h1>Sim Forest</h1>
-        <p>Bienvenidos a Sim Forest</p>
+        <div id="Bienvenidos">
+
+            <h1>Sim Forest</h1>
+            <p>Bienvenidos a Sim Forest</p>
+
+        </div>
 
         <div id="panel-simulador">
             <div id="tablero">
@@ -20,32 +24,41 @@
 
             </div>
 
-            <div id="panel_estadisticas"
+            <div id="panel_estadisticas">
+
+            </div>
         </div>
         
     </div>
 
     <div id="panel-configurador">
         <h2>Configuracion</h2>
+
         <span>Anchura del bosque M:</span>
-        
         <div> 
             <input type="number" id="spin_anchura_bosque" placeholder="M (Anchura del bosque)">
+        </div>
+        <br>
+        <span>Altura del bosque N:</span>
+        <div>
             <input type="number" id="spin_altura_bosque" placeholder="N (Altura del bosque)">
         </div>
         <br>
         <span>Probabilidad de nacimiento de árbol</span>
         <div>
             <input type="number" id="spin_probabilidad_arbol" placeholder="P (Probabilidad crear arbol)">
+        </div>
+        <br>
+        <span>Probabilidad incendio</span>
+        <div>
             <input type="number" id="spin_probabilidad_incendio" placeholder="Q (Probabilidad incendio)">
         </div>
         
     </div>
-    <br>
     <button id="btn_tabla">Iniciarr</button>
 
     <div id="panel-controles">
-        <br>
+        <button id="btn-atrasar" title="Atrasar">⏪</button>
         <button id="btn-parar" title="Parar">&#9632;</button>
         <button id="btn-seguir" title="Seguir">&#9658;</button>
         <button id="btn-adelantar" title="Adelantar">&#9193;</button>

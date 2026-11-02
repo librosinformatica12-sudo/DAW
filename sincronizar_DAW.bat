@@ -1,7 +1,7 @@
 @echo off
 cd /d "%~dp0"
 
-echo === Sincronizando DAW con GitHub ===
+echo === Sincronizando DAW con GitHub (Modo Forzado) ===
 echo.
 
 echo Añadiendo cambios...
@@ -24,9 +24,9 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo Subiendo a origin/main...
-git push origin main
+echo Forzando subida a origin/main (sobrescribiendo remoto)...
+git push origin main --force
 
 echo.
-echo ¡Ajuste completada!
+echo ¡Ajuste completado!
 pause

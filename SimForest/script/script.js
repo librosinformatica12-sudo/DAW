@@ -61,15 +61,15 @@ function prepararTablero() {
     Q = parseFloat(probabilidad_indencio.value);
 
     // construccion tablero
-    bosque = new Array(M);
-    for(let i = 0; i < M; i++){
-        bosque[i] = new Array(N);
+    bosque = new Array(N);
+    for(let i = 0; i < N; i++){
+        bosque[i] = new Array(M);
     }
 
     // Inicializamos el bosque con todas las casillas
-    for (let i = 0; i < M; i++) {
-        for (let j = 0; j < N; j++){
-            bosque[i][j] = 1;  //(Math.random() < P) ? ARBOL : VACIO;
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < M; j++){
+            bosque[i][j] = ARBOL;
         }
     }
 

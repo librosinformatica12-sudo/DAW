@@ -8,6 +8,38 @@
 
     <h2>Solicitud de Cita Médica</h2>
 
+
+    <h2>Alta de doctor</h2>
+    <form action="gestionar_doctores.php" method="post">
+        <!-- Nª Licencia de doctor -->
+        <label for="licencia_doctor">Nª Licencia:</label>
+        <input type="text" id="licencia_doctor" maxlength="8">
+
+        <br>
+
+        <!-- Nombre del doctor -->
+        <label for="nombre_doctor">Nombre del Doctor:</label>
+        <input type="text" id="nombre_doctor" maxlength="50">
+
+        <br>
+
+        <!-- apellido del doctor -->
+        <label for="apellido_doctor">Apellido del Doctor:</label>
+        <input type="text" id="apellido_doctor" maxlength="50">
+
+        <br>
+
+        <button type="submit">Alta doctor</button>                
+
+    </form>
+
+        <br>
+        <br>
+        <br>
+
+
+
+    <!-- alta del paciente -->
     <form action="gestionar_citas.php" method="post">
         <!-- Campo para el nombre del paciente -->
         <label for="paciente">Nombre del Paciente:</label><br>

@@ -15,7 +15,7 @@ function PA_AltaDoctor(string $n_licencia, string $n_nombre, string $n_apellido)
     global $connection;
 
     // Se añadió el '$' a las variables $sql y $stmt
-    $sql = "CALL AltaDoctor(?, ?, ?)"; 
+    $sql = "CALL AltaDoctor(?, ?, ?, @resultado)";
     $stmt = $connection->prepare($sql);
 
     if (!$stmt) {
@@ -36,7 +36,7 @@ function PA_AltaDoctor(string $n_licencia, string $n_nombre, string $n_apellido)
     
     if ($resultadoQuery) {
         $fila = $resultadoQuery->fetch_assoc();
-        return $fila['resultado'] ?? null;
+        return (int)($fila['resultado'] ?? 0);
     }
 
     return null;

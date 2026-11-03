@@ -86,8 +86,8 @@ function prepararTablero() {
 }
 
 function avanzar1(){
-    for(int i; i < M; i++){
-        for(int j; j < N; j++){
+    for(let i; i < M; i++){
+        for(let j; j < N; j++){
 
             // si el estado es fertil
                 // calculo la probabilidad (p) de nacimiento de arbol
@@ -102,6 +102,13 @@ function avanzar1(){
                 // bosque[i][j]= infertil
         }
     }
+    // machacar el bosque actual con los resultados del bosque futuro
+    // bosque actual <---- bosque_futuro
     t++;
+
+
+    tableroDIV.removeChild(tableroDOM);
+    // pintarTablero()
+
 }
 btn_iniciar.addEventListener("click", prepararTablero);

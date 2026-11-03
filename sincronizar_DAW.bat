@@ -24,8 +24,8 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo Forzando subida a origin/main (sobrescribiendo remoto)...
-git push origin main --force
+echo Forzando subida a daw/main (sobrescribiendo remoto)...
+git push daw main --force
 
 echo.
 echo ¡Ajuste completado!

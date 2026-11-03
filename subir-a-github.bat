@@ -5,7 +5,7 @@ cd /d "%~dp0"
 
 set "BRANCH=main"
 set "FOLDERS=DIV portal_citas SimForest DimForest"
-set "ENLACE_NOMBRE=enlace git.txt"
+set "ENLACE_NOMBRE=enlace proyectos-clase.txt"
 set "URL_FALLBACK=https://github.com/librosinformatica12-sudo/proyectos-clase"
 set "EXITCODE=0"
 
@@ -83,11 +83,20 @@ if not errorlevel 1 (
     goto :limpiar
 )
 
-git ls-files --cached | findstr /i /r /c:"AccesoDatos[.]php" /c:"[.]env$" /c:"[.]key$" /c:"[.]pem$" /c:"[.]p12$" /c:"[.]pfx$" > "%TMPROOT%\sensibles.txt"
-if not errorlevel 1 (
+set "SENSIBLES="
+for /f "delims=" %%F in ('git ls-files --cached') do (
+    set "FN=%%~nxF"
+    if /i "!FN!"=="AccesoDatos.php" set "SENSIBLES=!SENSIBLES!%%F "
+    if /i not "!FN:.env=!"=="!FN!" set "SENSIBLES=!SENSIBLES!%%F "
+    if /i "!FN:~-4!"==".key" set "SENSIBLES=!SENSIBLES!%%F "
+    if /i "!FN:~-4!"==".pem" set "SENSIBLES=!SENSIBLES!%%F "
+    if /i "!FN:~-4!"==".p12" set "SENSIBLES=!SENSIBLES!%%F "
+    if /i "!FN:~-4!"==".pfx" set "SENSIBLES=!SENSIBLES!%%F "
+)
+if defined SENSIBLES (
     echo.
     echo [ERROR] Se han encontrado archivos sensibles en las carpetas:
-    type "%TMPROOT%\sensibles.txt"
+    echo !SENSIBLES!
     echo.
     echo Eliminalos o renombralos antes de volver a subir.
     goto :error
@@ -95,9 +104,11 @@ if not errorlevel 1 (
 
 set "GITID="
 git config user.name >nul 2>&1
-if errorlevel 1 set "GITID=-c user.name=Subida-automatica -c user.email=subida@local"
+if errorlevel 1 set "GITID=!GITID! -c user.name=Subida-automatica"
+git config user.email >nul 2>&1
+if errorlevel 1 set "GITID=!GITID! -c user.email=subida@local"
 
-git !GITID! commit -m "%MSG%" > "%TMPROOT%\commit.log" 2>&1
+git!GITID! commit -m "%MSG%" > "%TMPROOT%\commit.log" 2>&1
 if errorlevel 1 (
     echo [ERROR] No se pudo crear el commit.
     type "%TMPROOT%\commit.log"
@@ -139,6 +150,14 @@ if defined ARG (
         set "URL=!ARG!"
         goto :url_lista
     )
+    if /i "!ARG:~0,7!"=="file://" (
+        set "URL=!ARG!"
+        goto :url_lista
+    )
+    if /i "!ARG:~0,4!"=="git@" (
+        set "URL=!ARG!"
+        goto :url_lista
+    )
     if exist "!ARG!" (
         set "TXTFILE=!ARG!"
         goto :leer_txt
@@ -159,7 +178,7 @@ goto :url_fallback
 :url_fallback
 if defined URL_FALLBACK (
     set "URL=!URL_FALLBACK!"
-    echo [AVISO] No se encontro "%ENLACE_NOMBRE%". Se usara el enlace guardado:
+    echo [AVISO] No se encontro "%ENLACE_NOMBRE%". Se usara el repositorio por defecto:
     echo         !URL!
     goto :url_lista
 )

@@ -10,7 +10,13 @@ const altura_bosque = document.getElementById("spin_altura_bosque");
 const probabilidad_arbol = document.getElementById("spin_probabilidad_arbol");
 const probabilidad_indencio = document.getElementById("spin_probabilidad_incendio");
 
-const btn_iniciar = document.getElementById("btn_tabla")
+const btn_iniciar = document.getElementById("btn_tabla");
+
+const btn_atrasar = document.getElementById("btn-atrasar");
+const btn_parar = document.getElementById("btn-parar");
+const btn_seguir = document.getElementById("btn-seguir");
+const btn_adelantar = document.getElementById("btn-adelantar");
+
 
 // Variable Modelo
 
@@ -20,11 +26,11 @@ let P;
 let Q;
 
 // Constantes del modelo
-const VACIO = 0;
+const INFERTIL = 0;
 const ARBOL = 1;
 const FUEGO = 2;
 
-const CLASES = ["vacio", "arbol", "fuego"];
+const CLASES = ["infertil", "arbol", "fuego"];
 
 let bosque;
 
@@ -79,4 +85,23 @@ function prepararTablero() {
     pintarTablero();
 }
 
+function avanzar1(){
+    for(int i; i < M; i++){
+        for(int j; j < N; j++){
+
+            // si el estado es fertil
+                // calculo la probabilidad (p) de nacimiento de arbol
+                // bosque[i][j] =
+                rand(0,1)
+            // sino si el estado = arbol
+                // calcular probabilidad (Q) de combustion
+                // bosque[i][j] = 
+            // sino si el estado = interfil
+                //bosque[i][j]= fertil
+            // sino si el estado = fuego
+                // bosque[i][j]= infertil
+        }
+    }
+    t++;
+}
 btn_iniciar.addEventListener("click", prepararTablero);

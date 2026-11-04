@@ -29,10 +29,11 @@ let Q;
 
 // Constantes del modelo
 const INFERTIL = 0;
-const ARBOL = 1;
-const FUEGO = 2;
+const FERTIL = 1
+const ARBOL = 2;
+const FUEGO = 3;
 
-const CLASES = ["infertil", "arbol", "fuego"];
+const CLASES = ["infertil", "fertil", "arbol", "fuego"];
 
 let bosque;
 
@@ -53,7 +54,7 @@ function pintarTablero(){
         filaDOM.className = "fila";
         for(let j = 0; j < M; j++){
             let celdaDOM = document.createElement("div");
-            celdaDOM.className = "celda" + CLASES[bosque[i][j]];
+            celdaDOM.className = "celda " + CLASES[bosque[i][j]];
             filaDOM.appendChild(celdaDOM);
 
             // if(bosuqe[i][j] == 0)
@@ -107,13 +108,16 @@ function avanzar1(){
 
                 }
             if(bosque[i][j] == 2){
+                bosque_futuro[i][j] = ARBOL;
                 // propagcion del fuego
-                if (bosque[i+1][j] == 3);
+                if (i +1 < M && bosque[i+1][j] == 3);
                     bosque_futuro[i][j] = 3;
-                if (bosque[i+1][j] == 3);
+                if (i +1 < N &&bosque[i+1][j] == 3);
                     bosque_futuro[i][j] = 3;                
-                if (bosque[i+1][j] == 3);
-                    bosque_futuro[i][j] = 3;                
+                if (i +1 < M &&bosque[i+1][j] == 3);
+                    bosque_futuro[i][j] = 3;   
+                if (i +1 < N && bosque[i][j+1] == 3)
+                    bosque_futuro[i][j] = 3;             
 
                 // calcular probabildad Q de combustible
                 if(Math.random() <= Q)
@@ -125,7 +129,7 @@ function avanzar1(){
                 bosque_futuro[i][j] = 0;
         }
     }
-    
+
     for(let i = 0; i < M; j++){
         for(let j = 0;j < N; j++){
             bosque[i][j] = bosque_futuro[i][j];
@@ -140,3 +144,4 @@ function avanzar1(){
 }
 
 btn_iniciar.addEventListener("click", prepararTablero);
+btn_adelantar.addEventListener("click", avanzar1);

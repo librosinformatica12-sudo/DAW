@@ -125,21 +125,30 @@ body {
     margin: 15px 0;
 }
 
-/* Estilo correcto para la tabla del simulador */
-table.tablero, #tablero table {
-    border-collapse: collapse;
-    margin: 0 auto;
+/* Tablero */
+#tablero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
 }
 
-#tablero td {
-    border: 1px solid #000;
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    min-height: 30px;
+.tablero {
+    display: inline-block;
 }
 
-/* Tablero y Celdas */
+.fila {
+    display: flex;            /* celdas en horizontal */
+}
+
+.celda {
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+}
+
+/* Estados */
 .infertil { background-color: #864141; }
-.arbol { background-color: #2e8b57; }
-.fuego { background-color: #ff4500; }
+.arbol    { background-color: #2e8b57; }
+.fuego    { background-color: #ff4500; }

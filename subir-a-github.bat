@@ -69,6 +69,12 @@ for %%D in (!FOLDERLIST!) do (
     )
 )
 
+copy /y "%~f0" "%CLONE%\%~nx0" >nul 2>&1
+if errorlevel 1 (
+    echo [ERROR] No se pudo copiar el propio .bat al repositorio.
+    goto :error
+)
+
 echo [3/4] Preparando el commit...
 git add -A
 if errorlevel 1 (

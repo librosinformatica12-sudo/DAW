@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "./AccesoDatos.php";
+require_once __DIR__ . "/AccesoDatos.php";
 
 
 // PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio)
@@ -9,6 +9,20 @@ session_start();
 // PASO B: Inicializar el array de doctores 'lista_doctores' en la sesión si no existe aún
 if (!isset($_SESSION["lista_doctores"])) {
     $_SESSION["lista_doctores"] = array();
+
+    $doctoresExistentes = PA_ListaDoctores();
+
+    if (is_array($doctoresExistentes)) {
+        // leo de la base de datos los doctores que ya existan y los meto en sesión
+        foreach ($doctoresExistentes as $indice => $doctor) {
+            $nuevo_doctor = [];
+            $nuevo_doctor["licencia_doctor"] = $doctor["id"];
+            $nuevo_doctor["nombre_doctor"] = $doctor["nombre"];
+            $nuevo_doctor["apellido_doctor"] = $doctor["apellido"];
+
+            $_SESSION["lista_doctores"][] = $nuevo_doctor;
+        }
+    }
 }
 
 // PASO D: Si se recibe una nueva alta de doctor se procesa

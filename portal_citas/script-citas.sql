@@ -37,7 +37,7 @@ create procedure AltaDoctor (
 	in n_licencia varchar(50),
     in _nombre_doctor varchar(50),
     in _apellido_doctor varchar(20),
-    on _res int
+	out _res int
 )
 
 begin
@@ -54,8 +54,10 @@ begin
 	else
     -- caso 0
     -- instruccio nuclear
-    insert into doctores(n_licencia,nombre_doctor,apellidos_doctor)
+    insert into doctores(n_licencia, nombre_doctor, apellidos_doctor)
 		values ();
+        
+	end if;
 end $$
 delimiter ;
 

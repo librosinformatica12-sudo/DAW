@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // 2. Acumulamos la nueva cita dentro del array guardado en la SESIÓN
         $_SESSION["lista_citas"][] = $nueva_cita;
 
-                // 3. Mandar a base de datos el nuevo doctor
+        // 3. Mandar a base de datos el nuevo doctor
         $resultado = PA_AltaDoctor(
             $_POST["licencia_doctor"],
             $_POST["nombre_doctor"],
@@ -76,10 +76,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         else{
             $mensaje = "Cita insertada con exito.";
         }
+
+        $mensaje = "Cita añadida";
+
     }
 }
 
-    $mensaje = "Cita añadida";
 
 ?>
 
@@ -115,22 +117,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><?php echo $cita["paciente"]; ?></td>
                         <td><?php echo $cita["especialidad"]; ?></td>
                         <td><?php echo $cita["fecha_hora"]; ?></td>
+
+                        <td>
+                            <formaction="" method="post">
+                                <input type="hidden" name=""
+                                <input type="hidden" name="accion" value"mostrar_zona_edicion">
+                                <button type="submit"></button>
+                            </formaction=>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <br>
-
+        
         <!-- Formulario para vaciar la sesión -->
-        <form action="gestionar_citas.php" method="post">
-            <input type="hidden" name="accion" value="borrar_citas">
-            <button type="submit" name="boton-cancelar" value="borrar"> 
-                Cancelar todas las citas
+        <form action="" method="post" hidden>
+            <input type="hidden" name="accion" value="actualizar_cita">
+            <button type="submit"> 
+                Actualizar cita
             </button>
         </form>
 
-    <?php else: ?>
-        <p>No hay citas agendadas actualmente.</p>
+        <!-- Formulario para vaciar la sesión -->
+        <form action="" method="post" hidden>
+            <input type="hidden" name="accion" value="actualizar_cita">
+            <button type="submit"> 
+                Grabar todas las citas en db
+            </button>
+        </form>
     <?php endif; ?>
 
     <br><hr>

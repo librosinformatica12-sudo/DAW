@@ -33,7 +33,6 @@ function PA_ListaDoctores(){
 
 	$sql = "CALL ListaDoctores()";
 	$stmt = $connection->prepare($sql);
-	$stmt->execute();
 
 	$result = $stmt->get_result();
 	$doctores = $result->fetch_all(MYSQLI_ASSOC);
@@ -58,14 +57,11 @@ function PA_DameDoctor(int $n_licencia){
 		$two = "Error al ejecutar el procedimiento almacenado: " . $error;
 	}
 
-	$doctores = [];
-	if($stmt)
+	$stmt->close();
+    return [];
 }
 
-	function PA_AltaDita(string $nombre_paciente, 
-						string $especialidad, 
-						string $fecha, 
-						string $doctor_asignado ){
+function PA_AltaDita(string $nombre_paciente, string $especialidad, string $fecha, string $doctor_asignado ){
 
 		global $connection;
 
@@ -82,4 +78,4 @@ function PA_DameDoctor(int $n_licencia){
 		$stmt->close();
 
 		$resultado = $connection->query("SELECT @resultado AS resultado");
-	}
+}

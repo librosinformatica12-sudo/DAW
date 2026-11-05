@@ -57,13 +57,33 @@ function pintarTablero(){
             celdaDOM.className = "celda " + CLASES[bosque[i][j]];
             filaDOM.appendChild(celdaDOM);
 
-            // if(bosuqe[i][j] == 0)
-            //     celda
+            let celdaDOM = document.createElement("div");
+
+            if(bosque[i][j] == 0){
+                celdaDOM.className = "celda celdaInfertil";
+                n_infertil++;
+            } else if(bosque[i][j] == 1){
+                celdaDOM.className = "celda celdaFertil";
+                n_fertil++;
+            } else if(bosque[i][j] == 2){
+                celdaDOM.className = "celda celdaArbol";
+                n_arbol++;
+            } else if(bosque[i][j] = 3){
+                celdaDOM.className = "celda celdaFuego";
+                n_fuego++;
+            }
+            
+                
         }
         tablaDOM.appendChild(filaDOM);
+        document.getElementById("n_infertil").innerText = n_infertil;
+        document.getElementById("n_fertil").innerText = n_fertil;
+        document.getElementById("n_arbol").innerText = n_arbol;
+        document.getElementById("n_fuego").innerText = n_fuego;
     }
 
     tableroDIV.appendChild(tablaDOM);
+
 }
 
 function prepararTablero() {
@@ -82,9 +102,12 @@ function prepararTablero() {
     // Inicializamos el bosque con todas las casillas
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < M; j++){
-            bosque[i][j] = ARBOL;
+            bosque[i][j] = 1;
+            n_fertil = N*M;
         }
     }
+    // preparar a vacio el bosque futuro
+    bosque_futuro = new Array(M)
 
     panelConfigurador.style.display = "none";
     panelSimulador.style.display = "";

@@ -12,7 +12,7 @@ html, body {
 
 /* Fondo y centrado principal */
 body {
-    background-image: url('foto-fondo.jpg'); /* renombra el archivo sin espacio */
+    background-image: url('foto\ fondo.jpg'); /* renombra el archivo sin espacio */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -130,6 +130,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 4px;
     border-radius: 6px;
+    font-size: 24px;
 }
 
 .fila {
@@ -137,8 +138,8 @@ body {
 }
 
 .celda {
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     flex-shrink: 0;           /* evita que las celdas se aplasten */
     border: 1px solid rgba(0, 0, 0, 0.25);
     box-sizing: border-box;

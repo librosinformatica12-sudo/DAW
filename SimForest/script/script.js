@@ -17,11 +17,31 @@ const btn_parar = document.getElementById("btn-parar");
 const btn_seguir = document.getElementById("btn-seguir");
 const btn_adelantar = document.getElementById("btn-adelantar");
 
+/*
 
+btn_atrasar.addEventListener("click", playSimulacion);
+btn_stop.addEventListener("click", stopSimulacion);
+btn_acelerar.addEventListener("click", acelerar);
+btn_parar.addEventListener("click", frenar);
 
+// temporizadores
+function playSimulacion(){
+    timer = setInterval(avanzar1, velocidad);
+}
+function stopSimulacion(){
+    clearInterval(timer);
+}
+function acelerar(){
+    if(velocidad > 0)
+        velocidad-=1000
+}
+function frenar(){
+
+}
+
+*/
 
 // Variable Modelos
-
 let M;
 let N;
 let P;
@@ -68,7 +88,7 @@ function pintarTablero(){
             } else if(bosque[i][j] == 2){
                 celdaDOM.className = "celda celdaArbol";
                 n_arbol++;
-            } else if(bosque[i][j] = 3){
+            } else if(bosque[i][j] == 3){
                 celdaDOM.className = "celda celdaFuego";
                 n_fuego++;
             }

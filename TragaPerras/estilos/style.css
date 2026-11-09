@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo y centrado principal */
+body {
+    background-image: url(../src/img/foto1.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    min-height: 100vh;
+    color: white;
+    padding: 20px;
+}
+
+#Bienvenidos {
+    color: #FFE06D;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+/* Botón Tirar */
+.btn_tirar{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 57px;
+    padding: 15px 36px;
+    font-family: 'Trebuchet MS';
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    color: #000000;
+    background: #fae748;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #000000;
+    color: #ffffff;
+    transform: translateY(-3px) scale(1.03);
+}
+
+.button:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 3px;
+}
+
+.button:active {
+    transform: scale(0.96);
+}

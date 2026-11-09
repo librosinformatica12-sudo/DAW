@@ -17,30 +17,6 @@ const btn_parar = document.getElementById("btn-parar");
 const btn_seguir = document.getElementById("btn-seguir");
 const btn_adelantar = document.getElementById("btn-adelantar");
 
-/*
-
-btn_atrasar.addEventListener("click", playSimulacion);
-btn_stop.addEventListener("click", stopSimulacion);
-btn_acelerar.addEventListener("click", acelerar);
-btn_parar.addEventListener("click", frenar);
-
-// temporizadores
-function playSimulacion(){
-    timer = setInterval(avanzar1, velocidad);
-}
-function stopSimulacion(){
-    clearInterval(timer);
-}
-function acelerar(){
-    if(velocidad > 0)
-        velocidad-=1000
-}
-function frenar(){
-
-}
-
-*/
-
 // Variable Modelos
 let M;
 let N;
@@ -56,6 +32,11 @@ const FUEGO = 3;
 const CLASES = ["infertil", "fertil", "arbol", "fuego"];
 
 let bosque;
+let bosque_futuro;
+
+// variables de velocidad (temporizador)
+let timer = null;
+let velocidad = 1000; // 1000 ms son 1 segundos
 
 // Primer arranque
 panelConfigurador.style.display = "";
@@ -72,38 +53,16 @@ function pintarTablero(){
     for(let i = 0; i < N; i++){
         let filaDOM = document.createElement("div");
         filaDOM.className = "fila";
+
         for(let j = 0; j < M; j++){
             let celdaDOM = document.createElement("div");
             celdaDOM.className = "celda " + CLASES[bosque[i][j]];
             filaDOM.appendChild(celdaDOM);
-
-            let celdaDOM = document.createElement("div");
-
-            if(bosque[i][j] == 0){
-                celdaDOM.className = "celda celdaInfertil";
-                n_infertil++;
-            } else if(bosque[i][j] == 1){
-                celdaDOM.className = "celda celdaFertil";
-                n_fertil++;
-            } else if(bosque[i][j] == 2){
-                celdaDOM.className = "celda celdaArbol";
-                n_arbol++;
-            } else if(bosque[i][j] == 3){
-                celdaDOM.className = "celda celdaFuego";
-                n_fuego++;
-            }
-            
-                
         }
         tablaDOM.appendChild(filaDOM);
-        document.getElementById("n_infertil").innerText = n_infertil;
-        document.getElementById("n_fertil").innerText = n_fertil;
-        document.getElementById("n_arbol").innerText = n_arbol;
-        document.getElementById("n_fuego").innerText = n_fuego;
     }
 
     tableroDIV.appendChild(tablaDOM);
-
 }
 
 function prepararTablero() {
@@ -123,11 +82,14 @@ function prepararTablero() {
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < M; j++){
             bosque[i][j] = 1;
-            n_fertil = N*M;
         }
     }
-    // preparar a vacio el bosque futuro
-    bosque_futuro = new Array(M)
+
+    // bosque futuro con la misma forma N x M
+    bosque_futuro = new Array(N);
+    for (let i = 0; i < N; i++){
+        bosque_futuro[i] = new Array(M);
+    }
 
     panelConfigurador.style.display = "none";
     panelSimulador.style.display = "";
@@ -135,56 +97,103 @@ function prepararTablero() {
     pintarTablero();
 }
 
-function avanzar1(){
-    for(let i; i < M; i++){
-        for(let j= 0; j < N; j++){
+let t = 0; // contador de pasos (declararlo arriba junto a las demás variables)
 
-            // si el estado = fertil
-            if(bosque[i][j] == j)
-                // calculo la probabilidad (p) de nacimiento de arbol
-                if(Math.random(0,1) <= P)
-                {
+// funccion de avzanzar 
+function avanzar1() {
+    if (!bosque) return;
+
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < M; j++) {
+            const estado = bosque[i][j];
+
+            if (estado === 0) {
+                // infértil -> fértil
+                bosque_futuro[i][j] = 1;
+
+            } else if (estado === 1) {
+                // fértil: con probabilidad P nace un árbol
+                if (Math.random() <= P) {
+                    bosque_futuro[i][j] = 2;
+                } else {
+                    bosque_futuro[i][j] = 1;
+                }
+
+            } else if (estado === 2) {
+                // árbol: ¿algún vecino (4 direcciones) está en fuego?
+                let vecinoEnFuego =
+                    (i > 0     && bosque[i - 1][j] === 3) ||
+                    (i < N - 1 && bosque[i + 1][j] === 3) ||
+                    (j > 0     && bosque[i][j - 1] === 3) ||
+                    (j < M - 1 && bosque[i][j + 1] === 3);
+
+                if (vecinoEnFuego) {
+                    bosque_futuro[i][j] = 3;
+                } else if (Math.random() <= Q) {
+                    // incendio espontáneo con probabilidad Q
+                    bosque_futuro[i][j] = 3;
+                } else {
                     bosque_futuro[i][j] = 2;
                 }
-                else{
-                    bosque_futuro[i][j] = 1;
 
-                }
-            if(bosque[i][j] == 2){
-                bosque_futuro[i][j] = ARBOL;
-                // propagcion del fuego
-                if (i +1 < M && bosque[i+1][j] == 3);
-                    bosque_futuro[i][j] = 3;
-                if (i +1 < N &&bosque[i+1][j] == 3);
-                    bosque_futuro[i][j] = 3;                
-                if (i +1 < M &&bosque[i+1][j] == 3);
-                    bosque_futuro[i][j] = 3;   
-                if (i +1 < N && bosque[i][j+1] == 3)
-                    bosque_futuro[i][j] = 3;             
-
-                // calcular probabildad Q de combustible
-                if(Math.random() <= Q)
-                    bosque_futuro[i][j] = 3
-            }
-            if(bosque[i][j] == 0)
-                bosque_futuro[i][j] = 1;
-            if(bosque[i][j] == 3)
+            } else if (estado === 3) {
+                // fuego -> infértil (ceniza)
                 bosque_futuro[i][j] = 0;
+            }
         }
     }
 
-    for(let i = 0; i < M; j++){
-        for(let j = 0;j < N; j++){
+    // Copiar el futuro al presente
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < M; j++) {
             bosque[i][j] = bosque_futuro[i][j];
         }
     }
+
     t++;
-
-
-    tableroDIV.removeChild(tableroDOM);
     pintarTablero();
+}
 
+// funcion iniciar la simulacion de incendio
+function continuarSimulacion(){
+    if (!bosque) return;
+    if (timer !== null) return;
+    timer = setInterval(avanzar1, velocidad);
+}
+
+// funcion para parar la repetecion
+function pararSimulacion(){
+    clearInterval(timer);   // detiene al repeticion
+    timer = null;
+}
+
+
+function reiniciarTimer(){
+    if (timer !== null){
+        clearInterval(timer);
+        timer = setInterval(avanzar1, velocidad);
+    }
+}
+
+function acelerarSimulacion(){
+    velocidad = Math.max(100, velocidad - 200); // menos ms = mas rapido
+    reiniciarTimer();
+}
+
+function frenarSimulacion(){
+    velocidad = Math.min(3000, velocidad + 200); // mas ms = mas lento
+    reiniciarTimer();
 }
 
 btn_iniciar.addEventListener("click", prepararTablero);
-btn_adelantar.addEventListener("click", avanzar1);
+
+// Avanzar 1 (paso manual)
+document.getElementById("btn-avanzar1").addEventListener("click", avanzar1);
+
+// Play / Pausa
+btn_seguir.addEventListener("click", continuarSimulacion); // ▶
+btn_parar.addEventListener("click", pararSimulacion);      // ■
+
+// Bonus: velocidad
+btn_adelantar.addEventListener("click", acelerarSimulacion); // ⏩ mas rapido
+btn_atrasar.addEventListener("click", frenarSimulacion);     // ⏪ mas lento

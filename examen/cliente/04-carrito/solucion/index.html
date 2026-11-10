@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de compra</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="tienda">
+        <h1>Tienda</h1>
+        <p class="ayuda">Pulsa un producto para añadirlo al carrito.</p>
+
+        <!-- VISTA: productos generados desde JS -->
+        <section id="productos" class="productos"></section>
+
+        <!-- VISTA: carrito -->
+        <section class="carrito">
+            <h2>Tu carrito</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-carrito"></tbody>
+            </table>
+
+            <p id="vacio">El carrito está vacío.</p>
+
+            <div class="pie">
+                <strong>Total: <span id="total">0.00</span> €</strong>
+                <button type="button" id="btn-vaciar" class="secundario">
+                    Vaciar carrito
+                </button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

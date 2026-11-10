@@ -1,0 +1,955 @@
+======================================================================
+ ENUNCIADOS DE EJERCICIOS - PREPARACION EXAMEN
+ PHP + MySQL + JavaScript
+======================================================================
+
+Carpeta de trabajo:
+C:\xampp\htdocs\ejer\examen\examenes
+
+Importante:
+- No trabajes sobre los proyectos originales. Crea cada ejercicio en su carpeta.
+- No uses las bases de datos reales (gestor_conciertos, dinocards, etc.).
+- Cada ejercicio de servidor debe tener su propia base de datos de examen.
+- Cuando tengamos la solucion, se guardara en una carpeta "solucion".
+- Los ejercicios 6 y 9 no estan incluidos porque no los pediste.
+
+Patron de servidor que se repite:
+formulario -> $_POST -> validar -> PA_...() -> CALL procedimiento(?)
+-> parametro OUT -> mensaje -> consultar lista -> pintar tabla.
+
+Patron de cliente que se repite:
+getElementById -> addEventListener -> funcion -> crear/modificar DOM
+-> textContent / classList / localStorage.
+
+
+======================================================================
+ INDICE
+======================================================================
+
+BLOQUE A - SERVIDOR Y BASE DE DATOS
+
+1. CRUD completo de conciertos
+2. Venta de entradas con stock y transaccion
+3. Citas con JOIN, filtros y estados
+4. Biblioteca: prestamos y devoluciones
+5. Informe de ventas y ranking
+7. Busqueda con paginacion
+8. Login con roles y sesiones
+10. Compra de varias entradas en una sola operacion
+
+BLOQUE B - CLIENTE
+
+11. Carrito con totales y descuentos
+12. Lista de tareas con filtros
+13. Buscador de conciertos en vivo
+14. Validacion completa de formulario
+15. Juego de memoria con ranking
+
+
+======================================================================
+ EJERCICIO 1 - CRUD COMPLETO DE CONCIERTOS
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Basado en: proyecto conciertos
+ Base de datos: conciertos_crud_examen
+======================================================================
+
+OBJETIVO
+Crear una aplicacion para dar de alta, listar, buscar, modificar y borrar
+conciertos. Debe funcionar con formularios y procedimientos almacenados.
+
+TABLA OBLIGATORIA
+concierto:
+- id_concierto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre_banda VARCHAR(60) NOT NULL
+- fecha_concierto DATETIME NOT NULL
+- precio DECIMAL(6,2) NOT NULL
+
+PROCEDIMIENTOS OBLIGATORIOS
+- AltaConcierto(IN nombre, IN fecha, IN precio, OUT res)
+- ListaConcierto()
+- BuscaConcierto(IN texto)
+- ActualizaConcierto(IN id, IN nombre, IN fecha, IN precio, OUT res)
+- BorraConcierto(IN id, OUT res)
+
+CODIGOS DE RESULTADO
+ 0 = operacion correcta
+-1 = nombre vacio
+-2 = fecha vacia
+-3 = fecha pasada
+-4 = precio menor o igual que 0
+-5 = el concierto no existe
+-6 = error inesperado
+
+REQUISITOS DE PHP
+- AccesoDatos.php con una funcion PA_... por cada procedimiento.
+- Uso de prepare(), bind_param() y lectura del parametro OUT con SELECT @res.
+- gestionar_conciertos.php debe atender acciones:
+  alta, buscar, modificar y borrar.
+- Validar los datos antes de llamar a MySQL.
+- Mostrar mensajes de exito o error.
+- Mostrar la tabla con todos los conciertos.
+- Para modificar, cargar los datos del concierto en el formulario.
+- Para borrar, pedir confirmacion con JavaScript.
+- Usar htmlspecialchars() al pintar datos.
+- No concatenar datos del usuario dentro del SQL.
+
+PRUEBAS OBLIGATORIAS
+- Alta correcta.
+- Alta con nombre vacio.
+- Alta con fecha pasada.
+- Alta con precio 0.
+- Modificar un concierto existente.
+- Intentar modificar uno que no existe.
+- Borrar un concierto existente.
+- Intentar borrar uno que no existe.
+- Buscar por parte del nombre.
+
+QUE PRACTICAS
+INSERT, UPDATE, DELETE, SELECT, LIKE, validaciones, prepared statements,
+parametros OUT y mensajes de resultado.
+
+
+======================================================================
+ EJERCICIO 2 - VENTA DE ENTRADAS CON STOCK Y TRANSACCION
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Basado en: proyecto conciertos
+ Base de datos: conciertos_ventas_examen
+======================================================================
+
+OBJETIVO
+Vender entradas para un concierto controlando el aforo. No se puede vender
+mas cantidad de la disponible y no debe quedar una venta a medias.
+
+TABLAS OBLIGATORIAS
+concierto:
+- id_concierto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre_banda VARCHAR(60) NOT NULL
+- fecha_concierto DATETIME NOT NULL
+- precio DECIMAL(6,2) NOT NULL
+- aforo INT UNSIGNED NOT NULL
+- entradas_vendidas INT UNSIGNED NOT NULL DEFAULT 0
+
+entrada:
+- id_entrada INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- fk_concierto INT UNSIGNED NOT NULL
+- cantidad INT UNSIGNED NOT NULL
+- total DECIMAL(8,2) NOT NULL
+- fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+- FOREIGN KEY (fk_concierto) REFERENCES concierto(id_concierto)
+
+PROCEDIMIENTO OBLIGATORIO
+ComprarEntradas(
+    IN _id_concierto INT,
+    IN _cantidad INT,
+    OUT _res INT
+)
+
+CODIGOS DE RESULTADO
+ 0 = venta realizada
+-1 = el concierto no existe
+-2 = cantidad menor o igual que 0
+-3 = no hay entradas suficientes
+-4 = el concierto ya ha pasado
+-5 = error inesperado
+
+REQUISITOS DE BASE DE DATOS
+- El procedimiento debe usar START TRANSACTION.
+- Debe leer el concierto con SELECT ... FOR UPDATE para bloquear la fila.
+- Debe comprobar:
+  * que el concierto existe,
+  * que la fecha es futura,
+  * que la cantidad es mayor que 0,
+  * que entradas_vendidas + cantidad no supera el aforo.
+- Si todo esta bien:
+  * insertar la entrada,
+  * actualizar entradas_vendidas,
+  * hacer COMMIT.
+- Si algo falla:
+  * hacer ROLLBACK,
+  * devolver el codigo correspondiente.
+- Controlar errores con un handler de excepciones SQL.
+
+REQUISITOS DE PHP
+- PA_ComprarEntradas(id, cantidad) que devuelve el codigo OUT.
+- PA_ListaConciertos() o PA_ListaConciertosDisponibles().
+- Formulario con un select de conciertos y un campo de cantidad.
+- Mostrar aforo, entradas vendidas y entradas disponibles.
+- Calcular el total de la compra.
+- Mostrar mensaje segun el codigo recibido.
+- Mostrar una tabla con las ventas realizadas.
+
+PRUEBAS OBLIGATORIAS
+- Comprar 1 entrada correctamente.
+- Comprar justo las entradas que quedan.
+- Intentar comprar mas de las disponibles.
+- Comprar en un concierto que no existe.
+- Comprar cantidad 0 o negativa.
+- Comprar para un concierto pasado.
+- Comprobar que despues de un error no se ha insertado ninguna entrada
+  ni se ha modificado el stock.
+
+QUE PRACTICAS
+Transacciones, COMMIT/ROLLBACK, SELECT ... FOR UPDATE, stock, claves
+foraneas, validaciones y lectura de parametros OUT.
+
+
+======================================================================
+ EJERCICIO 3 - CITAS CON JOIN, FILTROS Y ESTADOS
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Basado en: portal_citasV2
+ Base de datos: clinica_ejercicio_examen
+======================================================================
+
+OBJETIVO
+Gestionar citas medicas relacionadas con doctores. El listado debe mostrar
+el nombre y la especialidad del doctor, permitir filtrar y cambiar el estado
+de una cita.
+
+TABLAS OBLIGATORIAS
+doctor:
+- id_doctor INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre VARCHAR(60) NOT NULL
+- especialidad VARCHAR(60) NOT NULL
+
+cita:
+- id_cita INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- fk_doctor INT UNSIGNED NOT NULL
+- paciente VARCHAR(80) NOT NULL
+- fecha_cita DATETIME NOT NULL
+- estado ENUM('pendiente','atendida','cancelada') NOT NULL DEFAULT 'pendiente'
+- FOREIGN KEY (fk_doctor) REFERENCES doctor(id_doctor)
+
+PROCEDIMIENTOS OBLIGATORIOS
+- ListaCitas()
+- ListaCitasPorEspecialidad(IN _especialidad VARCHAR(60))
+- ListaCitasPorEstado(IN _estado VARCHAR(20))
+- ContarCitasPorDoctor()
+- CambiarEstadoCita(IN _id_cita INT, IN _estado VARCHAR(20), OUT _res INT)
+
+CODIGOS DE RESULTADO
+ 0 = estado cambiado
+-1 = la cita no existe
+-2 = estado no valido
+-3 = error inesperado
+
+REQUISITOS DE PHP
+- Listado con INNER JOIN entre cita y doctor.
+- Mostrar paciente, doctor, especialidad, fecha y estado.
+- Filtro por especialidad y por estado.
+- Tabla resumen con el numero de citas por doctor.
+- Botones para marcar una cita como atendida o cancelada.
+- Mensajes de confirmacion y error.
+- Uso de htmlspecialchars().
+- Uso de prepared statements.
+
+REQUISITOS SQL
+- Usar INNER JOIN.
+- Usar WHERE para los filtros.
+- Usar GROUP BY y COUNT para el resumen por doctor.
+- Usar HAVING para mostrar solo doctores con 2 o mas citas.
+- Usar ORDER BY fecha_cita.
+
+PRUEBAS OBLIGATORIAS
+- Ver todas las citas.
+- Filtrar por especialidad.
+- Filtrar por estado.
+- Ver el conteo por doctor.
+- Cambiar una cita a atendida.
+- Cambiar una cita a cancelada.
+- Intentar cambiar una cita que no existe.
+- Intentar poner un estado inventado.
+
+QUE PRACTICAS
+INNER JOIN, WHERE, GROUP BY, HAVING, COUNT, ORDER BY y UPDATE condicional.
+
+
+======================================================================
+ EJERCICIO 4 - BIBLIOTECA: PRESTAMOS Y DEVOLUCIONES
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Basado en: examen/servidor/03-biblioteca
+ Base de datos: biblioteca_ejercicio_examen
+======================================================================
+
+OBJETIVO
+Gestionar libros, socios y prestamos. Al prestar un libro se descuenta stock
+y al devolverlo se recupera. No se puede prestar un libro sin stock.
+
+TABLAS OBLIGATORIAS
+libro:
+- id_libro INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- titulo VARCHAR(100) NOT NULL
+- autor VARCHAR(80) NOT NULL
+- stock INT UNSIGNED NOT NULL
+
+socio:
+- id_socio INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre VARCHAR(80) NOT NULL
+- email VARCHAR(100) NOT NULL UNIQUE
+
+prestamo:
+- id_prestamo INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- fk_libro INT UNSIGNED NOT NULL
+- fk_socio INT UNSIGNED NOT NULL
+- fecha_prestamo DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+- fecha_devolucion DATETIME NULL
+- estado ENUM('prestado','devuelto') NOT NULL DEFAULT 'prestado'
+- FOREIGN KEY (fk_libro) REFERENCES libro(id_libro)
+- FOREIGN KEY (fk_socio) REFERENCES socio(id_socio)
+
+PROCEDIMIENTOS OBLIGATORIOS
+- PrestarLibro(IN _id_libro INT, IN _id_socio INT, OUT _res INT)
+- DevolverLibro(IN _id_prestamo INT, OUT _res INT)
+- ListaPrestamos()
+- ListaLibrosDisponibles()
+
+CODIGOS DE RESULTADO PARA PRESTAR
+ 0 = prestamo realizado
+-1 = el libro no existe
+-2 = el socio no existe
+-3 = no hay stock
+-4 = error inesperado
+
+CODIGOS DE RESULTADO PARA DEVOLVER
+ 0 = devolucion realizada
+-1 = el prestamo no existe
+-2 = el prestamo ya estaba devuelto
+-3 = error inesperado
+
+REQUISITOS DE BASE DE DATOS
+- PrestarLibro debe usar transaccion.
+- Comprobar libro, socio y stock.
+- Insertar el prestamo.
+- Descontar 1 del stock.
+- Hacer COMMIT o ROLLBACK.
+- DevolverLibro debe usar transaccion.
+- Comprobar que el prestamo existe y esta en estado prestado.
+- Cambiar estado a devuelto, poner fecha_devolucion y sumar 1 al stock.
+- Hacer COMMIT o ROLLBACK.
+
+REQUISITOS DE PHP
+- PA_PrestarLibro, PA_DevolverLibro, PA_ListaPrestamos, PA_ListaLibrosDisponibles.
+- Formulario para prestar: select de libro y select de socio.
+- Listado de prestamos con JOIN de libro y socio.
+- Boton para devolver un prestamo activo.
+- Mostrar stock actualizado.
+- Mensajes segun el codigo de resultado.
+- Uso de prepared statements y htmlspecialchars().
+
+PRUEBAS OBLIGATORIAS
+- Prestar un libro con stock.
+- Intentar prestar un libro sin stock.
+- Intentar prestar un libro inexistente.
+- Intentar prestar a un socio inexistente.
+- Devolver un prestamo activo.
+- Intentar devolver dos veces el mismo prestamo.
+- Comprobar que el stock vuelve a su valor.
+
+QUE PRACTICAS
+JOIN de tres tablas, transacciones, UPDATE condicional, stock y claves
+foraneas.
+
+
+======================================================================
+ EJERCICIO 5 - INFORME DE VENTAS Y RANKING
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Basado en: ejercicio 2
+ Base de datos: conciertos_ventas_examen
+======================================================================
+
+OBJETIVO
+Crear una pagina de informes que muestre los conciertos mas vendidos,
+la recaudacion, la ocupacion y un resumen de cada concierto.
+
+TABLAS
+Se reutilizan las del ejercicio 2:
+- concierto
+- entrada
+
+PROCEDIMIENTOS OBLIGATORIOS
+- TopConciertos(IN _limite INT)
+- ResumenConcierto(IN _id_concierto INT, OUT _entradas INT,
+  OUT _recaudacion DECIMAL(10,2), OUT _ocupacion DECIMAL(5,2), OUT _res INT)
+- OcupacionConciertos()
+
+CODIGOS DE RESULTADO
+ 0 = consulta correcta
+-1 = el concierto no existe
+-2 = limite no valido
+-3 = error inesperado
+
+REQUISITOS DEL INFORME
+- Top de conciertos por cantidad de entradas vendidas.
+- Top de conciertos por recaudacion.
+- Recaudacion total de todos los conciertos.
+- Numero total de entradas vendidas.
+- Ocupacion en porcentaje:
+  (entradas_vendidas / aforo) * 100.
+- Mostrar solo conciertos con mas de 5 entradas vendidas usando HAVING.
+- Ordenar de mayor a menor.
+- Limitar el ranking a 5 filas.
+
+REQUISITOS DE PHP
+- PA_TopConciertos, PA_ResumenConcierto, PA_OcupacionConciertos.
+- Pagina de informes con varias tablas.
+- Formulario para consultar un concierto concreto por id.
+- Mostrar los parametros OUT del resumen.
+- Mensajes de error.
+- Uso de htmlspecialchars().
+
+REQUISITOS SQL
+- Usar SUM, COUNT, AVG.
+- Usar INNER JOIN.
+- Usar GROUP BY.
+- Usar HAVING.
+- Usar ORDER BY ... DESC.
+- Usar LIMIT.
+- Se valorara el uso de una subconsulta.
+
+PRUEBAS OBLIGATORIAS
+- Insertar ventas de varios conciertos.
+- Ver el top por entradas.
+- Ver el top por recaudacion.
+- Consultar el resumen de un concierto existente.
+- Consultar un concierto inexistente.
+- Comprobar los porcentajes de ocupacion.
+
+QUE PRACTICAS
+Consultas agregadas, JOIN, GROUP BY, HAVING, subconsultas, LIMIT y
+parametros OUT.
+
+
+======================================================================
+ EJERCICIO 7 - BUSQUEDA CON PAGINACION
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Basado en: ejercicio 1
+ Base de datos: conciertos_crud_examen
+======================================================================
+
+OBJETIVO
+Listar conciertos con buscador por nombre y paginacion. No deben salir todos
+los conciertos de golpe.
+
+PROCEDIMIENTOS OBLIGATORIOS
+- ListaConciertosPaginado(
+    IN _texto VARCHAR(60),
+    IN _desde INT,
+    IN _cantidad INT
+  )
+- CuentaConciertos(IN _texto VARCHAR(60), OUT _total INT)
+
+REQUISITOS
+- La busqueda debe usar LIKE con el texto recibido.
+- El texto puede estar vacio: en ese caso se listan todos.
+- La pagina debe mostrar 5 conciertos por pagina.
+- El usuario puede navegar con enlaces Anterior y Siguiente.
+- Mostrar el numero de pagina y el total de paginas.
+- Mostrar el total de resultados encontrados.
+- Si no hay resultados, mostrar un mensaje.
+- Usar LIMIT y OFFSET.
+- Calcular el total con COUNT(*).
+- No concatenar el texto del usuario directamente en el SQL.
+- Usar prepared statements.
+
+REQUISITOS DE PHP
+- Leer el numero de pagina desde la URL con $_GET['pagina'].
+- Convertir la pagina a entero y controlar valores invalidos.
+- Calcular desde = (pagina - 1) * 5.
+- Llamar a los dos procedimientos.
+- Pintar la tabla y los enlaces de paginacion.
+- Mantener el texto de busqueda en el formulario.
+
+PRUEBAS OBLIGATORIAS
+- Ver la primera pagina.
+- Ver la segunda pagina.
+- Buscar una palabra que exista.
+- Buscar una palabra que no exista.
+- Buscar dejando el campo vacio.
+- Poner pagina=0, pagina=-1 y pagina=999.
+- Comprobar que no se repiten ni se pierden registros.
+
+QUE PRACTICAS
+LIKE, COUNT, LIMIT, OFFSET, paginacion, validacion de enteros y
+prepared statements.
+
+
+======================================================================
+ EJERCICIO 8 - LOGIN CON ROLES Y SESIONES
+ Tipo: Servidor (PHP + MySQL + sesiones)
+ Basado en: dino-prueba y Sakila
+ Base de datos: login_ejercicio_examen
+======================================================================
+
+OBJETIVO
+Crear un registro y un login seguros, con dos roles: admin y usuario.
+El admin puede ver todos los usuarios; el usuario solo ve su perfil.
+
+TABLA OBLIGATORIA
+usuario:
+- id_usuario INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre VARCHAR(60) NOT NULL
+- email VARCHAR(100) NOT NULL UNIQUE
+- password_hash VARCHAR(255) NOT NULL
+- rol ENUM('admin','user') NOT NULL DEFAULT 'user'
+- activo TINYINT(1) NOT NULL DEFAULT 1
+- fecha_alta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+PROCEDIMIENTOS OBLIGATORIOS
+- AltaUsuario(
+    IN _nombre VARCHAR(60),
+    IN _email VARCHAR(100),
+    IN _password_hash VARCHAR(255),
+    IN _rol VARCHAR(10),
+    OUT _res INT
+  )
+- BuscaUsuarioPorEmail(IN _email VARCHAR(100))
+
+CODIGOS DE RESULTADO
+ 0 = registro correcto
+-1 = nombre vacio
+-2 = email vacio o no valido
+-3 = email ya registrado
+-4 = error inesperado
+
+REQUISITOS DE SEGURIDAD
+- No guardar nunca la contrasena en texto plano.
+- En PHP usar password_hash($password, PASSWORD_DEFAULT).
+- En el login usar password_verify($password, $fila['password_hash']).
+- El procedure solo busca el usuario por email; la verificacion de la
+  contrasena se hace en PHP.
+- Usar session_start().
+- Al iniciar sesion, guardar id_usuario, nombre y rol en $_SESSION.
+- Usar session_regenerate_id(true) despues del login.
+- Cerrar sesion con session_destroy() y volver al login.
+- Proteger panel.php: si no hay sesion, redirigir al login.
+- El admin puede ver la lista de usuarios.
+- El usuario normal solo puede ver su propio perfil.
+- Usar prepared statements.
+- Usar htmlspecialchars() al mostrar datos.
+
+PAGINAS MINIMAS
+- registro.php
+- login.php
+- panel.php
+- logout.php
+- usuarios.php (solo admin)
+
+PRUEBAS OBLIGATORIAS
+- Registrar un usuario correctamente.
+- Intentar registrar el mismo email dos veces.
+- Login con contrasena correcta.
+- Login con contrasena incorrecta.
+- Login con usuario inactivo.
+- Entrar a panel.php sin sesion.
+- Entrar como admin y ver usuarios.
+- Entrar como usuario normal e intentar ver usuarios.php.
+- Cerrar sesion y comprobar que ya no se puede entrar al panel.
+
+QUE PRACTICAS
+Sesiones, roles, password_hash, password_verify, redirecciones, permisos,
+prepared statements y validacion de datos.
+
+
+======================================================================
+ EJERCICIO 10 - COMPRA DE VARIAS ENTRADAS EN UNA SOLA OPERACION
+ Tipo: Servidor (PHP + MySQL + transacciones)
+ Basado en: ejercicios 2 y 4
+ Base de datos: carrito_examen
+======================================================================
+
+OBJETIVO
+Crear una compra con varias lineas. Si una linea falla, no se guarda nada
+de la compra. Debe ser todo o nada.
+
+TABLAS OBLIGATORIAS
+concierto:
+- id_concierto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre_banda VARCHAR(60) NOT NULL
+- fecha_concierto DATETIME NOT NULL
+- precio DECIMAL(6,2) NOT NULL
+- aforo INT UNSIGNED NOT NULL
+- entradas_vendidas INT UNSIGNED NOT NULL DEFAULT 0
+
+compra:
+- id_compra INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+- total DECIMAL(10,2) NOT NULL DEFAULT 0
+
+detalle_compra:
+- id_detalle INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- fk_compra INT UNSIGNED NOT NULL
+- fk_concierto INT UNSIGNED NOT NULL
+- cantidad INT UNSIGNED NOT NULL
+- precio_unitario DECIMAL(6,2) NOT NULL
+- FOREIGN KEY (fk_compra) REFERENCES compra(id_compra)
+- FOREIGN KEY (fk_concierto) REFERENCES concierto(id_concierto)
+
+PROCEDIMIENTOS OBLIGATORIOS
+- CrearCompra(OUT _id_compra INT, OUT _res INT)
+- AgregarLineaCompra(
+    IN _id_compra INT,
+    IN _id_concierto INT,
+    IN _cantidad INT,
+    OUT _res INT
+  )
+- CerrarCompra(IN _id_compra INT, OUT _res INT)
+
+CODIGOS DE RESULTADO
+ 0 = operacion correcta
+-1 = la compra no existe
+-2 = el concierto no existe
+-3 = cantidad menor o igual que 0
+-4 = no hay entradas suficientes
+-5 = el concierto ya ha pasado
+-6 = error inesperado
+
+REQUISITOS DE BASE DE DATOS
+- CrearCompra inserta una fila en compra con total 0 y devuelve su id
+  usando LAST_INSERT_ID().
+- AgregarLineaCompra comprueba el concierto, la fecha, la cantidad y el aforo.
+- Si todo esta bien:
+  * inserta en detalle_compra,
+  * suma cantidad a entradas_vendidas,
+  * suma cantidad * precio al total de compra.
+- CerrarCompra comprueba que la compra existe y que tiene lineas.
+- El control de la transaccion se hara en PHP para que la compra completa
+  sea atomica.
+
+REQUISITOS DE PHP
+- PA_CrearCompra, PA_AgregarLineaCompra, PA_CerrarCompra.
+- Iniciar transaccion con $connection->begin_transaction().
+- Crear la compra.
+- Recorrer un array de lineas y llamar a AgregarLineaCompra.
+- Si una linea devuelve un codigo distinto de 0:
+  * hacer rollback,
+  * mostrar el error,
+  * no guardar nada.
+- Si todas las lineas van bien:
+  * cerrar la compra,
+  * hacer commit.
+- Mostrar el total final y el numero de compra.
+- Usar prepared statements.
+
+PRUEBAS OBLIGATORIAS
+- Compra con 2 lineas correctas.
+- Compra con una linea sin stock: no debe guardarse ninguna linea.
+- Compra con un concierto inexistente: rollback.
+- Compra con cantidad 0: rollback.
+- Compra con un concierto pasado: rollback.
+- Comprobar que entradas_vendidas solo cambia si la compra termina bien.
+- Comprobar que no quedan compras vacias.
+
+QUE PRACTICAS
+Transacciones desde PHP, COMMIT/ROLLBACK, LAST_INSERT_ID, compras con
+detalle, stock y validaciones encadenadas.
+
+
+======================================================================
+ EJERCICIO 11 - CARRITO CON TOTALES Y DESCUENTOS
+ Tipo: Cliente (HTML + CSS + JavaScript)
+ Basado en: TragaPerras y ejercicios de arrays
+ Base de datos: no
+======================================================================
+
+OBJETIVO
+Crear un carrito de compra que permita anadir productos, cambiar cantidades,
+eliminar lineas y calcular el total con descuento.
+
+DATOS INICIALES
+Crea un array de al menos 4 productos. Cada producto debe tener:
+- id
+- nombre
+- precio
+- cantidad
+
+FUNCIONALIDAD OBLIGATORIA
+- Mostrar los productos disponibles.
+- Anadir un producto al carrito.
+- Si el producto ya esta en el carrito, aumentar su cantidad.
+- Cambiar la cantidad con botones + y -.
+- No permitir cantidades negativas.
+- Eliminar una linea del carrito.
+- Calcular el subtotal de cada linea.
+- Calcular el subtotal general.
+- Si el subtotal es mayor que 100, aplicar un 10% de descuento.
+- Mostrar descuento y total final.
+- Vaciar el carrito.
+- Guardar el carrito en localStorage.
+- Recuperar el carrito al recargar la pagina.
+
+REQUISITOS TECNICOS
+- Usar arrays y objetos.
+- Usar funciones separadas: anadir, cambiarCantidad, eliminar, calcularTotal,
+  pintarCarrito.
+- Usar addEventListener.
+- Usar textContent para los datos del usuario.
+- Formatear los precios con toFixed(2).
+- No usar frameworks ni librerias.
+
+PRUEBAS OBLIGATORIAS
+- Anadir un producto.
+- Anadir el mismo producto dos veces.
+- Cambiar la cantidad a 0 y comprobar que se elimina o no baja de 0.
+- Eliminar un producto.
+- Superar 100 para ver el descuento.
+- Recargar la pagina y comprobar que se mantiene el carrito.
+- Vaciar el carrito.
+
+QUE PRACTICAS
+Arrays de objetos, reduce, eventos, DOM, render de tablas, totales y
+localStorage.
+
+
+======================================================================
+ EJERCICIO 12 - LISTA DE TAREAS CON FILTROS
+ Tipo: Cliente (HTML + CSS + JavaScript)
+ Basado en: HolaDOM
+ Base de datos: no
+======================================================================
+
+OBJETIVO
+Crear una lista de tareas que permita anadir, editar, borrar, completar y
+filtrar tareas.
+
+FUNCIONALIDAD OBLIGATORIA
+- Campo de texto y boton para anadir tarea.
+- Cada tarea debe tener id, texto y completada.
+- No permitir tareas vacias.
+- Mostrar todas las tareas.
+- Marcar o desmarcar una tarea como completada.
+- Editar el texto de una tarea.
+- Borrar una tarea.
+- Filtrar por: todas, pendientes y completadas.
+- Mostrar el numero total, pendientes y completadas.
+- Guardar las tareas en localStorage.
+- Recuperar las tareas al recargar.
+
+REQUISITOS TECNICOS
+- Usar addEventListener.
+- Crear elementos con createElement.
+- Usar textContent, no innerHTML con datos del usuario.
+- Usar classList para el estilo de tarea completada.
+- Usar dataset para guardar el id de la tarea.
+- Usar funciones separadas: anadirTarea, pintarTareas, borrarTarea,
+  completarTarea, editarTarea, filtrarTareas.
+- No usar frameworks ni librerias.
+
+PRUEBAS OBLIGATORIAS
+- Anadir una tarea.
+- Intentar anadir una tarea vacia.
+- Completar y descompletar una tarea.
+- Editar una tarea.
+- Borrar una tarea.
+- Probar los tres filtros.
+- Recargar y comprobar que se mantienen las tareas.
+
+QUE PRACTICAS
+DOM, eventos, arrays, filtros, edicion, localStorage y render dinamico.
+
+
+======================================================================
+ EJERCICIO 13 - BUSCADOR DE CONCIERTOS EN VIVO
+ Tipo: Cliente (HTML + CSS + JavaScript)
+ Basado en: proyecto conciertos
+ Base de datos: no obligatoria
+======================================================================
+
+OBJETIVO
+Mostrar una lista de conciertos y filtrarla en tiempo real mientras el usuario
+escribe en un buscador.
+
+DATOS INICIALES
+Crea un array con al menos 6 conciertos. Cada concierto debe tener:
+- nombre
+- fecha
+- precio
+- ciudad
+
+FUNCIONALIDAD OBLIGATORIA
+- Mostrar todos los conciertos en una tabla.
+- Campo de busqueda.
+- Al escribir, filtrar por nombre o ciudad.
+- La busqueda no debe distinguir mayusculas y minusculas.
+- Mostrar el numero de resultados.
+- Si no hay resultados, mostrar un mensaje.
+- Boton para limpiar la busqueda.
+- Ordenar por fecha o por precio con un select.
+- Mantener el buscador y el orden al pintar.
+
+REQUISITOS TECNICOS
+- Usar el evento input para buscar.
+- Usar filter, toLowerCase e includes.
+- Usar funciones separadas: filtrarConciertos, ordenarConciertos, pintarTabla.
+- Usar createElement o plantillas con textContent.
+- No usar frameworks ni librerias.
+
+AMPLIACION OPCIONAL (solo si el examen usa AJAX)
+- Crear un archivo PHP que devuelva los conciertos en JSON con json_encode.
+- Cargar los datos con fetch.
+- Al buscar, volver a pedir los datos o filtrar en el cliente.
+
+PRUEBAS OBLIGATORIAS
+- Ver todos los conciertos.
+- Buscar por nombre.
+- Buscar por ciudad.
+- Buscar en mayusculas y minusculas.
+- Buscar algo que no exista.
+- Limpiar la busqueda.
+- Ordenar por fecha y por precio.
+
+QUE PRACTICAS
+Eventos input, arrays, filtros, ordenacion, DOM y, opcionalmente, fetch/JSON.
+
+
+======================================================================
+ EJERCICIO 14 - VALIDACION COMPLETA DE FORMULARIO
+ Tipo: Cliente (HTML + CSS + JavaScript)
+ Basado en: Sakila y formularios del portal
+ Base de datos: no
+======================================================================
+
+OBJETIVO
+Validar un formulario de registro en el navegador antes de enviarlo.
+No debe enviarse si hay errores.
+
+CAMPOS DEL FORMULARIO
+- nombre: obligatorio, entre 3 y 40 caracteres.
+- email: obligatorio y con formato valido.
+- password: obligatorio, minimo 8 caracteres, al menos una letra y un numero.
+- confirmar_password: obligatorio e igual a password.
+- edad: obligatorio, numero entero entre 18 y 99.
+- condiciones: checkbox obligatorio.
+
+FUNCIONALIDAD OBLIGATORIA
+- Validar al enviar el formulario.
+- Validar tambien al salir de cada campo (evento blur).
+- Mostrar un mensaje de error debajo de cada campo.
+- Marcar el campo con una clase de error o de valido.
+- No enviar el formulario si hay errores.
+- Mostrar un mensaje final de exito si todo esta bien.
+- Limpiar los errores cuando el usuario corrige el campo.
+
+REQUISITOS TECNICOS
+- Usar preventDefault para detener el envio.
+- Usar expresiones regulares para el email.
+- Usar funciones separadas: validarNombre, validarEmail, validarPassword,
+  validarConfirmacion, validarEdad, validarCondiciones.
+- Usar classList y textContent.
+- No usar alert para los errores.
+- No usar frameworks ni librerias.
+
+PRUEBAS OBLIGATORIAS
+- Enviar el formulario vacio.
+- Nombre demasiado corto.
+- Email sin @.
+- Password corta.
+- Password sin numeros.
+- Confirmacion distinta.
+- Edad 17 y edad 100.
+- Condiciones sin marcar.
+- Formulario completamente valido.
+
+QUE PRACTICAS
+Validacion de formularios, eventos submit y blur, expresiones regulares,
+DOM, classList y mensajes de error.
+
+
+======================================================================
+ EJERCICIO 15 - JUEGO DE MEMORIA CON RANKING
+ Tipo: Cliente (HTML + CSS + JavaScript)
+ Basado en: TresEnRaya y TragaPerras
+ Base de datos: no
+======================================================================
+
+OBJETIVO
+Crear un juego de memoria con parejas de cartas, temporizador, intentos y
+ranking guardado en localStorage.
+
+FUNCIONALIDAD OBLIGATORIA
+- Tablero con 8 parejas (16 cartas).
+- Las cartas empiezan boca abajo.
+- Al hacer clic, se voltea una carta.
+- Se pueden voltear como maximo dos cartas a la vez.
+- Si las dos cartas coinciden, se quedan descubiertas.
+- Si no coinciden, se vuelven a tapar despues de un segundo.
+- Contar los intentos.
+- Contar el tiempo con setInterval.
+- Detectar cuando se han encontrado todas las parejas.
+- Mostrar mensaje de victoria con intentos y tiempo.
+- Pedir un nombre o iniciales al terminar.
+- Guardar el resultado en localStorage.
+- Mostrar un ranking con los 5 mejores tiempos.
+- Boton para reiniciar la partida.
+- Barajar las cartas al reiniciar.
+
+REQUISITOS TECNICOS
+- Usar arrays y objetos para las cartas.
+- Usar Math.random para barajar.
+- Usar setTimeout para tapar las cartas que no coinciden.
+- Usar setInterval para el temporizador y clearInterval al terminar.
+- Usar addEventListener.
+- Usar funciones separadas: crearTablero, barajar, voltearCarta,
+  comprobarPareja, terminarPartida, guardarRanking, pintarRanking.
+- Guardar el ranking en localStorage como array de objetos.
+- Ordenar el ranking por tiempo ascendente.
+- No usar frameworks ni librerias.
+
+PRUEBAS OBLIGATORIAS
+- Voltear una carta.
+- Voltear dos cartas que no coinciden.
+- Encontrar una pareja.
+- Completar una partida.
+- Comprobar que el tiempo se detiene al terminar.
+- Guardar un resultado.
+- Ver el ranking ordenado.
+- Reiniciar y comprobar que las cartas se barajan.
+- Recargar y comprobar que el ranking se mantiene.
+
+QUE PRACTICAS
+Estado de juego, arrays, random, temporizadores, eventos, DOM,
+localStorage y ordenacion.
+
+
+======================================================================
+ CRITERIOS GENERALES DE CORRECCION
+======================================================================
+
+SERVIDOR
+- La base de datos se crea sin errores.
+- Las tablas tienen las claves primarias y foraneas correctas.
+- Los procedimientos existen y devuelven los codigos pedidos.
+- El PHP usa prepare() y bind_param().
+- El PHP lee bien el parametro OUT.
+- Se validan los datos antes de llamar a MySQL.
+- Se muestran mensajes de exito y error.
+- La tabla se pinta con htmlspecialchars().
+- No se escribe SQL concatenando datos del usuario.
+- Se prueban los casos correctos y los incorrectos.
+
+CLIENTE
+- No hay errores en la consola.
+- Los eventos funcionan.
+- El DOM se actualiza sin recargar.
+- Se validan los datos.
+- Se usa textContent para datos del usuario.
+- Se guarda y recupera el estado cuando se pide.
+- Se prueban los casos limite.
+
+ENTREGA DE CADA EJERCICIO
+Crea una carpeta por ejercicio. Dentro:
+- enunciado.txt (copia de la parte correspondiente)
+- sql/generador.sql (solo servidor)
+- plantilla/ (si quieres intentarlo con huecos)
+- solucion/ (codigo completo y comentado)
+
+CONSEJO PARA EL EXAMEN
+No memorices el codigo entero. Memoriza el orden:
+1. Que datos entran.
+2. Que hay que validar.
+3. Que tabla o procedimiento se usa.
+4. Que codigo devuelve el resultado.
+5. Como se muestra el mensaje.
+6. Como se pinta la lista.
+
+======================================================================
+ FIN DEL DOCUMENTO
+======================================================================

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servidor 01 - Clínica</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio Servidor 01 — Clínica / Citas</h1>
+<p><strong>Enunciado general:</strong> montar un portal con dos tablas (<code>doctores</code> y <code>citas</code>), dar de alta<br>doctores y citas, listar las citas con el nombre del doctor, modificar y borrar.</p>
+<p>Es el mismo patrón que <code>portal_citasV2</code> y que <code>conciertos</code>.</p>
+<p>Solución completa en <code>solucion/</code>. Para probar: importa <code>generador.sql</code>, ajusta <code>AccesoDatos.php</code><br>y abre <code>portal_citas.html</code> desde <code>http://localhost/...</code>.</p>
+<hr>
+<h2>Hueco 1 — Formulario HTML</h2>
+<p>Completa para que el PHP reciba <code>paciente</code>, <code>especialidad</code>, <code>fecha_hora</code> y <code>doctor</code>:</p>
+<pre><code class="lang-html">&lt;form action=&quot;____&quot; method=&quot;____&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;accion&quot; value=&quot;alta&quot;&gt;
+
+    &lt;input type=&quot;text&quot; name=&quot;____&quot; required&gt;
+    &lt;input type=&quot;datetime-local&quot; name=&quot;____&quot; required&gt;
+    &lt;input type=&quot;number&quot; name=&quot;____&quot; required&gt;
+
+    &lt;button type=&quot;submit&quot;&gt;Guardar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-html">&lt;form action=&quot;gestionar_citas.php&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;accion&quot; value=&quot;alta&quot;&gt;
+
+    &lt;input type=&quot;text&quot; name=&quot;paciente&quot; required&gt;
+    &lt;input type=&quot;datetime-local&quot; name=&quot;fecha_hora&quot; required&gt;
+    &lt;input type=&quot;number&quot; name=&quot;doctor&quot; required&gt;
+
+    &lt;button type=&quot;submit&quot;&gt;Guardar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Arranque del PHP</h2>
+<pre><code class="lang-php">require_once __DIR__ . &#039;/____&#039;;
+session_start();
+
+$accion = $_POST[&#039;accion&#039;] ?? &#039;&#039;;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">require_once __DIR__ . &#039;/AccesoDatos.php&#039;;</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Recoger y validar</h2>
+<pre><code class="lang-php">$paciente     = trim($_POST[&#039;paciente&#039;] ?? &#039;&#039;);
+$especialidad = trim($_POST[&#039;especialidad&#039;] ?? &#039;&#039;);
+$fechaEntrada = trim($_POST[&#039;fecha_hora&#039;] ?? &#039;&#039;);
+$doctor       = (int)($_POST[&#039;doctor&#039;] ?? 0);
+
+$fecha = date(&#039;Y-m-d H:i:s&#039;, strtotime($fechaEntrada));
+
+if (/* TODO: paciente vacío */) {
+    $mensaje = &#039;El nombre no puede estar vacío.&#039;;
+} elseif (/* TODO: especialidad no permitida */) {
+    $mensaje = &#039;Especialidad no válida.&#039;;
+} elseif (/* TODO: fecha vacía */) {
+    $mensaje = &#039;La fecha no puede estar vacía.&#039;;
+} else {
+    $res = PA_AltaCita($paciente, $especialidad, $fecha, $doctor);
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">if ($paciente === &#039;&#039;) {
+    ...
+} elseif (!in_array($especialidad, $especialidades, true)) {
+    ...
+} elseif ($fechaEntrada === &#039;&#039;) {</code></pre>
+</details>
+<hr>
+<h2>Hueco 4 — <code>bind_param</code></h2>
+<pre><code class="lang-php">$stmt = $connection-&gt;prepare(&#039;CALL AltaCita(?, ?, ?, ?, @resultado)&#039;);
+$stmt-&gt;bind_param(&#039;____&#039;, $paciente, $especialidad, $fecha, $doctor);</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">$stmt-&gt;bind_param(&#039;sssi&#039;, $paciente, $especialidad, $fecha, $doctor);</code></pre>
+<p><code>sssi</code> = string, string, string, integer (en el mismo orden que los <code>?</code>).</p>
+</details>
+<hr>
+<h2>Hueco 5 — Recoger el OUT</h2>
+<pre><code class="lang-php">$stmt-&gt;execute();
+$stmt-&gt;close();
+
+$resultado = $connection-&gt;query(&#039;SELECT @resultado AS resultado&#039;);
+$fila = $resultado-&gt;fetch_assoc();
+
+return (int)$fila[&#039;____&#039;];</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">return (int)$fila[&#039;resultado&#039;];</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Procedimiento <code>AltaCita</code></h2>
+<pre><code class="lang-sql">CREATE PROCEDURE AltaCita(
+    IN _paciente VARCHAR(50),
+    IN _especialidad VARCHAR(30),
+    IN _fecha DATETIME,
+    IN _doctor INT,
+    OUT _res INT
+)
+BEGIN
+    IF (/* nombre vacío */) THEN
+        SET _res = -1;
+    ELSEIF (/* fecha anterior a hoy */) THEN
+        SET _res = -4;
+    ELSEIF (/* el doctor no existe */) THEN
+        SET _res = -5;
+    ELSE
+        INSERT INTO citas(paciente, especialidad, fecha, fk_doctor)
+        VALUES(_paciente, _especialidad, _fecha, _doctor);
+        SET _res = 0;
+    END IF;
+END</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">IF (_paciente = &#039;&#039; OR _paciente IS NULL) THEN
+    SET _res = -1;
+ELSEIF (_fecha &lt;= NOW()) THEN
+    SET _res = -4;
+ELSEIF NOT EXISTS (SELECT 1 FROM doctores WHERE n_licencia = _doctor) THEN
+    SET _res = -5;
+ELSE
+    INSERT INTO citas(paciente, especialidad, fecha, fk_doctor)
+    VALUES(_paciente, _especialidad, _fecha, _doctor);
+    SET _res = 0;
+END IF;</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 — Pintar la tabla</h2>
+<pre><code class="lang-php">&lt;?php foreach ($citas as $cita): ?&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;____&#039;]) ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;____&#039;]) ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;____&#039;]) ?&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;?php endforeach; ?&gt;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">&lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;id_cita&#039;]) ?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;paciente&#039;]) ?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;especialidad&#039;]) ?&gt;&lt;/td&gt;
+&lt;td&gt;&lt;?= htmlspecialchars($cita[&#039;fecha&#039;]) ?&gt;&lt;/td&gt;</code></pre>
+</details>
+<hr>
+<h2>Hueco 8 — Lista con JOIN</h2>
+<pre><code class="lang-sql">CREATE PROCEDURE ListaCitas()
+BEGIN
+    SELECT c.*, d.nombre AS doctor_nombre
+    FROM citas c
+    /* TODO: unir con doctores por la licencia */
+    ORDER BY c.fecha;
+END</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">JOIN doctores d ON c.fk_doctor = d.n_licencia</code></pre>
+</details>
+<hr>
+<h2>Hueco 9 (reto) — Borrar</h2>
+<p>Completa <code>BorrarCita</code> y su función <code>PA_BorrarCita</code>. Pistas:</p>
+<pre><code class="lang-php">$stmt = $connection-&gt;prepare(&#039;CALL BorrarCita(?, @resultado)&#039;);
+$stmt-&gt;bind_param(&#039;i&#039;, $id);</code></pre>
+<pre><code class="lang-sql">IF NOT EXISTS (SELECT 1 FROM citas WHERE id_cita = _id) THEN
+    SET _res = -1;
+ELSE
+    DELETE FROM citas WHERE id_cita = _id;
+    SET _res = 0;
+END IF;</code></pre>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Por qué <code>session_start()</code> va antes del HTML?</strong> Porque las cabeceras deben enviarse antes de cualquier salida.</li>
+<li><strong>¿Qué hace <code>htmlspecialchars</code>?</strong> Convierte <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, comillas... en entidades y evita XSS.</li>
+<li><strong>¿Qué letra de <code>bind_param</code> usarías para el precio?</strong> <code>d</code> (double/decimal).</li>
+<li><strong>¿Qué pasa si el <code>OUT</code> devuelve <code>null</code>?</strong> <code>(int)null</code> es <code>0</code>, por eso conviene comprobar que el procedure asigna siempre <code>_res</code>.</li>
+<li><strong>¿Por qué no se puede pasar <code>&#039;&#039;</code> a un <code>DATETIME</code>?</strong> Porque MySQL lo rechaza en modo estricto. Se valida antes en PHP.</li>
+<li><strong>¿Diferencia entre <code>require</code> y <code>require_once</code>?</strong> <code>require_once</code> no vuelve a cargar el archivo si ya se cargó; evita errores de funciones duplicadas.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

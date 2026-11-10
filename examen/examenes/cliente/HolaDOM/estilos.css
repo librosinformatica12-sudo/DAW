@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 32px 16px;
+  background: #f3f6fb;
+  color: #202b3c;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.contenedor {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.etiqueta {
+  margin-bottom: 4px;
+  color: #5268c5;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: 2.5rem;
+}
+
+.introduccion {
+  max-width: 650px;
+  margin-bottom: 28px;
+  color: #536174;
+}
+
+.ejemplos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta {
+  padding: 20px;
+  border: 2px solid #dce3ee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.tarjeta h2 {
+  margin-bottom: 8px;
+  font-size: 1.15rem;
+}
+
+.tarjeta p {
+  color: #536174;
+}
+
+button {
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: #5268c5;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+button:hover {
+  background: #3e51a4;
+}
+
+button:focus-visible {
+  outline: 3px solid #aab6f0;
+  outline-offset: 2px;
+}
+
+.resaltado {
+  padding: 4px;
+  border-radius: 4px;
+  background: #fff0b8;
+}
+
+footer {
+  margin-top: 24px;
+  color: #536174;
+}

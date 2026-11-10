@@ -1,0 +1,51 @@
+﻿EXPLICACION PASO A PASO: ?enlazar=1 (dinopedia.php)
+===================================================
+
+Visita: dinopedia.php?enlazar=1 → ejecuta enlazarFotos()
+
+1) CONFIGURACION
+   - dirRel = 'img/img-cartas' (ruta relativa para BD)
+   - dirAbs = __DIR__ . '/img/img-cartas' (ruta física)
+   - permitidas = png,jpg,jpeg,webp,gif,avif,bmp
+
+2) COMPROBAR DIRECTORIO
+   Si no existe → devuelve ok=0, archivos=0, sobrantes=[]
+
+3) LEER ARCHIVOS
+   Recorre scandir(dirAbs). Ignora . y ..
+   - ext = strtolower(pathinfo(f, PATHINFO_EXTENSION))
+   - si válida → añade a archivos[]
+   - base = pathinfo(f, PATHINFO_FILENAME)
+   - porSlug[ slugifyFoto(base) ] = f
+   - si ctype_digit(base) → porId[ (int)base ] = f
+
+Crea dos mapas: porId (clave numérica = id) y porSlug (clave normalizada)
+
+4) slugifyFoto(s)
+   - trim
+   - iconv(UTF-8, ASCII//TRANSLIT//IGNORE) quita acentos
+   - strtolower
+   - reemplaza [^a-z0-9]+ por _
+   - trim _
+
+Ej: 'Tyrannosaurus rex' -> 'tyrannosaurus_rex'
+
+5) RECORRER DINOSAURIOS EN BD
+   SELECT id, nombre, especie ORDER BY id
+   Para cada uno busca fichero con prioridad:
+   1) porId[id]
+   2) porSlug[ slugifyFoto(especie) ]
+   3) porSlug[ slugifyFoto(nombre) ]
+
+Si encuentra:
+   url = dirRel + '/' + rawurlencode(fichero)
+   UPDATE dinosaurios SET imagen_url = url WHERE id = ?
+   marca usado[fichero] = true, ok++
+
+6) SOBRANTES
+   sobrantes = archivos - usados
+
+7) RESULTADO
+   [ok, archivos, sobrantes]
+
+PRIORIDAD: ID exacto > slug especie > slug nombre

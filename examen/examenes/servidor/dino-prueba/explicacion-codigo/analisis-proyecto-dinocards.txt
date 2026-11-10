@@ -1,0 +1,73 @@
+﻿ANÁLISIS COMPLETO DEL PROYECTO DINO CARDS
+==========================================
+
+1. RESUMEN GENERAL
+-----------------
+DinoCards es una aplicación web de coleccionismo de cartas de dinosaurios. Permite registrarse, iniciar sesión, obtener cartas diarias o mediante sobres de prueba, gestionar su colección y consultar el catálogo completo (DinoPedia).
+
+- Frontend: HTML, CSS, JavaScript (módulos ES6) con fetch para consumir la API.
+- Backend: PHP 8 + MySQL (mysqli con sentencias preparadas).
+- Base de datos: Usa procedimientos almacenados (SP) para login, registro, añadir cartas y obtener colección.
+- Arquitectura: Separación clara entre capa de datos (src/), endpoints API (php/), vistas, estilos y JS.
+
+2. ESTRUCTURA DE CARPETAS
+-------------------------
+- index.php: Login/registro. Redirige a inicio.php si hay sesión.
+- inicio.php: Panel principal (sobres diario + prueba, resumen, última carta).
+- coleccion.php: Cartas agrupadas, buscador, barra de progreso.
+- dinopedia.php: Catálogo 100. Permite añadir cartas. ?enlazar=1 enlaza imágenes.
+- perfil.php: Perfil, estadísticas, datos, últimas cartas.
+- php/: Endpoints JSON (login, registro, cartaDiaria, abrirSobrePrueba, añadirCarta, logout).
+- src/: Capa de datos (AccesoDatos.php, UsuarioService.php, ColeccionService.php, ReglasColeccion.php).
+- partials/: cabecera.php.
+- script/: script.js, inicio.js, coleccion.js, carrusel.js.
+- styles/: comun.css, paginas.css.
+- img/img-cartas/, img/img-sobres/: Imágenes.
+- doc SQL/: instalar.sql (BD, tablas, datos, 4 SPs).
+- README.md, CHAT-INFO.md: Documentación.
+
+3. BASE DE DATOS
+----------------
+Nombre: dinocards
+
+Tablas:
+- usuarios: id, username, email, password_hash (MD5), fecha_registro, ultima_obtencion, carta_prueba.
+- dinosaurios: id, nombre, especie, periodo, imagen_url, altura, largo, peso, hp, vigor, ataque, defensa, agilidad.
+- colecciones: id, usuario_id, dinosaurio_id, fecha_adquisicion. Permite repetidas.
+
+Procedimientos:
+- Registro(username,email,password,OUT res): 0 OK, -1 vacíos, -2 existe, -3 pass vacío.
+- Login(usuario,password,OUT res): 0 OK, -1/-2 vacío, -3 incorrectos. Devuelve fila si OK.
+- AñadirNuevaCartaAColeccion(usuario_id,carta_id,OUT res): 0 OK, -1 usuario no existe, -2 dino no existe. También actualiza ultima_obtencion = NOW().
+- ObtenerColeccion(usuario_id,OUT res): Lista dinosaurio_id (ASC), incluye repetidas.
+
+4. FUNCIONAMIENTO CLAVE
+------------------------
+- Login/Registro: MD5 para compatibilidad. Sesión con usuario_id y datos.
+- Carta diaria: 1 por día (compara Y-m-d). Usa SP AñadirNuevaCartaAColeccion → marca ultima_obtencion.
+- Sobre prueba: 4 cartas aleatorias. Cooldown 5 min. Usa INSERT directo (no toca ultima_obtencion). Actualiza carta_prueba.
+- Colección: Agrupa con repeticiones, busca por especie/apodo, calcula progreso.
+- DinoPedia: Muestra catálogo. ?id=X añade vía SP (también marca ultima_obtencion). ?enlazar=1 vincula imágenes.
+- Cabecera: Muestra estado carta diaria, navegación activa.
+
+5. PUNTOS FUERTES
+-----------------
+- Buena separación de capas (datos/lógica/vista/API).
+- Uso de SPs, sentencias preparadas (mysqli), htmlspecialchars, regeneración sesión.
+- Arquitectura API + fetch, respuestas JSON.
+- UX cuidada: carrusel, badges repetidas, progreso, búsqueda, responsive.
+- Diferencia clara entre carta diaria (fecha) y sobre prueba (tiempo).
+- ReglasColeccion.php puro (sin BD).
+
+6. PROBLEMAS/POSIBLES MEJORAS
+-----------------------------
+- SP AñadirNuevaCartaAColeccion actualiza siempre ultima_obtencion → añadir desde DinoPedia "consume" carta diaria. Sugerido separar SPs.
+- Seguridad: MD5 obsoleto (usar password_hash/verify + migración). Falta CSRF, rate limiting. Credenciales BD hardcodeadas.
+- API semántica: dinopedia.php usa GET ?id= para modificar estado (mejor POST).
+- Redundancias: cartaDiaria.php llama a marcarUltimaObtencion tras SP (innecesario).
+- DEBUG=true en endpoints (quitar en producción).
+- ORDER BY RAND() aceptable ahora; podría optimizar si crece catálogo.
+
+7. CONCLUSIÓN
+-------------
+Proyecto sólido, bien organizado y funcional. Lo más relevante: comportamiento del SP que actualiza ultima_obtencion al añadir manualmente desde DinoPedia. Fácil de corregir separando procedimientos.

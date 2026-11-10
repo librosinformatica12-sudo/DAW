@@ -1,0 +1,11 @@
+#Tablero {
+    width: 500px;
+    height: 500px;
+    border: black 1px solid;
+}
+
+.celda {
+    width: 200px;
+    height: 200px;
+    background-color: #00ff37;
+}

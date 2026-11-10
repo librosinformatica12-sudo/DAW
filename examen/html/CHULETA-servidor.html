@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chuleta de servidor (PHP + MySQL)</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>CHULETA — SERVIDOR (MySQL + PHP + HTML)</h1>
+<h2>1. El viaje del dato</h2>
+<pre><code>portal.html
+  &lt;form action=&quot;gestionar_x.php&quot; method=&quot;post&quot;&gt;
+        name=&quot;campo&quot;
+          ↓
+gestionar_x.php
+  session_start();
+  require_once __DIR__ . &#039;/AccesoDatos.php&#039;;
+  $_POST[&#039;campo&#039;]  → validar → PA_Alta(...)
+          ↓
+AccesoDatos.php
+  prepare(&#039;CALL Alta(?, ?, @resultado)&#039;)
+  bind_param(&#039;si&#039;, ...)
+  execute()
+  query(&#039;SELECT @resultado AS resultado&#039;)
+          ↓
+MySQL
+  procedure Alta(... OUT _res INT)
+  IF error → SET _res = -1; ELSE INSERT; SET _res = 0;
+          ↓
+gestionar_x.php
+  if ($res === -1) mensaje = &#039;...&#039;;
+  header(&#039;Location: ...&#039;) o pintar tabla</code></pre>
+<h2>2. Formulario HTML</h2>
+<pre><code class="lang-html">&lt;form action=&quot;gestionar_citas.php&quot; method=&quot;post&quot;&gt;
+    &lt;label for=&quot;paciente&quot;&gt;Paciente:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;paciente&quot; name=&quot;paciente&quot; maxlength=&quot;50&quot; required&gt;
+
+    &lt;label for=&quot;fecha&quot;&gt;Fecha:&lt;/label&gt;
+    &lt;input type=&quot;datetime-local&quot; id=&quot;fecha&quot; name=&quot;fecha_hora&quot; required&gt;
+
+    &lt;label for=&quot;precio&quot;&gt;Precio:&lt;/label&gt;
+    &lt;input type=&quot;number&quot; id=&quot;precio&quot; name=&quot;precio&quot; min=&quot;0&quot; step=&quot;0.01&quot;&gt;
+
+    &lt;select name=&quot;especialidad&quot;&gt;
+        &lt;option value=&quot;&quot;&gt;-- Elige --&lt;/option&gt;
+        &lt;option value=&quot;Pediatría&quot;&gt;Pediatría&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;input type=&quot;hidden&quot; name=&quot;accion&quot; value=&quot;alta&quot;&gt;
+    &lt;button type=&quot;submit&quot;&gt;Guardar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p><strong>Truco:</strong> el <code>name</code> del input es la clave que aparece en <code>$_POST[&#039;name&#039;]</code>.</p>
+<h2>3. Recibir y validar en PHP</h2>
+<pre><code class="lang-php">require_once __DIR__ . &#039;/AccesoDatos.php&#039;;
+session_start();
+
+if ($_SERVER[&#039;REQUEST_METHOD&#039;] === &#039;POST&#039;) {
+    $paciente = trim($_POST[&#039;paciente&#039;] ?? &#039;&#039;);
+    $fecha    = trim($_POST[&#039;fecha_hora&#039;] ?? &#039;&#039;);
+    $doctor   = (int)($_POST[&#039;doctor&#039;] ?? 0);
+
+    if ($paciente === &#039;&#039;) {
+        $mensaje = &#039;El nombre no puede estar vacío.&#039;;
+    } elseif ($fecha === &#039;&#039;) {
+        $mensaje = &#039;La fecha no puede estar vacía.&#039;;
+    } else {
+        $resultado = PA_AltaCita($paciente, $fecha, $doctor);
+    }
+}</code></pre>
+<p>Funciones útiles:</p>
+<table>
+<tr><th>Quiero...</th><th>Código</th></tr>
+<tr><td>Saber si llega un campo</td><td><code>isset($_POST[&#039;x&#039;])</code></td></tr>
+<tr><td>Valor por defecto</td><td><code>$_POST[&#039;x&#039;] ?? &#039;&#039;</code></td></tr>
+<tr><td>Quitar espacios</td><td><code>trim($texto)</code></td></tr>
+<tr><td>Convertir a entero</td><td><code>(int)$texto</code></td></tr>
+<tr><td>Comprobar vacío</td><td><code>$texto === &#039;&#039;</code></td></tr>
+<tr><td>Validar email</td><td><code>filter_var($email, FILTER_VALIDATE_EMAIL)</code></td></tr>
+<tr><td>Evitar XSS al imprimir</td><td><code>htmlspecialchars($texto)</code></td></tr>
+<tr><td>Redirigir</td><td><code>header(&#039;Location: portal.html&#039;); exit;</code></td></tr>
+<tr><td>Sesión</td><td><code>session_start(); $_SESSION[&#039;x&#039;] = 1;</code></td></tr>
+</table>
+
+<h2>4. Conexión MySQL (AccesoDatos.php)</h2>
+<pre><code class="lang-php">&lt;?php
+$host = &#039;127.0.0.1&#039;;
+$port = 3306;
+$database = &#039;clinica_examen&#039;;
+$username = &#039;root&#039;;
+$password = &#039;1234&#039;;      // cámbialo si tu MySQL usa otra
+
+mysqli_report(MYSQLI_REPORT_OFF);
+$connection = @new mysqli($host, $username, $password, $database, $port);</code></pre>
+<h2>5. Consulta SELECT con prepared statement</h2>
+<pre><code class="lang-php">function PA_ListaCitas()
+{
+    global $connection;
+
+    $stmt = $connection-&gt;prepare(&#039;CALL ListaCitas()&#039;);
+
+    if (!$stmt-&gt;execute()) {
+        throw new RuntimeException($stmt-&gt;error);
+    }
+
+    $citas = [];
+    $resultado = $stmt-&gt;get_result();
+    while ($fila = $resultado-&gt;fetch_assoc()) {
+        $citas[] = $fila;
+    }
+    $resultado-&gt;free();
+    $stmt-&gt;close();
+
+    return $citas;
+}</code></pre>
+<h2>6. Procedimiento con parámetro OUT</h2>
+<pre><code class="lang-php">function PA_AltaCita(string $paciente, string $fecha, int $doctor)
+{
+    global $connection;
+
+    $stmt = $connection-&gt;prepare(&#039;CALL AltaCita(?, ?, ?, @resultado)&#039;);
+    $stmt-&gt;bind_param(&#039;ssi&#039;, $paciente, $fecha, $doctor);
+
+    if (!$stmt-&gt;execute()) {
+        throw new RuntimeException($stmt-&gt;error);
+    }
+    $stmt-&gt;close();
+
+    $resultado = $connection-&gt;query(&#039;SELECT @resultado AS resultado&#039;);
+    $fila = $resultado-&gt;fetch_assoc();
+    $resultado-&gt;free();
+
+    return $fila[&#039;resultado&#039;];
+}</code></pre>
+<h3>Letras de <code>bind_param</code></h3>
+<table>
+<tr><th>Letra</th><th>Tipo</th><th>Ejemplo</th></tr>
+<tr><td><code>s</code></td><td>string</td><td>nombre, fecha, especialidad</td></tr>
+<tr><td><code>i</code></td><td>integer</td><td>id, licencia, cantidad</td></tr>
+<tr><td><code>d</code></td><td>double/decimal</td><td>precio</td></tr>
+</table>
+
+<p><strong>El orden de las letras debe coincidir con el orden de los <code>?</code>.</strong></p>
+<h2>7. Tablas SQL</h2>
+<pre><code class="lang-sql">CREATE DATABASE IF NOT EXISTS clinica_examen;
+USE clinica_examen;
+
+DROP TABLE IF EXISTS citas;
+DROP TABLE IF EXISTS doctores;
+
+CREATE TABLE doctores (
+    n_licencia INT PRIMARY KEY,
+    nombre     VARCHAR(50) NOT NULL,
+    apellidos  VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE citas (
+    id_cita      INT AUTO_INCREMENT PRIMARY KEY,
+    paciente     VARCHAR(50) NOT NULL,
+    especialidad ENUM(&#039;Medicina General&#039;,&#039;Pediatría&#039;,&#039;Dermatología&#039;,&#039;Traumatología&#039;),
+    fecha        DATETIME NOT NULL,
+    fk_doctor    INT NOT NULL,
+    FOREIGN KEY (fk_doctor) REFERENCES doctores(n_licencia)
+);</code></pre>
+<h2>8. Procedimiento almacenado (patrón de códigos)</h2>
+<pre><code class="lang-sql">DROP PROCEDURE IF EXISTS AltaCita;
+
+DELIMITER //
+CREATE PROCEDURE AltaCita(
+    IN  _paciente VARCHAR(50),
+    IN  _fecha    DATETIME,
+    IN  _doctor   INT,
+    OUT _res      INT
+)
+BEGIN
+    IF (_paciente = &#039;&#039; OR _paciente IS NULL) THEN
+        SET _res = -1;                                  -- nombre vacío
+    ELSEIF (_fecha IS NULL OR _fecha = &#039;&#039;) THEN
+        SET _res = -3;                                  -- fecha vacía
+    ELSEIF (_fecha &lt;= NOW()) THEN
+        SET _res = -4;                                  -- fecha pasada
+    ELSEIF NOT EXISTS (SELECT 1 FROM doctores WHERE n_licencia = _doctor) THEN
+        SET _res = -5;                                  -- doctor no existe
+    ELSE
+        INSERT INTO citas(paciente, especialidad, fecha, fk_doctor)
+        VALUES(_paciente, &#039;Medicina General&#039;, _fecha, _doctor);
+
+        SET _res = 0;                                   -- TODO OK
+    END IF;
+END//
+DELIMITER ;</code></pre>
+<p>Convención: <code>0</code> = OK, negativos = error. <strong>Usa siempre la misma en PHP y en SQL.</strong></p>
+<h2>9. JOIN y UPDATE</h2>
+<pre><code class="lang-sql">-- Lista con el nombre del doctor
+SELECT c.*, d.nombre AS doctor
+FROM citas c
+JOIN doctores d ON c.fk_doctor = d.n_licencia;
+
+-- Modificar
+UPDATE citas
+SET paciente = _paciente, fecha = _fecha
+WHERE id_cita = _id;
+
+-- Borrar
+DELETE FROM citas WHERE id_cita = _id;</code></pre>
+<h2>10. Fecha <code>datetime-local</code></h2>
+<p>El input envía <code>2026-11-10T18:30</code>. MySQL espera <code>2026-11-10 18:30:00</code>.</p>
+<pre><code class="lang-php">$fecha = date(&#039;Y-m-d H:i:s&#039;, strtotime($_POST[&#039;fecha_hora&#039;]));</code></pre>
+<h2>11. Los 12 huecos típicos (con respuesta)</h2>
+<ol>
+<li><strong>Enviar a PHP</strong> → <code>&lt;form action=&quot;gestionar.php&quot; method=&quot;post&quot;&gt;</code></li>
+<li><strong>Nombre del campo</strong> → <code>name=&quot;paciente&quot;</code></li>
+<li><strong>Recibir el campo</strong> → <code>$_POST[&#039;paciente&#039;]</code></li>
+<li><strong>Comprobar que llega</strong> → <code>isset($_POST[&#039;paciente&#039;])</code></li>
+<li><strong>Iniciar sesión</strong> → <code>session_start();</code></li>
+<li><strong>Incluir la conexión</strong> → <code>require_once __DIR__ . &#039;/AccesoDatos.php&#039;;</code></li>
+<li><strong>Preparar llamada</strong> → <code>$connection-&gt;prepare(&#039;CALL Alta(?, ?, @resultado)&#039;);</code></li>
+<li><strong>Enlazar parámetros</strong> → <code>$stmt-&gt;bind_param(&#039;si&#039;, $texto, $numero);</code></li>
+<li><strong>Ejecutar</strong> → <code>$stmt-&gt;execute();</code></li>
+<li><strong>Recoger el OUT</strong> → <code>$connection-&gt;query(&#039;SELECT @resultado AS resultado&#039;)-&gt;fetch_assoc()[&#039;resultado&#039;];</code></li>
+<li><strong>Recorrer resultados</strong> → <code>while ($fila = $resultado-&gt;fetch_assoc()) { ... }</code></li>
+<li><strong>Imprimir seguro</strong> → <code>htmlspecialchars($fila[&#039;paciente&#039;])</code></li>
+</ol>
+
+<h2>12. Errores que restan puntos</h2>
+<ul>
+<li>Poner <code>session_start()</code> después de imprimir HTML → *headers already sent*.</li>
+<li><code>bind_param(&#039;s&#039;, ...)</code> para un número, o letras en orden distinto a los <code>?</code>.</li>
+<li>Olvidar <code>SELECT @resultado</code> después del <code>CALL</code>.</li>
+<li>No comprobar <code>execute()</code>.</li>
+<li>Concatenar <code>$_POST</code> dentro del SQL → inyección SQL (usa <code>?</code>).</li>
+<li>Imprimir datos del usuario sin <code>htmlspecialchars</code> → XSS.</li>
+<li>Confundir el nombre del input (<code>nombre_concierto</code>) con la columna (<code>nombre_banda</code>).</li>
+<li>Usar <code>==</code> con tipos raros para el OUT: el valor puede volver como string. Usa <code>==</code> o castea a <code>(int)</code>.</li>
+</ul>
+
+<h2>13. Checklist antes de entregar</h2>
+<ul>
+<li>☐ <code>name</code> del HTML = clave de <code>$_POST</code>.</li>
+<li>☐ <code>action</code> apunta al PHP correcto.</li>
+<li>☐ <code>session_start()</code> antes de cualquier HTML.</li>
+<li>☐ <code>require_once</code> de <code>AccesoDatos.php</code>.</li>
+<li>☐ <code>bind_param</code> con letras y orden correctos.</li>
+<li>☐ <code>SELECT @resultado</code> tras el <code>CALL</code> con OUT.</li>
+<li>☐ Mensajes para cada código negativo.</li>
+<li>☐ <code>htmlspecialchars</code> al pintar datos.</li>
+<li>☐ El procedure tiene <code>IN</code>/<code>OUT</code> y <code>DELIMITER</code>.</li>
+<li>☐ La tabla se crea con PK, FK y <code>AUTO_INCREMENT</code> donde toque.</li>
+</ul>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

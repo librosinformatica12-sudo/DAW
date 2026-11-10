@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servidor 03 - Biblioteca</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio Servidor 03 — Biblioteca</h1>
+<p><strong>Enunciado general:</strong> gestionar libros, socios y préstamos.</p>
+<ul>
+<li>Alta de libros y socios.</li>
+<li>Listar libros mostrando cuántos ejemplares quedan disponibles.</li>
+<li>Prestar un libro si hay existencias.</li>
+<li>Devolver un préstamo.</li>
+</ul>
+
+<p>Este ejemplo añade algo que no tienen los otros: <strong>JOIN, subconsultas y UPDATE de estado</strong>.</p>
+<p>Solución en <code>solucion/</code>.</p>
+<hr>
+<h2>Hueco 1 — Tabla de préstamos</h2>
+<pre><code class="lang-sql">CREATE TABLE prestamos (
+    id_prestamo      INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_prestamo   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_devolucion DATETIME NULL,
+    devuelto         TINYINT(1) NOT NULL DEFAULT ____,
+    fk_libro         INT NOT NULL,
+    fk_socio         INT NOT NULL,
+    FOREIGN KEY (fk_libro) REFERENCES ____(id_libro),
+    FOREIGN KEY (fk_socio) REFERENCES ____(id_socio)
+);</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">devuelto TINYINT(1) NOT NULL DEFAULT 0,
+FOREIGN KEY (fk_libro) REFERENCES libros(id_libro),
+FOREIGN KEY (fk_socio) REFERENCES socios(id_socio)</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Disponibles por libro</h2>
+<pre><code class="lang-sql">SELECT l.*,
+       (l.ejemplares - (/* TODO: contar préstamos NO devueltos de este libro */))
+           AS disponibles
+FROM libros l;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">SELECT l.*,
+       (l.ejemplares - (SELECT COUNT(*)
+                          FROM prestamos p
+                         WHERE p.fk_libro = l.id_libro
+                           AND p.devuelto = 0)) AS disponibles
+FROM libros l;</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Validaciones de <code>AltaLibro</code></h2>
+<pre><code class="lang-sql">IF (/* título vacío */) THEN
+    SET _res = -1;
+ELSEIF (/* autor vacío */) THEN
+    SET _res = -2;
+ELSEIF (/* ejemplares &lt;= 0 */) THEN
+    SET _res = -3;
+ELSE
+    INSERT INTO libros(titulo, autor, ejemplares)
+    VALUES(_titulo, _autor, _ejemplares);
+    SET _res = 0;
+END IF;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">IF (_titulo = &#039;&#039; OR _titulo IS NULL) THEN
+    SET _res = -1;
+ELSEIF (_autor = &#039;&#039; OR _autor IS NULL) THEN
+    SET _res = -2;
+ELSEIF (_ejemplares &lt;= 0) THEN
+    SET _res = -3;</code></pre>
+</details>
+<hr>
+<h2>Hueco 4 — <code>bind_param</code> de un alta</h2>
+<pre><code class="lang-php">$stmt = $connection-&gt;prepare(&#039;CALL AltaLibro(?, ?, ?, @resultado)&#039;);
+$stmt-&gt;bind_param(&#039;____&#039;, $titulo, $autor, $ejemplares);</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">$stmt-&gt;bind_param(&#039;ssi&#039;, $titulo, $autor, $ejemplares);</code></pre>
+</details>
+<hr>
+<h2>Hueco 5 — Comprobar existencias al prestar</h2>
+<pre><code class="lang-sql">SELECT (l.ejemplares - (SELECT COUNT(*)
+                          FROM prestamos p
+                         WHERE p.fk_libro = l.id_libro
+                           AND p.devuelto = 0))
+  INTO _disponibles
+  FROM libros l
+ WHERE l.id_libro = _libro;
+
+IF (/* no hay disponibles */) THEN
+    SET _res = -3;
+ELSE
+    INSERT INTO prestamos(fk_libro, fk_socio) VALUES(_libro, _socio);
+    SET _res = 0;
+END IF;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">IF (_disponibles &lt;= 0) THEN</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Devolver un libro</h2>
+<pre><code class="lang-sql">IF NOT EXISTS (SELECT 1 FROM prestamos WHERE id_prestamo = _id_prestamo) THEN
+    SET _res = -1;
+ELSEIF (/* ya estaba devuelto */) THEN
+    SET _res = -2;
+ELSE
+    UPDATE prestamos
+    SET devuelto = ____,
+        fecha_devolucion = ____
+    WHERE id_prestamo = _id_prestamo;
+
+    SET _res = 0;
+END IF;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">ELSEIF (SELECT devuelto FROM prestamos WHERE id_prestamo = _id_prestamo) = 1 THEN
+
+SET devuelto = 1,
+    fecha_devolucion = NOW()</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 — Lista de préstamos con JOIN</h2>
+<pre><code class="lang-sql">SELECT p.id_prestamo, p.fecha_prestamo, l.titulo, s.nombre AS socio
+FROM prestamos p
+/* TODO: unir con libros */
+/* TODO: unir con socios */
+WHERE p.devuelto = 0;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">JOIN libros l ON p.fk_libro = l.id_libro
+JOIN socios s ON p.fk_socio = s.id_socio</code></pre>
+</details>
+<hr>
+<h2>Hueco 8 — Pintar la tabla de libros</h2>
+<pre><code class="lang-php">&lt;?php foreach ($libros as $libro): ?&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($libro[&#039;____&#039;]) ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($libro[&#039;____&#039;]) ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($libro[&#039;____&#039;]) ?&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;?= htmlspecialchars($libro[&#039;disponibles&#039;]) ?&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;?php endforeach; ?&gt;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">$libro[&#039;id_libro&#039;]
+$libro[&#039;titulo&#039;]
+$libro[&#039;autor&#039;]</code></pre>
+</details>
+<hr>
+<h2>Hueco 9 (reto) — Evitar préstamos duplicados</h2>
+<p>Impide que el mismo socio tenga dos veces el mismo libro sin devolver:</p>
+<pre><code class="lang-sql">ELSEIF EXISTS (SELECT 1 FROM prestamos
+                WHERE fk_libro = _libro
+                  AND fk_socio = _socio
+                  AND devuelto = 0) THEN
+    SET _res = -4;</code></pre>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Qué diferencia hay entre <code>INNER JOIN</code> y <code>LEFT JOIN</code>?</strong> <code>INNER JOIN</code> solo devuelve filas con coincidencia; <code>LEFT JOIN</code> devuelve también las de la izquierda sin coincidencia.</li>
+<li><strong>¿Por qué <code>devuelto</code> es <code>TINYINT(1)</code>?</strong> Porque MySQL no tiene booleano puro; <code>TINYINT(1)</code> se usa como 0/1.</li>
+<li><strong>¿Por qué calcular <code>disponibles</code> en SQL y no en PHP?</strong> Porque la base de datos ya tiene los datos y evita traer todos los préstamos.</li>
+<li><strong>¿Qué pasa si se presta el último ejemplar dos veces a la vez?</strong> Podría haber condición de carrera; se resolvería con transacción y bloqueo.</li>
+<li><strong>¿Qué hace <code>NOW()</code>?</strong> Devuelve la fecha y hora actual del servidor MySQL.</li>
+<li><strong>¿Cómo comprobarías que un socio existe antes de prestar?</strong> Con <code>EXISTS (SELECT 1 FROM socios WHERE id_socio = _socio)</code>, como hace <code>PrestarLibro</code>.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

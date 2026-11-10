@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica — Portal</title>
+</head>
+<body>
+    <h1>Portal de la clínica</h1>
+
+    <h2>Pedir cita</h2>
+
+    <!--
+        EXAMEN:
+        - action = a qué PHP va
+        - method = post
+        - name   = clave que se lee en $_POST
+    -->
+    <form action="gestionar_citas.php" method="post">
+        <input type="hidden" name="accion" value="alta">
+
+        <label for="paciente">Paciente:</label><br>
+        <input type="text" id="paciente" name="paciente" maxlength="50" required>
+        <br><br>
+
+        <label for="especialidad">Especialidad:</label><br>
+        <select id="especialidad" name="especialidad" required>
+            <option value="">-- Elige una --</option>
+            <option value="Medicina General">Medicina General</option>
+            <option value="Pediatría">Pediatría</option>
+            <option value="Dermatología">Dermatología</option>
+            <option value="Traumatología">Traumatología</option>
+        </select>
+        <br><br>
+
+        <label for="fecha_hora">Fecha y hora:</label><br>
+        <input type="datetime-local" id="fecha_hora" name="fecha_hora" required>
+        <br><br>
+
+        <label for="doctor">Nº licencia del doctor:</label><br>
+        <input type="number" id="doctor" name="doctor" required>
+        <br><br>
+
+        <button type="submit">Reservar cita</button>
+    </form>
+
+    <hr>
+
+    <a href="gestionar_citas.php">Ver / modificar citas</a>
+
+</body>
+</html>

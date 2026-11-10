@@ -1,0 +1,164 @@
+PROMPTS PARA REGENERAR LAS FOTOS QUE QUEDARON MAL (687x1024)
+======================================================================
+Estas fotos eran APAISADAS (mas anchas que altas) y al recortarlas a
+687x1024 el dinosaurio quedo mal. Pega cada prompt en la IA (Gemini).
+
+[12] Trictops Bebé  (Triceratops prorsus)
+Generate a collectible dinosaur trading-card illustration of Triceratops prorsus (commonly known as Trictops Bebé): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[13] Compsognato  (Compsognathus longipes)
+Generate a collectible dinosaur trading-card illustration of Compsognathus longipes (commonly known as Compsognato): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[15] Ictiosaurio  (Ichthyosaurus communis)
+Generate a collectible dinosaur trading-card illustration of Ichthyosaurus communis (commonly known as Ictiosaurio): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[16] Plesiosaurio  (Plesiosaurus dolichodeirus)
+Generate a collectible dinosaur trading-card illustration of Plesiosaurus dolichodeirus (commonly known as Plesiosaurio): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[18] Iguanodonte  (Iguanodon bernissartensis)
+Generate a collectible dinosaur trading-card illustration of Iguanodon bernissartensis (commonly known as Iguanodonte): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[19] Ceratosaurio  (Carnotaurus sastrei)
+Generate a collectible dinosaur trading-card illustration of Carnotaurus sastrei (commonly known as Ceratosaurio): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[20] Tarbosauro  (Tarbosaurus bataar)
+Generate a collectible dinosaur trading-card illustration of Tarbosaurus bataar (commonly known as Tarbosauro): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[22] Pterodáctilo  (Pterodactyl kochi)
+Generate a collectible dinosaur trading-card illustration of Pterodactyl kochi (commonly known as Pterodáctilo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[23] Quetzalcóatl  (Quetzalcoatlus northropi)
+Generate a collectible dinosaur trading-card illustration of Quetzalcoatlus northropi (commonly known as Quetzalcóatl): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[24] Sinornitosaurio  (Sinosauropteryx prima)
+Generate a collectible dinosaur trading-card illustration of Sinosauropteryx prima (commonly known as Sinornitosaurio): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[26] Tricerátope de Larga Corna  (Torosaurus latus)
+Generate a collectible dinosaur trading-card illustration of Torosaurus latus (commonly known as Tricerátope de Larga Corna): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[27] Ovirraptor  (Oviraptor philceratops)
+Generate a collectible dinosaur trading-card illustration of Oviraptor philceratops (commonly known as Ovirraptor): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[28] Gallimimo  (Gallimimus bullatus)
+Generate a collectible dinosaur trading-card illustration of Gallimimus bullatus (commonly known as Gallimimo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[29] Iguanodón Mayor  (Iguanodon mantelli)
+Generate a collectible dinosaur trading-card illustration of Iguanodon mantelli (commonly known as Iguanodón Mayor): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[30] Deinoquiro  (Deinochirus mirificus)
+Generate a collectible dinosaur trading-card illustration of Deinochirus mirificus (commonly known as Deinoquiro): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[31] Tiranosaurio Bebé  (Tyrannosaurus rex (juvenil))
+Generate a collectible dinosaur trading-card illustration of Tyrannosaurus rex (juvenil) (commonly known as Tiranosaurio Bebé): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[32] Placerias  (Placerias hesternus)
+Generate a collectible dinosaur trading-card illustration of Placerias hesternus (commonly known as Placerias): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[33] Nothosauro  (Nothosaurus mirabilis)
+Generate a collectible dinosaur trading-card illustration of Nothosaurus mirabilis (commonly known as Nothosauro): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[34] Ópistocélico  (Opisthoteuthis granulosa)
+Generate a collectible dinosaur trading-card illustration of Opisthoteuthis granulosa (commonly known as Ópistocélico): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[35] Saurópodo Pequeño  (Camarasaurus supremus)
+Generate a collectible dinosaur trading-card illustration of Camarasaurus supremus (commonly known as Saurópodo Pequeño): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[36] Dimetrodonte  (Dimetrodon grandis)
+Generate a collectible dinosaur trading-card illustration of Dimetrodon grandis (commonly known as Dimetrodonte): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[37] Giganotosauro  (Giganotosaurus carolinii)
+Generate a collectible dinosaur trading-card illustration of Giganotosaurus carolinii (commonly known as Giganotosauro): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[38] Maniraptorá  (Deinonychus antirrhopus)
+Generate a collectible dinosaur trading-card illustration of Deinonychus antirrhopus (commonly known as Maniraptorá): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[39] Therizinosaurio  (Therizinosaurus cheloniformis)
+Generate a collectible dinosaur trading-card illustration of Therizinosaurus cheloniformis (commonly known as Therizinosaurio): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[40] Trodonte  (Troodon formosus)
+Generate a collectible dinosaur trading-card illustration of Troodon formosus (commonly known as Trodonte): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[41] Sauroposeidón  (Sauroposeidon proteles)
+Generate a collectible dinosaur trading-card illustration of Sauroposeidon proteles (commonly known as Sauroposeidón): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[42] Ictiteria  (Ichthyomis dispar)
+Generate a collectible dinosaur trading-card illustration of Ichthyomis dispar (commonly known as Ictiteria): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[43] Paquicefalosauro  (Pachycephalosaurus wyomingensis)
+Generate a collectible dinosaur trading-card illustration of Pachycephalosaurus wyomingensis (commonly known as Paquicefalosauro): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[44] Ornitorrinco Prehistórico  (Stegoceras validum)
+Generate a collectible dinosaur trading-card illustration of Stegoceras validum (commonly known as Ornitorrinco Prehistórico): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[45] Saurópodo Acuático  (Rebbachisaurus gaundi)
+Generate a collectible dinosaur trading-card illustration of Rebbachisaurus gaundi (commonly known as Saurópodo Acuático): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[46] Raptor Mayor  (Utahraptor ostrommaysorum)
+Generate a collectible dinosaur trading-card illustration of Utahraptor ostrommaysorum (commonly known as Raptor Mayor): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[47] Dinosaurio Volador  (Archaeopteryx lithographica)
+Generate a collectible dinosaur trading-card illustration of Archaeopteryx lithographica (commonly known as Dinosaurio Volador): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[48] Rinoceronte Marino  (Leedsichthys problematics)
+Generate a collectible dinosaur trading-card illustration of Leedsichthys problematics (commonly known as Rinoceronte Marino): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[49] Espinosaurido Acuático  (Baryonyx walkeri)
+Generate a collectible dinosaur trading-card illustration of Baryonyx walkeri (commonly known as Espinosaurido Acuático): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[50] Microrraptor  (Microraptor zhaoianus)
+Generate a collectible dinosaur trading-card illustration of Microraptor zhaoianus (commonly known as Microrraptor): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[51] Ankylosaurus Coludo  (Edmontosaurus regalis)
+Generate a collectible dinosaur trading-card illustration of Edmontosaurus regalis (commonly known as Ankylosaurus Coludo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[52] Titanosaurio Enano  (Diamantinasaurus matildae)
+Generate a collectible dinosaur trading-card illustration of Diamantinasaurus matildae (commonly known as Titanosaurio Enano): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[53] Aviador Antiguo  (Eudimorphodon ranzii)
+Generate a collectible dinosaur trading-card illustration of Eudimorphodon ranzii (commonly known as Aviador Antiguo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[54] Mosasaurio Gigante  (Tylosaurus proriger)
+Generate a collectible dinosaur trading-card illustration of Tylosaurus proriger (commonly known as Mosasaurio Gigante): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[55] Ceratopsio Menor  (Protoceratops andrewsi)
+Generate a collectible dinosaur trading-card illustration of Protoceratops andrewsi (commonly known as Ceratopsio Menor): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[56] Plesiosaurio Largo  (Cryptocleidus oxoniensis)
+Generate a collectible dinosaur trading-card illustration of Cryptocleidus oxoniensis (commonly known as Plesiosaurio Largo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[57] Pterosaurio Dentado  (Anhanguera blittersdorfi)
+Generate a collectible dinosaur trading-card illustration of Anhanguera blittersdorfi (commonly known as Pterosaurio Dentado): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[58] Dromeosaurio Primitivo  (Rahonavis ostromi)
+Generate a collectible dinosaur trading-card illustration of Rahonavis ostromi (commonly known as Dromeosaurio Primitivo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[59] Saurópodo de Cuello Corto  (Mamenchisaurus sinocanadorum)
+Generate a collectible dinosaur trading-card illustration of Mamenchisaurus sinocanadorum (commonly known as Saurópodo de Cuello Corto): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[60] Espinosaurio Menor  (Sigilmassasaurus brevicollis)
+Generate a collectible dinosaur trading-card illustration of Sigilmassasaurus brevicollis (commonly known as Espinosaurio Menor): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[61] Ictiosaurio Gigante  (Temnodontosaurus platyodon)
+Generate a collectible dinosaur trading-card illustration of Temnodontosaurus platyodon (commonly known as Ictiosaurio Gigante): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[62] Ornitomímido  (Ornithomimus edmontonensis)
+Generate a collectible dinosaur trading-card illustration of Ornithomimus edmontonensis (commonly known as Ornitomímido): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[63] Ceratopsio Gigante  (Pentaceratops sternbergii)
+Generate a collectible dinosaur trading-card illustration of Pentaceratops sternbergii (commonly known as Ceratopsio Gigante): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[71] Ictiosaurio Pequeño  (Mixosaurus cornalianus)
+Generate a collectible dinosaur trading-card illustration of Mixosaurus cornalianus (commonly known as Ictiosaurio Pequeño): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[73] Arqueopterix  (Archaeopteryx siemensii)
+Generate a collectible dinosaur trading-card illustration of Archaeopteryx siemensii (commonly known as Arqueopterix): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[74] Troodón  (Troodon inequalis)
+Generate a collectible dinosaur trading-card illustration of Troodon inequalis (commonly known as Troodón): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+[93] Terópodo de Cuello Largo  (Erlikoaurus andrewsi)
+Generate a collectible dinosaur trading-card illustration of Erlikoaurus andrewsi (commonly known as Terópodo de Cuello Largo): a full-body, dynamic illustration in a vibrant, semi-realistic digital art style, dramatic cinematic lighting, rich textures, and an atmospheric background reflecting its natural prehistoric habitat. IMPORTANT: vertical portrait format (aspect ratio 2:3), exactly 687 x 1024 pixels, the whole dinosaur fully visible and centered with some margin, not cropped. High-resolution, sharp and engaging, no text, no logos, no borders.
+
+======================================================================
+IDs que faltan por regenerar (52 fotos):
+12, 13, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 71, 73, 74, 93

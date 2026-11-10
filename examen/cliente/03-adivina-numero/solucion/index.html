@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el número</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="juego">
+        <h1>Adivina el número</h1>
+        <p class="ayuda">He pensado un número entre 1 y 100. ¿Cuál es?</p>
+
+        <!-- ENTRADA: número y botón -->
+        <form id="form-intento" class="formulario">
+            <input
+                type="number"
+                id="numero"
+                min="1"
+                max="100"
+                placeholder="1 - 100"
+                required>
+            <button type="submit" id="btn-probar">Probar</button>
+        </form>
+
+        <!-- VISTA: mensajes y contador -->
+        <p id="mensaje" class="mensaje"></p>
+        <p class="intentos">Intentos: <span id="intentos">0</span></p>
+
+        <!-- VISTA: historial de intentos -->
+        <ul id="historial" class="historial"></ul>
+
+        <button type="button" id="btn-reiniciar" class="secundario">
+            Jugar otra vez
+        </button>
+    </main>
+</body>
+</html>

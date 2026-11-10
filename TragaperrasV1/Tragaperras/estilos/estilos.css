@@ -1,0 +1,46 @@
+body
+{
+    background-image: url('../res/fondo.jpg');
+    background-color: #064019;
+    margin: 0;
+}
+h1, #cabecera p{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: xxx-large;
+    color: gold;
+}
+#main
+{
+    background-color: #00000094;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#panel_estadisticas
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#panel_estadisticas > span, h3
+{
+    color:whitesmoke;
+}
+.btn{
+        margin: 20px;
+    min-height: 80px;
+    min-width: 208px;
+    border-radius: 10%;
+    border-color: burlywood;
+    border-width: 7px;
+    font-size: xxx-large;
+    background-color: gold;
+}
+#visor
+{
+    margin: 30px;
+    margin: 30px;
+}

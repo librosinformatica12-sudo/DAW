@@ -6,6 +6,34 @@
     <title>Conciertos</title>
 </head>
 <body>
-    
+    <h1>Gestor de conciertos</h1>
+
+    <section>
+        <h2>Dar de alta un concierto</h2>
+        <form action="gestionar_conciertos.php" method="post">
+            <!-- Nº Nombre del concierto -->
+            <label for="nombre_concierto">Nombre del concierto: </label>
+            <input type="text" name="nombre_concierto" maxlength="100" required><br>
+            
+            <br>
+
+            <!-- Nº Campo para fecha y hora -->
+            <label for="fecha_hora">Fecha y Hora de la Cita:</label>
+            <input type="datetime-local" name="fecha_hora"><br>
+            
+            <br>
+
+            <!-- Nº Precio -->
+            <label for="precio_concierto">Precio del Concierto:</label>
+            <input type="number" name="precio_concierto" min="0" step="0.01" required><br>
+
+            <br>
+
+            <button type="submit">Guardar Concierto</button>
+            <a href="/gestionar_conciertos.php"></a>
+        </form>
+
+    </section>
+
 </body>
 </html>

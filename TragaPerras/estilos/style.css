@@ -9,9 +9,8 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-/* Fondo y centrado principal */
 body {
-    background-image: url(../src/img/foto1.jpg);
+    background-image: url('../foto1.jpg'); /* Añadir comillas también ayuda a prevenir fallos */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -19,10 +18,9 @@ body {
 
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
-    color: white;
     padding: 20px;
 }
 
@@ -36,9 +34,9 @@ body {
 
 /* Botón Tirar */
 .btn_tirar{
-    display: inline-flex;
-    align-items: center;
+    display: flex;
     justify-content: center;
+    align-items: center;
     height: 57px;
     padding: 15px 36px;
     font-family: 'Trebuchet MS';
@@ -54,17 +52,34 @@ body {
     cursor: pointer;
 }
 
-.button:hover {
+.btn_tirar:hover {
     background: #000000;
     color: #ffffff;
     transform: translateY(-3px) scale(1.03);
 }
 
-.button:focus-visible {
+.btn_tirar:focus-visible {
     outline: 2px solid #000000;
     outline-offset: 3px;
 }
 
-.button:active {
+.btn_tirar:active {
     transform: scale(0.96);
+}
+
+#panel-estadisticas{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#panel-estadisticas > span, h3 {
+    color: whitesmoke;
+}
+
+#panel-tirada{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
 }

@@ -1,47 +1,25 @@
 <?php
-
 /*
- * AccesoDatos.php (portal_citasV2 - versión buena)
- *
- * ÍNDICE RÁPIDO (Ctrl+F):
- *   CONEXION
- *   PA_ListaCitas
- *   PA_ListaDoctores
- *   PA_DameDoctor
- *   PA_AltaDoctor
- *   PA_AltaCita
- *   PA_ActualizarCita
- *
- * Patrón de examen:
- *   SELECT  -> prepare + execute + get_result + while/fetch_assoc
- *   INSERT/UPDATE -> prepare + bind_param + execute + SELECT @resultado
+ * AccesoDatos.php (portal_citasV2 - Versión corregida)
  */
 
-// ===== CONEXION =====
 $host = '127.0.0.1';
 $port = 3306;
-$database = 'clinica';
-$username = 'guilleDB';
+$database = 'clinica_PROFE';
+$username = 'oscar';
 $password = '1234';
 
-// Desactivamos los warnings automáticos para gestionarlos nosotros mediante excepciones
 mysqli_report(MYSQLI_REPORT_OFF);
 $connection = @new mysqli($host, $username, $password, $database, $port);
 
-
-/* =========================================================================
-   CASO 1: FUNCIONES QUE DEVUELVEN UN CONJUNTO DE FILAS (SELECT)
-   Ejemplos: PA_ListaCitas, PA_ListaDoctores, PA_DameDoctor
-   - Usan $stmt->get_result() para leer los registros devueltos por MySQL.
-   - Recorren los resultados con un bucle while y fetch_assoc().
-   ========================================================================= */
+if ($connection->connect_errno) {
+    throw new RuntimeException('Error de conexión a la BD: ' . $connection->connect_error);
+}
 
 // ===== FUNCION PA_ListaCitas =====
-// Devuelve todas las citas. Se usa para cargar la tabla y la sesión.
 function PA_ListaCitas()
 {
     global $connection;
-
     $sql = 'CALL ListaCitas()';
     $stmt = $connection->prepare($sql);
 
@@ -52,34 +30,30 @@ function PA_ListaCitas()
     }
 
     $citas = [];
-    // Comprobamos si la consulta ha devuelto columnas/filas de datos ($field_count > 0)
     if ($stmt->field_count > 0) {
-        $resultadoSelect = $stmt->get_result(); // Obtenemos el objeto mysqli_result
+        $resultadoSelect = $stmt->get_result();
         if ($resultadoSelect) {
             while ($fila = $resultadoSelect->fetch_assoc()) {
+                $cita = [];
                 $cita['id_cita'] = $fila['id_cita'];
                 $cita['nombre_paciente'] = $fila['nombre_paciente'];
                 $cita['especialidad'] = $fila['especialidad'];
                 $cita['fecha'] = $fila['fecha'];
                 $cita['licencia_doctor'] = $fila['fk_doctor'];
 
-                $citas[] = $cita; // Añadimos cada fila al array final
+                $citas[] = $cita;
             }
-            $resultadoSelect->free(); // Liberamos memoria del resultado
+            $resultadoSelect->free();
         }
     }
-    $stmt->close(); // Cerramos el statement
-
-    return $citas; // Devolvemos el array con todas las citas
+    $stmt->close();
+    return $citas;
 }
 
-
 // ===== FUNCION PA_ListaDoctores =====
-// Devuelve todos los doctores. Se usa para cargar la tabla de doctores.
 function PA_ListaDoctores()
 {
     global $connection;
-
     $sql = 'CALL ListaDoctores()';
     $stmt = $connection->prepare($sql);
 
@@ -94,6 +68,7 @@ function PA_ListaDoctores()
         $resultadoSelect = $stmt->get_result();
         if ($resultadoSelect) {
             while ($fila = $resultadoSelect->fetch_assoc()) {
+                $doctor = [];
                 $doctor['id'] = $fila['n_licencia'];
                 $doctor['nombre'] = $fila['nombre_doctor'];
                 $doctor['apellidos'] = $fila['apellidos_doctor'];
@@ -104,22 +79,15 @@ function PA_ListaDoctores()
         }
     }
     $stmt->close();
-
     return $doctores;
 }
 
-
 // ===== FUNCION PA_DameDoctor =====
-// Busca un doctor por licencia. Se usa para validar que el doctor existe.
 function PA_DameDoctor(int $n_licencia)
 {
     global $connection;
-
-    // Este procedimiento recibe 1 parámetro de entrada (IN), por eso lleva un '?'
     $sql = 'CALL DameDoctor(?)';
     $stmt = $connection->prepare($sql);
-
-    // Vinculamos el parámetro de entrada: 'i' porque es un entero (integer)
     $stmt->bind_param('i', $n_licencia);
 
     if (!$stmt->execute()) {
@@ -129,11 +97,11 @@ function PA_DameDoctor(int $n_licencia)
     }
 
     $doctores = [];
-    // Al hacer un SELECT por ID, también devuelve filas, así que usamos get_result igual que en las listas
     if ($stmt->field_count > 0) {
         $resultadoSelect = $stmt->get_result();
         if ($resultadoSelect) {
             while ($fila = $resultadoSelect->fetch_assoc()) {
+                $doctor = [];
                 $doctor['id'] = $fila['n_licencia'];
                 $doctor['nombre'] = $fila['nombre_doctor'];
                 $doctor['apellidos'] = $fila['apellidos_doctor'];
@@ -144,32 +112,16 @@ function PA_DameDoctor(int $n_licencia)
         }
     }
     $stmt->close();
-
     return $doctores;
 }
 
-
-
-/* =========================================================================
-   CASO 2: FUNCIONES DE ACCIÓN CON PARÁMETRO DE SALIDA (INSERT / UPDATE con OUT)
-   Ejemplos: PA_AltaDoctor, PA_AltaCita, PA_ActualizarCita
-   - Llevan parámetros IN ('?') y un parámetro OUT en la llamada (ej. '@resultado').
-   - NO usan get_result() porque no devuelven tablas, sino que consultan 
-     la variable de sesión de MySQL (@resultado) justo después de cerrar el statement.
-   ========================================================================= */
-
 // ===== FUNCION PA_AltaDoctor =====
-// Inserta un doctor y devuelve el código OUT del procedure.
-function PA_AltaDoctor(string $n_licencia, string $nombre, string $apellidos)
+function PA_AltaDoctor(int $n_licencia, string $nombre, string $apellidos)
 {
     global $connection;
-
-    // El último parámetro('@resultado') recoge el valor de salida (OUT) del procedimiento en MySQL
     $sql = 'CALL AltaDoctor(?, ?, ?, @resultado)';
     $stmt = $connection->prepare($sql);
-
-    // Vinculamos los 3 parámetros de entrada ('sss' de string, string, string)
-    $stmt->bind_param('sss', $n_licencia, $nombre, $apellidos);
+    $stmt->bind_param('iss', $n_licencia, $nombre, $apellidos);
 
     if (!$stmt->execute()) {
         $error = $stmt->error;
@@ -177,12 +129,9 @@ function PA_AltaDoctor(string $n_licencia, string $nombre, string $apellidos)
         throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
     }
     
-    // IMPORTANTE: Hay que cerrar el statement ANTES de consultar la variable @resultado
     $stmt->close();
 
-    // Consultamos la variable de usuario de MySQL donde se guardó el OUT
     $resultado = $connection->query('SELECT @resultado AS resultado');
-
     if (!$resultado) {
         throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
     }
@@ -190,22 +139,15 @@ function PA_AltaDoctor(string $n_licencia, string $nombre, string $apellidos)
     $fila = $resultado->fetch_assoc();
     $resultado->free();
 
-    // Devolvemos el código de resultado (por ejemplo, 0 si fue bien, o -1, -2... si hubo error)
-    return $fila['resultado'];
+    return (int)$fila['resultado'];
 }
 
-
 // ===== FUNCION PA_AltaCita =====
-// Inserta una cita y devuelve el código OUT del procedure.
 function PA_AltaCita(string $nombre_paciente, string $especialidad, string $fecha, int $doctor_asignado)
 {
     global $connection;
-
-    // Procedimiento con 4 parámetros IN (?) y 1 parámetro OUT (@resultado)
     $sql = 'CALL AltaCita(?, ?, ?, ?, @resultado)';
     $stmt = $connection->prepare($sql);
-
-    // Tipos: string (s), string (s), string (s), integer (i) -> 'sssi'
     $stmt->bind_param('sssi', $nombre_paciente, $especialidad, $fecha, $doctor_asignado);
 
     if (!$stmt->execute()) {
@@ -215,9 +157,7 @@ function PA_AltaCita(string $nombre_paciente, string $especialidad, string $fech
     }
     $stmt->close();
 
-    // Recuperamos el OUT exactamente igual que en el alta de doctor
     $resultado = $connection->query('SELECT @resultado AS resultado');
-
     if (!$resultado) {
         throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
     }
@@ -225,22 +165,18 @@ function PA_AltaCita(string $nombre_paciente, string $especialidad, string $fech
     $fila = $resultado->fetch_assoc();
     $resultado->free();
 
-    return $fila['resultado'];
+    return (int)$fila['resultado'];
 }
 
-
-// ===== FUNCION PA_ActualizarCita =====
-// Modifica una cita existente y devuelve el código OUT del procedure.
-function PA_ActualizarCita(string $idCita, string $nombre_paciente, string $especialidad, string $fecha, int $doctor_asignado)
+// ===== FUNCION PA_ActualizarCita (CORREGIDA: 'issssi' por id entero) =====
+function PA_ActualizarCita(int $idCita, string $nombre_paciente, string $especialidad, string $fecha, int $doctor_asignado)
 {
     global $connection;
-
-    // Procedimiento de modificación con 5 parámetros IN (?) y 1 OUT (@resultado)
     $sql = 'CALL ModificarCita(?, ?, ?, ?, ?, @resultado)';
     $stmt = $connection->prepare($sql);
-
-    // Tipos: string, string, string, string, int -> 'ssssi'
-    $stmt->bind_param('ssssi', $idCita, $nombre_paciente, $especialidad, $fecha, $doctor_asignado);
+    
+    // CORREGIDO: El primer parámetro es un entero (i) porque el id_cita es INT en la BD
+    $stmt->bind_param('isssi', $idCita, $nombre_paciente, $especialidad, $fecha, $doctor_asignado);
 
     if (!$stmt->execute()) {
         $error = $stmt->error;
@@ -249,9 +185,7 @@ function PA_ActualizarCita(string $idCita, string $nombre_paciente, string $espe
     }
     $stmt->close();
 
-    // Recuperamos el parámetro OUT de la modificación
     $resultado = $connection->query('SELECT @resultado AS resultado');
-
     if (!$resultado) {
         throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
     }
@@ -259,5 +193,5 @@ function PA_ActualizarCita(string $idCita, string $nombre_paciente, string $espe
     $fila = $resultado->fetch_assoc();
     $resultado->free();
 
-    return $fila['resultado'];
+    return (int)$fila['resultado'];
 }

@@ -17,8 +17,8 @@
 
 -- ===== BASE DE DATOS =====
 -- SCRIPT de Generacion de BBDD en MySQL
-CREATE DATABASE IF NOT EXISTS Clinica;
-USE Clinica;
+CREATE DATABASE IF NOT EXISTS Clinica_PROFE;
+USE Clinica_PROFE;
 -- DROPS
 
 DROP TABLE IF EXISTS citasMedicas;

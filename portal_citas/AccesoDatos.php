@@ -19,8 +19,8 @@
 // Datos de conexión a MySQL.
 $host = '127.0.0.1';
 $port = 3306;
-$database = 'sakila';
-$username = 'root';
+$database = 'clinica';
+$username = 'oscar';
 $password = '1234';
 
 // Desactiva los warnings automáticos de mysqli para controlar los errores a mano.
@@ -74,35 +74,100 @@ function PA_ListaDoctores(){
 
 }
 
+// ===== FUNCION PA_ListaCitas =====
+// Devuelve todas las citas en un array asociativo.
+function PA_ListaCitas(){
+    global $connection;
+
+    // Llama al procedimiento almacenado que hace el SELECT de las citas
+    $sql = "CALL ListaCitas()";
+    $stmt = $connection->prepare($sql);
+
+    // Es necesario ejecutar la sentencia antes de obtener los resultados
+    $stmt->execute();
+    
+    // get_result() obtiene las filas; fetch_all() las convierte en array asociativo.
+    $result = $stmt->get_result();
+    $citas = $result->fetch_all(MYSQLI_ASSOC);
+
+    $stmt->close();
+    return $citas;
+}
+
+// ===== FUNCION PA_ActualizarCita =====
+// Actualiza una cita existente llamando al procedimiento almacenado ModificarCita.
+function PA_ActualizarCita(string $id_cita, string $nombre_paciente, string $especialidad, string $fecha, int $doctor_asignado) {
+    global $connection;
+
+    // Llama al procedimiento almacenado ModificarCita con su parámetro OUT (@resultado)
+    $sql = "CALL ModificarCita(?, ?, ?, ?, ?, @resultado)";
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        return -99; // Error al preparar la sentencia
+    }
+
+    $idInt = (int)$id_cita;
+    
+    // Vinculamos los parámetros: "isssi" (integer, string, string, string, integer)
+    $stmt->bind_param("isssi", $idInt, $nombre_paciente, $especialidad, $fecha, $doctor_asignado);
+    $stmt->execute();
+    $stmt->close();
+
+    // Lee el código de resultado devuelto por el parámetro OUT del procedure
+    $resQuery = $connection->query("SELECT @resultado AS resultado");
+    if ($resQuery) {
+        $row = $resQuery->fetch_assoc();
+        $resQuery->free();
+        return (int)$row["resultado"];
+    }
+
+    return -99;
+}
+
 // ===== FUNCION PA_DameDoctor =====
 // Busca un doctor por su número de licencia.
 // En esta versión antigua no devuelve las filas: solo se usa para comprobar
 // si el doctor existe.
-function PA_DameDoctor(int $n_licencia){
-	global $connection;
+// ===== FUNCION PA_DameDoctor =====
+// Busca un doctor por su número de licencia y devuelve sus datos.
+function PA_DameDoctor(int $n_licencia) {
+    global $connection;
 
-	// El procedure recibe 1 parámetro de entrada.
-	$sql = "CALL DameDoctor(?)";
-	$stmt = $connection->prepare($sql);
+    // Prepara la llamada al procedimiento almacenado
+    $sql = "CALL DameDoctor(?)";
+    $stmt = $connection->prepare($sql);
 
-	// "i" significa entero (integer).
-	$stmt->bind_param("i", $n_licencia);
+    if (!$stmt) {
+        return [];
+    }
 
-		if ($stmt->execute()) {
-		$error = $stmt->error;
-		$stmt->close();
-		$two = "Error al ejecutar el procedimiento almacenado: " . $error;
-	}
+    // "i" significa entero (integer)
+    $stmt->bind_param("i", $n_licencia);
+    
+    $doctores = [];
+    if ($stmt->execute()) {
+        // Obtenemos el resultado de la consulta del procedure
+        $result = $stmt->get_result();
+        if ($result) {
+            $doctores = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+        }
+    }
 
-	$stmt->close();
-    return [];
+    $stmt->close();
+
+    // Limpia resultados pendientes en MySQL para evitar bloqueos por llamadas a procedures
+    while ($connection->more_results() && $connection->next_result()) {;}
+
+    return $doctores;
 }
 
 // ===== FUNCION PA_AltaDita =====
 // Alta de una cita médica: paciente, especialidad, fecha y doctor.
 // En esta versión antigua hay 4 parámetros en el CALL pero solo se vinculan 3;
 // la versión buena está en portal_citasV2/AccesoDatos.php.
-function PA_AltaDita(string $nombre_paciente, string $especialidad, string $fecha, string $doctor_asignado ){
+function PA_AltaCita(string $nombre_paciente, string $especialidad, string $fecha, string $doctor_asignado ){
 
 		global $connection;
 

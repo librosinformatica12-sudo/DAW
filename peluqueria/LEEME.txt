@@ -1,0 +1,43 @@
+PROYECTO PELUQUERÍA - ESTRUCTURA TIPO TIENDA
+
+Archivos principales:
+- index.html: página de inicio y menú.
+- AccesoDatos.php: conexión con MySQL y funciones PA que llaman a los procedimientos.
+- procesar_peluqueria.php: procesa altas, bajas, modificaciones y consultas.
+- Peluqueria.sql: crea la base de datos, las tablas y los procedimientos almacenados.
+
+INSTALACIÓN (XAMPP):
+1. Copia la carpeta del proyecto en C:\\xampp\\htdocs\\peluqueria.
+2. Inicia Apache y MySQL desde el panel de XAMPP.
+3. Entra en http://localhost/phpmyadmin.
+4. Importa el archivo Peluqueria.sql.
+5. Abre http://localhost/peluqueria/index.html.
+
+CONFIGURACIÓN:
+La conexión está configurada para:
+- Servidor: 127.0.0.1
+- Usuario: root
+- Contraseña: (vacía)
+- Base de datos: peluqueria
+- Puerto: 3306
+
+Si tu MySQL usa otra contraseña o puerto, cambia esos datos en AccesoDatos.php.
+
+OPERACIONES:
+- Clientes: alta, baja, modificación y listado.
+- Peluqueros: alta, baja, modificación y listado.
+- Reservas: alta, baja, modificación y listado.
+- Consultas: reservas con INNER JOIN, por fecha, entre fechas y COUNT.
+
+NOTAS PARA EL EXAMEN:
+- Alta = INSERT.
+- Baja = DELETE.
+- Modificar = UPDATE.
+- Consultar = SELECT.
+- Buscar un registro = SELECT + WHERE.
+- Relacionar tablas = INNER JOIN.
+- Contar = COUNT(*).
+- Intervalo = BETWEEN.
+- Los procedimientos almacenados están en Peluqueria.sql y las funciones PHP PA_ están en AccesoDatos.php.
+
+El proyecto se ha reorganizado para parecerse a la estructura visible del ZIP/RAR de referencia (AccesoDatos.php, index.html, archivo procesador y archivo SQL). No se ha podido leer el código interno del RAR de referencia; se ha tomado como referencia su lista de archivos.

@@ -13,8 +13,8 @@
 $host = '127.0.0.1';      // Dirección del servidor MySQL (127.0.0.1 = tu propio ordenador)
 $port = 3306;             // Puerto de MySQL (3306 es el normal en XAMPP)
 $database = 'tienda';     // Nombre de la base de datos que creamos con Tienda.sql
-$username = 'Faxel';      // Usuario de MySQL  <-- cámbialo por el tuyo (en XAMPP suele ser "root")
-$password = 'Faxel542';   // Contraseña de MySQL <-- cámbiala por la tuya (en XAMPP suele estar vacía)
+$username = 'oscar';      // Usuario de MySQL  <-- cámbialo por el tuyo (en XAMPP suele ser "root")
+$password = '1234';   // Contraseña de MySQL <-- cámbiala por la tuya (en XAMPP suele estar vacía)
 
 
 // ---------------------------------------------------------------------

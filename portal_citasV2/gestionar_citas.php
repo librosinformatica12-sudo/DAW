@@ -1,13 +1,31 @@
 <?php
 
+/*
+ * gestionar_citas.php (portal_citasV2 - versión buena)
+ *
+ * ÍNDICE RÁPIDO (Ctrl+F):
+ *   SESION
+ *   EDICION: mostrar_zona_edicion
+ *   EDICION: actualizar_cita
+ *   CARGAR CITAS DE LA BD
+ *   VALIDAR DOCTOR
+ *   BORRAR TODAS
+ *   ALTA DE CITA
+ *   CODIGOS DE RESULTADO
+ *   RENDER TABLA
+ *   RENDER FORM ACTUALIZAR
+ *
+ * Orden del flujo: POST -> sesión -> base de datos -> HTML.
+ */
+
 require_once __DIR__ . '\AccesoDatos.php';
 
-// PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio)
+// ===== SESION =====
+// PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio).
 session_start();
 
-//GRABACION DE UNA CITA QUE SE ESTA ACTUALIZANDO
-//EDICION DE CITAS
-
+// ===== EDICION: mostrar_zona_edicion =====
+// Si el usuario pulsa "Modificar Cita", se guarda el id y se muestra el formulario.
 $estaEditando = 0;
 if(isset($_POST['accion']) && $_POST['accion'] === 'mostrar_zona_edicion')
 {    
@@ -19,6 +37,8 @@ else
     $estaEditando = 0;
 }
 
+// ===== EDICION: actualizar_cita =====
+// Recoge los campos del formulario de edición y llama al procedure ModificarCita.
 if(isset($_POST['accion']) && $_POST['accion'] === 'actualizar_cita')
 {
 
@@ -31,13 +51,14 @@ if(isset($_POST['accion']) && $_POST['accion'] === 'actualizar_cita')
     $idCitaModificandose = 0;
 }
 
-// PASO B: Inicializar el array de citas 'lista_citas'en la sesión si no existe aún
-
+// ===== CARGAR CITAS DE LA BD =====
+// PASO B: Inicializar el array de citas 'lista_citas' en la sesión.
+// IMPORTANTE: se vacía y se vuelve a llenar desde MySQL en cada petición.
 $_SESSION['lista_citas'] = [];
 
 //CARGAR LAS CITAS EXISTENTES YA
 $citasExistentes = [];
-//LEO DE LA BASE DE DATOS LAS CITAS QUE YA EXISTAN
+//LLAMADA AL PROCEDURE ListaCitas: devuelve todas las filas de la tabla.
 $citasExistentes = PA_ListaCitas();
 //Y LOS METO EN $_SESSION
 foreach ($citasExistentes as $indice => $cita)
@@ -53,7 +74,8 @@ foreach ($citasExistentes as $indice => $cita)
 }
 
 
-// PASO B2: Averiguar si existe el doctor asignado
+// ===== VALIDAR DOCTOR =====
+// PASO B2: Averiguar si existe el doctor asignado antes de insertar la cita.
 if(isset($_POST['doctor_asignado']))
 {
     $licenciaBuscar = (int)($_POST['doctor_asignado']);
@@ -65,7 +87,8 @@ if(isset($_POST['doctor_asignado']))
         header('Location: portal_citas.html'); //Vuelta al inicio
     }
 }
-// PASO C: Comprobar si se ha solicitado borrar todas las citas
+// ===== BORRAR TODAS =====
+// PASO C: Comprobar si se ha solicitado borrar todas las citas de la sesión.
 if(isset($_POST['accion']) && $_POST['accion'] === 'borrar_todas') {
     // Borrar todas las citas de la sesión
     unset($_SESSION['lista_citas']);
@@ -75,7 +98,8 @@ if(isset($_POST['accion']) && $_POST['accion'] === 'borrar_todas') {
 }
 
 
-// PASO D: Si se recibe una nueva cita individual por $_POST, se procesa
+// ===== ALTA DE CITA =====
+// PASO D: Si se recibe una nueva cita individual por $_POST, se procesa.
 if(isset($_POST['paciente']) &&
     isset($_POST['especialidad']) &&
     isset($_POST['fecha_hora']) &&
@@ -97,6 +121,8 @@ if(isset($_POST['paciente']) &&
                             $_POST['fecha_hora'],
                             $_POST['doctor_asignado']);
                 
+    // ===== CODIGOS DE RESULTADO =====
+    // El procedure devuelve 0 si todo va bien y negativos si hay error.
     if($resultado === "-1"){
         $mensaje = "Nombre vacio";
     }
@@ -129,6 +155,7 @@ if(isset($_POST['paciente']) &&
         <p style="color: green; font-weight: bold;"><?php echo $mensaje; ?></p>
     <?php endif; ?>
 
+    <!-- ===== RENDER TABLA ===== -->
     <h3>Citas Registradas en esta Sesión (Total: <?php echo count($_SESSION['lista_citas']); ?>)</h3>
 
     <!-- PASO E: Renderizar la tabla si existen citas guardadas -->
@@ -164,6 +191,8 @@ if(isset($_POST['paciente']) &&
             </tbody>
         </table>
         <br>
+        <!-- ===== RENDER FORM ACTUALIZAR ===== -->
+        <!-- El atributo hidden oculta el formulario hasta pulsar "Modificar Cita". -->
         <div <?= $estaEditando ? '' : 'hidden' ?>>
             <!-- Formulario para actualizar una cita -->
             <form action="" method="post">
@@ -196,8 +225,7 @@ if(isset($_POST['paciente']) &&
                 <button type="submit">Actualizar Cita</button>
             </form>
         </div>
-        <!-- Formulario para vaciar la sesión -->
-        
+        <!-- Formulario para vaciar la sesión: envía accion=borrar_todas -->
         <form action="gestionar_citas.php" method="post">
             <input type="hidden" name="accion" value="borrar_todas">
             <button type="submit">

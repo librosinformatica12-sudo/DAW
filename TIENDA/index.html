@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- Indica que este documento es HTML5 -->
+<html lang="es">
+<!-- lang="es": la página está en español (ayuda a navegadores y lectores de pantalla) -->
+
+<head>
+    <!-- Codificación de caracteres: permite escribir tildes, ñ y símbolos como € correctamente -->
+    <meta charset="UTF-8">
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>Gestión de Tienda y Compras</title>
+</head>
+
+<body>
+
+    <!-- =============================================================== -->
+    <!-- SECCIÓN 1: REGISTRAR UN PRODUCTO NUEVO                           -->
+    <!-- =============================================================== -->
+    <h2>Registrar Nuevo Producto</h2>
+
+    <!-- action: archivo PHP que recibirá los datos al enviar el formulario.
+         method="post": los datos viajan ocultos (no se ven en la dirección del navegador). -->
+    <form action="procesar_tienda.php" method="post">
+
+        <!-- Campo oculto: no se ve en pantalla, pero se envía al PHP.
+             Sirve para que el PHP sepa QUÉ formulario se ha enviado (este es el de registrar). -->
+        <input type="hidden" name="accion" value="registrar_producto">
+
+        <!-- Etiqueta del campo. "for" la enlaza con el input que tiene ese mismo id
+             (al hacer clic en el texto, se selecciona el campo). -->
+        <label for="nombre_producto">Nombre del producto:</label><br>
+        <!-- type="text": texto libre. maxlength="50": máximo 50 caracteres (igual que en la base de datos).
+             required: el navegador no deja enviar el formulario si está vacío.
+             name: nombre con el que el PHP recibe el dato ($_POST['nombre_producto']). -->
+        <input type="text" id="nombre_producto" name="nombre_producto" maxlength="50" required><br><br>
+
+        <label for="precio">Precio (€):</label><br>
+        <!-- type="number": solo admite números. step="0.01": permite céntimos (ej: 12.99).
+             min="1": el precio mínimo es 1 € (igual que valida el procedimiento SQL). -->
+        <input type="number" step="0.01" id="precio" name="precio" min="1" required><br><br>
+
+        <label for="stock">Stock (unidades):</label><br>
+        <!-- Número entero de unidades disponibles. min="1": al menos 1 unidad. -->
+        <input type="number" id="stock" name="stock" min="1" required><br><br>
+
+        <!-- Botón que envía el formulario a procesar_tienda.php -->
+        <input type="submit" value="Registrar Producto">
+    </form>
+
+    <!-- Línea horizontal para separar las dos secciones -->
+    <hr>
+
+    <!-- =============================================================== -->
+    <!-- SECCIÓN 2: COMPRAR UN PRODUCTO                                   -->
+    <!-- =============================================================== -->
+    <h2>Comprar Producto</h2>
+
+    <!-- Este formulario también envía los datos a procesar_tienda.php -->
+    <form action="procesar_tienda.php" method="post">
+
+        <!-- Campo oculto: aquí la acción es "comprar_producto",
+             así el PHP distingue este formulario del anterior. -->
+        <input type="hidden" name="accion" value="comprar_producto">
+
+        <label for="producto">ID del Producto:</label><br>
+        <!-- El usuario escribe el número de ID del producto (el que aparece en la tabla).
+             min="1": los IDs empiezan en 1. -->
+        <input type="number" id="producto" name="producto" min="1" required><br><br>
+
+        <!-- Botón que envía la compra -->
+        <input type="submit" value="Comprar Producto">
+    </form>
+
+</body>
+</html>

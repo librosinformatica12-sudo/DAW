@@ -1,10 +1,24 @@
 <?php
 
+/*
+ * gestionar_doctores.php (portal_citasV2 - versión buena)
+ *
+ * ÍNDICE RÁPIDO (Ctrl+F):
+ *   SESION
+ *   CARGAR DOCTORES DE LA BD
+ *   ALTA DE DOCTOR
+ *   CODIGOS DE RESULTADO
+ *   RENDER TABLA
+ */
+
 require_once __DIR__ . '\AccesoDatos.php';
 
-// PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio)
+// ===== SESION =====
+// PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio).
 session_start();
-// PASO B: Inicializar el array de doctores 'lista_doctores'en la sesión si no existe aún
+// ===== CARGAR DOCTORES DE LA BD =====
+// PASO B: Inicializar el array de doctores 'lista_doctores' en la sesión si no existe.
+// Solo se carga desde MySQL la primera vez; después se reutiliza la sesión.
 if(!isset($_SESSION['lista_doctores'])) {
     $_SESSION['lista_doctores'] = [];
 
@@ -23,7 +37,8 @@ if(!isset($_SESSION['lista_doctores'])) {
     }
 }
 
-// PASO D: Si se recibe una nueva alta de doctor por $_POST, se procesa
+// ===== ALTA DE DOCTOR =====
+// PASO D: Si se recibe una nueva alta de doctor por $_POST, se procesa.
 if(isset($_POST['licencia_doctor']) && 
    isset($_POST['nombre_doctor']) &&
    isset($_POST['apellidos_doctor'])) {
@@ -39,6 +54,8 @@ if(isset($_POST['licencia_doctor']) &&
                   $_POST['nombre_doctor'],
                   $_POST['apellidos_doctor']);
     
+    // ===== CODIGOS DE RESULTADO =====
+    // 0 = insertado; -1 nombre, -2 apellidos, -3 licencia duplicada.
     if($resultado === "-1"){
         $mensaje = "Nombre vacio";
     }
@@ -68,9 +85,10 @@ if(isset($_POST['licencia_doctor']) &&
         <p style="color: green; font-weight: bold;"><?php echo $mensaje; ?></p>
     <?php endif; ?>
 
+    <!-- ===== RENDER TABLA ===== -->
     <h3>Doctores dados de alta (Total: <?php echo count($_SESSION['lista_doctores']) ?>)</h3>
 
-    <!-- PASO E: Renderizar la tabla si existen citas guardadas -->
+    <!-- PASO E: Renderizar la tabla si existen doctores guardados -->
     <?php if (!empty($_SESSION['lista_doctores'])): ?>
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>

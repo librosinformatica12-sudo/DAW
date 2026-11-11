@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de espacio con slider</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <h1>Control de espacio</h1>
+        <p class="ayuda">
+            Mueve el slider o usa los botones. El valor cambia el espacio
+            interior de la caja.
+        </p>
+
+        <!-- ENTRADA: slider y botones -->
+        <section class="panel">
+            <label for="exp">
+                Espacio: <span id="valor" aria-live="polite">21</span> px
+            </label>
+
+            <input
+                type="range"
+                id="exp"
+                name="exp"
+                min="1"
+                max="100"
+                step="5"
+                value="21">
+
+            <div class="botones">
+                <button type="button" id="btn-menos">-5</button>
+                <button type="button" id="btn-mas">+5</button>
+                <button type="button" id="btn-reiniciar" class="secundario">
+                    Reiniciar
+                </button>
+            </div>
+        </section>
+
+        <!-- VISTA: caja que cambia de tamaño -->
+        <section class="vista">
+            <div id="caja" class="caja">
+                <span>Contenido</span>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

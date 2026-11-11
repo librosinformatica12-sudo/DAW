@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espaciado flexible entre tarjetas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <h1>Espaciado flexible</h1>
+
+        <p class="ayuda">
+            El slider cambia la separación entre las tarjetas. Los botones
+            suman, restan, reinician o lanzan una animación de balanceo.
+        </p>
+
+        <!-- ENTRADA: slider y botones -->
+        <section class="panel">
+            <label for="exp">
+                Espacio entre tarjetas:
+                <span id="valor" aria-live="polite">8</span> px
+            </label>
+
+            <input
+                type="range"
+                id="exp"
+                name="exp"
+                min="0"
+                max="40"
+                step="4"
+                value="8">
+
+            <div class="botones">
+                <button type="button" id="btn-menos">-4</button>
+                <button type="button" id="btn-mas">+4</button>
+                <button type="button" id="btn-animar" class="animar">Balancear</button>
+                <button type="button" id="btn-reiniciar" class="secundario">
+                    Reiniciar
+                </button>
+            </div>
+        </section>
+
+        <!-- VISTA: tarjetas separadas por gap -->
+        <section id="galeria" class="galeria">
+            <div class="caja">1</div>
+            <div class="caja">2</div>
+            <div class="caja">3</div>
+            <div class="caja">4</div>
+        </section>
+
+        <p class="pista">
+            Pulsa <strong>Balancear</strong> para que las tarjetas se muevan
+            en cadena.
+        </p>
+    </main>
+</body>
+</html>

@@ -7,25 +7,41 @@
         <script src="js/tragaperras.js" defer></script>
     </head>
     <body>
+        <!--
+          ÍNDICE RÁPIDO (Ctrl+F):
+            CABECERA
+            PANEL DE JUEGO
+            VISOR (3 SLOTS)
+            BOTON TIRAR
+            PANEL ESTADISTICAS
+        -->
+
+        <!-- ===== CABECERA ===== -->
         <div id="cabecera">
             <h1>Tragaperras</h1>
             <p>¡Bienvenido!</p>
         </div>
         
+        <!-- ===== PANEL DE JUEGO ===== -->
         <div id="panel-juego" class="panel">
             <div>
                 <h2>Buena suerte</h2>
             </div>
             <div id="main">
                 
+                <!-- ===== VISOR (3 SLOTS) ===== -->
+                <!-- Los id slot_1, slot_2 y slot_3 se cambian desde tragaperras.js -->
                 <div id="visor">
                     <span><img id="slot_1" src="res/siete.png"/></span>
                     <span><img id="slot_2" src="res/siete.png"/></span>
                     <span><img id="slot_3" src="res/siete.png"/></span>
                 </div>
+                <!-- ===== BOTON TIRAR ===== -->
                 <div id="barra_control">
                     <button id="btn_tirar" class="btn">Tirada</button>
                 </div>
+                <!-- ===== PANEL ESTADISTICAS ===== -->
+                <!-- id="creditos" se actualiza desde JavaScript. -->
                 <div id="panel_estadisticas">
                     <h3>Estado de la Simulación</h3>
                     <span>CREDITOS </span><span id="creditos">0</span>

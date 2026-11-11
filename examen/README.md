@@ -19,6 +19,9 @@ Abre `index.html` con doble clic. Es la misma información, pero con tablas, col
 | `cliente/02-lista-tareas` | Añadir/borrar/completar tareas con DOM | Cliente |
 | `cliente/03-adivina-numero` | Random, intentos, validación y mensajes | Cliente |
 | `cliente/04-carrito` | Arrays de objetos, totales y render de tabla | Cliente |
+| `cliente/05-slider-botones` | Slider, variables, funciones, botones y animación CSS | Cliente |
+| `cliente/06-espaciado-letras` | Slider para espacio entre letras y animación de latido | Cliente |
+| `cliente/07-espaciado-flex` | Slider para separar tarjetas y animación de balanceo | Cliente |
 | `servidor/01-clinica` | Como `portal_citasV2`: citas + doctores | Servidor |
 | `servidor/02-conciertos` | Tu proyecto terminado: conciertos + entradas | Servidor |
 | `servidor/03-biblioteca` | Libros + préstamos + JOIN + UPDATE | Servidor |
@@ -64,6 +67,9 @@ Abre el `index.html` con doble clic o entra en:
 | Una lista que se actualiza sin recargar | `cliente/02-lista-tareas` |
 | Un random con intentos y mensajes | `cliente/03-adivina-numero` |
 | Productos, precios y total | `cliente/04-carrito` |
+| Un slider, botones o una animación | `cliente/05-slider-botones` |
+| Controlar el espacio entre letras | `cliente/06-espaciado-letras` |
+| Separar tarjetas o elementos | `cliente/07-espaciado-flex` |
 | Un formulario que guarda en MySQL | `servidor/01-clinica` |
 | Conciertos, entradas, altas y bajas | `servidor/02-conciertos` |
 | Libros, préstamos, stock | `servidor/03-biblioteca` |

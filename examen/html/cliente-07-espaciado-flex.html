@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cliente 07 - Espaciado flexible</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio 07 — Espaciado flexible (cliente)</h1>
+
+<p><strong>Enunciado general:</strong> crea una página con un slider que controle la separación entre varias tarjetas. Añade botones para sumar, restar, reiniciar y lanzar una animación de balanceo en cadena. Usa variables y funciones.</p>
+
+<div class="aviso">
+<strong>Pistas de examen:</strong> usar un <code>input type="range"</code>, crear variables y usarlas en funciones, usar botones y hacer una animación CSS. Aquí “control espacio” se aplica a la separación entre tarjetas (<code>gap</code>).
+</div>
+
+<h2>Qué hay que hacer</h2>
+<ol>
+<li>Poner un <code>input type="range"</code> con <code>min="0"</code>, <code>max="40"</code> y <code>step="4"</code>.</li>
+<li>Mostrar el valor actual al lado del slider.</li>
+<li>Cambiar el <code>gap</code> de la galería cuando se mueve el slider.</li>
+<li>Añadir botones <strong>-4</strong>, <strong>+4</strong>, <strong>Balancear</strong> y <strong>Reiniciar</strong>.</li>
+<li>Usar variables para el valor, el mínimo, el máximo y el paso.</li>
+<li>Usar funciones para pintar, cambiar, reiniciar y animar.</li>
+<li>Añadir una animación CSS de balanceo que se lance con el botón.</li>
+</ol>
+
+<p>La solución completa está en <code>cliente/07-espaciado-flex/solucion/</code>. <strong>No la abras hasta intentarlo.</strong></p>
+
+<hr>
+<h2>Hueco 1 — HTML del slider, botones y tarjetas</h2>
+<pre><code class="lang-html">&lt;label for="exp"&gt;
+    Espacio entre tarjetas:
+    &lt;span id="valor"&gt;8&lt;/span&gt; px
+&lt;/label&gt;
+
+&lt;input type="range" id="exp" name="exp"
+       min="0" max="40" step="4" value="8"&gt;
+
+&lt;button type="button" id="btn-menos"&gt;-4&lt;/button&gt;
+&lt;button type="button" id="btn-mas"&gt;+4&lt;/button&gt;
+&lt;button type="button" id="btn-animar"&gt;Balancear&lt;/button&gt;
+&lt;button type="button" id="btn-reiniciar"&gt;Reiniciar&lt;/button&gt;
+
+&lt;section id="galeria" class="galeria"&gt;
+    &lt;div class="caja"&gt;1&lt;/div&gt;
+    &lt;div class="caja"&gt;2&lt;/div&gt;
+    &lt;div class="caja"&gt;3&lt;/div&gt;
+    &lt;div class="caja"&gt;4&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+<details>
+<summary>Ver explicación</summary>
+<p>El <code>label</code> usa <code>for="exp"</code> para quedar asociado al slider. El <code>span</code> con <code>id="valor"</code> muestra el número. Las tarjetas tienen la clase <code>caja</code> para poder seleccionarlas todas con <code>querySelectorAll</code>.</p>
+</details>
+
+<hr>
+<h2>Hueco 2 — Referencias del DOM</h2>
+<pre><code class="lang-js">const slider = /* TODO: input con id exp */;
+const valor = /* TODO: span con id valor */;
+const galeria = /* TODO: section con id galeria */;
+const cajas = /* TODO: todas las tarjetas con clase caja */;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const slider = document.getElementById("exp");
+const valor = document.getElementById("valor");
+const galeria = document.getElementById("galeria");
+const cajas = document.querySelectorAll(".caja");</code></pre>
+</details>
+
+<hr>
+<h2>Hueco 3 — Variables</h2>
+<pre><code class="lang-js">let espacio = /* TODO: valor inicial */;
+const MIN = /* TODO: mínimo */;
+const MAX = /* TODO: máximo */;
+const PASO = /* TODO: cuánto suma cada botón */;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">let espacio = 8;
+const MIN = 0;
+const MAX = 40;
+const PASO = 4;</code></pre>
+</details>
+
+<hr>
+<h2>Hueco 4 — Función pintar</h2>
+<pre><code class="lang-js">function pintar() {
+    /* TODO: sincronizar el slider con la variable espacio */
+    /* TODO: mostrar el número en el span */
+    /* TODO: aplicar el espacio como gap de la galería */
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">function pintar() {
+    slider.value = espacio;
+    valor.textContent = espacio;
+    galeria.style.gap = espacio + "px";
+}</code></pre>
+<p><code>gap</code> separa los elementos de un flex o grid. <code>style.gap</code> espera un valor con unidad, por eso añadimos <code>"px"</code>.</p>
+</details>
+
+<hr>
+<h2>Hueco 5 — Cambiar y reiniciar</h2>
+<pre><code class="lang-js">function cambiar(cantidad) {
+    /* TODO: sumar la cantidad y limitar entre MIN y MAX */
+    /* TODO: llamar a pintar */
+}
+
+function reiniciar() {
+    /* TODO: volver al valor inicial */
+    /* TODO: llamar a pintar */
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">function cambiar(cantidad) {
+    espacio = Math.min(MAX, Math.max(MIN, espacio + cantidad));
+    pintar();
+}
+
+function reiniciar() {
+    espacio = 8;
+    pintar();
+}</code></pre>
+<p><code>Math.max(MIN, ...)</code> impide bajar del mínimo. <code>Math.min(MAX, ...)</code> impide pasar del máximo.</p>
+</details>
+
+<hr>
+<h2>Hueco 6 — Animación en cadena</h2>
+<pre><code class="lang-js">function animar() {
+    cajas.forEach(function (caja, indice) {
+        /* TODO: quitar la clase balanceo */
+        /* TODO: forzar el reinicio de la animación */
+        /* TODO: retrasar cada tarjeta según su índice */
+        /* TODO: añadir la clase balanceo */
+        /* TODO: quitarla cuando termine */
+    });
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">function animar() {
+    cajas.forEach(function (caja, indice) {
+        caja.classList.remove("balanceo");
+        void caja.offsetWidth;
+
+        caja.style.animationDelay = (indice * 0.08) + "s";
+        caja.classList.add("balanceo");
+
+        setTimeout(function () {
+            caja.classList.remove("balanceo");
+            caja.style.animationDelay = "";
+        }, 900 + indice * 80);
+    });
+}</code></pre>
+<p><code>void caja.offsetWidth</code> obliga al navegador a recalcular el elemento y permite repetir la animación. <code>animationDelay</code> hace que las tarjetas se muevan en cadena.</p>
+</details>
+
+<hr>
+<h2>Hueco 7 — CSS del flex y la animación</h2>
+<pre><code class="lang-css">.galeria {
+    /* TODO: display flex, wrap, centrado y transición del gap */
+}
+
+.caja {
+    /* TODO: tamaño, centrado y estilo de tarjeta */
+}
+
+.caja.balanceo {
+    /* TODO: aplicar la animación */
+}
+
+@keyframes balanceo {
+    /* TODO: rotar a un lado y a otro */
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-css">.galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.2s ease;
+}
+
+.caja {
+    width: 92px;
+    height: 92px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.caja.balanceo {
+    animation: balanceo 0.8s ease-in-out;
+}
+
+@keyframes balanceo {
+    0%, 100% {
+        transform: rotate(0deg) translateY(0);
+    }
+
+    25% {
+        transform: rotate(-8deg) translateY(-8px);
+    }
+
+    75% {
+        transform: rotate(8deg) translateY(-8px);
+    }
+}</code></pre>
+<p><code>flex-wrap</code> permite que las tarjetas bajen a otra línea si no caben. <code>transition</code> suaviza el cambio de <code>gap</code>.</p>
+</details>
+
+<hr>
+<h2>Si el profe pide otra cosa</h2>
+<table>
+<tr><th>Lo que pide</th><th>Qué cambiar</th></tr>
+<tr><td>Espacio entre tarjetas</td><td><code>galeria.style.gap</code></td></tr>
+<tr><td>Espacio interior de cada tarjeta</td><td><code>caja.style.padding</code></td></tr>
+<tr><td>Que las tarjetas se coloquen en columna</td><td><code>flex-direction: column</code></td></tr>
+<tr><td>Animación más lenta</td><td><code>animation-duration</code></td></tr>
+<tr><td>Que se vea el valor</td><td><code>valor.textContent = espacio</code></td></tr>
+<tr><td>Que la animación sea en cadena</td><td><code>animationDelay</code> según el índice</td></tr>
+</table>
+
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Qué diferencia hay entre <code>input</code> y <code>change</code>?</strong> <code>input</code> salta mientras mueves el slider; <code>change</code> salta al soltarlo.</li>
+<li><strong>¿Por qué usas <code>Number()</code>?</strong> Porque <code>slider.value</code> devuelve un texto, no un número.</li>
+<li><strong>¿Para qué sirven <code>Math.min</code> y <code>Math.max</code>?</strong> Para limitar el valor y que no se salga de <code>MIN</code> y <code>MAX</code>.</li>
+<li><strong>¿Qué hace <code>querySelectorAll</code>?</strong> Devuelve todos los elementos que coinciden con el selector.</li>
+<li><strong>¿Qué hace <code>classList.add</code>?</strong> Añade una clase al elemento; en este caso activa la animación.</li>
+<li><strong>¿Por qué quitas la clase con <code>setTimeout</code>?</strong> Para poder volver a lanzar la misma animación.</li>
+<li><strong>¿Qué diferencia hay entre <code>textContent</code> e <code>innerHTML</code>?</strong> <code>textContent</code> escribe texto; <code>innerHTML</code> interpreta etiquetas HTML.</li>
+</ol>
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

@@ -7,6 +7,15 @@
  *   2. Valida los datos en PHP.
  *   3. Llama a PA_AltaConcierto() para insertar en MySQL.
  *   4. Vuelve a leer la lista desde MySQL y la muestra en una tabla.
+ *
+ * ÍNDICE RÁPIDO (Ctrl+F):
+ *   RECIBIR POST
+ *   VALIDAR CAMPOS
+ *   CONVERTIR FECHA
+ *   LLAMAR PA_AltaConcierto
+ *   CODIGOS DE RESULTADO
+ *   LEER LISTA DE LA BD
+ *   RENDER TABLA
  */
 
 // require_once carga AccesoDatos.php una sola vez, aunque la página se incluya varias veces.
@@ -15,6 +24,7 @@ require_once __DIR__ . '\AccesoDatos.php';
 // Variable que guarda el mensaje que se muestra al usuario.
 $mensaje = '';
 
+// ===== RECIBIR POST =====
 // isset($_POST['accion']) comprueba que el formulario se ha enviado.
 if (isset($_POST['accion']) && $_POST['accion'] === 'alta_concierto') {
     // ?? devuelve '' si el campo no existe; trim() quita espacios al principio y al final.
@@ -24,6 +34,7 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'alta_concierto') {
     // (float) convierte el precio recibido a número decimal.
     $precio = (float)($_POST['precio_concierto'] ?? 0);
 
+    // ===== VALIDAR CAMPOS =====
     // Validaciones en PHP antes de llamar a MySQL.
     if ($nombre === '') {
         $mensaje = 'El nombre no puede estar vacío.';
@@ -32,12 +43,15 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'alta_concierto') {
     } elseif ($precio <= 0) {
         $mensaje = 'El precio debe ser mayor que 0.';
     } else {
+        // ===== CONVERTIR FECHA =====
         // datetime-local envía 2026-11-12T21:00; lo pasamos a formato MySQL.
         $fecha = date('Y-m-d H:i:s', strtotime($fechaEntrada));
 
+        // ===== LLAMAR PA_AltaConcierto =====
         // Llama a la función que ejecuta el procedure AltaConcierto.
         $resultado = PA_AltaConcierto($nombre, $fecha, $precio);
 
+        // ===== CODIGOS DE RESULTADO =====
         // El procedure devuelve un código; (int) lo convierte a entero.
         switch ((int)$resultado) {
             case 0:
@@ -59,8 +73,12 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'alta_concierto') {
                 $mensaje = 'No se pudo insertar el concierto.';
         }
     }
+
+
+    // POST de la venta de entrada
 }
 
+// ===== LEER LISTA DE LA BD =====
 // Siempre se lee la lista desde MySQL, así la página coincide con la base de datos.
 $conciertos = PA_ListaConcierto();
 ?>
@@ -79,6 +97,7 @@ $conciertos = PA_ListaConcierto();
         <p style="color: green; font-weight: bold;"><?php echo htmlspecialchars($mensaje); ?></p>
     <?php endif; ?>
 
+    <!-- ===== RENDER TABLA ===== -->
     <h3>Conciertos registrados (Total: <?php echo count($conciertos) ?>)</h3>
 
     <?php if (!empty($conciertos)): ?>

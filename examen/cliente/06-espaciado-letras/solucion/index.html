@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espaciado de letras con slider</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="app">
+        <h1 id="titulo" class="titulo">CONTROL DE ESPACIO</h1>
+
+        <p class="ayuda">
+            El slider cambia el espacio entre las letras. Los botones suman,
+            restan, reinician o lanzan una animación.
+        </p>
+
+        <!-- ENTRADA: slider y botones -->
+        <section class="panel">
+            <label for="exp">
+                Espacio entre letras:
+                <span id="valor" aria-live="polite">2</span> px
+            </label>
+
+            <input
+                type="range"
+                id="exp"
+                name="exp"
+                min="0"
+                max="20"
+                step="1"
+                value="2">
+
+            <div class="botones">
+                <button type="button" id="btn-menos">-1</button>
+                <button type="button" id="btn-mas">+1</button>
+                <button type="button" id="btn-animar" class="animar">Animar</button>
+                <button type="button" id="btn-reiniciar" class="secundario">
+                    Reiniciar
+                </button>
+            </div>
+        </section>
+
+        <p class="pista">
+            Pulsa <strong>Animar</strong> para que el título haga un latido.
+        </p>
+    </main>
+</body>
+</html>

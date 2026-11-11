@@ -1,5 +1,23 @@
 <?php
 
+/*
+ * AccesoDatos.php (portal_citasV2 - versión buena)
+ *
+ * ÍNDICE RÁPIDO (Ctrl+F):
+ *   CONEXION
+ *   PA_ListaCitas
+ *   PA_ListaDoctores
+ *   PA_DameDoctor
+ *   PA_AltaDoctor
+ *   PA_AltaCita
+ *   PA_ActualizarCita
+ *
+ * Patrón de examen:
+ *   SELECT  -> prepare + execute + get_result + while/fetch_assoc
+ *   INSERT/UPDATE -> prepare + bind_param + execute + SELECT @resultado
+ */
+
+// ===== CONEXION =====
 $host = '127.0.0.1';
 $port = 3306;
 $database = 'clinica';
@@ -18,6 +36,8 @@ $connection = @new mysqli($host, $username, $password, $database, $port);
    - Recorren los resultados con un bucle while y fetch_assoc().
    ========================================================================= */
 
+// ===== FUNCION PA_ListaCitas =====
+// Devuelve todas las citas. Se usa para cargar la tabla y la sesión.
 function PA_ListaCitas()
 {
     global $connection;
@@ -54,6 +74,8 @@ function PA_ListaCitas()
 }
 
 
+// ===== FUNCION PA_ListaDoctores =====
+// Devuelve todos los doctores. Se usa para cargar la tabla de doctores.
 function PA_ListaDoctores()
 {
     global $connection;
@@ -87,6 +109,8 @@ function PA_ListaDoctores()
 }
 
 
+// ===== FUNCION PA_DameDoctor =====
+// Busca un doctor por licencia. Se usa para validar que el doctor existe.
 function PA_DameDoctor(int $n_licencia)
 {
     global $connection;
@@ -134,6 +158,8 @@ function PA_DameDoctor(int $n_licencia)
      la variable de sesión de MySQL (@resultado) justo después de cerrar el statement.
    ========================================================================= */
 
+// ===== FUNCION PA_AltaDoctor =====
+// Inserta un doctor y devuelve el código OUT del procedure.
 function PA_AltaDoctor(string $n_licencia, string $nombre, string $apellidos)
 {
     global $connection;
@@ -169,6 +195,8 @@ function PA_AltaDoctor(string $n_licencia, string $nombre, string $apellidos)
 }
 
 
+// ===== FUNCION PA_AltaCita =====
+// Inserta una cita y devuelve el código OUT del procedure.
 function PA_AltaCita(string $nombre_paciente, string $especialidad, string $fecha, int $doctor_asignado)
 {
     global $connection;
@@ -201,6 +229,8 @@ function PA_AltaCita(string $nombre_paciente, string $especialidad, string $fech
 }
 
 
+// ===== FUNCION PA_ActualizarCita =====
+// Modifica una cita existente y devuelve el código OUT del procedure.
 function PA_ActualizarCita(string $idCita, string $nombre_paciente, string $especialidad, string $fecha, int $doctor_asignado)
 {
     global $connection;

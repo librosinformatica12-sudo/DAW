@@ -1,13 +1,24 @@
 <?php
 
 /*
- * AccesoDatos.php
+ * AccesoDatos.php (conciertos)
  * En este archivo se concentra el acceso a MySQL:
  *   - Se crea la conexión.
  *   - Se definen las funciones que llaman a los procedimientos.
  *   - Se devuelven arrays o códigos de resultado al PHP de la página.
+ *
+ * ÍNDICE RÁPIDO (Ctrl+F):
+ *   CONEXION
+ *   PA_AltaConcierto
+ *   PA_ListaConcierto
+ *
+ * Patrón INSERT/UPDATE:
+ *   prepare -> bind_param -> execute -> close -> SELECT @resultado
+ * Patrón SELECT:
+ *   prepare -> execute -> get_result -> fetch_assoc -> array
  */
 
+// ===== CONEXION =====
 // Datos de conexión. En el examen se cambian según el enunciado.
 $host = "127.0.0.1";
 $port = 3306;
@@ -26,6 +37,7 @@ if (!$connection || $connection->connect_errno) {
     die('Error de conexión: ' . ($connection ? $connection->connect_error : 'mysqli devolvió false'));
 }
 
+// ===== PA_AltaConcierto =====
 /*
  * PA_AltaConcierto
  * Llama al procedure AltaConcierto.
@@ -85,6 +97,7 @@ function PA_AltaConcierto(string $nombre, string $fecha, float $precio)
     return (int)$fila['resultado'];
 }
 
+// ===== PA_ListaConcierto =====
 /*
  * PA_ListaConcierto
  * Llama al procedure ListaConcierto y devuelve todas las filas en un array.
@@ -122,4 +135,52 @@ function PA_ListaConcierto()
     $stmt->close();
 
     return $conciertos;
+}
+
+
+
+function PA_AltaEntrada(int $fk_concierto, string $fecha_adquisiion)
+{
+    // global permite usar la conexión creada fuera de la función.
+    global $connection;
+
+    // Convierte la fecha al formato que entiende MySQL: YYYY-MM-DD HH:MM:SS.
+    $fecha = date('Y-m-d H:i:s', strtotime($fecha_adquisiion));
+
+    // Los ? son marcadores de posición. @resultado recoge el parámetro OUT del procedure.
+    $sql = 'CALL AltaEntrada(?, ?, @res @id_entrada)';
+    $stmt = $connection->prepare($sql);
+
+    // Si prepare() falla, $stmt es false; lanzamos una excepción con el error real.
+    if (!$stmt) {
+        throw new RuntimeException('Error al preparar AltaConcierto: ' . $connection->error);
+    }
+
+    // 'ssd' significa string, string y double (nombre, fecha y precio).
+    $stmt->bind_param('is', $fk_concierto, $fecha_adquisiion);
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        throw new RuntimeException('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    // Hay que cerrar el statement antes de consultar la variable @resultado.
+    $stmt->close();
+
+    // SELECT @resultado lee el valor que el procedure dejó en la variable de usuario.
+    $resultado = $connection->query('SELECT @res AS RES, id_entrada AS resultado');
+
+    if (!$resultado) {
+        throw new RuntimeException('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return [
+        "res" => (int)$fila["res"],
+        "id_entrada" => $fila["id_entrada"] !== null ? (int)$fila["id_entrada"] : null
+    ];
+
 }

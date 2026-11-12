@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de peluquería</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f5f2f0; color: #292323; }
+        header { background: #563b4a; color: white; padding: 28px 20px; text-align: center; }
+        main { max-width: 1050px; margin: 28px auto; padding: 0 18px; }
+        .intro, .panel { background: white; border-radius: 12px; padding: 22px; margin-bottom: 20px; box-shadow: 0 2px 10px #0000000d; }
+        .acciones { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+        a.boton { display: block; padding: 18px; border-radius: 9px; background: #80566b; color: white; text-decoration: none; text-align: center; font-weight: bold; }
+        a.boton:hover { background: #654255; }
+        h1, h2 { margin-top: 0; }
+        footer { text-align: center; padding: 20px; color: #766b70; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Portal de gestión de peluquería</h1>
+    <p>Clientes · Peluqueros · Reservas</p>
+</header>
+<main>
+    <section class="intro">
+        <h2>Bienvenido/a</h2>
+        <p>Desde este menú puedes gestionar los datos de la peluquería. El proyecto utiliza PHP, MySQL y procedimientos almacenados.</p>
+    </section>
+    <section class="panel">
+        <h2>Acceso a la gestión</h2>
+        <div class="acciones">
+            <a class="boton" href="procesar_peluqueria.php?seccion=clientes">Gestionar clientes</a>
+            <a class="boton" href="procesar_peluqueria.php?seccion=peluqueros">Gestionar peluqueros</a>
+            <a class="boton" href="procesar_peluqueria.php?seccion=reservas">Gestionar reservas</a>
+            <a class="boton" href="procesar_peluqueria.php?seccion=consultas">Consultas y búsquedas</a>
+        </div>
+    </section>
+</main>
+<footer>Proyecto de práctica DAW · PHP + MySQL</footer>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Centro Médico - Solicitar Cita</title>
+</head>
+<body>
+<!-- EXPLICACIÓN GENERAL: página de inicio (HTML puro, sin PHP) con DOS formularios. -->
+<!-- Cada uno envía sus datos por POST a una página PHP distinta: -->
+<!--   Alta de Doctor -> gestionar_doctores.php -->
+<!--   Solicitud de Cita -> gestionar_citas.php -->
+<!-- Regla clave: el atributo name de cada input es la clave con la que PHP lo lee -->
+<!-- en $_POST (name="paciente" se lee como $_POST['paciente']). -->
+<!-- AVISO IMPORTANTE: el campo oculto accion=alta_cita está en el formulario del -->
+<!-- DOCTOR (que no lo necesita) y falta en el de la CITA (que sí lo necesita). -->
+<!-- EXAMEN: es un fallo típico a corregir moviendo ese campo oculto. -->
+    <!--
+      ÍNDICE RÁPIDO (Ctrl+F):
+        FORM ALTA DOCTOR
+        FORM ALTA CITA (PACIENTE)
+        CAMPOS DEL DOCTOR
+        CAMPOS DE LA CITA
+    -->
+
+    <!-- ===== FORM ALTA DOCTOR ===== -->
+    <h2>Alta de Doctor</h2>
+    <!-- action = PHP que procesa; method = post para enviar los datos ocultos -->
+    <form action="gestionar_doctores.php" method="post">
+        <!-- ===== CAMPOS DEL DOCTOR ===== -->
+        <!-- name="licencia_doctor" -> $_POST["licencia_doctor"] en gestionar_doctores.php -->
+        <!-- Nº Licencia del doctor -->
+        <label for="licencia_doctor">Nº Licencia:</label><br>
+        <!-- maxlength limita lo que se puede escribir (aquí 8). Se puede saltar, por eso -->
+        <!-- siempre hay que validar también en el servidor o en la BD. -->
+        <!-- Nota: los label de este formulario usan for=..., pero los inputs no tienen -->
+        <!-- id, por lo que no quedan enlazados (para enlazarlos, el id del input debe -->
+        <!-- ser igual al for del label). -->
+        <input type="text" name="licencia_doctor" maxlength="8">
+        <br>
+        <!-- Nombre del doctor -->
+        <label for="nombre_doctor">Nombre:</label><br>
+        <input type="text" name="nombre_doctor" maxlength="50">
+        <br>
+        <!-- Apellidos -->
+        <label for="apellidos_doctor">Apellidos:</label><br>
+        <input type="text" name="apellidos_doctor" maxlength="50">
+        <br>
+
+        <!-- Campo oculto: viaja en el POST aunque el usuario no lo vea. -->
+        <!-- AVISO: este campo está en el formulario equivocado. gestionar_doctores.php no -->
+        <!-- mira accion, y gestionar_citas.php sí necesita accion=alta_cita para dar de -->
+        <!-- alta una cita. Este campo debería estar en el formulario de la cita. -->
+        <input type="hidden" name="accion" value="alta_cita">
+        <button type="submit">Alta Doctor</button> 
+    </form>
+
+    <!-- ===== FORM ALTA CITA (PACIENTE) ===== -->
+    <h2>Solicitud de Cita Médica</h2>
+
+    <!-- action = gestionar_citas.php; method = post -->
+    <form action="gestionar_citas.php" method="post">
+    <!-- FALTA en este formulario un campo oculto accion con value alta_cita: -->
+    <!--   input type hidden, name accion, value alta_cita -->
+    <!-- Sin él, el alta de la cita no se ejecuta en gestionar_citas.php. -->
+        <!-- ===== CAMPOS DE LA CITA ===== -->
+        <!-- name="paciente" -> $_POST["paciente"] -->
+        <!-- Campo para el nombre del paciente -->
+        <label for="paciente">Nombre del Paciente:</label><br>
+        <input type="text" id="paciente" name="paciente"><br><br>
+
+        <!-- name="especialidad" -> $_POST["especialidad"]; el value es lo que se guarda -->
+        <!-- Selección de especialidad -->
+        <label for="especialidad">Especialidad:</label><br>
+        <!-- Desplegable: el value de cada option es lo que viaja en el POST. Debe coincidir -->
+        <!-- EXACTAMENTE con los valores del ENUM de la BD (tildes y mayúsculas incluidas). -->
+        <!-- La primera opción tiene value vacío: si se envía, AltaCita devuelve -2. -->
+        <select id="especialidad" name="especialidad">
+            <option value="">-- Seleccione una opción --</option>
+            <option value="Medicina General">Medicina General</option>
+            <option value="Pediatría">Pediatría</option>
+            <option value="Dermatología">Dermatología</option>
+            <option value="Traumatología">Traumatología</option>
+        </select><br><br>
+
+        <!-- name="fecha_hora" -> $_POST["fecha_hora"]; datetime-local envía YYYY-MM-DDTHH:MM -->
+        <!-- Campo para fecha y hora -->
+        <label for="fecha_hora">Fecha y Hora de la Cita:</label><br>
+        <!-- Selector de fecha y hora. Envía el formato AAAA-MM-DDTHH:MM (con una T) y -->
+        <!-- MySQL lo acepta en una columna DATETIME. La fecha debe ser futura (si no, -->
+        <!-- AltaCita devuelve -4). -->
+        <input type="datetime-local" id="fecha_hora" name="fecha_hora">
+        <br><br>
+
+        <!-- name="doctor_asignado" -> $_POST["doctor_asignado"]; debe ser el id/licencia del doctor -->
+        <!-- Doctor que atenderá -->
+        <label for="n_licencia">Asignar Doctor:</label><br>
+        <!-- El usuario escribe a mano la licencia del doctor (no hay desplegable). Si el -->
+        <!-- doctor no existe, gestionar_citas.php redirige aquí. EXAMEN: podrían pedirte -->
+        <!-- cambiarlo por un select relleno con los doctores de la BD. -->
+        <input type="text" id="n_licencia" name="doctor_asignado">
+        <br><br>
+        
+        <!-- El botón submit envía el formulario por POST a gestionar_citas.php. -->
+        <button type="submit">Reservar Cita</button>
+        <!-- Enlace normal (GET): entra a gestionar_citas.php sin enviar datos del POST. -->
+        <a href="./gestionar_citas.php">Ir a Citas Actuales</a>
+    </form>
+
+</body>
+</html>

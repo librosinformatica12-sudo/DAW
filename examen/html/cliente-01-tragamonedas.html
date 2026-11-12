@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cliente 01 - Tragamonedas</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio 01 — Tragamonedas (cliente)</h1>
+<p><strong>Enunciado general:</strong> crea una tragaperras con 3 rodillos. Cada tirada cuesta 10 créditos.<br>Si los tres rodillos coinciden, se gana según la tabla:</p>
+<table>
+<tr><th>Símbolo</th><th>Premio</th></tr>
+<tr><td>🍊 naranja</td><td>+5</td></tr>
+<tr><td>🍋 limón</td><td>+7</td></tr>
+<tr><td>🍒 cereza</td><td>+10</td></tr>
+<tr><td>🔔 campana</td><td>+20</td></tr>
+<tr><td>7 siete</td><td>+50</td></tr>
+</table>
+
+<p>Empiezas con 100 créditos. Si no llegas a 10, no puedes tirar.</p>
+<p>La solución está en <code>solucion/</code>. <strong>No la abras hasta intentarlo.</strong></p>
+<hr>
+<h2>Hueco 1 — Seleccionar los elementos</h2>
+<p>En <code>script.js</code>, completa las referencias al HTML:</p>
+<pre><code class="lang-js">const btnTirar     = /* TODO: botón con id btn_tirar */;
+const spanCreditos = /* TODO: span con id creditos */;
+const pMensaje     = /* TODO: párrafo con id mensaje */;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const btnTirar     = document.getElementById(&quot;btn_tirar&quot;);
+const spanCreditos = document.getElementById(&quot;creditos&quot;);
+const pMensaje     = document.getElementById(&quot;mensaje&quot;);</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Escuchar el clic</h2>
+<pre><code class="lang-js">/* TODO: cuando se pulse btnTirar, ejecutar la función tirada */</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">btnTirar.addEventListener(&quot;click&quot;, tirada);</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Validar créditos</h2>
+<p>Dentro de <code>tirada()</code>, antes de cobrar:</p>
+<pre><code class="lang-js">if (/* TODO: no hay créditos suficientes */) {
+    pMensaje.textContent = &quot;Te has quedado sin créditos. Pulsa Reiniciar.&quot;;
+    return;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">if (creditos &lt; 10) {
+    pMensaje.textContent = &quot;Te has quedado sin créditos. Pulsa Reiniciar.&quot;;
+    return;
+}</code></pre>
+</details>
+<hr>
+<h2>Hueco 4 — Número aleatorio del 1 al 5</h2>
+<pre><code class="lang-js">for (let i = 0; i &lt; 3; i++) {
+    slots[i] = /* TODO: aleatorio entero entre 1 y 5 */;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">slots[i] = Math.floor(Math.random() * 5) + 1;</code></pre>
+<p><code>Math.random()</code> da un decimal entre 0 y casi 1. Multiplicado por 5 da 0..4.99.<br><code>Math.floor</code> lo baja a 0..4. Sumando 1 queda 1..5.</p>
+</details>
+<hr>
+<h2>Hueco 5 — Comprobar el premio</h2>
+<pre><code class="lang-js">if (/* TODO: los tres rodillos son iguales */) {
+    const premio = PREMIOS[slots[0]];
+    creditos += premio;
+    pMensaje.textContent = &quot;¡TRIPLE! Has ganado &quot; + premio + &quot; créditos.&quot;;
+} else {
+    pMensaje.textContent = &quot;No ha habido suerte. Prueba otra vez.&quot;;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">if (slots[0] === slots[1] &amp;&amp; slots[1] === slots[2]) {</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Pintar el estado</h2>
+<p>Completa <code>pintarSlots()</code>:</p>
+<pre><code class="lang-js">function pintarSlots() {
+    /* TODO: mostrar los créditos en spanCreditos */
+
+    for (let i = 0; i &lt; 3; i++) {
+        /* TODO: poner en slotsVista[i] el símbolo que toca */
+        /* TODO: añadir la clase &quot;ganador&quot; si los tres son iguales */
+    }
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">function pintarSlots() {
+    spanCreditos.textContent = creditos;
+
+    for (let i = 0; i &lt; 3; i++) {
+        slotsVista[i].textContent = SIMBOLOS[slots[i]];
+
+        if (slots[0] === slots[1] &amp;&amp; slots[1] === slots[2]) {
+            slotsVista[i].classList.add(&quot;ganador&quot;);
+        } else {
+            slotsVista[i].classList.remove(&quot;ganador&quot;);
+        }
+    }
+}</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 (extra) — Reiniciar</h2>
+<pre><code class="lang-js">function reiniciar() {
+    /* TODO: créditos a 100, slots a [5,5,5], mensaje y repintar */
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">function reiniciar() {
+    creditos = 100;
+    slots = [5, 5, 5];
+    pMensaje.textContent = &quot;Partida reiniciada.&quot;;
+    pintarSlots();
+}</code></pre>
+</details>
+<hr>
+<h2>Si el profe usa imágenes en vez de emojis</h2>
+<p>Cambia solo la línea del pintado:</p>
+<pre><code class="lang-js">// En vez de:
+slotsVista[i].textContent = SIMBOLOS[slots[i]];
+
+// Usa:
+slotsVista[i].setAttribute(&quot;src&quot;, IMAGENES[slots[i]]);</code></pre>
+<p>Y define:</p>
+<pre><code class="lang-js">const IMAGENES = {
+    1: &quot;img/naranja.png&quot;,
+    2: &quot;img/limon.png&quot;,
+    3: &quot;img/cereza.png&quot;,
+    4: &quot;img/campana.png&quot;,
+    5: &quot;img/siete.png&quot;
+};</code></pre>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Por qué restas 10 antes de comprobar el premio?</strong> Porque la tirada se paga siempre, ganes o no. El premio se suma después.</li>
+<li><strong>¿Qué diferencia hay entre <code>innerText</code>, <code>textContent</code> e <code>innerHTML</code>?</strong> <code>textContent</code>/<code>innerText</code> escriben texto; <code>innerHTML</code> interpreta etiquetas HTML.</li>
+<li><strong>¿Qué hace <code>return</code> dentro de <code>tirada()</code>?</strong> Sale de la función inmediatamente; no sigue cobrando ni generando números.</li>
+<li><strong>¿Por qué <code>defer</code> en el <code>&lt;script&gt;</code>?</strong> Para que el JS se ejecute cuando el HTML ya existe y <code>getElementById</code> no devuelva <code>null</code>.</li>
+<li><strong>¿Cómo cambiarías el precio de la tirada a 20?</strong> Cambiando el <code>10</code> de la resta y el <code>10</code> de la condición.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

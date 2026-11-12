@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chuleta de cliente (HTML + CSS + JS)</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>CHULETA — CLIENTE (HTML + CSS + JS)</h1>
+<h2>1. Esqueleto HTML mínimo</h2>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Ejercicio&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;
+    &lt;script src=&quot;script.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Mi ejercicio&lt;/h1&gt;
+    &lt;button id=&quot;btn&quot;&gt;Pulsar&lt;/button&gt;
+    &lt;p id=&quot;mensaje&quot;&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><code>defer</code> = el JS se ejecuta cuando el HTML ya está cargado. Si no lo pones, usa <code>DOMContentLoaded</code>.</p>
+<h2>2. Seleccionar elementos</h2>
+<pre><code class="lang-js">const btn = document.getElementById(&quot;btn&quot;);
+const mensaje = document.getElementById(&quot;mensaje&quot;);
+const cajas = document.querySelectorAll(&quot;.caja&quot;);   // todos
+const primera = document.querySelector(&quot;.caja&quot;);    // el primero</code></pre>
+<table>
+<tr><th>Quiero...</th><th>Código</th></tr>
+<tr><td>Por id</td><td><code>document.getElementById(&quot;id&quot;)</code></td></tr>
+<tr><td>Por clase</td><td><code>document.querySelector(&quot;.clase&quot;)</code></td></tr>
+<tr><td>Todos por clase</td><td><code>document.querySelectorAll(&quot;.clase&quot;)</code></td></tr>
+<tr><td>Dentro de otro</td><td><code>padre.querySelector(&quot;.hijo&quot;)</code></td></tr>
+</table>
+
+<h2>3. Eventos</h2>
+<pre><code class="lang-js">btn.addEventListener(&quot;click&quot;, function () {
+    // acción
+});
+
+btn.addEventListener(&quot;click&quot;, miFuncion);   // sin paréntesis
+
+function miFuncion() {
+    // acción
+}</code></pre>
+<p>Otros eventos: <code>input</code>, <code>change</code>, <code>submit</code>, <code>keydown</code>, <code>mouseover</code>.</p>
+<p>Formulario (evitar recarga):</p>
+<pre><code class="lang-js">form.addEventListener(&quot;submit&quot;, function (e) {
+    e.preventDefault();
+    // validar y actuar
+});</code></pre>
+<h2>4. Cambiar el DOM</h2>
+<pre><code class="lang-js">mensaje.innerText = &quot;Hola&quot;;              // texto plano
+mensaje.textContent = &quot;Hola&quot;;            // igual, recomendado
+mensaje.innerHTML = &quot;&lt;b&gt;Hola&lt;/b&gt;&quot;;       // interpreta HTML (cuidado)
+imagen.setAttribute(&quot;src&quot;, &quot;foto.png&quot;);
+imagen.src = &quot;foto.png&quot;;                 // lo mismo
+caja.classList.add(&quot;activa&quot;);
+caja.classList.remove(&quot;activa&quot;);
+caja.classList.toggle(&quot;activa&quot;);
+caja.style.display = &quot;none&quot;;             // ocultar
+caja.style.color = &quot;red&quot;;
+input.value = &quot;&quot;;                        // vaciar input</code></pre>
+<h2>5. Crear elementos (listas, tablas...)</h2>
+<pre><code class="lang-js">const li = document.createElement(&quot;li&quot;);
+li.textContent = &quot;Nueva tarea&quot;;
+li.dataset.id = 3;                       // guarda un dato: data-id=&quot;3&quot;
+lista.appendChild(li);
+
+// Recorrer una lista de elementos
+document.querySelectorAll(&quot;.tarea&quot;).forEach(function (el) {
+    el.classList.add(&quot;vista&quot;);
+});</code></pre>
+<h2>6. Arrays y objetos</h2>
+<pre><code class="lang-js">const tareas = [];                       // array
+tareas.push({ id: 1, texto: &quot;Estudiar&quot;, hecha: false });
+tareas.length;                           // cuántos
+tareas.forEach(function (t) { console.log(t.texto); });
+tareas.filter(function (t) { return !t.hecha; });
+tareas.find(function (t) { return t.id === 1; });
+tareas.splice(indice, 1);                // borrar 1 elemento
+
+// Array de objetos para precios
+const carrito = [{ nombre: &quot;Pan&quot;, precio: 1.5, cantidad: 2 }];
+let total = 0;
+carrito.forEach(function (p) { total += p.precio * p.cantidad; });</code></pre>
+<h2>7. Random</h2>
+<pre><code class="lang-js">const n = Math.floor(Math.random() * 5) + 1;   // 1..5
+const n2 = Math.floor(Math.random() * 100) + 1; // 1..100</code></pre>
+<h2>8. Validar antes de actuar</h2>
+<pre><code class="lang-js">if (texto.trim() === &quot;&quot;) {
+    mensaje.innerText = &quot;No puede estar vacío&quot;;
+    return;                              // corta la función
+}</code></pre>
+<h2>9. CSS que más cae</h2>
+<pre><code class="lang-css">* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #222;
+    color: white;
+}
+
+.contenedor {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #333;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: gold;
+}
+
+button:hover { transform: scale(1.05); }
+button:active { transform: scale(0.95); }
+
+/* Rejilla responsive */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+@media (max-width: 600px) {
+    .contenedor { flex-direction: column; }
+}</code></pre>
+<h2>10. Los 12 huecos típicos (con respuesta)</h2>
+<ol>
+<li><strong>Seleccionar el botón</strong> → <code>document.getElementById(&quot;btn&quot;)</code></li>
+<li><strong>Escuchar el clic</strong> → <code>btn.addEventListener(&quot;click&quot;, funcion)</code></li>
+<li><strong>Número aleatorio 1-5</strong> → <code>Math.floor(Math.random() * 5) + 1</code></li>
+<li><strong>Cambiar una imagen</strong> → <code>img.setAttribute(&quot;src&quot;, &quot;foto.png&quot;)</code></li>
+<li><strong>Escribir un texto en pantalla</strong> → <code>span.innerText = &quot;...&quot;</code> o <code>textContent</code></li>
+<li><strong>Ocultar un elemento</strong> → <code>el.style.display = &quot;none&quot;</code> o <code>classList.add(&quot;oculto&quot;)</code></li>
+<li><strong>Crear un <code>&lt;li&gt;</code></strong> → <code>document.createElement(&quot;li&quot;)</code></li>
+<li><strong>Añadirlo a la lista</strong> → <code>ul.appendChild(li)</code></li>
+<li><strong>Recorrer todos los elementos</strong> → <code>document.querySelectorAll(&quot;.x&quot;).forEach(...)</code></li>
+<li><strong>Leer lo que escribe el usuario</strong> → <code>input.value</code></li>
+<li><strong>Evitar que el formulario recargue</strong> → <code>e.preventDefault()</code></li>
+<li><strong>Comprobar si está vacío</strong> → <code>if (texto.trim() === &quot;&quot;)</code></li>
+</ol>
+
+<h2>11. Checklist antes de entregar</h2>
+<ul>
+<li>☐ Los <code>id</code> son únicos (no repetir <code>id=&quot;panel&quot;</code> dos veces).</li>
+<li>☐ El <code>&lt;script&gt;</code> lleva <code>defer</code> o el código va en <code>DOMContentLoaded</code>.</li>
+<li>☐ Los nombres de archivos coinciden: <code>style.css</code>, <code>script.js</code>.</li>
+<li>☐ La función está definida antes de usarla o es una <code>function</code> (se elevan).</li>
+<li>☐ Valido entradas vacías.</li>
+<li>☐ Uso <code>textContent</code>/<code>innerText</code> para texto del usuario (evita inyección HTML).</li>
+<li>☐ Pruebo a pulsar varias veces seguidas.</li>
+</ul>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

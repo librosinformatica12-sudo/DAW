@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina web Pantallas de Login y Registro de Sakila</title>
+    <!-- 
+    -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css"> 
+
+</head>
+<body>
+    <center>
+        <div class="container">
+        <!-- navegacion -->
+         <div class="auth-switch">
+            <button class="switch-btn active" id="btn-tab-login">Iniciar Sesión</button>
+            <button class="switch-btn" id="btn-tab-register">Registrarse</button>
+         </div>
+        
+        <form id="form-login" action="login_process.php" method="POST">
+            <h1>Bienvenido a Sakila</h1>
+            <p class="sub">Accede a tu cuenta para continuar</p>
+
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Nombre de usuario">
+                <i class="bx bxs-user"></i>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass2">Repite la contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass2" name="confirm_password" autocomplete="new-password" placeholder="Repite tu contraseña">
+                    <button type="button" class="ojo" id="reg-pass2-ojo">Mostrar</button>
+                </div>
+                <div class="msg"></div>
+            </div>
+
+            <div class="remember-password">
+                <label><input type="checkbox" name="remember"> Recordarme</label>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="btn">Iniciar Sesión</button>
+
+            <p class="register-link">¿Todavía no tienes una cuenta? <a href="#" id="link-register">Regístrate</a></p>
+        </form>
+
+        <!-- Formulario de registro -->
+        <form id="form-registro" action="register_process.php" method="POST" novalidate hidden>
+            <h2>Crear cuenta</h2>
+            <p class="sub">Rellena tus datos para unirte a Sakila</p>
+
+            <div class="campo">
+                <label for="reg-nombre">Nombre completo</label>
+                <input type="text" id="reg-nombre" name="nombre" autocomplete="name" placeholder="Tu nombre">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-nombre">Apellido</label>
+                <input type="text" id="reg-apellido" name="apellido" autocomplete="name" placeholder="Tu apellido">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-email">Correo electrónico</label>
+                <input type="email" id="reg-email" name="email" autocomplete="email" placeholder="Tu correo electrónico">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass">Contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass" name="password" autocomplete="new-password" placeholder="Tu contraseña">
+                    <button type="button" class="ojo" id="reg-pass-ojo">Mostrar</button>
+                </div>
+                <div class="fuerza"><span id="barra"></span></div>
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass2">Repite la contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass2" name="confirm_password" autocomplete="new-password" placeholder="Repite tu contraseña">
+                    <button type="button" class="ojo" id="reg-pass2-ojo">Mostrar</button>
+                </div>
+                <div class="msg"></div>
+            </div>
+
+            <button type="submit" class="enviar">Crear cuenta</button>
+            <div class="aviso" id="aviso-registro" role="status"></div>
+
+            <p class="register-link">¿Ya tienes una cuenta? <a href="#" id="link-login">Inicia sesión</a></p>
+        </form>
+    </center>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de conciertos</title>
+</head>
+<body>
+    <h1>Portal de conciertos</h1>
+
+    <h2>Comprar entrada</h2>
+
+    <form action="gestionar_conciertos.php" method="post">
+        <input type="hidden" name="accion" value="comprar">
+
+        <label for="id_concierto">ID del concierto:</label><br>
+        <input type="number" id="id_concierto" name="id_concierto" required>
+        <br><br>
+
+        <button type="submit">Comprar entrada</button>
+    </form>
+
+    <hr>
+
+    <a href="gestionar_conciertos.php">Zona de gestión (alta / modificar / borrar)</a>
+
+</body>
+</html>

@@ -6,23 +6,40 @@
     <title>Conciertos</title>
 </head>
 <body>
+    <!--
+      ÍNDICE RÁPIDO (Ctrl+F):
+        CABECERA
+        FORM ALTA CONCIERTO
+        CAMPOS DEL CONCIERTO
+    -->
+
+    <!-- ===== CABECERA ===== -->
     <h1>Gestor de conciertos</h1>
 
+    <!-- ===== FORM ALTA CONCIERTO ===== -->
     <section>
         <h2>Dar de alta un concierto</h2>
+        <!-- action = PHP que procesa; method = post para enviar los datos. -->
         <form action="gestionar_conciertos.php" method="post">
+            <!-- Campo oculto: permite saber qué acción se está pidiendo. -->
+            <input type="hidden" name="accion" value="alta_concierto">
+
+            <!-- ===== CAMPOS DEL CONCIERTO ===== -->
+            <!-- name="nombre_concierto" -> $_POST["nombre_concierto"] -->
             <!-- Nº Nombre del concierto -->
             <label for="nombre_concierto">Nombre del concierto: </label>
             <input type="text" name="nombre_concierto" maxlength="100" required><br>
             
             <br>
 
+            <!-- name="fecha_hora" -> $_POST["fecha_hora"]; datetime-local -->
             <!-- Nº Campo para fecha y hora -->
-            <label for="fecha_hora">Fecha y Hora de la Cita:</label>
-            <input type="datetime-local" name="fecha_hora"><br>
+            <label for="fecha_hora">Fecha y Hora del Concierto:</label>
+            <input type="datetime-local" name="fecha_hora" required><br>
             
             <br>
 
+            <!-- name="precio_concierto" -> $_POST["precio_concierto"]; number decimal -->
             <!-- Nº Precio -->
             <label for="precio_concierto">Precio del Concierto:</label>
             <input type="number" name="precio_concierto" min="0" step="0.01" required><br>
@@ -30,7 +47,6 @@
             <br>
 
             <button type="submit">Guardar Concierto</button>
-            <a href="/gestionar_conciertos.php"></a>
         </form>
 
     </section>

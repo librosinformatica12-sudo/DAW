@@ -1,0 +1,57 @@
+﻿ANÁLISIS DE LOS 3 ARCHIVOS CSS
+===============================
+
+1. comun.css (164 líneas)
+-------------------------
+Usado EN TODAS las páginas: index.php, inicio.php, coleccion.php, dinopedia.php, perfil.php
+
+¿Qué contiene?
+- Reset básico (*, box-sizing, [hidden])
+- Variables CSS (:root): --rojo, --rojo-osc, --fondo, --texto, --gris, --borde
+- Estilos base del body: tipografía, fondo radial (rojo/azul), color texto
+- CABECERA (.topbar): sticky, blur, logo, navegación, badge "Carta diaria", punto verde animado, responsive móvil
+- Estilos comunes compartidos entre todas las vistas
+
+Uso: Base común (reset + variables + cabecera). Cargado SIEMPRE.
+
+2. paginas.css (916 líneas)
+---------------------------
+Usado en: index.php, inicio.php, coleccion.php, dinopedia.php
+NO usado en: perfil.php (usa perfil.css)
+
+¿Qué contiene?
+Estilos específicos de páginas principales (no perfil):
+- Login/registro (index.php): .pagina, .hero, .container, formularios, botones, validaciones, avisos
+- Panel inicio (inicio.php): .panel, .panel-layout, .bloque-hero, .sobres/carrusel, .carta resultado, resumen lateral, accesos rápidos
+- Colección (coleccion.php): .panel-coleccion, .tarjeta, barra progreso, toolbar/buscador, .cartas-grid, .carta-mini (con badge repetidas), estados vacío
+- Dinopedia (dinopedia.php): comparte estilos de colección (.cartas-grid, .carta-mini, botones añadir)
+- Componentes reutilizables: carrusel (.carrusel, .carrusel-pista, puntos), tarjetas de carta (.carta, .carta-mini, stats), botones (.btn-carta, .btn), barras (.barra, .barra-progreso), bloques, avatares, etc.
+
+Uso: Contiene la mayoría de estilos de la app (paneles, cartas, carrusel, formularios login).
+
+3. perfil.css (335 líneas)
+--------------------------
+Usado SOLO en: perfil.php
+NO usado en: index, inicio, coleccion, dinopedia
+
+¿Qué contiene?
+Estilos específicos del perfil:
+- Banner hero perfil (.panel-hero, avatar, datos usuario, perfil-id)
+- Grid perfil (.perfil-grid): distribución 2 columnas
+- Tarjeta estadísticas (.perfil-stats, .stats-grid, .stat)
+- Tarjeta datos cuenta (.perfil-datos, .datos-lista)
+- Acciones (.perfil-acciones, .tiles, .tile)
+- Últimas cartas (.perfil-ultimas) — reutiliza .cartas-grid/.carta-mini pero ajustado al layout perfil
+- Responsive (móvil/tablet)
+
+Uso: Estilos exclusivos de perfil.php para su layout particular (banner + grid + tiles).
+
+RESUMEN DE CARGA POR PÁGINA
+---------------------------
+- index.php: comun.css + paginas.css
+- inicio.php: comun.css + paginas.css
+- coleccion.php: comun.css + paginas.css
+- dinopedia.php: comun.css + paginas.css
+- perfil.php: comun.css + perfil.css  (NO carga paginas.css)
+
+NOTA: perfil.php reutiliza clases comunes (.cartas-grid, .carta-mini, .barra, .tarjeta...) que están definidas en paginas.css, pero como NO lo carga, esas reglas están duplicadas o también definidas en perfil.css? Revisa: perfil.css incluye estilos de grid/cartas para el bloque "últimas cartas" (asegura que funcione solo con comun+perfil). Es un diseño modular: páginas "app" comparten paginas.css, perfil tiene su propio CSS más específico.

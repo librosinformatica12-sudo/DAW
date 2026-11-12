@@ -1,0 +1,31 @@
+﻿USO DE CSS EN index.php
+=======================
+
+index.php carga:
+<link rel="stylesheet" href="styles/comun.css?v=...">
+<link rel="stylesheet" href="styles/paginas.css?v=...">
+
+NO carga perfil.css.
+
+¿Para qué cada uno?
+--------------------
+comun.css
+- Reset, variables (:root)
+- Fondo body con gradientes radiales
+- Cabecera .topbar (logo + "Portal del Coleccionista" + icono)
+- Estilos base compartidos
+
+paginas.css
+- .pagina (layout principal)
+- .hero (lado izquierdo: título, descripción, lista features)
+- .container (panel derecho con tabs login/registro)
+- Formularios: #form-login, #form-registro
+- Campos: .campo, .icono, .entrada
+- Botones: .btn, .enviar, [data-para] (mostrar/ocultar)
+- Estados: .aviso (ok/error), .msg.error-texto
+- Links: .register-link, #olvide
+- Separador .separador
+- Responsive
+
+¿Necesitarías algo de perfil.css? NO.
+index.php usa únicamente comun.css + paginas.css.

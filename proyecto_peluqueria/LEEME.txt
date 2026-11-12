@@ -1,0 +1,45 @@
+PROYECTO PELUQUERIA - INSTRUCCIONES
+
+REQUISITOS
+- XAMPP (Apache y MySQL).
+- PHP con la extensión mysqli.
+- phpMyAdmin.
+
+INSTALACION
+1. Copia la carpeta proyecto_peluqueria dentro de htdocs.
+2. Abre http://localhost/phpmyadmin
+3. Entra en la pestaña Importar.
+4. Importa el archivo peluqueria.sql.
+5. Abre AccesoDatos.php y configura:
+   $host, $usuario, $password, $baseDatos y $puerto.
+   En una instalación XAMPP típica, usuario suele ser root y password vacío.
+6. Arranca Apache y MySQL desde XAMPP.
+7. Abre http://localhost/proyecto_peluqueria/
+
+ESTRUCTURA
+- peluqueria.sql: crea las tablas y los procedimientos almacenados.
+- AccesoDatos.php: conecta con MySQL y contiene las funciones PA_.
+- gestionar_reservas.php: llama a las funciones de reservas.
+- gestionar_clientes.php: llama a las funciones de clientes.
+- gestionar_peluqueros.php: llama a las funciones de peluqueros.
+- index.html: menú principal.
+- estilos.css: estilos.
+
+COMO FUNCIONA
+1. MySQL contiene los CREATE PROCEDURE.
+2. AccesoDatos.php contiene function PA_...() y ejecuta CALL ...
+3. Los archivos gestionar_*.php llaman a las funciones PA_.
+
+CODIGOS OUT _res
+0: operación correcta.
+-2, -3, etc.: error de validación concreto; consulta el IF/ELSEIF del procedimiento
+correspondiente en peluqueria.sql.
+
+IMPORTANTE
+- En este proyecto se usa OUT @resultado. La función auxiliar PA_Ejecutar
+  recoge ese código y, cuando corresponde, también las filas del SELECT.
+- El control de disponibilidad compara la misma fecha y hora exactas.
+  Si los servicios tienen distinta duración, habría que ampliar la validación
+  para detectar solapamientos de horarios.
+- Las bajas de clientes y peluqueros se impiden cuando tienen reservas asociadas,
+  para respetar las claves ajenas.

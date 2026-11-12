@@ -5,8 +5,20 @@
     <title>Centro Médico - Solicitar Cita</title>
 </head>
 <body>
+    <!--
+      ÍNDICE RÁPIDO (Ctrl+F):
+        FORM ALTA DOCTOR
+        FORM ALTA CITA (PACIENTE)
+        CAMPOS DEL DOCTOR
+        CAMPOS DE LA CITA
+    -->
+
+    <!-- ===== FORM ALTA DOCTOR ===== -->
     <h2>Alta de Doctor</h2>
+    <!-- action = PHP que procesa; method = post para enviar los datos ocultos -->
     <form action="gestionar_doctores.php" method="post">
+        <!-- ===== CAMPOS DEL DOCTOR ===== -->
+        <!-- name="licencia_doctor" -> $_POST["licencia_doctor"] en gestionar_doctores.php -->
         <!-- Nº Licencia del doctor -->
         <label for="licencia_doctor">Nº Licencia:</label><br>
         <input type="text" name="licencia_doctor" maxlength="8">
@@ -20,17 +32,23 @@
         <input type="text" name="apellidos_doctor" maxlength="50">
         <br>
 
+        <!-- Campo oculto: viaja en el POST aunque el usuario no lo vea. -->
         <input type="hidden" name="accion" value="alta_cita">
         <button type="submit">Alta Doctor</button> 
     </form>
 
+    <!-- ===== FORM ALTA CITA (PACIENTE) ===== -->
     <h2>Solicitud de Cita Médica</h2>
 
+    <!-- action = gestionar_citas.php; method = post -->
     <form action="gestionar_citas.php" method="post">
+        <!-- ===== CAMPOS DE LA CITA ===== -->
+        <!-- name="paciente" -> $_POST["paciente"] -->
         <!-- Campo para el nombre del paciente -->
         <label for="paciente">Nombre del Paciente:</label><br>
         <input type="text" id="paciente" name="paciente"><br><br>
 
+        <!-- name="especialidad" -> $_POST["especialidad"]; el value es lo que se guarda -->
         <!-- Selección de especialidad -->
         <label for="especialidad">Especialidad:</label><br>
         <select id="especialidad" name="especialidad">
@@ -41,11 +59,13 @@
             <option value="Traumatología">Traumatología</option>
         </select><br><br>
 
+        <!-- name="fecha_hora" -> $_POST["fecha_hora"]; datetime-local envía YYYY-MM-DDTHH:MM -->
         <!-- Campo para fecha y hora -->
         <label for="fecha_hora">Fecha y Hora de la Cita:</label><br>
         <input type="datetime-local" id="fecha_hora" name="fecha_hora">
         <br><br>
 
+        <!-- name="doctor_asignado" -> $_POST["doctor_asignado"]; debe ser el id/licencia del doctor -->
         <!-- Doctor que atenderá -->
         <label for="n_licencia">Asignar Doctor:</label><br>
         <input type="text" id="n_licencia" name="doctor_asignado">

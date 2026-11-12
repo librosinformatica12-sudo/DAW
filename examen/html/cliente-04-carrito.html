@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cliente 04 - Carrito</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio 04 — Carrito de compra (cliente)</h1>
+<p><strong>Enunciado general:</strong> muestra un catálogo de productos. Al pulsar &quot;Añadir&quot;, el producto<br>entra en el carrito. Si ya estaba, aumenta la cantidad. Se muestra el subtotal de cada línea<br>y el total general. Se puede quitar una línea o vaciar todo.</p>
+<p>Solución en <code>solucion/</code>.</p>
+<hr>
+<h2>Hueco 1 — Modelo del carrito</h2>
+<p>Completa el array de productos y define el carrito vacío:</p>
+<pre><code class="lang-js">const PRODUCTOS = [
+    { id: 1, nombre: &quot;Pan&quot;,   precio: 1.20 },
+    /* TODO: añade 3 productos más */
+];
+
+// Cada línea: { id, nombre, precio, cantidad }
+let carrito = /* TODO: array vacío */;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const PRODUCTOS = [
+    { id: 1, nombre: &quot;Pan&quot;,   precio: 1.20 },
+    { id: 2, nombre: &quot;Leche&quot;, precio: 0.95 },
+    { id: 3, nombre: &quot;Huevos&quot;, precio: 2.50 },
+    { id: 4, nombre: &quot;Café&quot;,  precio: 4.75 }
+];
+
+let carrito = [];</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Pintar el catálogo</h2>
+<pre><code class="lang-js">function renderProductos() {
+    contenedorProductos.innerHTML = &quot;&quot;;
+
+    PRODUCTOS.forEach(function (producto) {
+        const articulo = /* TODO: crear article */;
+        articulo.className = &quot;producto&quot;;
+
+        const titulo = document.createElement(&quot;h3&quot;);
+        titulo.textContent = /* TODO: nombre */;
+
+        const boton = document.createElement(&quot;button&quot;);
+        boton.textContent = &quot;Añadir&quot;;
+        boton./* TODO: guardar el id en data-id */;
+
+        articulo.append(titulo, boton);
+        /* TODO: añadir al contenedor */
+    });
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const articulo = document.createElement(&quot;article&quot;);
+titulo.textContent = producto.nombre;
+boton.dataset.id = producto.id;
+contenedorProductos.appendChild(articulo);</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Añadir al carrito (o sumar cantidad)</h2>
+<pre><code class="lang-js">function agregarAlCarrito(id) {
+    const producto = PRODUCTOS.find(function (p) {
+        return /* TODO: id coincide */;
+    });
+
+    const linea = carrito.find(function (l) {
+        return l.id === id;
+    });
+
+    if (linea) {
+        linea./* TODO: cantidad + 1 */;
+    } else {
+        carrito.push({
+            id: producto.id,
+            nombre: producto.nombre,
+            precio: producto.precio,
+            cantidad: /* TODO: 1 */
+        });
+    }
+
+    renderCarrito();
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const producto = PRODUCTOS.find(function (p) {
+    return p.id === id;
+});
+
+linea.cantidad++;
+cantidad: 1</code></pre>
+</details>
+<hr>
+<h2>Hueco 4 — Quitar una línea</h2>
+<pre><code class="lang-js">function quitarDelCarrito(id) {
+    carrito = carrito./* TODO: filtrar las líneas cuyo id NO sea este */;
+    renderCarrito();
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">carrito = carrito.filter(function (linea) {
+    return linea.id !== id;
+});</code></pre>
+</details>
+<hr>
+<h2>Hueco 5 — Subtotal de una línea</h2>
+<p>Dentro de <code>renderCarrito()</code>:</p>
+<pre><code class="lang-js">const tdSubtotal = document.createElement(&quot;td&quot;);
+tdSubtotal.textContent = /* TODO: precio * cantidad, con 2 decimales */;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">tdSubtotal.textContent = (linea.precio * linea.cantidad).toFixed(2) + &quot; €&quot;;</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Total general</h2>
+<pre><code class="lang-js">const total = carrito./* TODO: recorrer y acumular precio * cantidad */;
+spanTotal.textContent = total.toFixed(2);</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const total = carrito.reduce(function (acumulado, linea) {
+    return acumulado + linea.precio * linea.cantidad;
+}, 0);</code></pre>
+<p>Versión con <code>forEach</code> (si no quieres usar <code>reduce</code>):</p>
+<pre><code class="lang-js">let total = 0;
+carrito.forEach(function (linea) {
+    total += linea.precio * linea.cantidad;
+});</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 — Mostrar/ocultar &quot;carrito vacío&quot;</h2>
+<pre><code class="lang-js">pVacio.style.display = /* TODO: &quot;block&quot; si está vacío, &quot;none&quot; si no */;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">pVacio.style.display = carrito.length === 0 ? &quot;block&quot; : &quot;none&quot;;</code></pre>
+</details>
+<hr>
+<h2>Hueco 8 (extra) — Botón &quot;+&quot; y &quot;−&quot; de cantidad</h2>
+<p>Añade dos botones por línea y en <code>manejarClic</code>:</p>
+<pre><code class="lang-js">if (accion === &quot;sumar&quot;) linea.cantidad++;
+if (accion === &quot;restar&quot;) {
+    linea.cantidad--;
+    if (linea.cantidad &lt;= 0) quitarDelCarrito(id);
+}</code></pre>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Por qué separas <code>PRODUCTOS</code> y <code>carrito</code>?</strong> <code>PRODUCTOS</code> es el catálogo fijo; <code>carrito</code> son las líneas que elige el usuario.</li>
+<li><strong>¿Qué hace <code>find</code>?</strong> Devuelve el primer elemento que cumple la condición, o <code>undefined</code>.</li>
+<li><strong>¿Qué hace <code>filter</code>?</strong> Devuelve un array nuevo con los elementos que cumplen la condición.</li>
+<li><strong>¿Qué hace <code>reduce</code>?</strong> Recorre el array acumulando un valor; aquí, el total.</li>
+<li><strong>¿Por qué <code>toFixed(2)</code>?</strong> Para mostrar siempre dos decimales (los precios).</li>
+<li><strong>¿Cómo evitarías que el total tenga errores de decimales?</strong> Trabajando en céntimos (enteros) y dividiendo entre 100 al final.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

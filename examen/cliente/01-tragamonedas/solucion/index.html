@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tragamonedas de examen</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- defer: el JS espera a que exista todo el HTML -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="maquina">
+        <h1>Tragamonedas</h1>
+        <p class="subtitulo">Cada tirada cuesta 10 créditos</p>
+
+        <!-- VISTA: los tres rodillos -->
+        <div class="rodillos">
+            <div id="slot1" class="simbolo">7</div>
+            <div id="slot2" class="simbolo">7</div>
+            <div id="slot3" class="simbolo">7</div>
+        </div>
+
+        <!-- VISTA: botones -->
+        <div class="botones">
+            <button type="button" id="btn_tirar">Tirar</button>
+            <button type="button" id="btn_reiniciar" class="secundario">Reiniciar</button>
+        </div>
+
+        <!-- VISTA: marcador -->
+        <div class="marcador">
+            <p>Créditos: <span id="creditos">100</span></p>
+            <p id="mensaje">Pulsa Tirar para empezar</p>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hola DOM</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="contenedor">
+    <header>
+      <p class="etiqueta">Un ejemplo para empezar</p>
+      <h1 id="titulo">Hola, DOM</h1>
+      <p class="introduccion">
+        El DOM permite que JavaScript encuentre elementos de una página y cambie su contenido o apariencia.
+        Pulsa los botones para probar cada forma.
+      </p>
+    </header>
+
+    <section class="ejemplos">
+      <article class="tarjeta">
+        <h2>1. Buscar por ID</h2>
+        <p>Cambia el texto del título.</p>
+        <button id="boton-titulo" type="button">Cambiar título</button>
+      </article>
+
+      <article class="tarjeta">
+        <h2>2. Buscar con un selector</h2>
+        <p class="mensaje">Este es el primer mensaje.</p>
+        <p class="mensaje">Este es otro mensaje.</p>
+        <button id="boton-mensaje" type="button">Cambiar primer mensaje</button>
+      </article>
+
+      <article class="tarjeta">
+        <h2>3. Buscar todos los selectores</h2>
+        <ul>
+          <li class="elemento">Primer elemento</li>
+          <li class="elemento">Segundo elemento</li>
+          <li class="elemento">Tercer elemento</li>
+        </ul>
+        <button id="boton-todos" type="button">Resaltar todos</button>
+      </article>
+
+      <article class="tarjeta">
+        <h2>4. Buscar por nombre de clase</h2>
+        <p>Esta acción cambia el borde de las tarjetas.</p>
+        <button id="boton-clase" type="button">Cambiar bordes</button>
+      </article>
+
+      <article class="tarjeta">
+        <h2>5. Buscar por nombre de etiqueta</h2>
+        <p>Esta acción pone en negrita los elementos de la lista.</p>
+        <button id="boton-etiqueta" type="button">Poner en negrita</button>
+      </article>
+    </section>
+
+    <footer>
+      <p>Explora el código JavaScript para descubrir cómo se selecciona y modifica cada elemento.</p>
+    </footer>
+  </main>
+  
+</body>
+</html>

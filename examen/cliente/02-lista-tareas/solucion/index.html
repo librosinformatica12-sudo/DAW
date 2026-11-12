@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tareas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="tarjeta">
+        <h1>Mis tareas</h1>
+
+        <!-- ENTRADA: el formulario no recarga la página -->
+        <form id="form-tarea" class="formulario">
+            <input
+                type="text"
+                id="input-tarea"
+                placeholder="Escribe una tarea..."
+                maxlength="80"
+                autocomplete="off">
+            <button type="submit">Añadir</button>
+        </form>
+
+        <!-- MENSAJES -->
+        <p id="mensaje" class="mensaje"></p>
+
+        <!-- VISTA: aquí se inyectan los <li> desde JS -->
+        <ul id="lista" class="lista"></ul>
+
+        <!-- RESUMEN Y ACCIÓN GLOBAL -->
+        <div class="pie">
+            <span id="contador">0 tareas</span>
+            <button type="button" id="btn-borrar-hechas" class="secundario">
+                Borrar completadas
+            </button>
+        </div>
+    </main>
+</body>
+</html>

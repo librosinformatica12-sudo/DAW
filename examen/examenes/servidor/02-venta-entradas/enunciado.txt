@@ -1,0 +1,76 @@
+======================================================================
+ EJERCICIO 2 - VENTA DE ENTRADAS CON STOCK Y TRANSACCION
+ Tipo: Servidor (PHP + MySQL + procedimientos)
+ Base de datos: conciertos_ventas_examen
+======================================================================
+
+OBJETIVO
+Vender entradas para un concierto controlando el aforo. No se puede vender
+mas cantidad de la disponible y no debe quedar una venta a medias.
+
+TABLAS OBLIGATORIAS
+concierto:
+- id_concierto INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- nombre_banda VARCHAR(60) NOT NULL
+- fecha_concierto DATETIME NOT NULL
+- precio DECIMAL(6,2) NOT NULL
+- aforo INT UNSIGNED NOT NULL
+- entradas_vendidas INT UNSIGNED NOT NULL DEFAULT 0
+
+entrada:
+- id_entrada INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- fk_concierto INT UNSIGNED NOT NULL
+- cantidad INT UNSIGNED NOT NULL
+- total DECIMAL(8,2) NOT NULL
+- fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+- FOREIGN KEY (fk_concierto) REFERENCES concierto(id_concierto)
+
+PROCEDIMIENTO OBLIGATORIO
+ComprarEntradas(
+    IN _id_concierto INT,
+    IN _cantidad INT,
+    OUT _res INT
+)
+
+CODIGOS DE RESULTADO
+ 0 = venta realizada
+-1 = el concierto no existe
+-2 = cantidad menor o igual que 0
+-3 = no hay entradas suficientes
+-4 = el concierto ya ha pasado
+-5 = error inesperado
+
+REQUISITOS DE BASE DE DATOS
+- Usar START TRANSACTION.
+- Leer el concierto con SELECT ... FOR UPDATE.
+- Comprobar que existe, que la fecha es futura, que la cantidad es mayor
+  que 0 y que no se supera el aforo.
+- Si todo esta bien: insertar en entrada, actualizar entradas_vendidas
+  y hacer COMMIT.
+- Si algo falla: hacer ROLLBACK y devolver el codigo correspondiente.
+- Controlar errores SQL con un handler de excepciones.
+
+REQUISITOS DE PHP
+- PA_ComprarEntradas(id, cantidad) que devuelve el codigo OUT.
+- PA_ListaConciertos().
+- PA_ListaEntradas().
+- Formulario con select de conciertos y campo de cantidad.
+- Mostrar aforo, entradas vendidas y disponibles.
+- Calcular el total de la compra.
+- Mostrar mensaje segun el codigo recibido.
+- Mostrar tabla de ventas realizadas.
+- Usar prepare(), bind_param() y htmlspecialchars().
+
+PRUEBAS OBLIGATORIAS
+- Comprar 1 entrada correctamente.
+- Comprar justo las entradas que quedan.
+- Intentar comprar mas de las disponibles.
+- Comprar en un concierto que no existe.
+- Comprar cantidad 0 o negativa.
+- Comprar para un concierto pasado.
+- Comprobar que despues de un error no se ha insertado ninguna entrada
+  ni se ha modificado el stock.
+
+QUE PRACTICAS
+Transacciones, COMMIT/ROLLBACK, SELECT ... FOR UPDATE, stock, claves
+foraneas, validaciones y lectura de parametros OUT.

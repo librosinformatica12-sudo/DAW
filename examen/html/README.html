@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Índice y guía del kit</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Kit de examen — Cliente + Servidor</h1>
+<blockquote>Todo está dentro de <code>C:\xampp\htdocs\ejer\examen</code>. La idea NO es copiar y pegar a lo loco, sino reconocer el patrón para rellenar los huecos que te ponga el profe.</blockquote>
+<h2>Versión fácil de leer</h2>
+<p>Abre <code>index.html</code> con doble clic. Es la misma información, pero con tablas, colores y las soluciones escondidas en desplegables. Si abres los <code>.md</code> en Notepad verás símbolos raros; usa <code>index.html</code>.</p>
+<h2>Qué hay aquí</h2>
+<table>
+<tr><th>Carpeta</th><th>Qué es</th><th>Nivel</th></tr>
+<tr><td><code>CHULETA-cliente.md</code></td><td>Resumen de JS/DOM/CSS con los huecos típicos</td><td>Básico</td></tr>
+<tr><td><code>CHULETA-servidor.md</code></td><td>Resumen de PHP/MySQL/mysqli/procedimientos</td><td>Básico</td></tr>
+<tr><td><code>cliente/01-tragamonedas</code></td><td>Igual que tu TragaPerras, limpio y comentado</td><td>Cliente</td></tr>
+<tr><td><code>cliente/02-lista-tareas</code></td><td>Añadir/borrar/completar tareas con DOM</td><td>Cliente</td></tr>
+<tr><td><code>cliente/03-adivina-numero</code></td><td>Random, intentos, validación y mensajes</td><td>Cliente</td></tr>
+<tr><td><code>cliente/04-carrito</code></td><td>Arrays de objetos, totales y render de tabla</td><td>Cliente</td></tr>
+<tr><td><code>cliente/05-slider-botones</code></td><td>Slider, variables, funciones, botones y animación CSS</td><td>Cliente</td></tr>
+<tr><td><code>cliente/06-espaciado-letras</code></td><td>Slider para espacio entre letras y animación de latido</td><td>Cliente</td></tr>
+<tr><td><code>cliente/07-espaciado-flex</code></td><td>Slider para separar tarjetas y animación de balanceo</td><td>Cliente</td></tr>
+<tr><td><code>servidor/01-clinica</code></td><td>Como <code>portal_citasV2</code>: citas + doctores</td><td>Servidor</td></tr>
+<tr><td><code>servidor/02-conciertos</code></td><td>Tu proyecto terminado: conciertos + entradas</td><td>Servidor</td></tr>
+<tr><td><code>servidor/03-biblioteca</code></td><td>Libros + préstamos + JOIN + UPDATE</td><td>Servidor</td></tr>
+</table>
+
+<p>Cada ejemplo tiene:</p>
+<ul>
+<li><code>solucion/</code> → código completo y comentado (se puede ejecutar).</li>
+<li><code>ENUNCIADO.md</code> → los huecos que debes rellenar, con la solución escondida en un desplegable.</li>
+</ul>
+
+<h2>Cómo estudiar con esto</h2>
+<ol>
+<li>Lee la chuleta del lado que vayas a practicar.</li>
+<li>Abre la <code>solucion/</code> y entiende el orden: <strong>ENTRADA → VALIDAR → ACTUAR → PINTAR</strong>.</li>
+<li>Tapa la solución y haz el <code>ENUNCIADO.md</code> en un archivo aparte.</li>
+<li>Mira la solución solo cuando termines.</li>
+<li>Cronométrate: 30-45 min por ejercicio.</li>
+</ol>
+
+<h2>Cómo probar</h2>
+<h3>Cliente</h3>
+<p>Abre el <code>index.html</code> con doble clic o entra en:</p>
+<p><code>http://localhost/ejer/examen/cliente/01-tragamonedas/solucion/</code></p>
+<h3>Servidor</h3>
+<ol>
+<li>Abre phpMyAdmin e importa el <code>.sql</code> de la carpeta <code>solucion/</code>.</li>
+<li>Los ejemplos vienen con usuario <code>root</code> y contraseña <code>1234</code> (igual que <code>portal_citas</code>). Si tu MySQL usa otra, cámbiala en <code>AccesoDatos.php</code>.</li>
+<li>Arranca Apache y MySQL en XAMPP.</li>
+<li>Entra en:</li>
+</ol>
+
+<p><code>http://localhost/ejer/examen/servidor/01-clinica/solucion/portal_citas.html</code></p>
+<blockquote>Cada ejemplo usa una base de datos distinta (<code>clinica_examen</code>, <code>gestor_conciertos_examen</code>, <code>biblioteca_examen</code>), así no se pisan. El ejemplo de conciertos usa <code>gestor_conciertos_examen</code> a propósito, para no borrar la base de tu proyecto real.</blockquote>
+<h2>Mapa con tus proyectos reales</h2>
+<table>
+<tr><th>Si el profe te da...</th><th>Mira...</th></tr>
+<tr><td>Una tragaperras o un juego con botón</td><td><code>cliente/01-tragamonedas</code></td></tr>
+<tr><td>Una lista que se actualiza sin recargar</td><td><code>cliente/02-lista-tareas</code></td></tr>
+<tr><td>Un random con intentos y mensajes</td><td><code>cliente/03-adivina-numero</code></td></tr>
+<tr><td>Productos, precios y total</td><td><code>cliente/04-carrito</code></td></tr>
+<tr><td>Un slider, botones o una animación</td><td><code>cliente/05-slider-botones</code></td></tr>
+<tr><td>Controlar el espacio entre letras</td><td><code>cliente/06-espaciado-letras</code></td></tr>
+<tr><td>Separar tarjetas o elementos</td><td><code>cliente/07-espaciado-flex</code></td></tr>
+<tr><td>Un formulario que guarda en MySQL</td><td><code>servidor/01-clinica</code></td></tr>
+<tr><td>Conciertos, entradas, altas y bajas</td><td><code>servidor/02-conciertos</code></td></tr>
+<tr><td>Libros, préstamos, stock</td><td><code>servidor/03-biblioteca</code></td></tr>
+</table>
+
+<h2>Regla de oro</h2>
+<p>No memorices líneas sueltas. Memoriza <strong>bloques</strong>:</p>
+<ul>
+<li>Cliente: <code>getElementById</code> → <code>addEventListener</code> → <code>función</code> → <code>innerText/setAttribute</code>.</li>
+<li>Servidor: <code>form name</code> → <code>$_POST</code> → <code>bind_param</code> → <code>CALL</code> → <code>@resultado</code> → <code>SELECT @resultado</code> → mensaje → tabla.</li>
+</ul>
+
+<h2>Si el examen es una defensa</h2>
+<p>Ten preparada esta frase para cada proyecto:</p>
+<blockquote>&quot;El formulario envía por POST, lo recojo en PHP, valido, llamo a la función <code>PA_...</code>, esa función usa un procedimiento almacenado, recojo el <code>OUT</code>, muestro el mensaje y pinto la tabla.&quot;</blockquote>
+<p>Con eso demuestras que entiendes el viaje del dato.</p>
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

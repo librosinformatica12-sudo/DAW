@@ -1,0 +1,148 @@
+:root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #202534;
+    --muted: #5c6577;
+    --accent: #2b6cb0;
+    --accent-2: #38a169;
+    --border: #d9e0ea;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(160deg, #eaf2fb 0%, var(--bg) 55%, #e8f5ee 100%);
+}
+
+.app {
+    width: min(680px, 100%);
+    padding: 28px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(25, 40, 70, 0.12);
+}
+
+h1 {
+    margin: 0 0 8px;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 8px;
+}
+
+.ayuda {
+    margin-top: 0;
+    color: var(--muted);
+}
+
+.panel {
+    display: grid;
+    gap: 14px;
+    margin: 24px 0;
+}
+
+label {
+    font-weight: 700;
+}
+
+#valor {
+    color: var(--accent);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+button:hover {
+    background: #24598f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(43, 108, 176, 0.28);
+}
+
+button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(43, 108, 176, 0.35);
+    outline-offset: 2px;
+}
+
+button.secundario {
+    background: #e2e8f0;
+    color: var(--text);
+}
+
+button.secundario:hover {
+    background: #cbd5e1;
+    box-shadow: 0 8px 18px rgba(32, 37, 52, 0.16);
+}
+
+.vista {
+    min-height: 230px;
+    padding: 20px;
+    display: grid;
+    place-items: center;
+    border: 2px dashed var(--border);
+    border-radius: 14px;
+    background: #fafbfe;
+    overflow: hidden;
+}
+
+.caja {
+    padding: 21px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    transition: padding 0.25s ease, transform 0.25s ease;
+    animation: flotar 2.5s ease-in-out infinite;
+}
+
+@keyframes flotar {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .caja {
+        animation: none;
+    }
+}

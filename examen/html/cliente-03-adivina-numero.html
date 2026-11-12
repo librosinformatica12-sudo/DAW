@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cliente 03 - Adivina el número</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio 03 — Adivina el número (cliente)</h1>
+<p><strong>Enunciado general:</strong> el programa piensa un número del 1 al 100. El usuario escribe intentos<br>y el programa responde &quot;más alto&quot;, &quot;más bajo&quot; o &quot;acertaste&quot;. Se cuentan los intentos y se<br>guarda un historial. Al acertar se bloquea el juego y se puede reiniciar.</p>
+<p>Solución en <code>solucion/</code>.</p>
+<hr>
+<h2>Hueco 1 — Generar el número secreto</h2>
+<pre><code class="lang-js">function generarNumero() {
+    return /* TODO: entero aleatorio entre 1 y 100 */;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">return Math.floor(Math.random() * 100) + 1;</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Evitar la recarga del formulario</h2>
+<pre><code class="lang-js">form.addEventListener(&quot;submit&quot;, function (evento) {
+    /* TODO: evitar el envío normal */
+    comprobarIntento();
+});</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">evento.preventDefault();</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Validar la entrada</h2>
+<pre><code class="lang-js">const texto = input.value.trim();
+const valor = Number(texto);
+
+if (/* TODO: vacío, no entero o fuera de 1..100 */) {
+    pMensaje.textContent = &quot;Escribe un número entero entre 1 y 100.&quot;;
+    pMensaje.className = &quot;mensaje error&quot;;
+    return;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">if (texto === &quot;&quot; || !Number.isInteger(valor) || valor &lt; 1 || valor &gt; 100) {</code></pre>
+</details>
+<hr>
+<h2>Hueco 4 — Contar el intento</h2>
+<pre><code class="lang-js">intentos++;
+/* TODO: mostrar intentos en spanIntentos */</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">spanIntentos.textContent = intentos;</code></pre>
+</details>
+<hr>
+<h2>Hueco 5 — Comparar</h2>
+<pre><code class="lang-js">if (/* TODO: ha acertado */) {
+    ...
+} else if (/* TODO: se ha quedado corto */) {
+    pMensaje.textContent = &quot;El número secreto es MÁS ALTO.&quot;;
+} else {
+    pMensaje.textContent = &quot;El número secreto es MÁS BAJO.&quot;;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">if (valor === secreto) {
+    ...
+} else if (valor &lt; secreto) {</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Bloquear al acertar</h2>
+<pre><code class="lang-js">function terminarPartida() {
+    terminado = /* TODO: true */;
+    input./* TODO: deshabilitar */;
+    btnProbar./* TODO: deshabilitar */;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">terminado = true;
+input.disabled = true;
+btnProbar.disabled = true;</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 — Reiniciar</h2>
+<pre><code class="lang-js">function reiniciar() {
+    secreto = /* TODO: nuevo número */;
+    intentos = /* TODO: 0 */;
+    terminado = /* TODO: false */;
+
+    spanIntentos.textContent = &quot;0&quot;;
+    historial.innerHTML = &quot;&quot;;
+    input.disabled = false;
+    btnProbar.disabled = false;
+    input.value = &quot;&quot;;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">secreto = generarNumero();
+intentos = 0;
+terminado = false;</code></pre>
+</details>
+<hr>
+<h2>Hueco 8 — Añadir al historial</h2>
+<pre><code class="lang-js">function anadirHistorial(valor, tipo) {
+    const li = /* TODO: crear un li */;
+    li.textContent = /* TODO: texto del intento */;
+    historial./* TODO: añadirlo a la lista */;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const li = document.createElement(&quot;li&quot;);
+li.textContent = valor + &quot; → &quot; + tipo;
+historial.appendChild(li);</code></pre>
+</details>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Por qué <code>Number()</code> y no comparar directamente?</strong> <code>input.value</code> es siempre string. <code>&quot;50&quot; === 50</code> es <code>false</code>; hay que convertir.</li>
+<li><strong>¿Qué hace <code>Number.isInteger()</code>?</strong> Comprueba que sea un número entero, no decimal ni <code>NaN</code>.</li>
+<li><strong>¿Por qué <code>terminado</code>?</strong> Para que al acertar no se sigan procesando intentos aunque se pulse el botón.</li>
+<li><strong>¿Qué pasa si el usuario escribe <code>abc</code> en un <code>type=&quot;number&quot;</code>?</strong> El navegador devuelve <code>&quot;&quot;</code> en <code>value</code>, por eso validamos el vacío.</li>
+<li><strong>¿Cómo limitarías a 10 intentos?</strong> Añadiendo <code>if (intentos &gt;= 10) { terminarPartida(); ... }</code>.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

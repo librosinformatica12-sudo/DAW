@@ -1,0 +1,17 @@
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Copias de seguridad y temporales
+*.bak
+*.tmp
+*.log
+~$*
+
+# Backups de las fotos
+img/img-cartas_backup.zip
+
+# Config local del editor
+.vscode/
+.idea/

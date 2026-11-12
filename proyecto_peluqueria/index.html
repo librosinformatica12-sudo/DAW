@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- PÁGINA DE INICIO (HTML puro, no necesita PHP): menú con tres tarjetas. -->
+<!-- Cada tarjeta es un enlace <a> a una de las páginas de gestión. -->
+<html lang="es">
+<!-- lang=es indica el idioma de la página (accesibilidad y buscadores). -->
+<head>
+    <!-- UTF-8 para que se vean bien tildes y ñ. -->
+    <meta charset="UTF-8">
+    <!-- Hace la página adaptable a pantallas de móvil. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Texto de la pestaña del navegador. -->
+    <title>Peluquería - Inicio</title>
+    <!-- Enlaza el CSS externo: rel indica el tipo de relación y href la ruta.
+    <link rel="stylesheet" href="estilos.css"> -->
+</head>
+<body>
+<!-- Cabecera semántica: título y descripción del portal. -->
+<header>
+    <h1>Peluquería</h1>
+    <p>Portal de gestión de clientes, peluqueros y reservas</p>
+</header>
+<!-- <main> = contenido principal. La clase inicio define en el CSS una -->
+<!-- cuadrícula (grid) que coloca las tarjetas. -->
+<main class="inicio">
+    <!-- Cada <a class="tarjeta"> es un enlace con aspecto de tarjeta. -->
+    <!-- href apunta al archivo PHP de cada módulo (ruta relativa, misma carpeta). -->
+    <a class="tarjeta" href="gestionar_reservas.php"><h2>Reservas</h2><p>Crear, modificar, eliminar y consultar citas.</p></a>
+    <a class="tarjeta" href="gestionar_clientes.php"><h2>Clientes</h2><p>Administrar los datos de los clientes.</p></a>
+    <a class="tarjeta" href="gestionar_peluqueros.php"><h2>Peluqueros</h2><p>Administrar peluqueros y especialidades.</p></a>
+</main>
+</body>
+</html>

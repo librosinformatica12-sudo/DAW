@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 15px;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #222;
+}
+
+.tarjeta {
+    width: min(100%, 520px);
+    padding: 28px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    margin-top: 0;
+    text-align: center;
+    color: #1e3c72;
+}
+
+/* ===== FORMULARIO ===== */
+.formulario {
+    display: flex;
+    gap: 10px;
+}
+
+.formulario input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ccd;
+    border-radius: 8px;
+}
+
+.formulario input:focus {
+    outline: none;
+    border-color: #2a5298;
+}
+
+button {
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    background: #2a5298;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+}
+
+button:hover {
+    background: #1e3c72;
+    transform: translateY(-1px);
+}
+
+button.secundario {
+    background: #e74c3c;
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+/* ===== LISTA ===== */
+.lista {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.lista li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #f4f6fb;
+    border-radius: 8px;
+}
+
+.lista li span {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+/* EXAMEN: clase que pone JS cuando la tarea está hecha */
+.lista li.hecha span {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.lista li button {
+    font-size: 12px;
+    padding: 6px 10px;
+}
+
+.mensaje {
+    min-height: 20px;
+    margin: 10px 0 0;
+    color: #e74c3c;
+    font-size: 14px;
+}
+
+.pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 15px;
+}
+
+#contador {
+    font-size: 14px;
+    color: #666;
+}

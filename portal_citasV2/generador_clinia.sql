@@ -1,15 +1,37 @@
+-- ============================================================
+-- generador_clinia.sql (portal_citasV2 - versión buena)
+--
+-- ÍNDICE RÁPIDO (Ctrl+F):
+--   BASE DE DATOS
+--   TABLA doctores
+--   TABLA citasMedicas
+--   PROCEDURE ListaDoctores
+--   PROCEDURE DameDoctor
+--   PROCEDURE AltaDoctor
+--   PROCEDURE ListaCitas
+--   PROCEDURE AltaCita
+--   PROCEDURE ModificarCita
+--
+-- Orden típico: crear BD -> crear tablas -> crear procedures.
+-- ============================================================
+
+-- ===== BASE DE DATOS =====
 -- SCRIPT de Generacion de BBDD en MySQL
-CREATE DATABASE IF NOT EXISTS Clinica;
-USE Clinica;
+CREATE DATABASE IF NOT EXISTS Clinica_PROFE;
+USE Clinica_PROFE;
 -- DROPS
 
 DROP TABLE IF EXISTS citasMedicas;
 DROP TABLE IF EXISTS doctores;
+-- ===== TABLA doctores =====
+-- Tabla padre: cada doctor tiene una licencia única (primary key).
 -- CREATE TABLES
 CREATE TABLE doctores(n_licencia INT primary key,
 						nombre_doctor VARCHAR(50) NOT NULL,
                         apellidos_doctor VARCHAR(50) NOT NULL
                         );
+-- ===== TABLA citasMedicas =====
+-- Tabla hija: fk_doctor apunta a doctores(n_licencia).
 CREATE TABLE citasMedicas(id_cita INT primary key auto_increment,
 						   nombre_paciente VARCHAR(50) NOT NULL,
                            especialidad  ENUM('Medicina General',
@@ -24,6 +46,8 @@ CREATE TABLE citasMedicas(id_cita INT primary key auto_increment,
 -- ALTER TABLE citasMedicas ADD COLUMN(fk_doctor INT NOT NULL);
 -- ALTER TABLE citasMedicas ADD CONSTRAINT FOREIGN FOREIGN KEY (fk_doctor) REFERENCES doctores(n_licencia);
 
+-- ===== PROCEDURE ListaDoctores =====
+-- Devuelve todos los doctores (SELECT *).
 DROP PROCEDURE IF EXISTS ListaDoctores;
 DELIMITER //
 CREATE PROCEDURE ListaDoctores()
@@ -33,6 +57,8 @@ BEGIN
 END//
 DELIMITER ;
 
+-- ===== PROCEDURE DameDoctor =====
+-- Devuelve los datos de un doctor concreto por licencia.
 DROP PROCEDURE IF EXISTS DameDoctor;
 DELIMITER //
 CREATE PROCEDURE DameDoctor(IN _n_licencia INT)
@@ -43,6 +69,8 @@ BEGIN
 END//
 DELIMITER ;
 
+-- ===== PROCEDURE AltaDoctor =====
+-- Parámetros IN + OUT _res. Casos: -1 nombre, -2 apellidos, -3 duplicado, 0 OK.
 DROP PROCEDURE IF EXISTS AltaDoctor;
 DELIMITER //
 CREATE PROCEDURE AltaDoctor(IN _n_licencia INT,
@@ -69,6 +97,8 @@ BEGIN
 END//
 DELIMITER ;
 
+-- ===== PROCEDURE ListaCitas =====
+-- Devuelve todas las citas.
 DROP PROCEDURE IF EXISTS ListaCitas;
 DELIMITER //
 CREATE PROCEDURE ListaCitas()
@@ -78,6 +108,9 @@ BEGIN
 END//
 DELIMITER ;
 
+-- ===== PROCEDURE AltaCita =====
+-- Parámetros IN + OUT _res. Casos: -1 nombre, -2 especialidad, -3 fecha,
+-- -4 fecha pasada, 0 OK.
 DROP PROCEDURE IF EXISTS AltaCita;
 DELIMITER //
 CREATE PROCEDURE AltaCita(IN _nombre_paciente VARCHAR(50),
@@ -108,6 +141,8 @@ BEGIN
 END//
 DELIMITER ;
 
+-- ===== PROCEDURE ModificarCita =====
+-- Actualiza una cita por id_cita. Mismos casos de error que AltaCita.
 DROP PROCEDURE IF EXISTS ModificarCita;
 DELIMITER //
 CREATE PROCEDURE ModificarCita(IN _id_cita INT,

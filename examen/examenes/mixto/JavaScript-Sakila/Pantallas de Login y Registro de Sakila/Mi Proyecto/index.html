@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina web Pantallas de Login y Registro de Sakila</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <center>
+    <div class="container">
+        <h1>Iniciar Sesión</h1>              
+
+        <button class="btn">Iniciar sesion</button>
+        <button class="btn">Registrarse</button>
+        <br>
+        <br>
+        <form>
+            <div class="input-box">
+                <input type="text" placeholder="Nombre de usuario" 
+                required>
+                <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="Contraseña" 
+                required>
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            <div class="remember-password">
+                <label><input type="checkbox">Recordarme</label>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <p class="register-link"> ¿Todavia no tienes una cuenta? <br> <a href="#"> Regístrate</a></p>
+        </form>
+        <form id="form-registro" novalidate hidden>
+            <h2>Crear cuenta</h2>
+            <p class="sub"> Rellena tus datos para registrarse</p>
+
+            <div class="campo">
+                <label for="login-nombre">Nombre</label>
+                <input type="text" id="reg-nombre" autocomplete="nombre" placeholder="Tu nombre">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="login-nombre">Apellido</label>
+                <input type="text" id="reg-nombre" autocomplete="nombre" placeholder="Tu apellido">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="login-email">Correo electornicos</label>
+                <input type="email" id="reg-email" autocomplete="email" placeholder="tu@correo.com">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass">Contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass" autocomplete="new-password" placeholder="Minimo 8 caracteres">
+                    <button type="button" class="rojo" data-para="reg-pass">Mostrar</button>
+                </div>
+                <div class="fuerza"><span id="barra"></span></div>
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass2"> Repite la contraseña</label>
+                <input type="password" id="reg-pass2" autocomplete="new-password" placeholder="Repite la contraseña">
+                <div class="msg"></div>
+            </div>
+
+            <button type="submit" class="enviar">Crear cuenta</button>
+            <div class="aviso" id="aviso-registro" role="status"></div>
+        </form>
+    </div>
+    </center>
+    <script src="script.js"></script>
+</body>
+</html>

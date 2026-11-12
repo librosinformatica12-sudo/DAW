@@ -1,46 +1,106 @@
 <?php
+/*
+ * gestionar_citas.php (portal_citasV2 - Versión corregida)
+ */
 
-require_once __DIR__ . '\AccesoDatos.php';
+require_once __DIR__ . '/AccesoDatos.php';
 
-// PASO A: Iniciar o reanudar la sesión (OBLIGATORIO al principio)
+// ===== SESION =====
 session_start();
 
-//GRABACION DE UNA CITA QUE SE ESTA ACTUALIZANDO
-//EDICION DE CITAS
+$mensaje = "";
 
+// ===== EDICION: mostrar_zona_edicion =====
 $estaEditando = 0;
 if(isset($_POST['accion']) && $_POST['accion'] === 'mostrar_zona_edicion')
 {    
     $estaEditando = 1;
     $_SESSION['citaModificandose'] = $_POST['idCita'];
 }
-else
-{
-    $estaEditando = 0;
-}
 
+// ===== EDICION: actualizar_cita =====
 if(isset($_POST['accion']) && $_POST['accion'] === 'actualizar_cita')
 {
+    // Validar si el doctor existe antes de actualizar
+    $licenciaBuscar = (int)($_POST['doctor_asignado']);
+    $doctorEncontrado = PA_DameDoctor($licenciaBuscar);
+    
+    if(count($doctorEncontrado) == 0) {
+        $mensaje = "Error: El número de licencia del doctor no existe.";
+        $estaEditando = 1; // Mantiene el formulario abierto para corregir
+    } else {
+        $resultado = PA_ActualizarCita(
+            (int)$_SESSION['citaModificandose'],
+            $_POST['paciente'],
+            $_POST['especialidad'],
+            $_POST['fecha_hora'],
+            (int)$_POST['doctor_asignado']
+        );
 
-    PA_ActualizarCita($_SESSION['citaModificandose'],
-                    $_POST['paciente'],
-                    $_POST['especialidad'],
-                    $_POST['fecha_hora'],
-                    $_POST['doctor_asignado']);
-    $estaEditando = 0;
-    $idCitaModificandose = 0;
+        if($resultado === -1) {
+            $mensaje = "Nombre vacío";
+            $estaEditando = 1;
+        } else if($resultado === -2) {
+            $mensaje = "Especialidad vacía";
+            $estaEditando = 1;
+        } else if($resultado === -3) {
+            $mensaje = "Fecha vacía";
+            $estaEditando = 1;
+        } else if($resultado === -4) {
+            $mensaje = "La fecha no puede ser anterior al presente";
+            $estaEditando = 1;
+        } else {
+            $mensaje = "Cita actualizada con éxito.";
+            $estaEditando = 0;
+            unset($_SESSION['citaModificandose']);
+        }
+    }
 }
 
-// PASO B: Inicializar el array de citas 'lista_citas'en la sesión si no existe aún
+// ===== BORRAR TODAS =====
+if(isset($_POST['accion']) && $_POST['accion'] === 'borrar_todas') {
+    unset($_SESSION['lista_citas']);
+    $_SESSION['lista_citas'] = [];
+    $mensaje = "Todas las citas han sido canceladas.";
+}
 
+// ===== ALTA DE CITA =====
+if(isset($_POST['accion']) && $_POST['accion'] === 'alta_cita') {
+    
+    // Validar primero si el doctor existe
+    $licenciaBuscar = (int)($_POST['doctor_asignado']);
+    $doctorEncontrado = PA_DameDoctor($licenciaBuscar);
+    
+    if(count($doctorEncontrado) == 0) {
+        $mensaje = "Doctor no encontrado. Pruebe otro número de licencia.";
+    } else {
+        $resultado = PA_AltaCita(
+            $_POST['paciente'],
+            $_POST['especialidad'],
+            $_POST['fecha_hora'],
+            (int)$_POST['doctor_asignado']
+        );
+                
+        // Códigos de resultado
+        if($resultado === -1) {
+            $mensaje = "Nombre vacío";
+        } else if($resultado === -2) {
+            $mensaje = "Especialidad vacía";
+        } else if($resultado === -3) {
+            $mensaje = "Fecha vacía";
+        } else if($resultado === -4) {
+            $mensaje = "Fecha anterior al presente";
+        } else {
+            $mensaje = "Cita insertada con éxito.";
+        }
+    }
+}
+
+// ===== CARGAR CITAS DE LA BD =====
 $_SESSION['lista_citas'] = [];
-
-//CARGAR LAS CITAS EXISTENTES YA
-$citasExistentes = [];
-//LEO DE LA BASE DE DATOS LAS CITAS QUE YA EXISTAN
 $citasExistentes = PA_ListaCitas();
-//Y LOS METO EN $_SESSION
-foreach ($citasExistentes as $indice => $cita)
+
+foreach ($citasExistentes as $cita)
 {
     $nueva_cita = [];
     $nueva_cita['id_cita'] = $cita['id_cita'];
@@ -49,69 +109,7 @@ foreach ($citasExistentes as $indice => $cita)
     $nueva_cita['fecha_hora'] = $cita['fecha'];
     $nueva_cita['doctor_asignado'] = $cita['licencia_doctor'];
 
-    $_SESSION['lista_citas'] [] = $nueva_cita;
-}
-
-
-// PASO B2: Averiguar si existe el doctor asignado
-if(isset($_POST['doctor_asignado']))
-{
-    $licenciaBuscar = (int)($_POST['doctor_asignado']);
-    $doctorEncontrado = PA_DameDoctor($licenciaBuscar);
-    
-    if(count($doctorEncontrado) == 0)
-    {
-        $mensaje = "Doctor no encontrado. Pruebe otro numero de licencia.";
-        header('Location: portal_citas.html'); //Vuelta al inicio
-    }
-}
-// PASO C: Comprobar si se ha solicitado borrar todas las citas
-if(isset($_POST['accion']) && $_POST['accion'] === 'borrar_todas') {
-    // Borrar todas las citas de la sesión
-    unset($_SESSION['lista_citas']);
-    $_SESSION['lista_citas'] = [];
-    // Mensaje para mostrar
-    $mensaje = "Todas las citas han sido canceladas.";
-}
-
-
-// PASO D: Si se recibe una nueva cita individual por $_POST, se procesa
-if(isset($_POST['paciente']) &&
-    isset($_POST['especialidad']) &&
-    isset($_POST['fecha_hora']) &&
-    isset($_POST['doctor_asignado']) &&
-    $_POST['accion'] === 'alta_cita') {
-    // 1. Capturamos los datos que viajan en el POST
-    $nueva_cita = [];
-    $nueva_cita['paciente'] = $_POST['paciente'];
-    $nueva_cita['especialidad'] = $_POST['especialidad'];
-    $nueva_cita['fecha_hora'] = $_POST['fecha_hora'];
-    $nueva_cita['doctor_asignado'] = $_POST['doctor_asignado'];
-    
-    // 2. Acumulamos la nueva cita dentro del array guardado en la SESIÓN
     $_SESSION['lista_citas'][] = $nueva_cita;
-
-    // 3. Mandar a Base de Datos la nueva Cita
-    $resultado = PA_AltaCita($_POST['paciente'],
-                            $_POST['especialidad'],
-                            $_POST['fecha_hora'],
-                            $_POST['doctor_asignado']);
-                
-    if($resultado === "-1"){
-        $mensaje = "Nombre vacio";
-    }
-    else if($resultado === "-2"){
-        $mensaje = "Especialidad vacia";
-    }
-    else if($resultado === "-3"){
-        $mensaje = "Fecha vacía";
-    }
-    else if($resultado === "-4"){
-        $mensaje = "Fecha anterior al presente";
-    }
-    else{
-        $mensaje = "Cita insertada con éxito.";
-    }
 }
 ?>
 
@@ -125,13 +123,13 @@ if(isset($_POST['paciente']) &&
 
     <h2>Gestión de Citas Médicas</h2>
 
-    <?php if (isset($mensaje)): ?>
+    <?php if (!empty($mensaje)): ?>
         <p style="color: green; font-weight: bold;"><?php echo $mensaje; ?></p>
     <?php endif; ?>
 
-    <h3>Citas Registradas en esta Sesión (Total: <?php echo count($_SESSION['lista_citas']); ?>)</h3>
+    <!-- ===== RENDER TABLA ===== -->
+    <h3>Citas Registradas en la Base de Datos (Total: <?php echo count($_SESSION['lista_citas']); ?>)</h3>
 
-    <!-- PASO E: Renderizar la tabla si existen citas guardadas -->
     <?php if (!empty($_SESSION['lista_citas'])): ?>
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>
@@ -141,20 +139,20 @@ if(isset($_POST['paciente']) &&
                     <th>Especialidad</th>
                     <th>Fecha y Hora</th>
                     <th>Doctor asignado</th>
-                    <th>Accion</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($_SESSION['lista_citas'] as $indice => $cita): ?>
+                <?php foreach ($_SESSION['lista_citas'] as $cita): ?>
                     <tr>
-                        <td><?php echo $cita['id_cita'] ?></td>
-                        <td><?php echo $cita['paciente'] ?></td>
-                        <td><?php echo $cita['especialidad'] ?></td>
-                        <td><?php echo $cita['fecha_hora'] ?></td>
-                        <td><?php echo $cita['doctor_asignado'] ?></td>
+                        <td><?php echo $cita['id_cita']; ?></td>
+                        <td><?php echo $cita['paciente']; ?></td>
+                        <td><?php echo $cita['especialidad']; ?></td>
+                        <td><?php echo $cita['fecha_hora']; ?></td>
+                        <td><?php echo $cita['doctor_asignado']; ?></td>
                         <td> 
-                            <form action="gestionar_citas.php" method="post">
-                                <input type="hidden" name="idCita" value=<?php echo $cita['id_cita'] ?> >
+                            <form action="gestionar_citas.php" method="post" style="margin:0;">
+                                <input type="hidden" name="idCita" value="<?php echo $cita['id_cita']; ?>">
                                 <input type="hidden" name="accion" value="mostrar_zona_edicion">
                                 <button type="submit">Modificar Cita</button>
                             </form>  
@@ -164,17 +162,17 @@ if(isset($_POST['paciente']) &&
             </tbody>
         </table>
         <br>
+
+        <!-- ===== RENDER FORM ACTUALIZAR ===== -->
         <div <?= $estaEditando ? '' : 'hidden' ?>>
-            <!-- Formulario para actualizar una cita -->
-            <form action="" method="post">
-                <!-- Campo para el nombre del paciente -->
-                <label for="paciente">Nombre del Paciente:</label><br>
-                <input type="text" id="paciente" name="paciente">
+            <form action="gestionar_citas.php" method="post">
+                <h4>Actualizar Cita ID: <?php echo isset($_SESSION['citaModificandose']) ? $_SESSION['citaModificandose'] : ''; ?></h4>
                 
-                <br><br>
-                <!-- Selección de especialidad -->
+                <label for="paciente">Nombre del Paciente:</label><br>
+                <input type="text" id="paciente" name="paciente" required><br><br>
+                
                 <label for="especialidad">Especialidad:</label><br>
-                <select id="especialidad" name="especialidad">
+                <select id="especialidad" name="especialidad" required>
                     <option value="">-- Seleccione una opción --</option>
                     <option value="Medicina General">Medicina General</option>
                     <option value="Pediatría">Pediatría</option>
@@ -182,36 +180,30 @@ if(isset($_POST['paciente']) &&
                     <option value="Traumatología">Traumatología</option>
                 </select><br><br>
 
-                <!-- Campo para fecha y hora -->
                 <label for="fecha_hora">Fecha y Hora de la Cita:</label><br>
-                <input type="datetime-local" id="fecha_hora" name="fecha_hora">
-                <br><br>
+                <input type="datetime-local" id="fecha_hora" name="fecha_hora" required><br><br>
 
-                <!-- Doctor que atenderá -->
-                <label for="n_licencia">Asignar Doctor:</label><br>
-                <input type="text" id="n_licencia" name="doctor_asignado">
-                <br><br>
+                <label for="n_licencia">Asignar Doctor (Nº Licencia):</label><br>
+                <input type="text" id="n_licencia" name="doctor_asignado" required><br><br>
                 
                 <input type="hidden" name="accion" value="actualizar_cita">
                 <button type="submit">Actualizar Cita</button>
             </form>
         </div>
-        <!-- Formulario para vaciar la sesión -->
-        
+        <br>
+
+        <!-- Formulario para vaciar la sesión/citas -->
         <form action="gestionar_citas.php" method="post">
             <input type="hidden" name="accion" value="borrar_todas">
-            <button type="submit">
-                Cancelar todas las citas
-            </button>
+            <button type="submit">Cancelar todas las citas (Memoria)</button>
         </form>
-        
 
     <?php else: ?>
         <p>No hay citas agendadas actualmente.</p>
     <?php endif; ?>
 
     <br><hr>
-    <a href="portal_citas.html"> +Pedir otra cita</a>
+    <a href="portal_citas.html">+ Pedir otra cita</a>
 
 </body>
 </html>

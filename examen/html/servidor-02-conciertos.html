@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servidor 02 - Conciertos</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio Servidor 02 — Conciertos</h1>
+<p><strong>Enunciado general:</strong> terminar el gestor de conciertos:</p>
+<ul>
+<li>Tabla <code>concierto</code> y tabla <code>entradas</code>.</li>
+<li>Dar de alta, listar, modificar y borrar conciertos.</li>
+<li>Comprar una entrada comprobando que el concierto no ha pasado y que queda aforo.</li>
+</ul>
+
+<p>Este ejemplo es tu proyecto de <code>conciertos</code>, pero completo.</p>
+<blockquote>La base de datos se llama <code>gestor_conciertos_examen</code> para <strong>no borrar</strong> tu base real <code>gestor_conciertos</code>. Si quieres usar este código en tu proyecto, cambia el nombre en <code>generador.sql</code> y en <code>AccesoDatos.php</code>.</blockquote>
+<p>Solución en <code>solucion/</code>.</p>
+<hr>
+<h2>Hueco 1 — Esquema SQL</h2>
+<pre><code class="lang-sql">CREATE TABLE concierto (
+    id_concierto    INT ____ PRIMARY KEY,
+    nombre_banda    VARCHAR(60) NOT NULL,
+    fecha_concierto DATETIME NOT NULL,
+    precio          DECIMAL(6,2) NOT NULL,
+    aforo           INT NOT NULL DEFAULT 50
+);
+
+CREATE TABLE entradas (
+    id                INT AUTO_INCREMENT PRIMARY KEY,
+    fecha_adquisicion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fk_concierto      INT NOT NULL,
+    FOREIGN KEY (fk_concierto) REFERENCES ____(id_concierto)
+);</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">INT AUTO_INCREMENT PRIMARY KEY
+...
+REFERENCES concierto(id_concierto)</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Procedimiento <code>AltaConcierto</code></h2>
+<p>Completa los casos:</p>
+<pre><code class="lang-sql">IF (/* nombre vacío */) THEN
+    SET _res = -1;
+ELSEIF (/* fecha nula */) THEN
+    SET _res = -2;
+ELSEIF (/* fecha anterior a hoy */) THEN
+    SET _res = -3;
+ELSEIF (/* precio &lt;= 0 */) THEN
+    SET _res = -4;
+ELSEIF (/* aforo &lt;= 0 */) THEN
+    SET _res = -5;
+ELSE
+    INSERT INTO concierto(nombre_banda, fecha_concierto, precio, aforo)
+    VALUES(_nombre, _fecha, _precio, _aforo);
+    SET _res = 0;
+END IF;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">IF (_nombre = &#039;&#039; OR _nombre IS NULL) THEN
+    SET _res = -1;
+ELSEIF (_fecha IS NULL) THEN
+    SET _res = -2;
+ELSEIF (_fecha &lt;= NOW()) THEN
+    SET _res = -3;
+ELSEIF (_precio &lt;= 0) THEN
+    SET _res = -4;
+ELSEIF (_aforo &lt;= 0) THEN
+    SET _res = -5;</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Llamada desde PHP</h2>
+<pre><code class="lang-php">$stmt = $connection-&gt;prepare(&#039;CALL AltaConcierto(?, ?, ?, ?, @resultado)&#039;);
+$stmt-&gt;bind_param(&#039;____&#039;, $nombre, $fecha, $precio, $aforo);
+$stmt-&gt;execute();
+$stmt-&gt;close();
+
+$resultado = $connection-&gt;query(&#039;SELECT @resultado AS resultado&#039;);
+$fila = $resultado-&gt;fetch_assoc();
+
+return (int)$fila[&#039;resultado&#039;];</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">$stmt-&gt;bind_param(&#039;ssdi&#039;, $nombre, $fecha, $precio, $aforo);</code></pre>
+<p><code>ssdi</code> = string (nombre), string (fecha), double (precio), integer (aforo).</p>
+</details>
+<hr>
+<h2>Hueco 4 — Listar con entradas vendidas</h2>
+<p>Queremos que cada concierto muestre cuántas entradas se han vendido:</p>
+<pre><code class="lang-sql">SELECT c.*,
+       (/* TODO: contar entradas de este concierto */) AS entradas_vendidas
+FROM concierto c
+ORDER BY c.fecha_concierto;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">SELECT c.*,
+       (SELECT COUNT(*) FROM entradas e
+         WHERE e.fk_concierto = c.id_concierto) AS entradas_vendidas
+FROM concierto c
+ORDER BY c.fecha_concierto;</code></pre>
+</details>
+<hr>
+<h2>Hueco 5 — Comprar entrada</h2>
+<p>Completa <code>ComprarEntrada</code>:</p>
+<pre><code class="lang-sql">DECLARE _fecha DATETIME;
+DECLARE _aforo INT;
+DECLARE _vendidas INT DEFAULT 0;
+
+IF NOT EXISTS (SELECT 1 FROM concierto WHERE id_concierto = _id_concierto) THEN
+    SET _res = -1;
+ELSE
+    SELECT fecha_concierto, aforo INTO _fecha, _aforo
+      FROM concierto WHERE id_concierto = _id_concierto;
+
+    SELECT COUNT(*) INTO _vendidas
+      FROM entradas WHERE fk_concierto = _id_concierto;
+
+    IF (/* concierto pasado */) THEN
+        SET _res = -2;
+    ELSEIF (/* aforo completo */) THEN
+        SET _res = -3;
+    ELSE
+        INSERT INTO entradas(fk_concierto) VALUES(_id_concierto);
+        SET _res = 0;
+    END IF;
+END IF;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">IF (_fecha &lt;= NOW()) THEN
+    SET _res = -2;
+ELSEIF (_vendidas &gt;= _aforo) THEN
+    SET _res = -3;</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Borrar con seguridad</h2>
+<p>No se debe borrar un concierto que ya tiene entradas:</p>
+<pre><code class="lang-sql">IF NOT EXISTS (SELECT 1 FROM concierto WHERE id_concierto = _id) THEN
+    SET _res = -1;
+ELSEIF (/* existen entradas de ese concierto */) THEN
+    SET _res = -2;
+ELSE
+    DELETE FROM concierto WHERE id_concierto = _id;
+    SET _res = 0;
+END IF;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-sql">ELSEIF EXISTS (SELECT 1 FROM entradas WHERE fk_concierto = _id) THEN
+    SET _res = -2;</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 — Formulario</h2>
+<p>El formulario debe enviar estos nombres:</p>
+<pre><code class="lang-html">&lt;form action=&quot;gestionar_conciertos.php&quot; method=&quot;post&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;accion&quot; value=&quot;alta&quot;&gt;
+
+    &lt;input type=&quot;text&quot; name=&quot;____&quot; required&gt;
+    &lt;input type=&quot;datetime-local&quot; name=&quot;____&quot; required&gt;
+    &lt;input type=&quot;number&quot; name=&quot;____&quot; step=&quot;0.01&quot; required&gt;
+    &lt;input type=&quot;number&quot; name=&quot;____&quot; required&gt;
+&lt;/form&gt;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-html">&lt;input type=&quot;text&quot; name=&quot;nombre_banda&quot; required&gt;
+&lt;input type=&quot;datetime-local&quot; name=&quot;fecha_concierto&quot; required&gt;
+&lt;input type=&quot;number&quot; name=&quot;precio&quot; step=&quot;0.01&quot; required&gt;
+&lt;input type=&quot;number&quot; name=&quot;aforo&quot; required&gt;</code></pre>
+</details>
+<hr>
+<h2>Hueco 8 — Mensajes de error</h2>
+<p>Relaciona cada código con su mensaje:</p>
+<pre><code class="lang-php">if ($res === -1) {
+    $mensaje = &#039;____&#039;;
+} elseif ($res === -3) {
+    $mensaje = &#039;____&#039;;
+} elseif ($res === -4) {
+    $mensaje = &#039;____&#039;;
+} elseif ($res === -5) {
+    $mensaje = &#039;____&#039;;
+} else {
+    $mensaje = &#039;Concierto guardado.&#039;;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-php">-1 → &#039;Nombre vacío.&#039;
+-3 → &#039;La fecha debe ser futura.&#039;
+-4 → &#039;El precio debe ser mayor que 0.&#039;
+-5 → &#039;El aforo debe ser mayor que 0.&#039;</code></pre>
+</details>
+<hr>
+<h2>Hueco 9 (reto) — Añadir <code>entradas</code> con precio</h2>
+<p>Añade a la tabla <code>entradas</code> una columna <code>precio_pagado DECIMAL(6,2)</code> y guárdala en<br><code>ComprarEntrada</code> leyendo el precio del concierto. Pista:</p>
+<pre><code class="lang-sql">INSERT INTO entradas(fk_concierto, precio_pagado)
+SELECT id_concierto, precio FROM concierto WHERE id_concierto = _id_concierto;</code></pre>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Por qué <code>LEFT JOIN</code> o subconsulta en la lista?</strong> Porque quieres mostrar conciertos aunque no tengan entradas.</li>
+<li><strong>¿Qué diferencia hay entre <code>DELETE</code> y <code>ON DELETE CASCADE</code>?</strong> <code>CASCADE</code> borra automáticamente las entradas hijas. Aquí lo bloqueamos a propósito.</li>
+<li><strong>¿Por qué validar el aforo dentro del procedure?</strong> Porque la lógica de negocio vive en la base de datos y es atómica.</li>
+<li><strong>¿Qué pasa si dos usuarios compran a la vez?</strong> Con el <code>COUNT</code> puede haber carrera; en producción se usaría transacción y bloqueo.</li>
+<li><strong>¿Por qué <code>precio</code> usa <code>d</code> en <code>bind_param</code>?</strong> Porque es un decimal; <code>d</code> lo trata como double.</li>
+<li><strong>¿Qué código devuelve el procedure si todo va bien?</strong> <code>0</code>.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso y Registro - Sakila</title>
+    <!-- Google Fonts & Boxicons for modern icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!--
+    <style>
+        
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --input-bg: #f8fafc;
+            --input-border: #cbd5e1;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Decorative background elements */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+        body::before {
+            background: #6366f1;
+            top: -50px;
+            left: -50px;
+        }
+        body::after {
+            background: #ec4899;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Toggle Navigation Buttons */
+        .auth-switch {
+            display: flex;
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 30px;
+        }
+
+        .switch-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .switch-btn.active {
+            background: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Form Titles */
+        h1, h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        /* Input Controls & Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        form[hidden] {
+            display: none !important;
+        }
+
+        .input-box, .campo {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .campo label, .input-box label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .input-box input, .campo input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background: var(--input-bg);
+            border: 1.5px solid var(--input-border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        /* Specific input adjustment when no leading icon is used */
+        .campo input {
+            padding-left: 16px;
+        }
+
+        .input-box input:focus, .campo input:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-4px);
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Password Eye Toggle */
+        .entrada {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .entrada input {
+            padding-right: 70px;
+        }
+
+        .ojo {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        /* Remember & Forgot Row */
+        .remember-password {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-top: -4px;
+        }
+
+        .remember-password label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .remember-password input[type="checkbox"] {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .remember-password a, .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .remember-password a:hover, .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit & Action Buttons */
+        .btn, .enviar {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            margin-top: 6px;
+        }
+
+        .btn:hover, .enviar:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Links & Messages */
+        .register-link {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .fuerza {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        #barra {
+            display: block;
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .msg, .aviso {
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        .aviso {
+            text-align: center;
+            font-weight: 500;
+        }
+        
+    </style>
+    -->
+</head>
+<body>
+
+    <div class="container">
+        <!-- Switch Navigation UI -->
+        <div class="auth-switch">
+            <button class="switch-btn active" id="btn-tab-login">Iniciar Sesión</button>
+            <button class="switch-btn" id="btn-tab-register">Registrarse</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="form-login" action="login_process.php" method="POST">
+            <h1>Bienvenido a Sakila</h1>
+            <p class="sub">Accede a tu cuenta para continuar</p>
+
+            <div class="input-box">
+                <input type="text" name="username" placeholder="Nombre de usuario o Email" required>
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+
+            <div class="remember-password">
+                <label><input type="checkbox" name="remember"> Recordarme</label>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="btn">Iniciar Sesión</button>
+
+            <p class="register-link">¿Todavía no tienes una cuenta? <a href="#" id="link-to-register">Regístrate</a></p>
+        </form>
+
+        <!-- Register Form -->
+        <form id="form-registro" action="register_process.php" method="POST" novalidate hidden>
+            <h2>Crear cuenta</h2>
+            <p class="sub">Rellena tus datos para unirte a Sakila.</p>
+
+            <div class="campo">
+                <label for="reg-nombre">Nombre completo</label>
+                <input type="text" id="reg-nombre" name="nombre" autocomplete="name" placeholder="Tu nombre">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-email">Correo electrónico</label>
+                <input type="email" id="reg-email" name="email" autocomplete="email" placeholder="tu@correo.com">
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass">Contraseña</label>
+                <div class="entrada">
+                    <input type="password" id="reg-pass" name="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres">
+                    <button type="button" class="ojo" data-para="reg-pass">Mostrar</button>
+                </div>
+                <div class="fuerza"><span id="barra"></span></div>
+                <div class="msg"></div>
+            </div>
+
+            <div class="campo">
+                <label for="reg-pass2">Repite la contraseña</label>
+                <input type="password" id="reg-pass2" name="confirm_password" autocomplete="new-password" placeholder="Repite la contraseña">
+                <div class="msg"></div>
+            </div>
+
+            <button type="submit" class="enviar">Crear cuenta</button>
+            <div class="aviso" id="aviso-registro" role="status"></div>
+            
+            <p class="register-link">¿Ya tienes una cuenta? <a href="#" id="link-to-login">Inicia sesión</a></p>
+        </form>
+    </div>
+
+    <script>
+        // Form switching logic
+        const tabLogin = document.getElementById('btn-tab-login');
+        const tabRegister = document.getElementById('btn-tab-register');
+        const formLogin = document.getElementById('form-login');
+        const formRegistro = document.getElementById('form-registro');
+        const linkToRegister = document.getElementById('link-to-register');
+        const linkToLogin = document.getElementById('link-to-login');
+
+        function showLogin() {
+            tabLogin.classList.add('active');
+            tabRegister.classList.remove('active');
+            formLogin.hidden = false;
+            formRegistro.hidden = true;
+        }
+
+        function showRegister() {
+            tabRegister.classList.add('active');
+            tabLogin.classList.remove('active');
+            formRegistro.hidden = false;
+            formLogin.hidden = true;
+        }
+
+        tabLogin.addEventListener('click', showLogin);
+        linkToLogin.addEventListener('click', (e) => { e.preventDefault(); showLogin(); });
+        
+        tabRegister.addEventListener('click', showRegister);
+        linkToRegister.addEventListener('click', (e) => { e.preventDefault(); showRegister(); });
+
+        // Password visibility toggle logic
+        const toggleButtons = document.querySelectorAll('.ojo');
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const inputId = button.getAttribute('data-para');
+                const inputField = document.getElementById(inputId);
+                if (inputField.type === 'password') {
+                    inputField.type = 'text';
+                    button.textContent = 'Ocultar';
+                } else {
+                    inputField.type = 'password';
+                    button.textContent = 'Mostrar';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

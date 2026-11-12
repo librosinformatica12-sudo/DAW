@@ -1,0 +1,122 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top left, #ff9a9e, #fad0c4 45%, #a1c4fd);
+}
+
+.juego {
+    width: min(100%, 460px);
+    padding: 30px;
+    text-align: center;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    margin: 0;
+    color: #333;
+}
+
+.ayuda {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.formulario {
+    display: flex;
+    gap: 10px;
+}
+
+.formulario input {
+    flex: 1;
+    padding: 14px;
+    font-size: 20px;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+.formulario input:focus {
+    outline: none;
+    border-color: #a1c4fd;
+}
+
+button {
+    padding: 14px 22px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #4a69bd;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+}
+
+button:hover {
+    background: #3b55a0;
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    background: #bbb;
+    cursor: not-allowed;
+    transform: none;
+}
+
+button.secundario {
+    margin-top: 15px;
+    background: #e67e22;
+}
+
+/* ===== MENSAJES CON COLOR SEGÚN EL RESULTADO ===== */
+.mensaje {
+    min-height: 26px;
+    margin: 18px 0 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mensaje.bajo  { color: #2980b9; }
+.mensaje.alto  { color: #c0392b; }
+.mensaje.acierto { color: #27ae60; }
+.mensaje.error { color: #e67e22; }
+
+.intentos {
+    color: #666;
+    margin: 0 0 10px;
+}
+
+/* ===== HISTORIAL ===== */
+.historial {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px;
+    max-height: 160px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.historial li {
+    padding: 6px 10px;
+    margin-bottom: 5px;
+    background: #f5f6fa;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.historial li.acierto {
+    background: #d4f8e8;
+    color: #1e8449;
+    font-weight: bold;
+}

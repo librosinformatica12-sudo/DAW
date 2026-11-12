@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cliente 02 - Lista de tareas</title>
+<link rel="stylesheet" href="../estilo.css">
+</head>
+<body>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+<main>
+<h1>Ejercicio 02 — Lista de tareas (cliente)</h1>
+<p><strong>Enunciado general:</strong> crea una lista de tareas que permita:</p>
+<ul>
+<li>Añadir una tarea escribiendo en un input.</li>
+<li>Marcarla como hecha / deshacer.</li>
+<li>Borrarla.</li>
+<li>Borrar todas las completadas.</li>
+<li>Ver cuántas hay y cuántas quedan pendientes.</li>
+</ul>
+
+<p>Todo sin recargar la página. La solución está en <code>solucion/</code>.</p>
+<hr>
+<h2>Hueco 1 — Evitar que el formulario recargue</h2>
+<pre><code class="lang-js">function agregarTarea(evento) {
+    /* TODO: evitar el comportamiento por defecto del formulario */
+    ...
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">evento.preventDefault();</code></pre>
+</details>
+<hr>
+<h2>Hueco 2 — Validar que no esté vacío</h2>
+<pre><code class="lang-js">const texto = input.value.trim();
+
+if (/* TODO: el texto está vacío */) {
+    mensaje.textContent = &quot;Escribe algo antes de añadir.&quot;;
+    return;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">if (texto === &quot;&quot;) {</code></pre>
+</details>
+<hr>
+<h2>Hueco 3 — Guardar la tarea en el array</h2>
+<p>Cada tarea debe ser un objeto con <code>id</code>, <code>texto</code> y <code>hecha</code>:</p>
+<pre><code class="lang-js">tareas.push({
+    id: /* TODO: usa siguienteId */,
+    texto: /* TODO: el texto escrito */,
+    hecha: /* TODO: false */
+});</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">tareas.push({
+    id: siguienteId,
+    texto: texto,
+    hecha: false
+});
+
+siguienteId++;</code></pre>
+</details>
+<hr>
+<h2>Hueco 4 — Crear el <code>&lt;li&gt;</code> y sus hijos</h2>
+<p>Dentro de <code>render()</code>:</p>
+<pre><code class="lang-js">tareas.forEach(function (tarea) {
+    const li = /* TODO: crear un li */;
+    if (tarea.hecha) li.classList.add(&quot;hecha&quot;);
+
+    const span = document.createElement(&quot;span&quot;);
+    span./* TODO: poner el texto de la tarea */;
+
+    const btnBorrar = document.createElement(&quot;button&quot;);
+    btnBorrar.textContent = &quot;Borrar&quot;;
+    btnBorrar.dataset.id = tarea.id;
+    btnBorrar.dataset.accion = &quot;borrar&quot;;
+
+    li./* TODO: añadir span y btnBorrar al li */;
+    /* TODO: añadir el li a la lista */
+});</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const li = document.createElement(&quot;li&quot;);
+
+const span = document.createElement(&quot;span&quot;);
+span.textContent = tarea.texto;
+
+li.append(span, btnBorrar);
+lista.appendChild(li);</code></pre>
+</details>
+<hr>
+<h2>Hueco 5 — Marcar como hecha</h2>
+<pre><code class="lang-js">if (accion === &quot;alternar&quot;) {
+    const tarea = tareas.find(function (t) {
+        return /* TODO: el id coincide */;
+    });
+    if (tarea) /* TODO: cambiar hecha a su contrario */;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const tarea = tareas.find(function (t) {
+    return t.id === id;
+});
+if (tarea) tarea.hecha = !tarea.hecha;</code></pre>
+</details>
+<hr>
+<h2>Hueco 6 — Borrar una tarea</h2>
+<pre><code class="lang-js">if (accion === &quot;borrar&quot;) {
+    tareas = tareas./* TODO: quedarse con las que NO tienen ese id */;
+}</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">tareas = tareas.filter(function (t) {
+    return t.id !== id;
+});</code></pre>
+</details>
+<hr>
+<h2>Hueco 7 — Contador</h2>
+<pre><code class="lang-js">const pendientes = tareas./* TODO: filtrar las no hechas */;
+contador.textContent = tareas.length + &quot; tareas (&quot; + pendientes + &quot; pendientes)&quot;;</code></pre>
+<details>
+<summary>Ver solución</summary>
+<pre><code class="lang-js">const pendientes = tareas.filter(function (t) {
+    return !t.hecha;
+}).length;</code></pre>
+</details>
+<hr>
+<h2>Hueco 8 (extra) — Guardar en <code>localStorage</code></h2>
+<p>Para que las tareas sobrevivan al recargar:</p>
+<pre><code class="lang-js">// Al final de render() o tras cada cambio:
+localStorage.setItem(&quot;tareas&quot;, JSON.stringify(tareas));
+
+// Al arrancar:
+const guardadas = localStorage.getItem(&quot;tareas&quot;);
+if (guardadas) {
+    tareas = JSON.parse(guardadas);
+    siguienteId = tareas.length ? Math.max(...tareas.map(t =&gt; t.id)) + 1 : 1;
+    render();
+}</code></pre>
+<hr>
+<h2>Posibles preguntas del profe</h2>
+<ol>
+<li><strong>¿Por qué usas <code>evento.preventDefault()</code>?</strong> Para que el <code>submit</code> no recargue la página y podamos gestionarlo con JS.</li>
+<li><strong>¿Qué es <code>dataset</code>?</strong> La forma de leer/escribir atributos <code>data-*</code>. <code>boton.dataset.id</code> lee <code>data-id</code>.</li>
+<li><strong>¿Por qué un solo listener en la lista?</strong> Es delegación de eventos: los botones se crean después, así que escuchamos en el padre.</li>
+<li><strong>¿Qué hace <code>closest(&quot;button&quot;)</code>?</strong> Busca el botón más cercano subiendo por el DOM desde el elemento clicado.</li>
+<li><strong>¿Por qué vacías <code>lista.innerHTML = &quot;&quot;</code> antes de pintar?</strong> Para no duplicar los elementos en cada render.</li>
+<li><strong>¿Diferencia entre <code>append</code> y <code>appendChild</code>?</strong> <code>append</code> acepta varios nodos y texto; <code>appendChild</code> solo un nodo.</li>
+</ol>
+
+
+</main>
+<nav class="barra"><a href="../index.html">&larr; Volver al índice</a></nav>
+</body>
+</html>

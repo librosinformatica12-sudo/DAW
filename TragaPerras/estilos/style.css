@@ -73,7 +73,8 @@ body {
     flex-direction: column;
 }
 #panel-estadisticas > span, h3 {
-    color: whitesmoke;
+    color: #fae748;
+    font-size: 25px;
 }
 
 #panel-tirada{

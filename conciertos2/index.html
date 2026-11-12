@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestor de conciertos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<main>
+    <h1>Gestor de conciertos</h1>
+
+    <section>
+        <h2>Dar de alta un concierto</h2>
+        <form method="post" action="gestionar_conciertos.php">
+            <input type="hidden" name="accion" value="alta_concierto">
+            <label>Banda
+                <input type="text" name="nombre_banda" maxlength="100">
+            </label>
+            <label>Fecha del concierto
+                <input type="date" name="fecha_concierto">
+            </label>
+            <label>Precio (€)
+                <input type="number" name="precio" min="0" step="0.01">
+            </label>
+            <button type="submit">Guardar concierto</button>
+        </form>
+    </section>
+
+    <p><a href="gestionar_conciertos.php">Ver conciertos y registrar venta de entradas &rarr;</a></p>
+</main>
+</body>
+</html>

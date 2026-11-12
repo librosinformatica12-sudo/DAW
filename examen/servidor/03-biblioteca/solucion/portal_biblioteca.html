@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de la biblioteca</title>
+</head>
+<body>
+    <h1>Portal de la biblioteca</h1>
+
+    <h2>Prestar un libro</h2>
+
+    <form action="gestionar_biblioteca.php" method="post">
+        <input type="hidden" name="accion" value="prestar">
+
+        <label for="id_libro">ID del libro:</label><br>
+        <input type="number" id="id_libro" name="id_libro" required>
+        <br><br>
+
+        <label for="id_socio">ID del socio:</label><br>
+        <input type="number" id="id_socio" name="id_socio" required>
+        <br><br>
+
+        <button type="submit">Prestar</button>
+    </form>
+
+    <hr>
+
+    <a href="gestionar_biblioteca.php">Zona de gestión (libros, socios y devoluciones)</a>
+
+</body>
+</html>

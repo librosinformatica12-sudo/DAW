@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit de examen - Cliente + Servidor</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<main>
+<h1>Kit de examen - Cliente + Servidor</h1>
+
+<p>Esta página es la <strong>versión fácil de leer</strong> de los archivos <code>.md</code>.
+Si abres un <code>.md</code> con Notepad verás símbolos raros (<code>#</code>, <code>**</code>, tablas con <code>|</code>);
+no es que esté mal, es que Notepad no interpreta Markdown. Usa mejor esta página.</p>
+
+<div class="aviso">
+<strong>Importante:</strong> las soluciones están dentro de cada ejercicio en la carpeta <code>solucion/</code>.
+No las abras hasta haber intentado rellenar los huecos. En las páginas de ejercicios, la solución está escondida
+dentro de un desplegable que pone <strong>"Ver solución"</strong>.
+</div>
+
+<h2>1. Chuletas: empieza por aquí</h2>
+<div class="rejilla">
+<a class="tarjeta" href="html/CHULETA-cliente.html">
+<strong>Chuleta de cliente</strong>
+<span>HTML + CSS + JS: seleccionar, eventos, DOM, arrays, random y los huecos típicos.</span>
+</a>
+<a class="tarjeta" href="html/CHULETA-servidor.html">
+<strong>Chuleta de servidor</strong>
+<span>PHP + MySQL: formularios, <code>$_POST</code>, <code>mysqli</code>, procedimientos y códigos de error.</span>
+</a>
+<a class="tarjeta" href="html/README.html">
+<strong>Guía del kit</strong>
+<span>Qué hay, cómo estudiar y cómo probar los ejemplos.</span>
+</a>
+</div>
+
+<h2>2. Ejercicios de cliente</h2>
+<div class="rejilla">
+<a class="tarjeta" href="html/cliente-01-tragamonedas.html">
+<strong>01 - Tragamonedas</strong>
+<span>Como tu TragaPerras: botones, random, créditos y premios.</span>
+</a>
+<a class="tarjeta" href="html/cliente-02-lista-tareas.html">
+<strong>02 - Lista de tareas</strong>
+<span>Añadir, borrar y completar tareas usando el DOM.</span>
+</a>
+<a class="tarjeta" href="html/cliente-03-adivina-numero.html">
+<strong>03 - Adivina el número</strong>
+<span>Número aleatorio, intentos, validación y mensajes.</span>
+</a>
+<a class="tarjeta" href="html/cliente-04-carrito.html">
+<strong>04 - Carrito</strong>
+<span>Array de objetos, cantidades, totales y tabla.</span>
+</a>
+<a class="tarjeta" href="html/cliente-05-slider-botones.html">
+<strong>05 - Slider y botones</strong>
+<span>Input range, variables, funciones, botones bonitos y animaciones CSS.</span>
+</a>
+<a class="tarjeta" href="html/cliente-06-espaciado-letras.html">
+<strong>06 - Espaciado de letras</strong>
+<span>Slider para controlar el espacio entre letras y animación de latido.</span>
+</a>
+<a class="tarjeta" href="html/cliente-07-espaciado-flex.html">
+<strong>07 - Espaciado flexible</strong>
+<span>Slider para separar tarjetas y animación de balanceo en cadena.</span>
+</a>
+</div>
+
+<h2>3. Ejercicios de servidor</h2>
+<div class="rejilla">
+<a class="tarjeta" href="html/servidor-01-clinica.html">
+<strong>01 - Clínica / Citas</strong>
+<span>Formulario, sesión, altas, modificar, borrar y JOIN con doctores.</span>
+</a>
+<a class="tarjeta" href="html/servidor-02-conciertos.html">
+<strong>02 - Conciertos</strong>
+<span>Tu proyecto completo: conciertos, entradas y compra.</span>
+</a>
+<a class="tarjeta" href="html/servidor-03-biblioteca.html">
+<strong>03 - Biblioteca</strong>
+<span>Libros, socios, préstamos, stock y devoluciones.</span>
+</a>
+</div>
+
+<h2>4. Cómo practicar (sin agobiarte)</h2>
+<div class="pasos">
+<ol>
+<li>Lee la chuleta del lado que vayas a practicar: cliente o servidor.</li>
+<li>Abre un ejercicio y <strong>no mires la solución</strong>. Intenta rellenar los huecos en un archivo nuevo.</li>
+<li>Si te atascas, abre <strong>"Ver solución"</strong> y compara solo ese hueco.</li>
+<li>Repite el ejercicio al día siguiente sin mirar. Eso es lo que se queda.</li>
+<li>Para servidor: importa el <code>.sql</code> en phpMyAdmin y abre el <code>portal_*.html</code> del ejercicio.</li>
+</ol>
+</div>
+
+<h2>5. Datos que tienes que recordar</h2>
+<ul>
+<li>Usuario de MySQL de los ejemplos: <code>root</code>. Contraseña: <code>1234</code>.</li>
+<li>El ejemplo de conciertos usa la base <code>gestor_conciertos_examen</code> para <strong>no borrar</strong> tu base real <code>gestor_conciertos</code>.</li>
+<li>Si tu MySQL usa otra contraseña, cámbiala en el <code>AccesoDatos.php</code> del ejercicio.</li>
+<li>Flujo del servidor: <code>form</code> - <code>$_POST</code> - validar - <code>bind_param</code> - <code>CALL</code> - <code>@resultado</code> - mensaje - tabla.</li>
+<li>Flujo del cliente: <code>getElementById</code> - <code>addEventListener</code> - función - <code>textContent</code> / <code>setAttribute</code>.</li>
+</ul>
+
+<div class="aviso">
+<strong>Si estás en el examen:</strong> abre esta página en el navegador y usa <code>Ctrl + F</code>
+para buscar cosas como <code>getElementById</code>, <code>addEventListener</code>, <code>bind_param</code>,
+<code>PA_</code> o <code>@resultado</code>. Es más rápido que buscar en Notepad.
+</div>
+
+</main>
+<nav class="barra"><a href="html/README.html">Ir a la guía completa &rarr;</a></nav>
+</body>
+</html>

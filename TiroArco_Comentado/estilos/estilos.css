@@ -1,0 +1,331 @@
+/* ============================================================
+   TIRO CON ARCO - HOJA DE ESTILOS COMENTADA
+   ============================================================
+   Orden recomendado para estudiar:
+   1) body y .panel (lo general)
+   2) #escenario (el "tablero" donde ocurre todo)
+   3) #diana, #flecha, #arco (los personajes)
+   4) animaciones @keyframes
+   5) layout flex (#main, barras)
+   6) botones .btn
+   7) ajustes finos (colores de textos/inputs)
+
+   CONCEPTO CLAVE: position
+   - #escenario es position: relative  -> crea un "sistema de coordenadas"
+   - sus hijos son position: absolute   -> se colocan con top/left/bottom
+     DENTRO del escenario, no de la página.
+   ============================================================ */
+
+/* ---------- 1) GENERAL ---------- */
+body
+{
+    /* Imagen de fondo (ruta relativa desde estilos/ hacia res/) */
+    background-image: url('../res/fondo.png');
+    background-color: #064019;          /* color de respaldo */
+    background-blend-mode: difference;  /* mezcla imagen + color */
+    margin: 0;                          /* quita el margen por defecto */
+}
+
+/* .panel = estilo común de las dos "cajas" grandes (config y juego) */
+.panel
+{
+    border: 1px solid #ddff00ff;        /* borde amarillo (RGBA) */
+    background-color: #000000aa;        /* negro semitransparente */
+    text-align: center;
+}
+
+/* ---------- 2) ESCENARIO (600x450) ---------- */
+#escenario
+{
+    position: relative;   /* IMPORTANTE: ancla a los hijos absolute */
+    width: 600px;         /* debe coincidir con ANCHO_ESCENARIO del JS */
+    height: 450px;        /* debe coincidir con ALTO_ESCENARIO del JS */
+    flex: 0 0 auto;       /* dentro del flex: no crecer ni encoger */
+    order: 1;             /* orden visual: 2º elemento del flex */
+    margin: auto;         /* centrado */
+    border: 2px solid #000000;
+    box-sizing: border-box; /* el borde se cuenta dentro del tamaño */
+    overflow: hidden;     /* lo que se salga se recorta (no se ve) */
+
+    /* Cielo arriba y césped abajo, todo con un solo gradiente:
+       0%-70% azul claro, 70%-100% verdes */
+    background-image: linear-gradient(
+        to bottom,
+        #87ceeb 0%, #cfeeff 70%, #4caf50 70%, #2e7d32 100%);
+}
+
+/* ---------- 3) DIANA ---------- */
+/* Círculo de 100x100 con 3 anillos hechos con radial-gradient:
+   rojo (centro) -> amarillo -> blanco (borde) */
+#diana
+{
+    position: absolute;
+    top: 30px;        /* 30px desde arriba */
+    left: 0px;        /* el JS cambia esto para moverla */
+    width: 100px;     /* debe coincidir con ANCHO_DIANA del JS */
+    height: 100px;
+    border-radius: 50%;   /* convierte el cuadrado en círculo */
+    border: 2px solid #000000;
+    box-sizing: border-box;
+
+    /* Anillos: 0-20% rojo, 20-50% amarillo, 50-100% blanco */
+    background-image: radial-gradient(circle at center,
+        #e60000 0%, #e60000 20%,
+        #ffd800 20%, #ffd800 50%,
+        #ffffff 50%, #ffffff 100%);
+}
+
+/* Cuando el JS añade la clase "impacto" se ejecuta la animación */
+#diana.impacto
+{
+    animation: diana-impacto 0.5s ease-in-out;
+}
+
+/* ---------- FLECHA ---------- */
+#flecha
+{
+    display: none;    /* oculta hasta que se dispara */
+    position: absolute;
+    bottom: 70px;     /* el JS cambia esto para hacerla subir */
+    left: calc(50% - 3px); /* centrada: 50% menos la mitad de su ancho */
+    width: 6px;
+    height: 70px;     /* debe coincidir con LARGO_FLECHA del JS */
+    background-color: saddlebrown; /* cuerpo de madera */
+}
+
+/* ::before = pseudo-elemento: dibuja la PUNTA de la flecha
+   Truco del triángulo: bordes laterales transparentes + borde inferior */
+#flecha::before
+{
+    content: "";      /* obligatorio en pseudo-elementos */
+    position: absolute;
+    top: -12px;       /* por encima del cuerpo */
+    left: -4px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 12px solid #444444;
+}
+
+/* ---------- ARCO ---------- */
+/* Semicírculo: borde arriba y a los lados, sin borde abajo */
+#arco
+{
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 6px solid #5a3410;
+    border-bottom: none;
+    border-radius: 100px 100px 0 0; /* esquinas superiores redondeadas */
+}
+
+/* ::after = la CUERDA del arco (línea horizontal blanca) */
+#arco::after
+{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -6px;
+    width: 100px;
+    height: 2px;
+    background-color: whitesmoke;
+}
+
+/* Al disparar, el JS añade "disparo" para la animación de retroceso */
+#arco.disparo
+{
+    animation: arco-retroceso 0.3s ease-out;
+}
+
+/* ---------- PUNTOS FLOTANTES ---------- */
+/* El JS crea <span class="punto-flotante">+10</span> al acertar.
+   Esta clase le da el estilo y la animación de subir y desaparecer. */
+.punto-flotante
+{
+    position: absolute;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    color: #ff2d2d;
+    text-shadow: 1px 1px 0 #000000;
+    animation: subir-desaparecer 1s ease-out forwards;
+    /* forwards = se queda en el último fotograma (opacity 0) */
+}
+
+/* ---------- 4) ANIMACIONES @keyframes ---------- */
+/* Cada % es un fotograma; transform mueve/escala/rota el elemento */
+@keyframes diana-impacto
+{
+    0%   { transform: scale(1); }
+    25%  { transform: scale(1.25) rotate(-8deg); }
+    50%  { transform: scale(0.9) rotate(8deg); }
+    75%  { transform: scale(1.1) rotate(-4deg); }
+    100% { transform: scale(1); }
+}
+
+@keyframes arco-retroceso
+{
+    0%   { transform: translateY(0); }
+    40%  { transform: translateY(8px); } /* el arco baja un poco */
+    100% { transform: translateY(0); }
+}
+
+@keyframes subir-desaparecer
+{
+    from { transform: translateY(0);     opacity: 1; }
+    to   { transform: translateY(-50px); opacity: 0; }
+}
+
+/* ---------- 5) LAYOUT (FLEXBOX) ---------- */
+#panel-juego
+{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;          /* 100% del alto de la ventana */
+    display: flex;
+    flex-direction: column; /* apila título arriba y #main debajo */
+    overflow: auto;         /* scroll si no cabe */
+}
+
+/* El primer hijo (el div del título) ocupa su altura natural */
+#panel-juego > div:first-child
+{
+    flex: 0 0 auto;
+}
+#panel-juego h2
+{
+    float: right;
+    margin-right: 30px;
+}
+
+/* #main = fila con barra | escenario | estadísticas */
+#main
+{
+    display: flex;
+    flex: 1 1 0;    /* ocupa el espacio restante */
+    min-width: 0;
+    min-height: 0;
+    align-items: stretch;
+}
+
+/* Barras laterales: cajas con fondo semitransparente */
+#barra_control, #panel_estadisticas
+{
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 2px solid #000000;
+    display: flex;
+    flex-direction: column; /* botones uno debajo de otro */
+    width: fit-content;
+    max-width: 400px;
+    margin-top: auto;       /* centrado vertical */
+    margin-bottom: auto;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: rgb(245, 245, 245, 0.5);
+}
+
+/* order controla el orden en el flex sin cambiar el HTML:
+   0 = izquierda, 1 = centro (escenario), 2 = derecha */
+#barra_control      { order: 0; }
+#panel_estadisticas { order: 2; background-color: #00000089; }
+
+#panel_estadisticas > span, h3
+{
+    color: whitesmoke;
+}
+
+/* ---------- 6) BOTONES ---------- */
+.btn
+{
+    margin: 10px 20px;
+    min-height: 50px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5a3410;
+    border: 2px solid burlywood;
+    border-radius: 12px;
+    background-image: linear-gradient(to bottom, #fff3df, #f0c98a);
+    box-shadow: 0 4px 0 #b8863b;   /* "sombra dura" que simula relieve */
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+}
+.btn:hover   /* al pasar el ratón */
+{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #b8863b;
+    filter: brightness(1.08);
+}
+.btn:active  /* mientras se pulsa */
+{
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #b8863b;
+}
+.btn:disabled /* desactivado (el JS lo usa durante el vuelo) */
+{
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 0 #b8863b;
+}
+
+/* Variante roja del botón Disparar (se suma a .btn) */
+.btn-disparar
+{
+    color: white;
+    border-color: #8b0000;
+    background-image: linear-gradient(to bottom, #ff6b6b, #c0392b);
+    box-shadow: 0 4px 0 #7b1d14;
+}
+.btn-disparar:hover  { box-shadow: 0 6px 0 #7b1d14; }
+.btn-disparar:active { box-shadow: 0 1px 0 #7b1d14; }
+.btn-disparar:disabled { box-shadow: 0 4px 0 #7b1d14; }
+
+/* ---------- 7) TEXTOS Y AJUSTES FINOS ---------- */
+h1, #cabecera p
+{
+    display: flex;
+    flex-direction: row-reverse; /* curioso: invierte el orden visual */
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: gold;
+}
+h2
+{
+    color: rgb(117, 72, 5);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+                 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Los divs de configuración, en columna y centrados */
+#panel-config > div
+{
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    margin: 0 auto;
+}
+#panel-config > div input
+{
+    align-self: center;
+    width: 50px;
+    background-color: #ffcd88aa;
+}
+#spin_velocidad { background-color: #fa2424aa; }
+
+/* Colores y tamaños de los números de estadísticas.
+   !important fuerza a que ganen sobre otras reglas. */
+#n_flechas { color: whitesmoke !important;  font-size: 40px; }
+#n_puntos  { color: gold !important;        font-size: 30px; }
+#n_aciertos{ color: greenyellow !important; font-size: 30px; }
+#n_fallos  { color: coral !important;       font-size: 30px; }
+
+#mensaje
+{
+    color: whitesmoke;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}

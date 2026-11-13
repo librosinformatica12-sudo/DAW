@@ -1,0 +1,220 @@
+body
+{
+    background-color: #064019;
+    background-image: radial-gradient(circle at 50% 0%, #0b6b2c 0%, #04310f 100%);
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.panel
+{
+    border: 1px solid #ddff00;
+    background-color: #000000aa;
+    text-align: center;
+}
+
+#escenario
+{
+    position: relative;
+    width: 600px;
+    height: 450px;
+    flex: 0 0 auto;
+    order: 1;
+    margin: auto;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, #87ceeb 0%, #cfeeff 70%, #4caf50 70%, #2e7d32 100%);
+}
+
+#diana
+{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    background-image: radial-gradient(circle at center, #e60000 0%, #e60000 20%, #ffd800 20%, #ffd800 50%, #ffffff 50%, #ffffff 100%);
+    transition: box-shadow 0.2s;
+}
+#diana.impacto
+{
+    animation: diana-impacto 0.5s ease-in-out;
+}
+
+/* La flecha ahora puede quedarse clavada: se controla con display desde JS */
+#flecha
+{
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    left: calc(50% - 3px);
+    width: 6px;
+    height: 70px;
+    background-color: saddlebrown;
+    transition: bottom 0.03s linear;
+}
+#flecha::before
+{
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: -4px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 12px solid #444444;
+}
+
+#arco
+{
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 6px solid #5a3410;
+    border-bottom: none;
+    border-radius: 100px 100px 0 0;
+}
+#arco::after
+{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -6px;
+    width: 100px;
+    height: 2px;
+    background-color: whitesmoke;
+}
+#arco.disparo
+{
+    animation: arco-retroceso 0.3s ease-out;
+}
+
+.punto-flotante
+{
+    position: absolute;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff2d2d;
+    text-shadow: 1px 1px 0 #000000;
+    animation: subir-desaparecer 1s ease-out forwards;
+}
+
+@keyframes diana-impacto
+{
+    0%   { transform: scale(1); }
+    25%  { transform: scale(1.25) rotate(-8deg); }
+    50%  { transform: scale(0.9) rotate(8deg); }
+    75%  { transform: scale(1.1) rotate(-4deg); }
+    100% { transform: scale(1); }
+}
+@keyframes arco-retroceso
+{
+    0%   { transform: translateY(0); }
+    40%  { transform: translateY(8px); }
+    100% { transform: translateY(0); }
+}
+@keyframes subir-desaparecer
+{
+    from { transform: translateY(0); opacity: 1; }
+    to   { transform: translateY(-50px); opacity: 0; }
+}
+
+#panel-juego
+{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+#panel-juego h2
+{
+    flex: 0 0 auto;
+}
+
+#main
+{
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    align-items: stretch;
+}
+
+#barra_control, #panel_estadisticas
+{
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 2px solid #000000;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 400px;
+    margin: auto 30px;
+    background-color: rgba(245, 245, 245, 0.5);
+}
+#barra_control      { order: 0; }
+#panel_estadisticas { order: 2; background-color: #00000089; color: whitesmoke; }
+
+.btn
+{
+    margin: 10px 20px;
+    min-height: 50px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5a3410;
+    border: 2px solid burlywood;
+    border-radius: 12px;
+    background-image: linear-gradient(to bottom, #fff3df, #f0c98a);
+    box-shadow: 0 4px 0 #b8863b;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 0 #b8863b; filter: brightness(1.08); }
+.btn:active { transform: translateY(3px);  box-shadow: 0 1px 0 #b8863b; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: 0 4px 0 #b8863b; }
+
+.btn-disparar
+{
+    color: white;
+    border-color: #8b0000;
+    background-image: linear-gradient(to bottom, #ff6b6b, #c0392b);
+    box-shadow: 0 4px 0 #7b1d14;
+}
+.btn-disparar:hover  { box-shadow: 0 6px 0 #7b1d14; }
+.btn-disparar:active { box-shadow: 0 1px 0 #7b1d14; }
+
+h1, #cabecera p { color: gold; text-align: center; }
+h2 { color: rgb(117, 72, 5); }
+
+#panel-config > div
+{
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    margin: 0 auto;
+}
+#panel-config > div input
+{
+    align-self: center;
+    width: 60px;
+    background-color: #ffcd88aa;
+}
+#spin_velocidad { background-color: #fa2424aa; }
+
+#n_flechas   { color: whitesmoke !important;  font-size: 40px; }
+#n_puntos    { color: gold !important;        font-size: 30px; }
+#n_aciertos  { color: greenyellow !important; font-size: 30px; }
+#n_fallos    { color: coral !important;       font-size: 30px; }
+#n_velocidad { color: skyblue !important;     font-size: 24px; }
+#n_record    { color: violet !important;      font-size: 24px; }
+
+#mensaje { color: whitesmoke; font-size: 18px; }

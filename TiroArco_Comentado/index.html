@@ -1,97 +1,45 @@
+<!-- Indica que el documento utiliza HTML5. -->
 <!DOCTYPE html>
-<!--
-    ============================================================
-    TIRO CON ARCO v1.0  (VERSIÓN COMENTADA PARA ESTUDIAR)
-    ============================================================
-    Este archivo es el ESQUELETO (estructura) de la aplicación.
-    Aquí solo definimos QUÉ elementos existen en la página.
-    El comportamiento (la lógica) está en js/tiroarco.js
-    y el aspecto (colores, tamaños) en estilos/estilos.css.
-
-    IDEA CLAVE PARA EL EXAMEN:
-    - HTML  -> estructura / contenido
-    - CSS   -> presentación / diseño
-    - JS    -> comportamiento / lógica
-    ============================================================
--->
-<html lang="es">
+<html>
     <head>
-        <!-- charset: permite tildes y símbolos como ¡ o ñ -->
+        <!-- Configuración general de la página: codificación, título y archivos externos. -->
         <meta charset="UTF-8">
-
-        <!-- Título que aparece en la pestaña del navegador -->
         <title>Tiro con Arco v1.0</title>
-
-        <!--
-            Enlazamos la hoja de estilos.
-            La ruta es RELATIVA: "estilos/estilos.css" significa
-            "dentro de esta misma carpeta, entra en estilos/".
-        -->
+        <!-- Conecta la hoja de estilos CSS. -->
         <link rel="stylesheet" href="estilos/estilos.css">
-
-        <!--
-            Enlazamos el JavaScript.
-            defer = el navegador descarga el .js, pero NO lo ejecuta
-            hasta haber terminado de leer todo el HTML.
-            Esto es IMPORTANTE porque el JS usa getElementById para
-            buscar los elementos: si el script se ejecutara antes de
-            que existan los <div>, devolvería null y fallaría.
-        -->
+        <!-- Carga el JavaScript cuando el HTML ya se ha procesado (defer). -->
         <script src="js/tiroarco.js" defer></script>
     </head>
     <body>
-
-        <!-- ===================== CABECERA ===================== -->
-        <!-- Solo se ve al principio; al empezar la partida se oculta -->
+        <!-- Cabecera que se oculta al comenzar la partida. -->
         <div id="cabecera">
             <h1>Tiro con Arco</h1>
             <p>¡Bienvenido!</p>
         </div>
-
-        <!-- ================ PANEL DE CONFIGURACIÓN ================ -->
-        <!--
-            Este panel se muestra al arrancar.
-            El jugador elige:
-              - nº de flechas (input type="number", min 1, max 20)
-              - velocidad de la diana (input type="number", min 1, max 10)
-            Los atributos min/max/value son del HTML; el JS además
-            los vuelve a validar por seguridad (el usuario puede escribir
-            cualquier cosa a mano).
-        -->
+        <!-- Panel inicial para elegir flechas y velocidad. -->
         <div id="panel-config" class="panel">
             <h2>Configuración</h2>
-
             <div>
-                <!-- <span> es texto; <input> es la caja donde se escribe -->
                 <span>Número de flechas:</span>
+                <!-- Número de flechas: entre 1 y 20; empieza en 5. -->
                 <input type="number" id="spin_flechas" min="1" max="20" value="5">
             </div>
-
             <div>
                 <span>Velocidad de la diana (1-10):</span>
+                <!-- Velocidad de la diana: nivel entre 1 y 10; empieza en 5. -->
                 <input type="number" id="spin_velocidad" min="1" max="10" value="5">
             </div>
-
-            <!-- Botón que dispara la función prepararJuego() del JS -->
+            <!-- Botón que inicia y prepara la partida. -->
             <button id="btn_iniciar_juego" class="btn">Iniciar Juego</button>
         </div>
-
-        <!-- ==================== PANEL DE JUEGO ==================== -->
-        <!-- Empieza oculto (el JS lo pone en display:none al arrancar) -->
+        <!-- Panel principal de la partida. Al principio está oculto. -->
         <div id="panel-juego" class="panel">
-
             <div>
                 <h2>Juego</h2>
             </div>
-
-            <!-- #main usa FLEXBOX para colocar 3 zonas en fila:
-                 barra de control | escenario | estadísticas -->
             <div id="main">
-
-                <!-- ---- Barra de botones de control (izquierda) ---- -->
+                <!-- Controles para disparar, mover, pausar y reiniciar. -->
                 <div id="barra_control">
-                    <!-- class="btn btn-disparar": dos clases. La segunda
-                         añade el color rojo especial del botón disparar -->
                     <button id="btn_disparar" class="btn btn-disparar">Disparar</button>
                     <button id="btn_play" class="btn">Play</button>
                     <button id="btn_stop" class="btn">Pausa</button>
@@ -99,23 +47,16 @@
                     <button id="btn_frenar" class="btn">Frenar</button>
                     <button id="btn_reiniciar" class="btn">Reiniciar</button>
                 </div>
-
-                <!-- ---- Escenario de juego (centro) ----
-                     position: relative en el CSS permite que sus hijos
-                     (diana, flecha, arco) se coloquen con position:absolute
-                     respecto a este recuadro de 600x450. -->
+                <!-- Zona de juego donde se dibujan la diana, la flecha y el arco. -->
                 <div id="escenario">
-                    <!-- La diana se mueve horizontalmente con left -->
+                    <!-- Diana móvil. CSS le da su aspecto y JavaScript cambia su posición. -->
                     <div id="diana"></div>
-                    <!-- La flecha sube desde abajo con bottom -->
+                    <!-- Flecha que JavaScript muestra y anima al disparar. -->
                     <div id="flecha"></div>
-                    <!-- El arco es decorativo, se anima al disparar -->
+                    <!-- Arco decorativo con animación al disparar. -->
                     <div id="arco"></div>
                 </div>
-
-                <!-- ---- Estadísticas (derecha) ----
-                     Los <span> con id son los huecos donde el JS escribe
-                     los números con innerText. -->
+                <!-- Marcadores que JavaScript actualiza durante la partida. -->
                 <div id="panel_estadisticas">
                     <h3>Estado del Juego</h3>
                     <span>FLECHAS </span><span id="n_flechas">0</span>
@@ -123,12 +64,12 @@
                     <span>Puntos </span><span id="n_puntos">0</span>
                     <span>Aciertos </span><span id="n_aciertos">0</span>
                     <span>Fallos </span><span id="n_fallos">0</span>
-                    <!-- Mensaje variable: "¡Pulsa Disparar!", "¡Diana! +10"... -->
+                    <!-- Mensajes de estado: inicio, acierto, fallo o fin de partida. -->
                     <p id="mensaje">¡Pulsa Disparar!</p>
                 </div>
-
             </div>
         </div>
 
     </body>
+
 </html>

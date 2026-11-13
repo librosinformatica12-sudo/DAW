@@ -1,0 +1,237 @@
+body
+{
+    background-image: url('../res/fondo.jpg');
+    background-size: cover;
+    background-color: #064019;
+    color: whitesmoke;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* PREGUNTA 1 - Cabecera centrada con fondo propio para que el texto se lea bien */
+header
+{
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddff00;    
+    border-radius: 25px;
+    background-color: #000000aa;
+    text-align: center;
+}
+
+header h1
+{
+    margin: 0 0 8px;
+    color: #ffcd88;
+}
+
+header p
+{
+    margin: 10;
+}
+
+.panel
+{
+    width: 1200px;
+    margin: 0 auto 20px;
+    padding: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ddff00;
+    background-color: #000000aa;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 360px 420px 330px;
+    align-items: start;
+    gap: 16px;
+}
+
+#panel-juego
+{
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+
+#panel-juego h2
+{
+    margin: 0 0 8px;
+}
+
+#panel-juego p
+{
+    margin: 4px 0;
+}
+
+h2
+{
+    color: #ffcd88;
+}
+
+.panel-diana, .panel-controles, .panel-partida
+{
+    box-sizing: border-box;
+    padding: 16px;
+    border: 1px solid #ffffff66;
+    background-color: #00000066;
+}
+
+.panel-partida
+{
+    height: 412px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-partida h2
+{
+    margin: 0 0 8px;
+}
+
+.panel-partida > p
+{
+    margin: 4px 0;
+}
+
+#diana
+{
+    display: block;
+    width: 300px;
+    height: auto;
+    margin: 0 auto;
+    border: 3px solid #d6c6a5;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.anillo
+{
+    stroke: #222;
+    stroke-width: 0.4px;
+}
+
+.anillo-1 { fill: #fff; }
+.anillo-2 { fill: #222; }
+.anillo-3 { fill: #1684d8; }
+.anillo-4 { fill: #e53935; }
+.anillo-5 { fill: #ffeb3b; }
+.anillo-6 { fill: #fff; }
+.anillo-7 { fill: #222; }
+.anillo-8 { fill: #1684d8; }
+.anillo-9 { fill: #e53935; }
+.anillo-10 { fill: #ffeb3b; }
+
+#impacto
+{
+    fill: #00e5ff;
+    stroke: #000;
+    stroke-width: 1px;
+}
+
+.panel-controles > p
+{
+    margin: 8px 0 0;
+    font-size: 14px;
+}
+
+#formulario-tiro
+{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+
+#formulario-tiro input
+{
+    padding: 6px;
+    font-size: 16px;
+}
+
+/* PREGUNTA 6 - Estilo del slider de potencia y de su valor */
+.fila-potencia
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fila-potencia input[type="range"]
+{
+    flex: 1 1 auto;
+    padding: 0;
+    accent-color: #ddff00;
+    cursor: pointer;
+}
+
+#valor-potencia
+{
+    min-width: 3ch;
+    text-align: right;
+    font-weight: bold;
+    color: #ddff00;
+}
+
+button
+{
+    /* PREGUNTA 2 - Estilo de botón acorde con la estética de la aplicación */
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #064019;
+    background-color: #ddff00;
+    border: 2px solid #064019;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover:not(:disabled)
+{
+    background-color: #c6e600;
+}
+
+button:active:not(:disabled)
+{
+    transform: scale(0.98);
+}
+
+button:disabled
+{
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+#historial-tiros
+{
+    width: 260px;
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0 auto;
+    padding-left: 24px;
+    text-align: left;
+    overflow-y: auto;
+}
+
+.final-partida
+{
+    height: 88px;
+    flex: 0 0 88px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.final-partida button
+{
+    margin-top: 4px;
+}
+
+#mensaje-final
+{
+    min-height: 36px;
+    margin: 0;
+    font-size: 19px;
+    font-weight: bold;
+    color: gold;
+}

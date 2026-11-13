@@ -1,0 +1,93 @@
+body
+{
+    margin: 0;
+    background: #1b1b1b;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1
+{
+    color: gold;
+}
+
+#escenario
+{
+    position: relative;
+    width: 600px;
+    height: 450px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 2px solid black;
+    background: linear-gradient(to bottom, #87ceeb 0%, #cfeeff 70%, #4caf50 70%, #2e7d32 100%);
+}
+
+#diana
+{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid black;
+    box-sizing: border-box;
+    background: radial-gradient(circle at center, red 0%, red 20%, #ffd800 20%, #ffd800 50%, white 50%, white 100%);
+}
+
+#flecha
+{
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    left: calc(50% - 3px);
+    width: 6px;
+    height: 70px;
+    background: saddlebrown;
+}
+
+#arco
+{
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 6px solid #5a3410;
+    border-bottom: none;
+    border-radius: 100px 100px 0 0;
+}
+
+#panel
+{
+    width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    background: #000000aa;
+    border: 1px solid #ddff00;
+}
+
+button
+{
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid burlywood;
+    border-radius: 8px;
+    background: #f0c98a;
+}
+
+button:disabled
+{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#mensaje
+{
+    font-size: 18px;
+}

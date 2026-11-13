@@ -1,0 +1,320 @@
+/* =========================================================
+   ESTILOS DEL JUEGO TIRO CON ARCO
+   Este archivo controla colores, tamaños, posiciones y animaciones.
+   Los selectores que empiezan por # identifican un id del HTML.
+   Los selectores que empiezan por . identifican una clase.
+   ========================================================= */
+
+/* Fondo general de la página. La ruta sube una carpeta y entra en res/. */
+body
+{
+    background-image: url('../res/fondo.png');
+    background-color: #064019;
+    background-blend-mode: difference;
+    margin: 0;
+}
+/* Estilo compartido por los paneles de configuración y juego. */
+.panel
+{
+    border: 1px solid #ddff00ff;
+    background-color: #000000aa;
+    text-align: center;
+}
+
+/* ESCENARIO: contenedor de 600 x 450 píxeles. position:relative permite
+   colocar dentro sus elementos con position:absolute. overflow:hidden
+   impide que se vean elementos que salgan de sus límites. */
+#escenario
+{
+    position: relative;
+    width: 600px;
+    height: 450px;
+    flex: 0 0 auto;
+    order: 1;
+    margin: auto;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-image: linear-gradient(to bottom, #87ceeb 0%, #cfeeff 70%, #4caf50 70%, #2e7d32 100%);
+}
+
+/* DIANA: círculo de 100 x 100. radial-gradient crea las zonas de color.
+   JavaScript modifica left para desplazarla horizontalmente. */
+#diana
+{
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    background-image: radial-gradient(circle at center, #e60000 0%, #e60000 20%, #ffd800 20%, #ffd800 50%, #ffffff 50%, #ffffff 100%);
+}
+/* Cuando JavaScript añade la clase impacto, se ejecuta la sacudida. */
+#diana.impacto
+{
+    animation: diana-impacto 0.5s ease-in-out;
+}
+
+/* FLECHA: empieza oculta. JavaScript la muestra y cambia bottom para animarla. */
+#flecha
+{
+    display: none;
+    position: absolute;
+    bottom: 70px;
+    left: calc(50% - 3px);
+    width: 6px;
+    height: 70px;
+    background-color: saddlebrown;
+}
+/* ::before dibuja la punta triangular de la flecha usando bordes. */
+#flecha::before
+{
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: -4px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 12px solid #444444;
+}
+
+/* ARCO: forma semicircular construida con bordes redondeados. */
+#arco
+{
+    position: absolute;
+    bottom: 10px;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 50px;
+    box-sizing: border-box;
+    border: 6px solid #5a3410;
+    border-bottom: none;
+    border-radius: 100px 100px 0 0;
+}
+/* ::after dibuja la cuerda horizontal del arco. */
+#arco::after
+{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -6px;
+    width: 100px;
+    height: 2px;
+    background-color: whitesmoke;
+}
+/* Clase temporal que activa el retroceso del arco al disparar. */
+#arco.disparo
+{
+    animation: arco-retroceso 0.3s ease-out;
+}
+
+/* PUNTOS FLOTANTES: JavaScript crea estos span al acertar.
+   La animación los eleva y los hace desaparecer. */
+.punto-flotante
+{
+    position: absolute;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    color: #ff2d2d;
+    text-shadow: 1px 1px 0 #000000;
+    animation: subir-desaparecer 1s ease-out forwards;
+}
+
+/* Secuencia de la sacudida de la diana: escala y giro en varios momentos. */
+@keyframes diana-impacto
+{
+    0% { transform: scale(1); }
+    25% { transform: scale(1.25) rotate(-8deg); }
+    50% { transform: scale(0.9) rotate(8deg); }
+    75% { transform: scale(1.1) rotate(-4deg); }
+    100% { transform: scale(1); }
+}
+
+/* Secuencia breve que desplaza el arco hacia abajo y lo devuelve. */
+@keyframes arco-retroceso
+{
+    0% { transform: translateY(0); }
+    40% { transform: translateY(8px); }
+    100% { transform: translateY(0); }
+}
+
+/* El texto de puntos sube 50px mientras opacity pasa de visible a invisible. */
+@keyframes subir-desaparecer
+{
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-50px); opacity: 0; }
+}
+
+/* El panel del juego ocupa la altura de la ventana y usa Flexbox en columna. */
+#panel-juego
+{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+#panel-juego > div:first-child
+{
+    flex: 0 0 auto;
+}
+#panel-juego h2
+{
+    float: right;
+    margin-right: 30px;
+}
+
+/* Zona central: distribuye controles, escenario y estadísticas en horizontal. */
+#main
+{
+    display: flex;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    align-items: stretch;
+}
+
+/* Controles y estadísticas comparten caja, relleno y distribución vertical. */
+#barra_control, /* Las estadísticas se colocan después del escenario y tienen fondo oscuro. */
+#panel_estadisticas
+{
+    box-sizing: border-box;
+    padding: 1rem;
+    border: 2px solid #000000;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: rgb(245, 245, 245,0.5);
+}
+
+/* order determina el orden visual dentro del contenedor flex. */
+#barra_control
+{
+    order: 0;
+}
+
+/* Las estadísticas se colocan después del escenario y tienen fondo oscuro. */
+#panel_estadisticas
+{
+    order: 2;
+    background-color: #00000089;
+}
+#panel_estadisticas > span, h3
+{
+    color:whitesmoke;
+}
+
+/* BOTONES: aspecto común, estados hover/active/disabled y variante roja de disparo. */
+.btn{
+    margin: 10px 20px;
+    min-height: 50px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #5a3410;
+    border: 2px solid burlywood;
+    border-radius: 12px;
+    background-image: linear-gradient(to bottom, #fff3df, #f0c98a);
+    box-shadow: 0 4px 0 #b8863b;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+}
+/* hover: estilo cuando el ratón está encima. */
+.btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #b8863b;
+    filter: brightness(1.08);
+}
+/* active: estilo mientras se mantiene pulsado. */
+.btn:active{
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #b8863b;
+}
+/* disabled: aspecto de un botón que no se puede pulsar. */
+.btn:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 4px 0 #b8863b;
+}
+/* Variante visual roja para destacar el botón Disparar. */
+.btn-disparar{
+    color: white;
+    border-color: #8b0000;
+    background-image: linear-gradient(to bottom, #ff6b6b, #c0392b);
+    box-shadow: 0 4px 0 #7b1d14;
+}
+.btn-disparar:hover{
+    box-shadow: 0 6px 0 #7b1d14;
+}
+.btn-disparar:active{
+    box-shadow: 0 1px 0 #7b1d14;
+}
+.btn-disparar:disabled{
+    box-shadow: 0 4px 0 #7b1d14;
+}
+
+/* Tipografía y color del título y del texto de bienvenida. */
+h1, #cabecera p{
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:gold;
+}
+h2
+{
+    color: rgb(117, 72, 5);
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+/* Cada bloque de configuración organiza su etiqueta y campo en columna. */
+#panel-config > div{
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    margin: 0 auto;
+}
+#panel-config > div input{
+    align-self: center;
+    width: 50px;
+    background-color: #ffcd88aa;
+}
+#spin_velocidad
+{
+    background-color: #fa2424aa;
+}
+/* Marcadores: tamaño y color diferenciados para leerlos fácilmente. */
+#n_flechas{
+    color: whitesmoke !important;
+    font-size: 40px;
+}
+#n_puntos{
+    color: gold !important;
+    font-size: 30px;
+}
+#n_aciertos{
+    color: greenyellow !important;
+    font-size: 30px;
+}
+#n_fallos{
+    color: coral !important;
+    font-size: 30px;
+}
+/* Texto donde JavaScript informa al jugador de lo que ocurre. */
+#mensaje{
+    color: whitesmoke;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}

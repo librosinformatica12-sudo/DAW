@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiro con Arco - Mejorado</title>
+    <link rel="stylesheet" href="estilos/estilos.css">
+    <script src="js/tiroarco.js" defer></script>
+</head>
+<body>
+    <div id="cabecera">
+        <h1>Tiro con Arco</h1>
+        <p>Versión mejorada · pulsa ESPACIO para disparar</p>
+    </div>
+
+    <div id="panel-config" class="panel">
+        <h2>Configuración</h2>
+        <div>
+            <span>Número de flechas (1-20):</span>
+            <input type="number" id="spin_flechas" min="1" max="20" value="5">
+        </div>
+        <div>
+            <span>Velocidad de la diana (1-10):</span>
+            <input type="number" id="spin_velocidad" min="1" max="10" value="5">
+        </div>
+        <button id="btn_iniciar_juego" class="btn">Iniciar Juego</button>
+    </div>
+
+    <div id="panel-juego" class="panel">
+        <h2>Juego</h2>
+        <div id="main">
+            <div id="barra_control">
+                <button id="btn_disparar" class="btn btn-disparar">Disparar (Espacio)</button>
+                <button id="btn_play" class="btn">Play</button>
+                <button id="btn_stop" class="btn">Pausa</button>
+                <button id="btn_acelerar" class="btn">Acelerar</button>
+                <button id="btn_frenar" class="btn">Frenar</button>
+                <button id="btn_reiniciar" class="btn">Reiniciar</button>
+            </div>
+
+            <div id="escenario">
+                <div id="diana"></div>
+                <div id="flecha"></div>
+                <div id="arco"></div>
+            </div>
+
+            <div id="panel_estadisticas">
+                <h3>Estado del Juego</h3>
+                <span>FLECHAS </span><span id="n_flechas">0</span><br>
+                <span>Puntos </span><span id="n_puntos">0</span>
+                <span>Aciertos </span><span id="n_aciertos">0</span>
+                <span>Fallos </span><span id="n_fallos">0</span>
+                <span>Velocidad </span><span id="n_velocidad">0</span> ms
+                <br>
+                <span>Récord </span><span id="n_record">0</span>
+                <p id="mensaje">¡Pulsa Disparar!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

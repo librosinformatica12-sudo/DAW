@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lanzador de tiro con arco</title>
+        <link rel="stylesheet" href="estilos/estilos.css">
+        <script src="js/tiroarco.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>Lanzador de tiro con arco</h1>
+            <p>Apunta, compensa el viento y consigue la mejor puntuación.</p>
+        </header>
+
+        <main class="panel">
+            <section id="panel-juego">
+                <h2>Viento actual</h2>
+                <p id="informacion-viento"></p>
+                <p id="componentes-viento"></p>
+            </section>
+
+            <section class="panel-diana">
+                <svg id="diana" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="50" class="anillo anillo-1"></circle>
+                    <circle cx="50" cy="50" r="45" class="anillo anillo-2"></circle>
+                    <circle cx="50" cy="50" r="40" class="anillo anillo-3"></circle>
+                    <circle cx="50" cy="50" r="35" class="anillo anillo-4"></circle>
+                    <circle cx="50" cy="50" r="30" class="anillo anillo-5"></circle>
+                    <circle cx="50" cy="50" r="25" class="anillo anillo-6"></circle>
+                    <circle cx="50" cy="50" r="20" class="anillo anillo-7"></circle>
+                    <circle cx="50" cy="50" r="15" class="anillo anillo-8"></circle>
+                    <circle cx="50" cy="50" r="10" class="anillo anillo-9"></circle>
+                    <circle cx="50" cy="50" r="5" class="anillo anillo-10"></circle>
+                    <circle id="impacto" cx="50" cy="50" r="2" visibility="hidden"></circle>
+                </svg>
+                <p id="resultado-tiro">Introduce tus coordenadas y lanza.</p>
+            </section>
+
+            <section class="panel-controles">
+                <h2>Prepara el lanzamiento</h2>
+                <form id="formulario-tiro">
+                    <label for="coordenada-vertical">Coordenada vertical (1-100)</label>
+                    <input type="number" id="coordenada-vertical" min="1" max="100" value="50" required>
+
+                    <label for="coordenada-horizontal">Coordenada horizontal (1-100)</label>
+                    <input type="number" id="coordenada-horizontal" min="1" max="100" value="50" required>
+
+                    <!-- PREGUNTA 6 - Logra sustituir el input de Potencia por un Slider (type = range) 
+                                        Asegúrate de que se vea bien el valor y se gestione bien desde la parte .js
+                                        Se tomará en cuenta si también lo decoras un poco en .css -->
+
+                    <label for="potencia">Potencia (1-100)</label>
+                    <input type="number" id="potencia" min="1" max="100" value="50" required>
+                    
+                    <button id="btn-lanzar" type="submit">Lanzar</button>
+                </form>
+                <p>La coordenada vertical aumenta hacia arriba. El viento desplaza la flecha en la dirección indicada; con más potencia, la flecha se desvía menos. Desvío = componente del viento × (101 − potencia) ÷ 20.</p>
+            </section>
+
+            <section class="panel-partida">
+                <h2>Partida</h2>
+                <p>Lanzamiento: <span id="numero-lanzamiento">1</span> de 10</p>
+                <p>Puntuación: <span id="puntuacion">0</span></p>
+                <ol id="historial-tiros"></ol>
+                <div class="final-partida">
+                    <p id="mensaje-final"></p>
+                    <button id="btn-reiniciar" type="button" hidden>Empezar otra partida</button>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

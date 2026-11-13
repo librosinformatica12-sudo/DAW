@@ -1,0 +1,75 @@
+<!-- Indica que el documento utiliza HTML5. -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Configuración general de la página: codificación, título y archivos externos. -->
+        <meta charset="UTF-8">
+        <title>Tiro con Arco v1.0</title>
+        <!-- Conecta la hoja de estilos CSS. -->
+        <link rel="stylesheet" href="estilos/estilos.css">
+        <!-- Carga el JavaScript cuando el HTML ya se ha procesado (defer). -->
+        <script src="js/tiroarco.js" defer></script>
+    </head>
+    <body>
+        <!-- Cabecera que se oculta al comenzar la partida. -->
+        <div id="cabecera">
+            <h1>Tiro con Arco</h1>
+            <p>¡Bienvenido!</p>
+        </div>
+        <!-- Panel inicial para elegir flechas y velocidad. -->
+        <div id="panel-config" class="panel">
+            <h2>Configuración</h2>
+            <div>
+                <span>Número de flechas:</span>
+                <!-- Número de flechas: entre 1 y 20; empieza en 5. -->
+                <input type="number" id="spin_flechas" min="1" max="20" value="5">
+            </div>
+            <div>
+                <span>Velocidad de la diana (1-10):</span>
+                <!-- Velocidad de la diana: nivel entre 1 y 10; empieza en 5. -->
+                <input type="number" id="spin_velocidad" min="1" max="10" value="5">
+            </div>
+            <!-- Botón que inicia y prepara la partida. -->
+            <button id="btn_iniciar_juego" class="btn">Iniciar Juego</button>
+        </div>
+        <!-- Panel principal de la partida. Al principio está oculto. -->
+        <div id="panel-juego" class="panel">
+            <div>
+                <h2>Juego</h2>
+            </div>
+            <div id="main">
+                <!-- Controles para disparar, mover, pausar y reiniciar. -->
+                <div id="barra_control">
+                    <button id="btn_disparar" class="btn btn-disparar">Disparar</button>
+                    <button id="btn_play" class="btn">Play</button>
+                    <button id="btn_stop" class="btn">Pausa</button>
+                    <button id="btn_acelerar" class="btn">Acelerar</button>
+                    <button id="btn_frenar" class="btn">Frenar</button>
+                    <button id="btn_reiniciar" class="btn">Reiniciar</button>
+                </div>
+                <!-- Zona de juego donde se dibujan la diana, la flecha y el arco. -->
+                <div id="escenario">
+                    <!-- Diana móvil. CSS le da su aspecto y JavaScript cambia su posición. -->
+                    <div id="diana"></div>
+                    <!-- Flecha que JavaScript muestra y anima al disparar. -->
+                    <div id="flecha"></div>
+                    <!-- Arco decorativo con animación al disparar. -->
+                    <div id="arco"></div>
+                </div>
+                <!-- Marcadores que JavaScript actualiza durante la partida. -->
+                <div id="panel_estadisticas">
+                    <h3>Estado del Juego</h3>
+                    <span>FLECHAS </span><span id="n_flechas">0</span>
+                    <br>
+                    <span>Puntos </span><span id="n_puntos">0</span>
+                    <span>Aciertos </span><span id="n_aciertos">0</span>
+                    <span>Fallos </span><span id="n_fallos">0</span>
+                    <!-- Mensajes de estado: inicio, acierto, fallo o fin de partida. -->
+                    <p id="mensaje">¡Pulsa Disparar!</p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>

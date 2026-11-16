@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 1: Flexbox (plantilla)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f4f6f9;
+            color: #102a43;
+        }
+        .barra {
+            background: #0b4f6c;
+            color: #fff;
+            padding: 1rem 1.5rem;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .menu a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main { padding: 1.5rem; }
+        .tarjetas { }
+        .tarjeta {
+            background: #fff;
+            border: 1px solid #d3e0e8;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        /* TODO 1: convierte .barra en flexbox, separa logo y menú
+           y centra los elementos en vertical.
+           Pistas: display, justify-content, align-items */
+
+        /* TODO 2: coloca los enlaces del menú en fila con separación.
+           Pistas: display: flex, gap */
+
+        /* TODO 3: coloca las 3 tarjetas en fila, mismo alto y con separación.
+           Pistas: .tarjetas { display: flex; gap: ... }
+                   .tarjeta { flex: 1 } */
+    </style>
+</head>
+<body>
+    <header class="barra">
+        <span class="logo">Mi Web</span>
+        <nav class="menu">
+            <a href="#">Inicio</a>
+            <a href="#">Servicios</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Práctica de Flexbox</h1>
+        <p>Completa los TODO del CSS para maquetar la barra y las tarjetas.</p>
+
+        <section class="tarjetas">
+            <article class="tarjeta">
+                <h2>Diseño</h2>
+                <p>Tarjeta 1: debe ocupar el mismo alto que las demás.</p>
+            </article>
+            <article class="tarjeta">
+                <h2>Desarrollo</h2>
+                <p>Tarjeta 2: comprueba que las tres quedan en fila.</p>
+            </article>
+            <article class="tarjeta">
+                <h2>Accesibilidad</h2>
+                <p>Tarjeta 3: usa gap para separarlas.</p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

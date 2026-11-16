@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enunciado del examen | DIV</title>
+    <link rel="stylesheet" href="css/examen.css">
+</head>
+<body>
+    <header class="principal">
+        <div class="contenido">
+            <h1>Enunciado del examen de práctica</h1>
+            <p>Diseño de Interfaces Web · 2.º DAW · Duración: 2 horas</p>
+            <nav class="volver">
+                <a href="index.html">Volver al examen</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="panel">
+            <h2>Instrucciones</h2>
+            <ul>
+                <li>Resuelve las tareas en los ficheros de la carpeta <code>practica/</code>.</li>
+                <li>Puedes consultar los apuntes, pero no copiar la solución antes de intentarlo.</li>
+                <li>Se valoran: que funcione, el código limpio, la semántica y la accesibilidad.</li>
+                <li>Puntuación total: <strong>10 puntos</strong>.</li>
+            </ul>
+        </div>
+
+        <h2>Tarea 1. Flexbox (2 puntos)</h2>
+        <div class="panel">
+            <p>Partiendo de <code>practica/01_flexbox_plantilla.html</code>:</p>
+            <ol>
+                <li>Crea una barra de navegación con el logo a la izquierda y el menú a la derecha.</li>
+                <li>Usa <code>display: flex</code>, <code>justify-content</code> y <code>align-items</code>.</li>
+                <li>Coloca 3 tarjetas en fila, con el mismo alto y separadas con <code>gap</code>.</li>
+            </ol>
+        </div>
+
+        <h2>Tarea 2. Grid (2 puntos)</h2>
+        <div class="panel">
+            <p>Partiendo de <code>practica/02_grid_plantilla.html</code>:</p>
+            <ol>
+                <li>Monta la página con <code>grid-template-areas</code>: cabecera, menú, contenido y pie.</li>
+                <li>El contenido debe tener dos columnas y el pie ocupar todo el ancho.</li>
+                <li>Usa <code>gap</code> y evita márgenes negativos.</li>
+            </ol>
+        </div>
+
+        <h2>Tarea 3. Responsive (2 puntos)</h2>
+        <div class="panel">
+            <p>Partiendo de <code>practica/03_responsive_plantilla.html</code>:</p>
+            <ol>
+                <li>Define los colores y el espaciado con variables CSS.</li>
+                <li>En escritorio, dos columnas; en móvil (máximo 768px), una sola columna.</li>
+                <li>Usa una <code>media query</code> y unidades relativas (<code>rem</code>).</li>
+            </ol>
+        </div>
+
+        <h2>Tarea 4. Accesibilidad (2 puntos)</h2>
+        <div class="panel">
+            <p>Partiendo de <code>practica/04_accesibilidad_plantilla.html</code>:</p>
+            <ol>
+                <li>Asocia cada <code>label</code> con su campo mediante <code>for</code> e <code>id</code>.</li>
+                <li>Añade <code>alt</code> a la imagen y un <code>aria-label</code> al botón solo-icono.</li>
+                <li>Mejora el contraste y añade un estilo visible de <code>:focus</code>.</li>
+            </ol>
+        </div>
+
+        <h2>Tarea 5. Animaciones (2 puntos)</h2>
+        <div class="panel">
+            <p>Partiendo de <code>practica/05_animaciones_plantilla.html</code>:</p>
+            <ol>
+                <li>Añade una transición al botón al pasar el ratón (<code>:hover</code>).</li>
+                <li>Crea un <code>@keyframes</code> que haga aparecer la tarjeta con desplazamiento.</li>
+                <li>Respeta la preferencia <code>prefers-reduced-motion</code>.</li>
+            </ol>
+        </div>
+
+        <h2>Criterios de evaluación</h2>
+        <table class="tabla">
+            <thead>
+                <tr><th>Criterio</th><th>Qué se revisa</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Funcionalidad</td><td>El resultado se ve como se pide en el navegador.</td></tr>
+                <tr><td>Código</td><td>CSS ordenado, sin duplicados, nombres claros.</td></tr>
+                <tr><td>Semántica</td><td>Etiquetas HTML adecuadas y estructura lógica.</td></tr>
+                <tr><td>Accesibilidad</td><td>Textos alternativos, foco visible, contraste, labels.</td></tr>
+                <tr><td>Responsive</td><td>Se adapta a móvil sin romperse.</td></tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        Simulacro de examen · Diseño de Interfaces Web
+    </footer>
+</body>
+</html>

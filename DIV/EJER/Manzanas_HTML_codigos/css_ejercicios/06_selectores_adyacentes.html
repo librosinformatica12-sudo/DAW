@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectores de adyacentes</title>
+    <style>
+        div {
+            border: 3px solid greenyellow;
+            margin: 40px;
+            padding: 20px;
+        }
+
+        div + p {
+            color: rgb(25, 109, 193);
+        }
+    </style>
+</head>
+<body>
+    <p>pÃ¡rrafo 1 antes del div</p>
+    <div>
+        <p>pÃ¡rrafo 2 dentro del div</p>
+        <ul>
+            <li>item de lista dentro del div
+                <p>que contiene tambiÃ©n pÃ¡rrafo 3</p>
+            </li>
+        </ul>
+        <p>pÃ¡rrafo 4 dentro del div</p>
+        <address>esto no es un pÃ¡rrafo, es un address</address>
+    </div>
+    <p>pÃ¡rrafo 5 despuÃ©s del div</p>
+    <p>pÃ¡rrafo 6 despuÃ©s del div</p>
+
+    <hr>
+    <h2 class="resultado-captura">Resultado</h2>
+    <p><img src="../capturas/css_ejercicios_06_selectores_adyacentes.png" alt="Resultado de 06_selectores_adyacentes" style="max-width:100%;border:1px solid #ccc;"></p>
+</body>
+</html>
+

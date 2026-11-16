@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectores de clase e ID</title>
+    <style type="text/css">
+        /* Selector universal */
+        * { margin: 0px; }
+
+        /* Selector de clase */
+        .rojo { color: red; }
+
+        /* Clase limitada a un tipo de etiqueta */
+        p.centrado {
+            text-align: center;
+            color: fuchsia;
+            font-family: "Times New Roman", Times, serif;
+            font-size: large;
+        }
+
+        /* Selector de ID */
+        #introduccion {
+            font-size: 24pt;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="introduccion">Selectores de Clase e ID</h1>
+
+    <p class="centrado">Este párrafo está centrado y con estilos de la clase centrado.</p>
+    <p class="rojo">Este párrafo usa la clase rojo.</p>
+    <span class="rojo">Este span también usa la clase rojo.</span>
+
+    <h2>En CSS 2.1 existen los siguientes tipos de selectores:</h2>
+    <ul>
+        <li>Selector universal: *</li>
+        <li>Selector de tipo: p</li>
+        <li>Selector de descendientes: div p</li>
+        <li>Selector de hijos: div &gt; p</li>
+        <li>Selector adyacente: h1 + h2</li>
+        <li>Selector de atributos: [type="text"]</li>
+        <li>Selector de clase: .rojo</li>
+        <li>Selector de ID: #introduccion</li>
+        <li>Selector de pseudo-clase: a:hover</li>
+        <li>Selector de pseudo-elemento: p::first-line</li>
+    </ul>
+</body>
+</html>

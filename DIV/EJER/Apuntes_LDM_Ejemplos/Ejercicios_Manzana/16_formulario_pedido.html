@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>16 · Formulario de pedido</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">16 · PDF 106</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Formulario de pedido: Fábricas Toledo</h1>
+    <p class="enunciado">Recrea el formulario de pedido con tres bloques: identificación del cliente, datos del producto y envío, y datos bancarios. Usa fieldsets, labels, un select con optgroup y una zona de comentarios.</p>
+
+    <div class="pista"><strong>Agrupación:</strong> los <code>fieldset</code> separan partes del formulario y <code>legend</code> da nombre a cada parte. Así el formulario es más fácil de leer y de navegar con teclado.</div>
+
+    <section class="demo form-ejemplo">
+      <form action="#" method="post">
+        <h1>FÁBRICAS TOLEDO</h1>
+        <h2>FORMULARIO DE PEDIDO</h2>
+
+        <fieldset>
+          <legend>1. Identificación</legend>
+          <h3>Datos del cliente</h3>
+
+          <div class="campo">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+
+          <div class="campo">
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+          </div>
+
+          <div class="campo">
+            <label for="pass">Contraseña:</label>
+            <input type="password" id="pass" name="pass" minlength="6" autocomplete="current-password">
+          </div>
+
+          <div class="campo opciones">
+            <span>Tipo de cliente:</span>
+            <label><input type="radio" name="tipo" value="particular" checked> Particular</label>
+            <label><input type="radio" name="tipo" value="asociacion"> Asociación</label>
+            <label><input type="radio" name="tipo" value="empresa"> Empresa</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Pedido</legend>
+          <h3>Datos del producto</h3>
+
+          <div class="campo">
+            <label for="producto">Producto:</label>
+            <select id="producto" name="producto">
+              <optgroup label="Armaduras">
+                <option value="AR001">AR001 Oro Reluciente</option>
+                <option value="AR002">AR002 Plata Pulida</option>
+                <option value="AR003">AR003 Bronce Reforzado</option>
+              </optgroup>
+              <optgroup label="Extras">
+                <option value="EX001">EX001 Cota de malla</option>
+                <option value="EX002">EX002 Escudo</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <h3>Datos de envío</h3>
+          <div class="campo">
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" required>
+          </div>
+
+          <div class="fila">
+            <div class="campo">
+              <label for="ciudad">Ciudad:</label>
+              <input type="text" id="ciudad" name="ciudad" required>
+            </div>
+            <div class="campo">
+              <label for="cp">Código postal:</label>
+              <input type="text" id="cp" name="cp" inputmode="numeric" pattern="[0-9]{5}" title="Cinco dígitos">
+            </div>
+          </div>
+
+          <h3>Datos bancarios</h3>
+          <div class="campo">
+            <label for="entidad">Nombre de la entidad:</label>
+            <input type="text" id="entidad" name="entidad">
+          </div>
+
+          <div class="campo">
+            <label for="cuenta">Número de cuenta:</label>
+            <input type="text" id="cuenta" name="cuenta" inputmode="numeric">
+          </div>
+
+          <div class="campo">
+            <label for="comentarios">Información de interés:</label>
+            <textarea id="comentarios" name="comentarios" rows="4" placeholder="Comentarios sobre el pedido"></textarea>
+          </div>
+        </fieldset>
+
+        <div class="acciones">
+          <input class="boton" type="submit" value="ENVIAR PEDIDO">
+          <input class="boton secundario" type="reset" value="RESET">
+        </div>
+      </form>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>form</code> con <code>action</code> y <code>method</code></li>
+      <li>Varios <code>fieldset</code> y <code>legend</code></li>
+      <li><code>input type="email"</code></li>
+      <li><code>select</code> con <code>optgroup</code></li>
+      <li><code>radio</code>, <code>textarea</code></li>
+      <li>Validación con <code>required</code> y <code>pattern</code></li>
+      <li>Botones de envío y reset</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;form action="#" method="post"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;1. Identificación&lt;/legend&gt;
+    &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+    &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+    &lt;label&gt;&lt;input type="radio" name="tipo" value="particular" checked&gt; Particular&lt;/label&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;2. Pedido&lt;/legend&gt;
+    &lt;select id="producto" name="producto"&gt;
+      &lt;optgroup label="Armaduras"&gt;
+        &lt;option value="AR001"&gt;AR001 Oro Reluciente&lt;/option&gt;
+      &lt;/optgroup&gt;
+    &lt;/select&gt;
+    &lt;textarea id="comentarios" name="comentarios"&gt;&lt;/textarea&gt;
+  &lt;/fieldset&gt;
+
+  &lt;input type="submit" value="ENVIAR PEDIDO"&gt;
+  &lt;input type="reset" value="RESET"&gt;
+&lt;/form&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

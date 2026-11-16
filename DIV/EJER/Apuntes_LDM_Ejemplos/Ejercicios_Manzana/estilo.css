@@ -1,0 +1,300 @@
+:root {
+  --rojo: #c62828;
+  --rojo-oscuro: #8e0000;
+  --verde: #2e7d32;
+  --tinta: #1f2933;
+  --suave: #5f6b73;
+  --papel: #fffdf8;
+  --crema: #f6f0e4;
+  --borde: #e2d8c8;
+  --sombra: 0 12px 28px rgba(81, 55, 40, .10);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+[id] { scroll-margin-top: 82px; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.65;
+  color: var(--tinta);
+  background:
+    linear-gradient(180deg, #fff8f4 0, var(--papel) 18rem),
+    var(--papel);
+}
+
+a { color: var(--rojo); }
+a:hover { color: var(--rojo-oscuro); }
+
+.cabecera {
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid var(--borde);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.cabecera-inner {
+  width: min(1000px, 92%);
+  margin: 0 auto;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  text-decoration: none;
+  color: var(--tinta);
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.marca img { width: 38px; height: 38px; }
+.marca span { font-size: .98rem; }
+
+.etiqueta {
+  background: #fdecea;
+  color: var(--rojo-oscuro);
+  border: 1px solid #f4c7c1;
+  border-radius: 999px;
+  padding: .25rem .65rem;
+  font-size: .78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+main {
+  width: min(1000px, 92%);
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.volver {
+  display: inline-block;
+  margin-bottom: 1.1rem;
+  font-size: .9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.08;
+  margin: 0 0 .8rem;
+  letter-spacing: -.025em;
+}
+
+h2 { margin-top: 2rem; line-height: 1.25; }
+h3 { line-height: 1.3; }
+
+.enunciado {
+  max-width: 800px;
+  color: var(--suave);
+  font-size: 1.08rem;
+  margin: 0 0 1.5rem;
+}
+
+.pista {
+  background: #fff8e6;
+  border: 1px solid #efd594;
+  border-left: 6px solid #f2a900;
+  border-radius: 12px;
+  padding: .9rem 1.1rem;
+  margin: 1.2rem 0;
+  color: #5b4715;
+}
+
+.aviso {
+  background: #eef7ee;
+  border: 1px solid #c8e0c9;
+  border-left: 6px solid var(--verde);
+  border-radius: 12px;
+  padding: .9rem 1.1rem;
+  margin: 1.2rem 0;
+}
+
+.demo {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  padding: 1.5rem;
+  margin: 1.2rem 0 1.6rem;
+  box-shadow: var(--sombra);
+  overflow: auto;
+}
+
+.demo > :first-child { margin-top: 0; }
+.demo > :last-child { margin-bottom: 0; }
+
+.demo h2 { margin-top: 1.4rem; }
+.demo h2:first-child { margin-top: 0; }
+
+details {
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  margin: 1rem 0;
+  background: #fff;
+  overflow: hidden;
+}
+
+summary {
+  cursor: pointer;
+  padding: .8rem 1rem;
+  font-weight: 800;
+  color: var(--rojo-oscuro);
+  background: #fff8f4;
+}
+
+details > *:not(summary) { margin: 0 1rem 1rem; }
+
+pre {
+  background: #111827;
+  color: #e5e7eb;
+  padding: 1rem;
+  border-radius: 12px;
+  overflow: auto;
+  font-size: .86rem;
+  line-height: 1.55;
+}
+
+code {
+  font-family: Consolas, "Cascadia Code", "Courier New", monospace;
+  background: #f4efe7;
+  border-radius: 5px;
+  padding: .08rem .28rem;
+  font-size: .92em;
+}
+
+pre code { background: none; padding: 0; font-size: inherit; }
+
+.lista-tecnica {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: .55rem 1.2rem;
+  padding: 0;
+  list-style: none;
+  margin: 1rem 0 0;
+}
+
+.lista-tecnica li {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 9px;
+  padding: .45rem .7rem;
+  font-size: .9rem;
+}
+
+.boton {
+  display: inline-block;
+  background: var(--rojo);
+  color: #fff;
+  border: 1px solid var(--rojo);
+  border-radius: 8px;
+  padding: .55rem .95rem;
+  font: inherit;
+  font-size: .92rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.boton:hover { background: var(--rojo-oscuro); color: #fff; }
+
+.boton.secundario {
+  background: #fff;
+  color: var(--rojo-oscuro);
+  border-color: #e7b9b3;
+}
+
+.boton.secundario:hover { background: #fff1ef; color: var(--rojo-oscuro); }
+
+table.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: #fff;
+}
+
+table.tabla caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 800;
+  padding: .35rem 0 .55rem;
+}
+
+table.tabla th,
+table.tabla td {
+  border: 1px solid #cfc4b4;
+  padding: .55rem .7rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+table.tabla thead th {
+  background: #f7efe3;
+  color: #4b3825;
+}
+
+table.tabla tbody tr:nth-child(even) { background: #fdfaf5; }
+table.tabla tfoot td { background: #f2f2f2; font-weight: 800; }
+
+.form-ejemplo fieldset {
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin: 0 0 1rem;
+}
+
+.form-ejemplo legend {
+  font-weight: 800;
+  color: var(--rojo-oscuro);
+  padding: 0 .35rem;
+}
+
+.form-ejemplo .campo { margin-bottom: .85rem; }
+.form-ejemplo .fila { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.form-ejemplo label { font-weight: 700; }
+
+.form-ejemplo input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
+.form-ejemplo select,
+.form-ejemplo textarea {
+  width: 100%;
+  padding: .55rem .65rem;
+  border: 1px solid #bfb4a4;
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: var(--tinta);
+}
+
+.form-ejemplo input[readonly] { background: #f4f1eb; }
+.form-ejemplo input[type="file"] { font: inherit; }
+.form-ejemplo .opciones label { font-weight: 400; margin-right: 1rem; }
+.form-ejemplo .acciones { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+
+footer {
+  background: #fff;
+  border-top: 1px solid var(--borde);
+  padding: 1.6rem 0;
+  text-align: center;
+  color: var(--suave);
+  font-size: .88rem;
+}
+
+footer p { margin: 0; }
+
+@media (max-width: 620px) {
+  .cabecera-inner { min-height: 58px; }
+  .marca span { display: none; }
+  .demo { padding: 1.05rem; border-radius: 14px; }
+  .form-ejemplo .fila { grid-template-columns: 1fr; gap: 0; }
+}

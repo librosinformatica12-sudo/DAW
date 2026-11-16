@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ãndice de ejemplos CSS | LDM</title>
+    <style>
+        :root {
+            --principal: #5b2c6f;
+            --acento: #8e44ad;
+            --fondo: #f6f3f8;
+            --texto: #222;
+            --suave: #5d6d7e;
+            --borde: #d7cde0;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+            line-height: 1.5;
+        }
+        header {
+            background: linear-gradient(135deg, var(--principal), var(--acento));
+            color: #fff;
+            padding: 2rem 1.5rem;
+        }
+        header .contenido {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        header h1 {
+            margin: 0 0 .3rem;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+        }
+        header p {
+            margin: 0;
+            opacity: .9;
+        }
+        header nav {
+            margin-top: 1rem;
+        }
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,.6);
+            padding: .35rem .8rem;
+            border-radius: 999px;
+            font-size: .9rem;
+            display: inline-block;
+        }
+        header nav a:hover {
+            background: rgba(255,255,255,.18);
+        }
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .tema {
+            margin-bottom: 2.2rem;
+        }
+        .tema h2 {
+            font-size: 1.15rem;
+            border-left: 5px solid var(--acento);
+            padding-left: .6rem;
+            margin: 0 0 1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: .9rem;
+        }
+        .card {
+            display: block;
+            background: #fff;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(91, 44, 111, .18);
+            border-color: var(--acento);
+        }
+        .num {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--acento);
+            letter-spacing: .04em;
+        }
+        .card strong {
+            display: block;
+            margin: .15rem 0 .35rem;
+            font-size: 1rem;
+        }
+        .desc {
+            font-size: .88rem;
+            color: var(--suave);
+        }
+        .nota {
+            background: #fff;
+            border: 1px dashed var(--borde);
+            border-radius: 10px;
+            padding: .8rem 1rem;
+            font-size: .9rem;
+            color: var(--suave);
+            margin-bottom: 2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: .85rem;
+            color: var(--suave);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenido">
+            <h1>Ejemplos y ejercicios de CSS</h1>
+            <p>UtilizaciÃ³n de lenguajes de marcas en entornos web Â· UD2</p>
+            <nav>
+                <a href="index_html.html">Ir al Ã­ndice de HTML</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <p class="nota">
+            Los ejemplos con fichero <code>.css</code> de apoyo (03_estilos.css y
+            04_estilos2b.css) se cargan desde sus pÃ¡ginas correspondientes.
+        </p>
+
+        <section class="tema">
+            <h2>Fundamentos</h2>
+            <div class="grid">
+                <a class="card" href="CSS/00_mezcla_vs_separacion.html">
+                    <span class="num">00</span>
+                    <strong>Mezclar vs separar</strong>
+                    <span class="desc">Formato mezclado con el contenido frente a CSS.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Formas de incluir CSS</h2>
+            <div class="grid">
+                <a class="card" href="CSS/01_css_en_linea.html">
+                    <span class="num">01</span>
+                    <strong>CSS en lÃ­nea</strong>
+                    <span class="desc">Atributo style en la propia etiqueta.</span>
+                </a>
+                <a class="card" href="CSS/02_css_interno.html">
+                    <span class="num">02</span>
+                    <strong>CSS interno</strong>
+                    <span class="desc">Etiqueta style dentro de la cabecera.</span>
+                </a>
+                <a class="card" href="CSS/03_css_externo.html">
+                    <span class="num">03</span>
+                    <strong>CSS externo con link</strong>
+                    <span class="desc">Enlace a un fichero .css externo.</span>
+                </a>
+                <a class="card" href="CSS/04_css_import.html">
+                    <span class="num">04</span>
+                    <strong>CSS externo con @import</strong>
+                    <span class="desc">Importar un fichero .css desde style.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Reglas y selectores</h2>
+            <div class="grid">
+                <a class="card" href="CSS/05_reglas_agrupadas.html">
+                    <span class="num">05</span>
+                    <strong>Reglas y agrupaciÃ³n</strong>
+                    <span class="desc">Selectores que comparten declaraciones.</span>
+                </a>
+                <a class="card" href="CSS/06_selectores_universal_tipo.html">
+                    <span class="num">06</span>
+                    <strong>Universal y de tipo</strong>
+                    <span class="desc">Selector * y selector de etiqueta.</span>
+                </a>
+                <a class="card" href="CSS/07_selectores_descendientes.html">
+                    <span class="num">07</span>
+                    <strong>Descendientes</strong>
+                    <span class="desc">div p</span>
+                </a>
+                <a class="card" href="CSS/07_selectores_hijos.html">
+                    <span class="num">07b</span>
+                    <strong>Hijos</strong>
+                    <span class="desc">div &gt; p</span>
+                </a>
+                <a class="card" href="CSS/07_selectores_adyacentes.html">
+                    <span class="num">07c</span>
+                    <strong>Adyacentes</strong>
+                    <span class="desc">div + p</span>
+                </a>
+                <a class="card" href="CSS/08_selectores_clase_id.html">
+                    <span class="num">08</span>
+                    <strong>Clase e ID</strong>
+                    <span class="desc">.clase, p.clase, #id y tipo#id.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Pseudo-clases, texto y fuentes</h2>
+            <div class="grid">
+                <a class="card" href="CSS/09_pseudo_clases.html">
+                    <span class="num">09</span>
+                    <strong>Pseudo-clases</strong>
+                    <span class="desc">:link, :visited, :focus, :hover y :active.</span>
+                </a>
+                <a class="card" href="CSS/10_texto.html">
+                    <span class="num">10</span>
+                    <strong>Propiedades de texto</strong>
+                    <span class="desc">color, fuente, alineaciÃ³n, espaciado y sombras.</span>
+                </a>
+                <a class="card" href="CSS/11_font_face.html">
+                    <span class="num">11</span>
+                    <strong>@font-face</strong>
+                    <span class="desc">Cargar una fuente personalizada.</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Ejemplos reconstruidos de las diapositivas de LDM Â· UD2
+    </footer>
+</body>
+</html>
+

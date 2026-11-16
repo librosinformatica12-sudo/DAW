@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manzanas resueltas HTML · Parte 2</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color: #222;
+      background: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 28px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      margin-bottom: .2rem;
+      color: #8e0000;
+    }
+
+    .subtitle {
+      margin-top: 0;
+      color: #555;
+    }
+
+    nav {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+    }
+
+    nav h2 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+    nav ul {
+      columns: 2;
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    nav a {
+      color: #8e0000;
+    }
+
+    section {
+      margin-top: 1.4rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .pages {
+      margin: 0;
+      color: #8e0000;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: .78rem;
+      letter-spacing: .06em;
+    }
+
+    h2 {
+      margin: .15rem 0;
+      font-size: 1.25rem;
+    }
+
+    .file {
+      margin: .2rem 0 0;
+      color: #666;
+      font-size: .9rem;
+    }
+
+    .file code {
+      background: #f3f3f3;
+      color: #222;
+      padding: .1rem .3rem;
+      border-radius: 3px;
+    }
+
+    .copy {
+      flex: none;
+      border: 0;
+      border-radius: 5px;
+      padding: .5rem .8rem;
+      background: #8e0000;
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .copy:hover {
+      background: #b30000;
+    }
+
+    .demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .demo.only-code {
+      grid-template-columns: 1fr;
+    }
+
+    .code-panel {
+      min-width: 0;
+      border-right: 1px solid #e5e5e5;
+    }
+
+    .preview-panel {
+      min-width: 0;
+      background: #fafafa;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .7rem;
+      padding: .55rem 1.2rem;
+      background: #f3f3f3;
+      border-bottom: 1px solid #e1e1e1;
+      color: #444;
+      font-size: .82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .panel-head a {
+      color: #8e0000;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .panel-head a:hover {
+      text-decoration: underline;
+    }
+
+    pre {
+      margin: 0;
+      padding: 1rem 1.2rem;
+      max-height: 760px;
+      overflow: auto;
+      background: #1e1e1e;
+      color: #f4f4f4;
+      tab-size: 4;
+    }
+
+    code {
+      font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+      font-size: .88rem;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: #fff;
+    }
+
+    .note {
+      background: #fff8e1;
+      border-left: 4px solid #f0b429;
+      padding: .9rem 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .note p {
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 1.5rem;
+      color: #666;
+      font-size: .9rem;
+    }
+
+    @media print {
+      body {
+        max-width: none;
+        padding: 0;
+        background: #fff;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      nav {
+        break-after: page;
+      }
+
+      section {
+        break-inside: avoid;
+        border: 0;
+      }
+
+      .copy {
+        display: none;
+      }
+
+      .demo {
+        grid-template-columns: 1fr;
+      }
+
+      .code-panel {
+        border-right: 0;
+      }
+
+      pre {
+        max-height: none;
+        white-space: pre-wrap;
+        background: #f7f7f7;
+        color: #111;
+        border: 1px solid #ddd;
+      }
+
+      iframe {
+        border: 1px solid #ddd;
+      }
+    }
+
+    @media (max-width: 900px) {
+      nav ul {
+        columns: 1;
+      }
+
+      .section-head {
+        flex-direction: column;
+      }
+
+      .demo {
+        grid-template-columns: 1fr;
+      }
+
+      .code-panel {
+        border-right: 0;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      pre {
+        max-height: 560px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Manzanas resueltas HTML · Parte 2</h1>
+  <p class="subtitle">Páginas 17-32 del PDF: mapas de imágenes, formularios y tablas. Código y resultado.</p>
+
+  <nav>
+    <h2>Contenido</h2>
+    <ul>
+      <li><a href="#s1">17-18 · Mapa de imágenes</a></li>
+      <li><a href="#s2">19-22 · Formulario de datos</a></li>
+      <li><a href="#s3">23-26 · Formulario de pedido</a></li>
+      <li><a href="#s4">27-32 · Tablas</a></li>
+    </ul>
+  </nav>
+
+  <div class="note">
+    <p><strong>Páginas 15-18:</strong> el código completo del mapa de imágenes se incluye aquí porque en la parte 1 solo aparecía el resultado y las coordenadas.</p>
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <section id="s1">
+    <header class="section-head">
+      <div>
+        <p class="pages">17-18</p>
+        <h2>Mapa de imágenes</h2>
+        <p class="file">Archivo: <code>12_paginas_15-18_mapa_imagenes.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar código</button>
+    </header>
+
+    <div class="demo">
+      <div class="code-panel">
+        <div class="panel-head"><span>Código</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mapa de imágenes&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Mapa de imágenes&lt;/h1&gt;
+
+    &lt;!-- Mapa de imágenes generado desde Paint --&gt;
+    &lt;img src="img/formas.png" alt="figuras geometricas" usemap="#image-map"&gt;
+
+    &lt;map name="image-map"&gt;
+        &lt;area shape="rect" coords="20,18,166,232" href="rectangulo.html"
+              alt="rectagulo rojo" target="_blank" title="rectangulo"&gt;
+        &lt;area shape="circle" coords="252,82,62" href="circulo.html"
+              alt="circulo amarillo" target="_blank"&gt;
+        &lt;area shape="poly" coords="253,160,294,187,278,235,224,234,209,187"
+              href="pentagono.html" alt="pentagono azul" target="_blank"&gt;
+    &lt;/map&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+
+      <div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="12_paginas_15-18_mapa_imagenes.html" target="_blank" rel="noopener">Abrir en pestaña</a>
+        </div>
+        <iframe src="12_paginas_15-18_mapa_imagenes.html" title="Resultado de Mapa de imágenes" loading="lazy" height="480"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2 -->
+  <section id="s2">
+    <header class="section-head">
+      <div>
+        <p class="pages">19-22</p>
+        <h2>Formulario de datos</h2>
+        <p class="file">Archivo: <code>13_paginas_19-22_formulario_datos.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar código</button>
+    </header>
+
+    <div class="demo">
+      <div class="code-panel">
+        <div class="panel-head"><span>Código</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Formulario de datos&lt;/title&gt;
+    &lt;link rel="stylesheet" href="estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;Introduce tus datos en el formulario que veréis aquí debajo.&lt;/p&gt;
+
+    &lt;form action="#" method="post"&gt;
+        &lt;fieldset&gt;
+            &lt;legend&gt;Datos personales&lt;/legend&gt;
+
+            &lt;label for="nombre"&gt;Nombre&lt;/label&gt;
+            &lt;input type="text" id="nombre" name="nombre" placeholder="Tu nombre"&gt;
+
+            &lt;label for="apellidos"&gt;Apellidos&lt;/label&gt;
+            &lt;input type="text" id="apellidos" name="apellidos" placeholder="Tus dos apellidos"&gt;
+
+            &lt;label for="nacimiento"&gt;Fecha de Nacimiento&lt;/label&gt;
+            &lt;input type="date" id="nacimiento" name="nacimiento"&gt;
+
+            &lt;label for="email"&gt;Email&lt;/label&gt;
+            &lt;input type="email" id="email" name="email" placeholder="ejemplo@dominio.com"&gt;
+
+            &lt;label for="web"&gt;Tu web personal&lt;/label&gt;
+            &lt;input type="url" id="web" name="web" placeholder="http://miweb.com"&gt;
+
+            &lt;label for="telefono"&gt;Teléfono&lt;/label&gt;
+            &lt;input type="tel" id="telefono" name="telefono" placeholder="+34 654 77 55 44"&gt;
+
+            &lt;label for="edad"&gt;Edad&lt;/label&gt;
+            &lt;input type="number" id="edad" name="edad" value="18"&gt;
+
+            &lt;label for="habilidad"&gt;¿Cuál crees que es tu habilidad en los videojuegos?&lt;/label&gt;
+            &lt;input type="range" id="habilidad" name="habilidad" min="1" max="10"&gt;
+
+            &lt;label for="color"&gt;¿De qué color quieres tu silla gaming?&lt;/label&gt;
+            &lt;input type="color" id="color" name="color"&gt;
+        &lt;/fieldset&gt;
+
+        &lt;fieldset&gt;
+            &lt;legend&gt;Dirección&lt;/legend&gt;
+
+            &lt;label for="direccion"&gt;Dirección&lt;/label&gt;
+            &lt;input type="text" id="direccion" name="direccion"&gt;
+
+            &lt;label for="codigo-postal"&gt;Código Postal&lt;/label&gt;
+            &lt;input type="text" id="codigo-postal" name="codigo-postal"&gt;
+
+            &lt;label for="pais"&gt;País&lt;/label&gt;
+            &lt;input type="text" id="pais" name="pais"&gt;
+        &lt;/fieldset&gt;
+
+        &lt;fieldset&gt;
+            &lt;legend&gt;Detalles de la tarjeta&lt;/legend&gt;
+
+            &lt;fieldset&gt;
+                &lt;legend&gt;Tipo de tarjeta&lt;/legend&gt;
+                &lt;label&gt;&lt;input type="radio" name="tarjeta" value="visa"&gt; Visa&lt;/label&gt;
+                &lt;label&gt;&lt;input type="radio" name="tarjeta" value="mastercard"&gt; MasterCard&lt;/label&gt;
+                &lt;label&gt;&lt;input type="radio" name="tarjeta" value="amex"&gt; AMEX&lt;/label&gt;
+            &lt;/fieldset&gt;
+
+            &lt;label for="titular"&gt;Nombre&lt;/label&gt;
+            &lt;input type="text" id="titular" name="titular"
+                   placeholder="Nombre como sale en la tarjeta"&gt;
+
+            &lt;label for="numero-tarjeta"&gt;Nº de Tarjeta&lt;/label&gt;
+            &lt;input type="text" id="numero-tarjeta" name="numero-tarjeta"&gt;
+
+            &lt;label for="seguridad"&gt;Código de Seguridad&lt;/label&gt;
+            &lt;input type="password" id="seguridad" name="seguridad" maxlength="4" autocomplete="new-password"&gt;
+
+            &lt;label for="caducidad"&gt;Fecha de Caducidad&lt;/label&gt;
+            &lt;input type="month" id="caducidad" name="caducidad"&gt;
+
+            &lt;label&gt;
+                &lt;input type="checkbox" name="proteccion" required&gt;
+                Acepto la protección de datos
+            &lt;/label&gt;
+
+            &lt;input type="submit" value="Enviar tus datos"&gt;
+        &lt;/fieldset&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+
+      <div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="13_paginas_19-22_formulario_datos.html" target="_blank" rel="noopener">Abrir en pestaña</a>
+        </div>
+        <iframe src="13_paginas_19-22_formulario_datos.html" title="Resultado de Formulario de datos" loading="lazy" height="760"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3 -->
+  <section id="s3">
+    <header class="section-head">
+      <div>
+        <p class="pages">23-26</p>
+        <h2>Formulario de pedido</h2>
+        <p class="file">Archivo: <code>14_paginas_23-26_formulario_pedido.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar código</button>
+    </header>
+
+    <div class="demo">
+      <div class="code-panel">
+        <div class="panel-head"><span>Código</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Fábricas Toledo - Formulario de pedido&lt;/title&gt;
+    &lt;link rel="stylesheet" href="toledo.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;FABRICAS TOLEDO&lt;/h1&gt;
+        &lt;h2&gt;FORMULARIO DE PEDIDO&lt;/h2&gt;
+    &lt;/header&gt;
+
+    &lt;form action="#" method="post"&gt;
+        &lt;fieldset&gt;
+            &lt;legend&gt;Paso 1. Identificación&lt;/legend&gt;
+
+            &lt;h3&gt;Datos del Cliente&lt;/h3&gt;
+            &lt;label for="correo"&gt;Correo Electrónico&lt;/label&gt;
+            &lt;input type="email" id="correo" name="correo"&gt;
+
+            &lt;label for="contrasena"&gt;Contraseña&lt;/label&gt;
+            &lt;input type="password" id="contrasena" name="contrasena" autocomplete="new-password"&gt;
+
+            &lt;fieldset class="tipo"&gt;
+                &lt;legend&gt;Tipo de Cliente&lt;/legend&gt;
+                &lt;label&gt;&lt;input type="radio" name="tipo-cliente" value="particular" checked&gt; Particular&lt;/label&gt;
+                &lt;label&gt;&lt;input type="radio" name="tipo-cliente" value="asociacion"&gt; Asociación&lt;/label&gt;
+                &lt;label&gt;&lt;input type="radio" name="tipo-cliente" value="empresa"&gt; Empresa&lt;/label&gt;
+            &lt;/fieldset&gt;
+        &lt;/fieldset&gt;
+
+        &lt;fieldset&gt;
+            &lt;legend&gt;Paso 2. Pedido&lt;/legend&gt;
+
+            &lt;h3&gt;Datos del Producto&lt;/h3&gt;
+            &lt;label for="producto"&gt;Producto&lt;/label&gt;
+            &lt;select id="producto" name="producto"&gt;
+                &lt;optgroup label="Armaduras"&gt;
+                    &lt;option value="AR001"&gt;AR001 Oro Reluciente&lt;/option&gt;
+                    &lt;option value="AR002"&gt;AR002 Plata Pulida&lt;/option&gt;
+                    &lt;option value="AR003"&gt;AR003 Bronce Reforzado&lt;/option&gt;
+                &lt;/optgroup&gt;
+                &lt;optgroup label="Extras"&gt;
+                    &lt;option value="EX001"&gt;EX001 Escudo&lt;/option&gt;
+                    &lt;option value="EX002"&gt;EX002 Cota de malla&lt;/option&gt;
+                &lt;/optgroup&gt;
+            &lt;/select&gt;
+
+            &lt;fieldset&gt;
+                &lt;legend&gt;Información de Interés&lt;/legend&gt;
+                &lt;label for="comentarios"&gt;Comentarios&lt;/label&gt;&lt;br&gt;
+                &lt;textarea id="comentarios" name="comentarios" rows="4" cols="50"&gt;&lt;/textarea&gt;
+            &lt;/fieldset&gt;
+
+            &lt;h3&gt;Datos de Envío&lt;/h3&gt;
+            &lt;label for="direccion"&gt;Dirección&lt;/label&gt;
+            &lt;input type="text" id="direccion" name="direccion"&gt;
+
+            &lt;label for="ciudad"&gt;Ciudad&lt;/label&gt;
+            &lt;input type="text" id="ciudad" name="ciudad"&gt;
+
+            &lt;label for="codigo-postal"&gt;Código Postal&lt;/label&gt;
+            &lt;input type="text" id="codigo-postal" name="codigo-postal"&gt;
+
+            &lt;fieldset&gt;
+                &lt;legend&gt;Datos Bancarios&lt;/legend&gt;
+                &lt;label for="entidad"&gt;Nombre de la Entidad&lt;/label&gt;
+                &lt;input type="text" id="entidad" name="entidad"&gt;
+
+                &lt;label for="cuenta"&gt;Número de cuenta&lt;/label&gt;
+                &lt;input type="text" id="cuenta" name="cuenta"&gt;
+
+                &lt;label for="fecha"&gt;Fecha&lt;/label&gt;
+                &lt;input type="date" id="fecha" name="fecha"&gt;
+            &lt;/fieldset&gt;
+        &lt;/fieldset&gt;
+
+        &lt;input type="submit" value="ENVIAR PEDIDO"&gt;
+        &lt;input type="reset" value="RESET"&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+
+      <div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="14_paginas_23-26_formulario_pedido.html" target="_blank" rel="noopener">Abrir en pestaña</a>
+        </div>
+        <iframe src="14_paginas_23-26_formulario_pedido.html" title="Resultado de Formulario de pedido" loading="lazy" height="900"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4 -->
+  <section id="s4">
+    <header class="section-head">
+      <div>
+        <p class="pages">27-32</p>
+        <h2>Tablas</h2>
+        <p class="file">Archivo: <code>15_paginas_27-32_tablas.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar código</button>
+    </header>
+
+    <div class="demo">
+      <div class="code-panel">
+        <div class="panel-head"><span>Código</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Tablas&lt;/title&gt;
+    &lt;style&gt;
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Tablas&lt;/h1&gt;
+
+    &lt;h2&gt;Encabezado en filas&lt;/h2&gt;
+    &lt;table border="1"&gt;
+        &lt;caption&gt;Encabezado en filas&lt;/caption&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;th scope="row"&gt;Encabezado 1&lt;/th&gt;
+                &lt;td&gt;valor 1&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th scope="row"&gt;Encabezado 2&lt;/th&gt;
+                &lt;td&gt;valor 2&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th scope="row"&gt;Encabezado 3&lt;/th&gt;
+                &lt;td&gt;valor 3&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;h2&gt;Encabezado en filas y columnas&lt;/h2&gt;
+    &lt;table border="1"&gt;
+        &lt;caption&gt;Encabezado en filas y columnas&lt;/caption&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;th scope="col"&gt;&lt;/th&gt;
+                &lt;th scope="col"&gt;Encabezado 1&lt;/th&gt;
+                &lt;th scope="col"&gt;Encabezado 2&lt;/th&gt;
+                &lt;th scope="col"&gt;Encabezado 3&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th scope="row"&gt;Encabezado 4&lt;/th&gt;
+                &lt;td&gt;valor 1&lt;/td&gt;
+                &lt;td&gt;valor 2&lt;/td&gt;
+                &lt;td&gt;valor 3&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th scope="row"&gt;Encabezado 5&lt;/th&gt;
+                &lt;td&gt;valor 4&lt;/td&gt;
+                &lt;td&gt;valor 5&lt;/td&gt;
+                &lt;td&gt;valor 6&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;h2&gt;Combinar filas&lt;/h2&gt;
+    &lt;table border="1"&gt;
+        &lt;caption&gt;Combinar filas&lt;/caption&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td rowspan="2"&gt;valor 1&lt;/td&gt;
+                &lt;td&gt;valor 2&lt;/td&gt;
+                &lt;td&gt;valor 3&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;valor 4&lt;/td&gt;
+                &lt;td&gt;valor 5&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;valor 6&lt;/td&gt;
+                &lt;td&gt;valor 7&lt;/td&gt;
+                &lt;td&gt;valor 8&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;h2&gt;Combinar filas y columnas&lt;/h2&gt;
+    &lt;table border="1"&gt;
+        &lt;caption&gt;Combinar filas y columnas&lt;/caption&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;valor 1&lt;/td&gt;
+                &lt;td&gt;valor 2&lt;/td&gt;
+                &lt;td&gt;valor 3&lt;/td&gt;
+                &lt;td&gt;valor 4&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td rowspan="2"&gt;valor 5&lt;/td&gt;
+                &lt;td&gt;valor 6&lt;/td&gt;
+                &lt;td colspan="2"&gt;valor 7&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;valor 8&lt;/td&gt;
+                &lt;td&gt;valor 9&lt;/td&gt;
+                &lt;td&gt;valor 10&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;valor 11&lt;/td&gt;
+                &lt;td&gt;valor 12&lt;/td&gt;
+                &lt;td&gt;valor 13&lt;/td&gt;
+                &lt;td&gt;valor 14&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;h2&gt;Combinar filas, columnas y encabezados&lt;/h2&gt;
+    &lt;table border="1"&gt;
+        &lt;caption&gt;Combinar filas, columnas y encabezados&lt;/caption&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;th scope="col"&gt;Encabezado 1&lt;/th&gt;
+                &lt;th scope="col"&gt;Encabezado 2&lt;/th&gt;
+                &lt;th scope="col"&gt;Encabezado 3&lt;/th&gt;
+                &lt;th scope="col"&gt;Encabezado 4&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td rowspan="2"&gt;valor 1&lt;/td&gt;
+                &lt;td&gt;valor 2&lt;/td&gt;
+                &lt;td&gt;valor 3&lt;/td&gt;
+                &lt;td rowspan="2"&gt;Encabezado 5&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td colspan="2"&gt;valor 4&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th scope="row"&gt;Encabezado 6&lt;/th&gt;
+                &lt;td colspan="3"&gt;valor 5&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+
+      <div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="15_paginas_27-32_tablas.html" target="_blank" rel="noopener">Abrir en pestaña</a>
+        </div>
+        <iframe src="15_paginas_27-32_tablas.html" title="Resultado de Tablas" loading="lazy" height="900"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Documento generado a partir de la carpeta <code>Manzanas_resueltas_HTML_codigos</code>.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy').forEach(function (button) {
+      button.addEventListener('click', async function () {
+        const code = button.closest('section').querySelector('code').textContent;
+
+        try {
+          await navigator.clipboard.writeText(code);
+        } catch (error) {
+          const area = document.createElement('textarea');
+          area.value = code;
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand('copy');
+          area.remove();
+        }
+
+        const original = button.textContent;
+        button.textContent = 'Copiado';
+        setTimeout(function () {
+          button.textContent = original;
+        }, 1200);
+      });
+    });
+  </script>
+</body>
+</html>

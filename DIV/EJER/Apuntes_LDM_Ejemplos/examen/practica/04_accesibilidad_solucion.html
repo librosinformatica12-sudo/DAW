@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 4: Accesibilidad (solución)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f4f6f9;
+            color: #102a43;
+        }
+        main {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        form {
+            background: #fff;
+            border: 1px solid #d3e0e8;
+            border-radius: 10px;
+            padding: 1.2rem;
+        }
+        .campo {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: .3rem;
+            color: #334e68; /* contraste suficiente */
+            font-weight: 600;
+        }
+        input,
+        textarea {
+            width: 100%;
+            padding: .5rem;
+            border: 1px solid #8fa6b2;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        input:focus,
+        textarea:focus,
+        button:focus {
+            outline: 3px solid #01baef;
+            outline-offset: 2px;
+        }
+        .fila-check {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        .fila-check label {
+            margin: 0;
+            font-weight: 400;
+        }
+        .cerrar {
+            background: #0b4f6c;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            padding: .5rem .9rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .logo {
+            display: block;
+            margin-bottom: 1rem;
+            width: 48px;
+            height: 48px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Formulario de contacto</h1>
+        <img src="logo.png" class="logo" alt="Logotipo de la empresa">
+
+        <form action="#" method="post">
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre">
+            </div>
+
+            <div class="campo">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="campo">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+            </div>
+
+            <div class="campo fila-check">
+                <input type="checkbox" name="acepto" id="acepto">
+                <label for="acepto">Acepto las condiciones</label>
+            </div>
+
+            <button type="submit" class="cerrar" aria-label="Cerrar formulario">X</button>
+        </form>
+    </main>
+</body>
+</html>

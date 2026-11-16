@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tablas</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tablas</h1>
+
+    <h2>Tabla básica</h2>
+    <table>
+        <caption>Tabla 10</caption>
+        <thead>
+            <tr>
+                <th>Encabezado 1</th>
+                <th>Encabezado 2</th>
+                <th>Encabezado 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>valor 1</td>
+                <td>valor 2</td>
+                <td>valor 3</td>
+            </tr>
+            <tr>
+                <td>valor 4</td>
+                <td>valor 5</td>
+                <td>valor 6</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Pie de la tabla</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h2>Encabezado en filas y columnas</h2>
+    <table>
+        <tr>
+            <th scope="col">Encabezado 1</th>
+            <th scope="col">Encabezado 2</th>
+            <th scope="col">Encabezado 3</th>
+        </tr>
+        <tr>
+            <th scope="row">Fila 1</th>
+            <td>valor 1</td>
+            <td>valor 2</td>
+        </tr>
+        <tr>
+            <th scope="row">Fila 2</th>
+            <td>valor 3</td>
+            <td>valor 4</td>
+        </tr>
+    </table>
+
+    <h2>Combinar columnas (colspan)</h2>
+    <table>
+        <tr>
+            <td colspan="2">Celda que ocupa 2 columnas</td>
+        </tr>
+        <tr>
+            <td>valor 1</td>
+            <td>valor 2</td>
+        </tr>
+    </table>
+
+    <h2>Combinar filas (rowspan)</h2>
+    <table>
+        <tr>
+            <td rowspan="2">Celda que ocupa 2 filas</td>
+            <td>valor 1</td>
+        </tr>
+        <tr>
+            <td>valor 2</td>
+        </tr>
+    </table>
+
+    <h2>Combinar filas, columnas y encabezados</h2>
+    <table>
+        <tr>
+            <th>Encabezado 1</th>
+            <th>Encabezado 2</th>
+            <th>Encabezado 3</th>
+        </tr>
+        <tr>
+            <td rowspan="2">valor 1</td>
+            <td>valor 2</td>
+            <td>valor 3</td>
+        </tr>
+        <tr>
+            <td colspan="2">valor 4 (ocupa 2 columnas)</td>
+        </tr>
+    </table>
+</body>
+</html>

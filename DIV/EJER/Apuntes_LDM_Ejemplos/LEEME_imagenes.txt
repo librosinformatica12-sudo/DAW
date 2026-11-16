@@ -1,0 +1,22 @@
+IMÁGENES
+
+Los ejemplos usan imágenes que están en las diapositivas y que no se han podido
+extraer. Para que se vean, mete tus propios archivos en estas carpetas con los
+nombres indicados (o cambia la ruta en el atributo src):
+
+HTML/imagenes/
+  erizo.jpg
+  erickErizo.gif
+  happy.ico
+  listas.ico
+  enlace.ico
+
+HTML/img/
+  formas.png
+  espana.png
+  enviar.png
+  reset.png
+  salir.png
+
+Las rutas relativas (./imagenes/..., ./img/...) funcionan al abrir el HTML
+desde la misma carpeta.

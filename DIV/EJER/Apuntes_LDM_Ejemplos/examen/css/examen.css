@@ -1,0 +1,264 @@
+:root {
+    --principal: #0b4f6c;
+    --acento: #01baef;
+    --fondo: #f2f7fa;
+    --texto: #102a43;
+    --suave: #52667a;
+    --borde: #d3e0e8;
+    --ok: #1e8449;
+    --mal: #c0392b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.55;
+}
+
+header.principal {
+    background: linear-gradient(135deg, var(--principal), var(--acento));
+    color: #fff;
+    padding: 2rem 1.5rem;
+}
+
+header.principal .contenido {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+header.principal h1 {
+    margin: 0 0 .3rem;
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+}
+
+header.principal p {
+    margin: 0;
+    opacity: .92;
+}
+
+nav.volver {
+    margin-top: 1rem;
+}
+
+nav.volver a {
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,.6);
+    padding: .35rem .8rem;
+    border-radius: 999px;
+    font-size: .9rem;
+    display: inline-block;
+}
+
+nav.volver a:hover {
+    background: rgba(255,255,255,.18);
+}
+
+main {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+h2 {
+    border-left: 5px solid var(--acento);
+    padding-left: .6rem;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(11, 79, 108, .16);
+    border-color: var(--acento);
+}
+
+.card .etiqueta {
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--acento);
+    letter-spacing: .05em;
+}
+
+.card strong {
+    display: block;
+    margin: .2rem 0 .35rem;
+}
+
+.card .desc {
+    font-size: .9rem;
+    color: var(--suave);
+}
+
+.acciones {
+    margin-top: .7rem;
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.boton,
+button {
+    display: inline-block;
+    background: var(--principal);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: .55rem 1rem;
+    font-size: .9rem;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.boton:hover,
+button:hover {
+    background: var(--acento);
+    color: var(--texto);
+}
+
+.boton.secundario {
+    background: #fff;
+    color: var(--principal);
+    border: 1px solid var(--principal);
+}
+
+.boton.secundario:hover {
+    background: var(--principal);
+    color: #fff;
+}
+
+.panel {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin: 1rem 0;
+}
+
+.panel ol,
+.panel ul {
+    margin: .4rem 0 .4rem 1.2rem;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin: 1rem 0;
+}
+
+.tabla th,
+.tabla td {
+    border: 1px solid var(--borde);
+    padding: .55rem .7rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tabla th {
+    background: #e6f0f5;
+}
+
+code {
+    background: #e8eef2;
+    padding: .1rem .35rem;
+    border-radius: 4px;
+    font-size: .9em;
+}
+
+/* Test */
+.pregunta {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.pregunta h3 {
+    margin: 0 0 .6rem;
+    font-size: 1rem;
+}
+
+.pregunta label {
+    display: block;
+    padding: .25rem 0;
+    cursor: pointer;
+}
+
+.pregunta.correcta {
+    border-color: var(--ok);
+    background: #eafaf1;
+}
+
+.pregunta.incorrecta {
+    border-color: var(--mal);
+    background: #fdedec;
+}
+
+.explicacion {
+    margin-top: .6rem;
+    font-size: .9rem;
+    color: var(--suave);
+}
+
+#resultado {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.controles {
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: .85rem;
+    color: var(--suave);
+}
+
+.tema {
+    display: inline-block;
+    margin-bottom: .45rem;
+    padding: .15rem .6rem;
+    border-radius: 999px;
+    background: #e6f0f5;
+    color: #0b4f6c;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+
+.resumen-tema {
+    margin-top: .2rem;
+    font-size: .9rem;
+    color: var(--suave);
+}

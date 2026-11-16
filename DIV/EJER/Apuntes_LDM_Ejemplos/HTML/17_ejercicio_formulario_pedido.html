@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio: formulario de pedido</title>
+</head>
+<body>
+    <h1>FÁBRICAS TOLEDO</h1>
+    <h2>FORMULARIO DE PEDIDO</h2>
+
+    <form action="#" method="post">
+        <fieldset>
+            <legend>1. Identificación</legend>
+            <h3>Datos del Cliente</h3>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre"><br><br>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo"><br><br>
+
+            <label for="pass">Contraseña:</label>
+            <input type="password" id="pass" name="pass"><br><br>
+
+            Tipo de Cliente:
+            <input type="radio" name="tipo" value="particular" checked>Particular
+            <input type="radio" name="tipo" value="asociacion">Asociación
+            <input type="radio" name="tipo" value="empresa">Empresa
+        </fieldset>
+        <br>
+
+        <fieldset>
+            <legend>Paso 2. Pedido</legend>
+            <h3>Datos del Producto</h3>
+
+            <label for="producto">Producto:</label>
+            <select id="producto" name="producto">
+                <optgroup label="Armaduras">
+                    <option value="AR001">AR001 Oro Reluciente</option>
+                    <option value="AR002">AR002 Plata Pulida</option>
+                    <option value="AR003">AR003 Bronce Reforzado</option>
+                </optgroup>
+                <optgroup label="Extras">
+                    <option value="EX001">EX001 Cota de malla</option>
+                    <option value="EX002">EX002 Escudo</option>
+                </optgroup>
+            </select>
+            <br><br>
+
+            <h3>Datos de Envío</h3>
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion"><br><br>
+
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad"><br><br>
+
+            <label for="cp">Código Postal:</label>
+            <input type="text" id="cp" name="cp"><br><br>
+
+            <h3>Datos Bancarios</h3>
+            <label for="entidad">Nombre de la Entidad:</label>
+            <input type="text" id="entidad" name="entidad"><br><br>
+
+            <label for="cuenta">Número de cuenta:</label>
+            <input type="text" id="cuenta" name="cuenta"><br><br>
+
+            <h3>Información de interés</h3>
+            <label for="comentarios">Comentarios:</label><br>
+            <textarea id="comentarios" name="comentarios" rows="4" cols="50"></textarea>
+        </fieldset>
+        <br>
+
+        <input type="submit" value="ENVIAR PEDIDO">
+        <input type="reset" value="RESET">
+    </form>
+</body>
+</html>

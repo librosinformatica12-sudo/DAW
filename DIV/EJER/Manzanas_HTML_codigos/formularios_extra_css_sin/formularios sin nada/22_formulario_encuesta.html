@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de encuesta</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <h1>Encuesta de satisfacciÃ³n</h1>
+    <p>Tu opiniÃ³n nos ayuda a mejorar. Gracias por participar.</p>
+
+    <form action="#" method="post">
+        <fieldset>
+            <legend>InformaciÃ³n general</legend>
+
+            <label for="nombre">Nombre (opcional)</label>
+            <input type="text" id="nombre" name="nombre">
+
+            <label for="edad">Rango de edad</label>
+            <select id="edad" name="edad">
+                <option value="menor18">Menor de 18</option>
+                <option value="18-25">18 - 25</option>
+                <option value="26-40">26 - 40</option>
+                <option value="41-60">41 - 60</option>
+                <option value="mas60">MÃ¡s de 60</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>ValoraciÃ³n</legend>
+
+            <p>Â¿CÃ³mo valorarÃ­as nuestro servicio?</p>
+            <label><input type="radio" name="valoracion" value="excelente"> Excelente</label>
+            <label><input type="radio" name="valoracion" value="bueno"> Bueno</label>
+            <label><input type="radio" name="valoracion" value="regular"> Regular</label>
+            <label><input type="radio" name="valoracion" value="malo"> Malo</label>
+
+            <label for="recomendacion">Â¿Nos recomendarÃ­as? (1-10)</label>
+            <input type="range" id="recomendacion" name="recomendacion" min="1" max="10" value="8">
+
+            <p>Â¿QuÃ© aspectos te han gustado?</p>
+            <label><input type="checkbox" name="aspectos" value="atencion"> AtenciÃ³n</label>
+            <label><input type="checkbox" name="aspectos" value="calidad"> Calidad</label>
+            <label><input type="checkbox" name="aspectos" value="precio"> Precio</label>
+            <label><input type="checkbox" name="aspectos" value="rapidez"> Rapidez</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Comentarios</legend>
+            <label for="comentarios">Sugerencias o comentarios</label>
+            <textarea id="comentarios" name="comentarios" rows="5" cols="50"></textarea>
+        </fieldset>
+
+        <input type="submit" value="Enviar encuesta">
+    </form>
+
+    <hr>
+    <h2 class="resultado-captura">Resultado</h2>
+    <p><img src="../../capturas/formularios_extra_formularios_sin_nada_22_formulario_encuesta.png" alt="Resultado de 22_formulario_encuesta" style="max-width:100%;border:1px solid #ccc;"></p>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pseudo-clases de enlaces</title>
+    <style type="text/css">
+        /* El orden importa: link, visited, focus, hover, active */
+        a:link {
+            color: green;
+            text-decoration: none;
+        }
+        a:visited {
+            color: purple;
+        }
+        a:focus {
+            outline: 2px solid orange;
+        }
+        a:hover {
+            color: red;
+            text-decoration: underline;
+        }
+        a:active {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pseudo-clases de los enlaces</h1>
+    <p><a href="https://www.w3.org/">Enlace no visitado</a></p>
+    <p><a href="#destino">Enlace interno</a></p>
+    <p><a href="https://es.wikipedia.org/wiki/HTML" target="_blank">Enlace externo</a></p>
+
+    <p>Estados: <code>:link</code>, <code>:visited</code>, <code>:focus</code>,
+    <code>:hover</code> y <code>:active</code>.</p>
+
+    <h2 id="destino">Destino</h2>
+</body>
+</html>

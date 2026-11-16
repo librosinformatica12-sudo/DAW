@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="./">
+  <meta name="author" content="Alumno de LDM">
+  <meta name="description" content="Ejercicio de la cabecera de un documento HTML">
+  <meta name="keywords" content="HTML, CSS, lenguajes de marcas, cabecera">
+  <link rel="icon" href="manzana.svg" type="image/svg+xml">
+  <title>01 · Cabecera de un documento</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">01 · PDF 22</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Cabecera de un documento</h1>
+    <p class="enunciado">Completa la cabecera de una página con la codificación, la dirección base, los metadatos, el favicon y el título. El contenido visible será un sencillo “Hola Mundo”.</p>
+
+    <div class="pista"><strong>Fíjate:</strong> el título no aparece dentro de la página; se muestra en la pestaña del navegador. En el PDF la etiqueta <code>base</code> usa una URL absoluta, pero aquí utilizamos <code>./</code> para que el ejercicio funcione en local.</div>
+
+    <section class="demo">
+      <h1>Hola Mundo!!!</h1>
+      <p>Esta página ya tiene una cabecera completa: codificación UTF-8, descripción, palabras clave, autor, favicon y título.</p>
+      <p>La manzana de la pestaña es el favicon en formato SVG.</p>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>&lt;meta charset&gt;</code></li>
+      <li><code>&lt;base&gt;</code></li>
+      <li><code>&lt;meta name="author"&gt;</code></li>
+      <li><code>&lt;meta name="description"&gt;</code></li>
+      <li><code>&lt;meta name="keywords"&gt;</code></li>
+      <li><code>&lt;link rel="icon"&gt;</code></li>
+      <li><code>&lt;title&gt;</code></li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;base href="./"&gt;
+        &lt;meta name="author" content="Alumno de LDM"&gt;
+        &lt;meta name="description" content="Ejercicio de la cabecera"&gt;
+        &lt;meta name="keywords" content="HTML, CSS, LDM"&gt;
+        &lt;link rel="icon" href="manzana.svg" type="image/svg+xml"&gt;
+        &lt;title&gt;01 · Cabecera de un documento&lt;/title&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

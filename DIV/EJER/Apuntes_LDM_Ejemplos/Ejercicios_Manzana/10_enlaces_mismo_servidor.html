@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 · Enlaces al mismo servidor</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">10 · PDF 54</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Enlaces a páginas del mismo servidor</h1>
+    <p class="enunciado">Enlaza a otras páginas de esta misma carpeta usando rutas relativas. Incluye un enlace a una página completa y otro a una sección concreta mediante un ancla.</p>
+
+    <div class="pista"><strong>Rutas relativas:</strong> <code>./</code> significa “esta misma carpeta”. <code>./09_enlace_interno.html#xml</code> abre el ejercicio 09 y salta directamente a su sección XML.</div>
+
+    <section class="demo">
+      <h2>Enlaces disponibles</h2>
+      <ul>
+        <li><a href="./01_cabecera.html">Abrir el ejercicio 01: cabecera del documento</a></li>
+        <li><a href="./08_listas_definicion.html">Abrir el ejercicio 08: diccionario de términos</a></li>
+        <li><a href="./09_enlace_interno.html#xml">Abrir el ejercicio 09 y saltar a XML</a></li>
+        <li><a href="./13_mapa_espana.html">Abrir el ejercicio 13: mapa de España</a></li>
+        <li><a href="./index.html">Volver al índice de la carpeta</a></li>
+      </ul>
+    </section>
+
+    <h2>Ruta relativa frente a ruta absoluta</h2>
+    <p>Una ruta relativa depende de dónde esté el documento actual. Una ruta absoluta incluye el protocolo y el servidor, por ejemplo <code>https://www.ejemplo.com/pagina.html</code>. Para enlazar entre archivos de la misma carpeta conviene usar rutas relativas: funcionan en local y al subir el sitio a un servidor.</p>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>./archivo.html</code></li>
+      <li><code>./archivo.html#ancla</code></li>
+      <li>Enlaces a la misma carpeta</li>
+      <li>Rutas que funcionan en local</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;a href="./01_cabecera.html"&gt;Abrir el ejercicio 01&lt;/a&gt;
+&lt;a href="./08_listas_definicion.html"&gt;Abrir el ejercicio 08&lt;/a&gt;
+&lt;a href="./09_enlace_interno.html#xml"&gt;Saltar a XML&lt;/a&gt;
+&lt;a href="./index.html"&gt;Volver al índice&lt;/a&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

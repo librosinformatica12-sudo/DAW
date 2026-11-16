@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 3: Responsive (plantilla)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f4f6f9;
+            color: #102a43;
+        }
+
+        /* TODO 1: define variables en :root
+           --principal, --fondo, --texto, --espacio */
+
+        .contenedor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+
+        .caja {
+            background: #fff;
+            border: 1px solid #d3e0e8;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        header {
+            background: #0b4f6c;
+            color: #fff;
+            padding: 1.5rem;
+        }
+
+        /* TODO 2: media query para pantallas de máximo 768px:
+           pasa .contenedor a una sola columna y reduce el padding. */
+
+        /* TODO 3: usa las variables en los colores y el espaciado. */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Práctica de diseño responsive</h1>
+        <p>Redimensiona la ventana para ver el cambio.</p>
+    </header>
+
+    <main class="contenedor">
+        <section class="caja">
+            <h2>Columna 1</h2>
+            <p>En escritorio ocupa la mitad del ancho.</p>
+        </section>
+        <section class="caja">
+            <h2>Columna 2</h2>
+            <p>En móvil debe pasar debajo de la columna 1.</p>
+        </section>
+    </main>
+</body>
+</html>

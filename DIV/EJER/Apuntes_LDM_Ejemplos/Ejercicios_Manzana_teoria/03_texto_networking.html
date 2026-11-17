@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 · Párrafos, saltos y líneas</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">03 · PDF 30</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Párrafos, saltos y líneas</h1>
+    <p class="enunciado">Monta un texto sobre la evolución de las redes usando párrafos, encabezados de sección, líneas horizontales, saltos de línea y espacios que no se colapsan.</p>
+
+    <div class="pista"><strong>Diferencia clave:</strong> <code>&lt;br&gt;</code> hace un salto dentro del mismo párrafo; <code>&lt;hr&gt;</code> separa bloques; <code>&amp;nbsp;</code> mantiene un espacio visible aunque el navegador junte espacios.</div>
+
+    <section class="demo">
+      <h1>Evolución de Networking</h1>
+      <hr>
+
+      <h3>Fase 1: Ordenadores personales</h3>
+      <p>La aparición de ordenadores personales en las empresas fue lenta al principio, pero el lanzamiento de programas de gestión como Lotus y otras aplicaciones específicas de empresa impulsaron el desarrollo del PC.</p>
+
+      <h3>Fase 2: Red a pie</h3>
+      <p>Al principio los ordenadores eran dispositivos autónomos a los que a veces se conectaban impresoras. Cuando un empleado que no tenía impresora conectada a su ordenador tenía que copiar los ficheros a disquete, cargarlos en el ordenador de algún compañero que tuviera impresora e imprimirlos desde allí.</p>
+      <p>A este tipo de red rudimentaria se la conoció con el nombre de "red a pie".</p>
+
+      <h3>Fase 3: Red LAN</h3>
+      <p>Para resolver este inconveniente, las empresas instalaron redes de área local (LAN). Esto permitía a los usuarios de un mismo departamento transferir rápidamente información a través de la red.<br>
+      Las impresoras locales fueron sustituidas por impresoras de red.</p>
+
+      <hr>
+      <p>Coordenadas de Kioto: 35&nbsp;1' N y 135&nbsp;45' E</p>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>&lt;p&gt;</code>: párrafo</li>
+      <li><code>&lt;br&gt;</code>: salto de línea</li>
+      <li><code>&lt;hr&gt;</code>: separación horizontal</li>
+      <li><code>&amp;nbsp;</code>: espacio duro</li>
+      <li><code>&lt;h3&gt;</code>: encabezado de sección</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;h1&gt;Evolución de Networking&lt;/h1&gt;
+&lt;hr&gt;
+&lt;h3&gt;Fase 1: Ordenadores personales&lt;/h3&gt;
+&lt;p&gt;La aparición de ordenadores personales...&lt;/p&gt;
+
+&lt;p&gt;...transferir información por la red.&lt;br&gt;
+Las impresoras locales fueron sustituidas...&lt;/p&gt;
+
+&lt;p&gt;Coordenadas de Kioto: 35&amp;nbsp;1' N y 135&amp;nbsp;45' E&lt;/p&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

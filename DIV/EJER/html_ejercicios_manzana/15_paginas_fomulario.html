@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JugadorG9</title>
+
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    .intro {
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      padding: 14px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+      margin-bottom: 20px;
+    }
+
+    /* Las líneas de los recuadros */
+    fieldset {
+      border: 2px solid #999;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+    }
+
+    /* Recuadro interior (Tipo de tarjeta) */
+    fieldset fieldset {
+      border: 1px solid #555;
+      margin: 5px 0 10px 0;
+    }
+
+    legend {
+      padding: 0 4px;
+    }
+
+    /* Cada fila etiqueta + campo */
+    .campo {
+      margin-bottom: 3px;
+    }
+
+    textarea {
+      vertical-align: bottom;
+    }
+
+    button {
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <p class="intro">🎮 Introduce tus datos en el formulario que veréis aquí debajo</p>
+
+  <form action="#" method="post">
+
+    <!-- DATOS PERSONALES -->
+    <fieldset>
+      <legend>Datos personales</legend>
+
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
+      </div>
+
+      <div class="campo">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" id="apellidos" name="apellidos" placeholder="Tus dos apellidos">
+      </div>
+
+      <div class="campo">
+        <label for="fecha">Fecha de Nacimiento</label>
+        <input type="date" id="fecha" name="fecha">
+      </div>
+
+      <div class="campo">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@dominio.com">
+      </div>
+
+      <div class="campo">
+        <label for="web">Tu web personal</label>
+        <input type="url" id="web" name="web" placeholder="http://miWeb.com">
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="Eg. +654 77 55 44">
+      </div>
+
+      <div class="campo">
+        <label for="edad">Edad</label>
+        <input type="number" id="edad" name="edad" min="0" max="120" value="18">
+      </div>
+
+      <div class="campo">
+        <label for="habilidad">¿Cuál crees que es tu habilidad en los video juegos?</label>
+        <input type="range" id="habilidad" name="habilidad" min="0" max="100" value="50">
+      </div>
+
+      <div class="campo">
+        <label for="color">¿De qué color quieres tu silla gamming?</label>
+        <input type="color" id="color" name="color" value="#000000">
+      </div>
+    </fieldset>
+
+    <!-- DIRECCIÓN -->
+    <fieldset>
+      <legend>Dirección</legend>
+
+      <div class="campo">
+        <label for="direccion">Dirección</label>
+        <textarea id="direccion" name="direccion" rows="10" cols="30"></textarea>
+      </div>
+
+      <div class="campo">
+        <label for="cp">Código Postal</label>
+        <input type="text" id="cp" name="cp">
+      </div>
+
+      <div class="campo">
+        <label for="pais">País</label>
+        <input type="text" id="pais" name="pais">
+      </div>
+    </fieldset>
+
+    <!-- DETALLES DE LA TARJETA -->
+    <fieldset>
+      <legend>Detalles de la tarjeta</legend>
+
+      <fieldset>
+        <legend>Tipo de tarjeta</legend>
+        <input type="radio" id="visa" name="tipoTarjeta" value="visa">
+        <label for="visa">Visa</label>
+        <input type="radio" id="mastercard" name="tipoTarjeta" value="mastercard">
+        <label for="mastercard">MasterCard</label>
+        <input type="radio" id="amex" name="tipoTarjeta" value="amex">
+        <label for="amex">AMEX</label>
+      </fieldset>
+
+      <div class="campo">
+        <label for="nombreTarjeta">Nombre</label>
+        <input type="text" id="nombreTarjeta" name="nombreTarjeta" placeholder="Nombre como sale en la tarjeta">
+      </div>
+
+      <div class="campo">
+        <label for="numTarjeta">Nº de Tarjeta</label>
+        <input type="text" id="numTarjeta" name="numTarjeta">
+      </div>
+
+      <div class="campo">
+        <label for="cvv">Código de Seguridad</label>
+        <input type="text" id="cvv" name="cvv" maxlength="4">
+      </div>
+
+      <div class="campo">
+        <label for="caducidad">Fecha de Caducidad</label>
+        <input type="month" id="caducidad" name="caducidad">
+      </div>
+    </fieldset>
+
+    <!-- ENVÍO -->
+    <fieldset>
+      <div class="campo">
+        <input type="checkbox" id="proteccion" name="proteccion">
+        <label for="proteccion">Acepto la protección de datos</label>
+      </div>
+      <button type="submit">Enviar tus datos!</button>
+    </fieldset>
+
+  </form>
+</body>
+</html>

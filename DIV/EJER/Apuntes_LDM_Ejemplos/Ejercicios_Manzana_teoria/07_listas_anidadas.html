@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07 · Listas anidadas</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">07 · PDF 43</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Listas anidadas</h1>
+    <p class="enunciado">Agrupa lenguajes de marcas en una lista ordenada principal y añade una lista no ordenada dentro de cada categoría para enumerar sus ejemplos.</p>
+
+    <div class="pista"><strong>Regla de oro:</strong> la lista interna debe ir dentro del <code>&lt;li&gt;</code> al que pertenece, no entre dos <code>&lt;li&gt;</code> sueltos.</div>
+
+    <section class="demo">
+      <h1>Lenguajes de Marcas en Listas Anidadas</h1>
+      <ol>
+        <li>Páginas Web
+          <ul>
+            <li>HTML</li>
+            <li>XHTML</li>
+          </ul>
+        </li>
+        <li>Dispositivos móviles
+          <ul>
+            <li>XHTML MP</li>
+          </ul>
+        </li>
+        <li>Documentos
+          <ul>
+            <li>RTF</li>
+            <li>Tex</li>
+            <li>MathML</li>
+          </ul>
+        </li>
+        <li>Gráficos
+          <ul>
+            <li>SVG</li>
+            <li>STEP</li>
+          </ul>
+        </li>
+        <li>Específicos
+          <ul>
+            <li>SMIL</li>
+            <li>WSDL</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li>Anidar <code>ul</code> dentro de <code>li</code></li>
+      <li>Combinar <code>ol</code> y <code>ul</code></li>
+      <li>Mantener una jerarquía legible</li>
+      <li>Cerrar cada nivel en el orden correcto</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;ol&gt;
+  &lt;li&gt;Páginas Web
+    &lt;ul&gt;
+      &lt;li&gt;HTML&lt;/li&gt;
+      &lt;li&gt;XHTML&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Documentos
+    &lt;ul&gt;
+      &lt;li&gt;RTF&lt;/li&gt;
+      &lt;li&gt;Tex&lt;/li&gt;
+      &lt;li&gt;MathML&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

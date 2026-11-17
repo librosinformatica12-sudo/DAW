@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>13 · Mapa de imágenes de España</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">13 · PDF 74</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Mapa de imágenes de España</h1>
+    <p class="enunciado">Define zonas clicables sobre un mapa con <code>map</code> y <code>area</code>. Al pasar el ratón debe aparecer el nombre del lugar y al hacer clic debe abrirse una página en una pestaña nueva.</p>
+
+    <div class="pista"><strong>Coordenadas:</strong> cada <code>area</code> usa píxeles de la imagen original. Aquí el mapa mide 600 × 460. Las zonas son aproximadas para que puedas ver el mecanismo; en un mapa real se ajustan con una herramienta como image-map.net.</div>
+
+    <section class="demo">
+      <img src="mapa_espana.svg" alt="Mapa esquemático de España con zonas marcadas" usemap="#mapa-espana" width="600" height="460">
+
+      <map name="mapa-espana">
+        <area shape="circle" coords="145,118,45" href="https://www.xunta.gal/" alt="Galicia" title="Galicia" target="_blank" rel="noopener noreferrer">
+        <area shape="circle" coords="475,145,48" href="https://web.gencat.cat/" alt="Cataluña" title="Cataluña" target="_blank" rel="noopener noreferrer">
+        <area shape="circle" coords="431,236,44" href="https://www.valencia.es/" alt="Valencia" title="Valencia" target="_blank" rel="noopener noreferrer">
+        <area shape="circle" coords="300,225,30" href="https://www.madrid.es/" alt="Madrid" title="Madrid" target="_blank" rel="noopener noreferrer">
+        <area shape="circle" coords="283,348,55" href="https://www.juntadeandalucia.es/" alt="Andalucía" title="Andalucía" target="_blank" rel="noopener noreferrer">
+        <area shape="circle" coords="505,254,30" href="https://es.wikipedia.org/wiki/Mallorca" alt="Mallorca" title="Mallorca" target="_blank" rel="noopener noreferrer">
+        <area shape="circle" coords="100,397,58" href="https://es.wikipedia.org/wiki/Canarias" alt="Islas Canarias" title="Islas Canarias" target="_blank" rel="noopener noreferrer">
+      </map>
+    </section>
+
+    <h2>Zonas del mapa</h2>
+    <table class="tabla">
+      <thead>
+        <tr><th scope="col">Lugar</th><th scope="col">Forma</th><th scope="col">Enlace</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Galicia</td><td>Círculo</td><td>xunta.gal</td></tr>
+        <tr><td>Cataluña</td><td>Círculo</td><td>web.gencat.cat</td></tr>
+        <tr><td>Valencia</td><td>Círculo</td><td>valencia.es</td></tr>
+        <tr><td>Madrid</td><td>Círculo</td><td>madrid.es</td></tr>
+        <tr><td>Andalucía</td><td>Círculo</td><td>juntadeandalucia.es</td></tr>
+        <tr><td>Mallorca</td><td>Círculo</td><td>Wikipedia</td></tr>
+        <tr><td>Canarias</td><td>Círculo</td><td>Wikipedia</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>usemap="#nombre"</code></li>
+      <li><code>&lt;map name="nombre"&gt;</code></li>
+      <li><code>&lt;area shape="circle"&gt;</code></li>
+      <li><code>coords="x,y,radio"</code></li>
+      <li><code>alt</code> y <code>title</code></li>
+      <li><code>target="_blank"</code></li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;img src="mapa_espana.svg" alt="Mapa de España"
+     usemap="#mapa-espana" width="600" height="460"&gt;
+
+&lt;map name="mapa-espana"&gt;
+  &lt;area shape="circle" coords="300,225,30"
+        href="https://www.madrid.es/" alt="Madrid" title="Madrid"
+        target="_blank" rel="noopener noreferrer"&gt;
+  &lt;area shape="circle" coords="431,236,44"
+        href="https://www.valencia.es/" alt="Valencia" title="Valencia"
+        target="_blank" rel="noopener noreferrer"&gt;
+&lt;/map&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

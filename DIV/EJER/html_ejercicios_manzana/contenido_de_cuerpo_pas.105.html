@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas de Práctica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 6px 12px;
+            text-align: center;
+        }
+        /*
+        table, th, td {
+            border: 1px solid black;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        */
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TABLA 10 -->
+    <h3>Tabla 10</h3>
+    <p><i>Encabezado en filas</i></p>
+    <table>
+        <tr>
+            <th>Encabezado 1</th>
+            <td>valor 1</td>
+        </tr>
+        <tr>
+            <th>Encabezado 2</th>
+            <td>valor 2</td>
+        </tr>
+        <tr>
+            <th>Encabezado 3</th>
+            <td>valor 3</td>
+        </tr>
+    </table>
+
+
+    <!-- TABLA 11 -->
+    <h3>Tabla 11</h3>
+    <p><i>Encabezado en filas y columnas</i></p>
+    <table>
+        <tr>
+            <th>Encabezado 1</th>
+            <th>Encabezado 2</th>
+            <th>Encabezado 3</th>
+        </tr>
+        <tr>
+            <th>Encabezado 4</th>
+            <td>valor 1</td>
+            <td>valor 2</td>
+        </tr>
+        <tr>
+            <th>Encabezado 5</th>
+            <td>valor 3</td>
+            <td>valor 4</td>
+        </tr>
+        <tr>
+            <th>Encabezado 6</th>
+            <td>valor 5</td>
+            <td>valor 6</td>
+        </tr>
+    </table>
+
+
+    <!-- TABLA 12 -->
+    <h3>Tabla 12</h3>
+    <p><i>Combinar filas</i></p>
+    <table>
+        <tr>
+            <td>valor 1</td>
+            <td rowspan="4">valor 2</td>
+            <td>valor 3</td>
+        </tr>
+        <tr>
+            <td>valor 4</td>
+            <td>valor 5</td>
+        </tr>
+        <tr>
+            <td>valor 6</td>
+            <td>valor 7</td>
+        </tr>
+        <tr>
+            <td>valor 8</td>
+            <td>valor 9</td>
+        </tr>
+    </table>
+
+
+    <!-- TABLA 13 -->
+    <h3>Tabla 13</h3>
+    <p><i>Combinar filas y columnas</i></p>
+    <table>
+        <tr>
+            <td>valor 1</td>
+            <td>valor 2</td>
+            <td>valor 3</td>
+            <td>valor 4</td>
+        </tr>
+        <tr>
+            <td>valor 5</td>
+            <td colspan="2" rowspan="2">valor 6</td>
+            <td>valor 7</td>
+        </tr>
+        <tr>
+            <td>valor 8</td>
+            <td>valor 9</td>
+        </tr>
+        <tr>
+            <td>valor 10</td>
+            <td>valor 11</td>
+            <td>valor 12</td>
+            <td>valor 13</td>
+        </tr>
+    </table>
+
+
+    <!-- TABLA 14 -->
+    <h3>Tabla 14</h3>
+    <p><i>Combinar filas, columnas y encabezados</i></p>
+    <table>
+        <tr>
+            <th>Encabezado 1</th>
+            <th>Encabezado 2</th>
+            <th>Encabezado 3</th>
+            <th>Encabezado 4</th>
+            <th rowspan="2">Encabezado 5</th>
+        </tr>
+        <tr>
+            <th rowspan="2">Encabezado 6</th>
+            <td>valor 1</td>
+            <td>valor 2</td>
+            <td>valor 3</td>
+        </tr>
+        <tr>
+            <td colspan="2">valor 4</td>
+            <td colspan="2">valor 5</td>
+        </tr>
+    </table>
+
+</body>
+</html>

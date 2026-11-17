@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio: mapa de imágenes de España</title>
+</head>
+<body>
+    <h1>Mapa de imágenes de España</h1>
+    <p>Cada zona debe mostrar un texto al colocar el puntero del ratón sobre ella
+    y al hacer clic abrirse en una nueva página.</p>
+
+    <img src="img/espana.png" alt="Mapa de España" usemap="#mapa-espana">
+
+    <map name="mapa-espana">
+        <area shape="poly" coords="180,120,230,110,260,140,250,175,205,180,170,155"
+              href="https://www.madrid.es/portal/site/munimadrid"
+              alt="Madrid" title="Madrid" target="_blank">
+        <area shape="poly" coords="280,150,320,140,340,170,320,200,285,190"
+              href="https://www.valencia.es/"
+              alt="Valencia" title="Valencia" target="_blank">
+        <area shape="poly" coords="40,320,90,310,110,340,80,370,35,355"
+              href="https://es.wikipedia.org/wiki/Canarias"
+              alt="Islas Canarias" title="Islas Canarias" target="_blank">
+        <area shape="poly" coords="340,220,390,215,405,245,375,265,345,250"
+              href="https://es.wikipedia.org/wiki/Mallorca"
+              alt="Mallorca" title="Mallorca" target="_blank">
+    </map>
+
+    <p>Nota: las coordenadas son aproximadas; ajústalas con
+    <a href="http://www.image-map.net/" target="_blank">image-map.net</a>.</p>
+</body>
+</html>

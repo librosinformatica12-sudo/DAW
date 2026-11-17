@@ -1,0 +1,110 @@
+:root {
+    color-scheme: light;
+    font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    color: #222;
+    background: #fff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 24px;
+    line-height: 1.55;
+}
+
+h1, h2, h3 {
+    color: #8e0000;
+}
+
+fieldset {
+    border: 1px solid #c9c9c9;
+    margin: 0 0 1rem;
+    padding: 1rem;
+}
+
+legend {
+    padding: 0 .4rem;
+    font-weight: 700;
+    color: #8e0000;
+}
+
+label {
+    display: block;
+    margin-top: .55rem;
+    font-weight: 600;
+}
+
+input,
+select,
+textarea {
+    display: block;
+    width: 100%;
+    max-width: 430px;
+    margin-top: .2rem;
+    padding: .45rem;
+    font: inherit;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin: 0 .25rem 0 0;
+}
+
+input[type="submit"],
+input[type="reset"],
+button {
+    width: auto;
+    margin-top: .8rem;
+    padding: .5rem .9rem;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+th,
+td {
+    border: 1px solid #333;
+    padding: .4rem .6rem;
+}
+
+th {
+    background: #f3f3f3;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.menu a {
+    display: inline-block;
+    padding: .45rem .7rem;
+    background: #8e0000;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background: #b30000;
+}
+
+code {
+    background: #f3f3f3;
+    padding: .1rem .25rem;
+    border-radius: 3px;
+}

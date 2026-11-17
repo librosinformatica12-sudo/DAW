@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios con manzana · LDM</title>
+  <style>
+    :root {
+      --rojo: #c62828;
+      --rojo-oscuro: #8e0000;
+      --verde: #2e7d32;
+      --tinta: #1f2933;
+      --suave: #5f6b73;
+      --papel: #fffdf8;
+      --crema: #f6f0e4;
+      --borde: #e6ddcc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--tinta);
+      background:
+        radial-gradient(circle at 8% 8%, #ffe8e4 0 18%, transparent 18.5%),
+        radial-gradient(circle at 92% 4%, #e8f5e9 0 14%, transparent 14.5%),
+        var(--papel);
+      line-height: 1.6;
+    }
+    .contenedor { width: min(1120px, 92%); margin: 0 auto; }
+    header.portada {
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 1px solid var(--borde);
+      background: linear-gradient(135deg, #fff 0%, #fff8f4 60%, #f2fbf4 100%);
+    }
+    .marca { display: flex; align-items: center; gap: 1rem; }
+    .marca img { width: 76px; height: 76px; }
+    .marca p { margin: 0; color: var(--rojo); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; }
+    h1 { margin: .25rem 0 .5rem; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; }
+    .entradilla { max-width: 720px; font-size: 1.12rem; color: var(--suave); margin: .75rem 0 0; }
+    .datos { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+    .dato {
+      background: #fff;
+      border: 1px solid var(--borde);
+      border-radius: 999px;
+      padding: .4rem .85rem;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .dato strong { color: var(--rojo); }
+    nav.atajos { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.1rem; }
+    nav.atajos a {
+      color: var(--tinta);
+      text-decoration: none;
+      border-bottom: 2px solid #f3c2bc;
+      padding-bottom: 2px;
+      font-size: .92rem;
+    }
+    nav.atajos a:hover { color: var(--rojo); border-color: var(--rojo); }
+    main { padding: 2.5rem 0 4rem; }
+    .grupo { margin-top: 2.8rem; }
+    .grupo:first-child { margin-top: 0; }
+    .grupo-cabecera { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .grupo-cabecera h2 { margin: 0; font-size: 1.55rem; }
+    .grupo-cabecera span { color: var(--suave); font-size: .92rem; }
+    .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1rem; }
+    .tarjeta {
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
+      background: #fff;
+      border: 1px solid var(--borde);
+      border-radius: 16px;
+      padding: 1.15rem 1.2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+      min-height: 100%;
+    }
+    .tarjeta:hover {
+      transform: translateY(-4px);
+      border-color: #efb4ac;
+      box-shadow: 0 14px 30px rgba(111, 55, 42, .12);
+    }
+    .numero {
+      align-self: flex-start;
+      background: var(--rojo);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      padding: .18rem .5rem;
+    }
+    .tarjeta h3 { margin: .1rem 0 0; font-size: 1.08rem; line-height: 1.3; }
+    .tarjeta p { margin: 0; color: var(--suave); font-size: .92rem; }
+    .pie-tarjeta { margin-top: auto; padding-top: .55rem; font-size: .8rem; font-weight: 700; color: var(--rojo); }
+    .aviso {
+      background: #fff8e6;
+      border: 1px solid #f1d28c;
+      border-left: 6px solid #f2a900;
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      margin-top: 2.5rem;
+      color: #5f4a13;
+    }
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--borde);
+      padding: 2rem 0;
+      color: var(--suave);
+      font-size: .9rem;
+    }
+    footer strong { color: var(--rojo); }
+    @media (max-width: 560px) {
+      header.portada { padding-top: 2.2rem; }
+      .marca img { width: 58px; height: 58px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="portada">
+    <div class="contenedor">
+      <div class="marca">
+        <img src="manzana.svg" alt="Manzana roja con hoja verde">
+        <div>
+          <p>Lenguajes de marcas · UD2</p>
+          <h1>Ejercicios con manzana</h1>
+        </div>
+      </div>
+      <p class="entradilla">Los 18 ejercicios marcados con manzana en las diapositivas de HTML, reunidos en una sola carpeta y resueltos para que puedas abrirlos, compararlos y practicar sin buscar entre el PDF.</p>
+      <div class="datos">
+        <span class="dato"><strong>18</strong> ejercicios</span>
+        <span class="dato"><strong>6</strong> bloques temáticos</span>
+        <span class="dato">HTML + un poco de CSS</span>
+      </div>
+      <nav class="atajos" aria-label="Ir a un bloque">
+        <a href="#texto">Texto</a>
+        <a href="#listas">Listas</a>
+        <a href="#enlaces">Enlaces</a>
+        <a href="#imagenes">Imágenes</a>
+        <a href="#formularios">Formularios</a>
+        <a href="#tablas">Tablas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section class="grupo" id="texto">
+      <div class="grupo-cabecera">
+        <h2>Cabecera y texto</h2>
+        <span>PDF 22, 25, 30, 33</span>
+      </div>
+      <div class="rejilla">
+        <a class="tarjeta" href="01_cabecera.html">
+          <span class="numero">01</span>
+          <h3>Cabecera de un documento</h3>
+          <p>Metadatos, título, codificación, favicon y dirección base.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="02_encabezados.html">
+          <span class="numero">02</span>
+          <h3>Encabezados h1–h6</h3>
+          <p>Jerarquía completa de títulos y sus tamaños por defecto.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="03_texto_networking.html">
+          <span class="numero">03</span>
+          <h3>Párrafos, saltos y líneas</h3>
+          <p>La evolución de las redes con <code>p</code>, <code>br</code>, <code>hr</code> y espacios.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="04_estilos_fuente.html">
+          <span class="numero">04</span>
+          <h3>Estilos de fuente</h3>
+          <p>Negrita, cursiva, subrayado, tachado y etiquetas históricas.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="grupo" id="listas">
+      <div class="grupo-cabecera">
+        <h2>Listas</h2>
+        <span>PDF 37, 40, 43, 46</span>
+      </div>
+      <div class="rejilla">
+        <a class="tarjeta" href="05_listas.html">
+          <span class="numero">05</span>
+          <h3>Listas ordenadas y no ordenadas</h3>
+          <p>Dos formas de organizar los mismos lenguajes de marcas.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="06_listas_type.html">
+          <span class="numero">06</span>
+          <h3>El atributo type</h3>
+          <p>Números, romanos y letras con <code>ol type</code>.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="07_listas_anidadas.html">
+          <span class="numero">07</span>
+          <h3>Listas anidadas</h3>
+          <p>Lenguajes agrupados por páginas, móviles, documentos y gráficos.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="08_listas_definicion.html">
+          <span class="numero">08</span>
+          <h3>Listas de definición</h3>
+          <p>Un diccionario de términos con <code>dl</code>, <code>dt</code> y <code>dd</code>.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="grupo" id="enlaces">
+      <div class="grupo-cabecera">
+        <h2>Enlaces</h2>
+        <span>PDF 53, 54, 56, 58</span>
+      </div>
+      <div class="rejilla">
+        <a class="tarjeta" href="09_enlace_interno.html">
+          <span class="numero">09</span>
+          <h3>Enlace dentro de la misma página</h3>
+          <p>Índice, destinos con <code>id</code> y vuelta al principio.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="10_enlaces_mismo_servidor.html">
+          <span class="numero">10</span>
+          <h3>Enlaces al mismo servidor</h3>
+          <p>Rutas relativas entre páginas de esta misma carpeta.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="11_enlace_externo.html">
+          <span class="numero">11</span>
+          <h3>Enlace externo</h3>
+          <p>Documentación y referencias que se abren en la misma pestaña.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="12_enlace_externo_nueva.html">
+          <span class="numero">12</span>
+          <h3>Enlace externo en pestaña nueva</h3>
+          <p><code>target="_blank"</code> con <code>rel="noopener"</code>.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="grupo" id="imagenes">
+      <div class="grupo-cabecera">
+        <h2>Imágenes y mapas</h2>
+        <span>PDF 74</span>
+      </div>
+      <div class="rejilla">
+        <a class="tarjeta" href="13_mapa_espana.html">
+          <span class="numero">13</span>
+          <h3>Mapa de imágenes de España</h3>
+          <p>Zonas clicables con <code>map</code>, <code>area</code> y tooltips.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="grupo" id="formularios">
+      <div class="grupo-cabecera">
+        <h2>Formularios</h2>
+        <span>PDF 99, 106</span>
+      </div>
+      <div class="rejilla">
+        <a class="tarjeta" href="14_formulario_datos.html">
+          <span class="numero">14</span>
+          <h3>Formulario de datos personales</h3>
+          <p>Campos de texto, contraseña, radio, checkbox, fichero y botones.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="16_formulario_pedido.html">
+          <span class="numero">16</span>
+          <h3>Formulario de pedido</h3>
+          <p>Fábricas Toledo: identificación, producto, envío y datos bancarios.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="grupo" id="tablas">
+      <div class="grupo-cabecera">
+        <h2>Tablas</h2>
+        <span>PDF 105, 107, 108</span>
+      </div>
+      <div class="rejilla">
+        <a class="tarjeta" href="15_tablas.html">
+          <span class="numero">15</span>
+          <h3>Tablas 10–14</h3>
+          <p>Cabeceras, pie, <code>scope</code>, <code>colspan</code> y <code>rowspan</code>.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="17_tablas_imagenes.html">
+          <span class="numero">17</span>
+          <h3>Tablas con imágenes</h3>
+          <p>Un retrato pop art repetido en una tabla 3×3 con filtros CSS.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+        <a class="tarjeta" href="18_tablas_datos.html">
+          <span class="numero">18</span>
+          <h3>Tablas con datos</h3>
+          <p>Población por comunidades con cabecera, cuerpo y pie.</p>
+          <span class="pie-tarjeta">Abrir ejercicio →</span>
+        </a>
+      </div>
+    </section>
+
+    <p class="aviso"><strong>Nota:</strong> los ejercicios están numerados por el orden de las diapositivas. Algunos enlaces externos necesitan conexión; el resto funciona abriendo los archivos directamente en el navegador.</p>
+  </main>
+
+  <footer>
+    <div class="contenedor">
+      <strong>Ejercicios_Manzana</strong> · Carpeta creada a partir de las manzanas del PDF de HTML · <a href="../index_html.html">Volver al índice general</a>
+    </div>
+  </footer>
+</body>
+</html>

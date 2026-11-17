@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ãndice de ejemplos HTML | LDM</title>
+    <style>
+        :root {
+            --principal: #1f4e79;
+            --acento: #2e86c1;
+            --fondo: #f4f6f9;
+            --texto: #1c2833;
+            --suave: #566573;
+            --borde: #d6dbdf;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+            line-height: 1.5;
+        }
+        header {
+            background: linear-gradient(135deg, var(--principal), var(--acento));
+            color: #fff;
+            padding: 2rem 1.5rem;
+        }
+        header .contenido {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        header h1 {
+            margin: 0 0 .3rem;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+        }
+        header p {
+            margin: 0;
+            opacity: .9;
+        }
+        header nav {
+            margin-top: 1rem;
+        }
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,.6);
+            padding: .35rem .8rem;
+            border-radius: 999px;
+            font-size: .9rem;
+            display: inline-block;
+        }
+        header nav a:hover {
+            background: rgba(255,255,255,.18);
+        }
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .tema {
+            margin-bottom: 2.2rem;
+        }
+        .tema h2 {
+            font-size: 1.15rem;
+            border-left: 5px solid var(--acento);
+            padding-left: .6rem;
+            margin: 0 0 1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: .9rem;
+        }
+        .card {
+            display: block;
+            background: #fff;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(31, 78, 121, .15);
+            border-color: var(--acento);
+        }
+        .num {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--acento);
+            letter-spacing: .04em;
+        }
+        .card strong {
+            display: block;
+            margin: .15rem 0 .35rem;
+            font-size: 1rem;
+        }
+        .desc {
+            font-size: .88rem;
+            color: var(--suave);
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: .85rem;
+            color: var(--suave);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenido">
+            <h1>Ejemplos y ejercicios de HTML</h1>
+            <p>UtilizaciÃ³n de lenguajes de marcas en entornos web Â· UD2</p>
+            <nav>
+                <a href="index_css.html">Ir al Ã­ndice de CSS</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tema">
+            <h2>Estructura y cabecera</h2>
+            <div class="grid">
+                <a class="card" href="HTML/01_estructura_basica.html">
+                    <span class="num">01</span>
+                    <strong>Estructura bÃ¡sica</strong>
+                    <span class="desc">DOCTYPE, html, head y body.</span>
+                </a>
+                <a class="card" href="HTML/02_hola_mundo.html">
+                    <span class="num">02</span>
+                    <strong>Hola Mundo</strong>
+                    <span class="desc">Primer documento con lang y viewport.</span>
+                </a>
+                <a class="card" href="HTML/03_cabecera.html">
+                    <span class="num">03</span>
+                    <strong>Cabecera</strong>
+                    <span class="desc">title, base, meta y link (favicon).</span>
+                </a>
+                <a class="card" href="HTML/04_script_y_style.html">
+                    <span class="num">04</span>
+                    <strong>Script y style</strong>
+                    <span class="desc">CSS y JavaScript en la cabecera.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Texto</h2>
+            <div class="grid">
+                <a class="card" href="HTML/05_encabezados.html">
+                    <span class="num">05</span>
+                    <strong>Encabezados</strong>
+                    <span class="desc">Etiquetas h1 a h6.</span>
+                </a>
+                <a class="card" href="HTML/06_parrafos.html">
+                    <span class="num">06</span>
+                    <strong>PÃ¡rrafos</strong>
+                    <span class="desc">p, br, hr y espacios.</span>
+                </a>
+                <a class="card" href="HTML/07_estilos_fuente.html">
+                    <span class="num">07</span>
+                    <strong>Estilos de fuente</strong>
+                    <span class="desc">b, i, u, big, small, tt, s y font.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Listas</h2>
+            <div class="grid">
+                <a class="card" href="HTML/08_listas.html">
+                    <span class="num">08</span>
+                    <strong>Listas bÃ¡sicas</strong>
+                    <span class="desc">Listas ordenadas y no ordenadas.</span>
+                </a>
+                <a class="card" href="HTML/09_listas_type.html">
+                    <span class="num">09</span>
+                    <strong>Listas con type</strong>
+                    <span class="desc">NumeraciÃ³n romana, letras y por defecto.</span>
+                </a>
+                <a class="card" href="HTML/10_listas_anidadas.html">
+                    <span class="num">10</span>
+                    <strong>Listas anidadas</strong>
+                    <span class="desc">Listas dentro de listas.</span>
+                </a>
+                <a class="card" href="HTML/11_listas_definicion.html">
+                    <span class="num">11</span>
+                    <strong>Listas de definiciÃ³n</strong>
+                    <span class="desc">dl, dt y dd.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Enlaces</h2>
+            <div class="grid">
+                <a class="card" href="HTML/12_enlaces.html">
+                    <span class="num">12</span>
+                    <strong>Enlaces</strong>
+                    <span class="desc">Internos, mismo servidor, externos y _blank.</span>
+                </a>
+                <a class="card" href="HTML/12_destino.html">
+                    <span class="num">12b</span>
+                    <strong>PÃ¡gina de destino</strong>
+                    <span class="desc">Destino para el enlace del mismo servidor.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>ImÃ¡genes y mapas</h2>
+            <div class="grid">
+                <a class="card" href="HTML/13_imagenes.html">
+                    <span class="num">13</span>
+                    <strong>ImÃ¡genes</strong>
+                    <span class="desc">img, alt, width, height y title.</span>
+                </a>
+                <a class="card" href="HTML/14_mapa_imagenes.html">
+                    <span class="num">14</span>
+                    <strong>Mapa de imÃ¡genes</strong>
+                    <span class="desc">map, area, rect, circle y poly.</span>
+                </a>
+                <a class="card" href="HTML/15_ejercicio_mapa_espana.html">
+                    <span class="num">15</span>
+                    <strong>Ejercicio: mapa de EspaÃ±a</strong>
+                    <span class="desc">Zonas con enlaces y texto al pasar el ratÃ³n.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Formularios</h2>
+            <div class="grid">
+                <a class="card" href="HTML/16_formulario.html">
+                    <span class="num">16</span>
+                    <strong>Formulario completo</strong>
+                    <span class="desc">Todos los controles: input, select, textarea...</span>
+                </a>
+                <a class="card" href="HTML/17_ejercicio_formulario_pedido.html">
+                    <span class="num">17</span>
+                    <strong>Ejercicio: formulario de pedido</strong>
+                    <span class="desc">Formulario de pedido con fieldset y grupos.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>Tablas y bloques</h2>
+            <div class="grid">
+                <a class="card" href="HTML/18_tablas.html">
+                    <span class="num">18</span>
+                    <strong>Tablas</strong>
+                    <span class="desc">thead, tbody, tfoot, colspan y rowspan.</span>
+                </a>
+                <a class="card" href="HTML/19_div_span.html">
+                    <span class="num">19</span>
+                    <strong>div y span</strong>
+                    <span class="desc">Bloques de contenido y flotaciÃ³n.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="tema">
+            <h2>HTML5 y XHTML</h2>
+            <div class="grid">
+                <a class="card" href="HTML/20_html5_semantico.html">
+                    <span class="num">20</span>
+                    <strong>HTML5 semÃ¡ntico</strong>
+                    <span class="desc">header, nav, section, article, aside y footer.</span>
+                </a>
+                <a class="card" href="HTML/21_xhtml.html">
+                    <span class="num">21</span>
+                    <strong>XHTML</strong>
+                    <span class="desc">Normas sintÃ¡cticas de XHTML.</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Ejemplos reconstruidos de las diapositivas de LDM Â· UD2
+    </footer>
+</body>
+</html>
+

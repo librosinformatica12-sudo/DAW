@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de contacto</title>
+    <link rel="stylesheet" href="estilos_formularios.css">
+</head>
+<body>
+    <h1>Formulario de contacto</h1>
+    <p>Rellena los siguientes campos para ponerte en contacto con nosotros.</p>
+
+    <form action="#" method="post">
+        <fieldset>
+            <legend>Datos de contacto</legend>
+
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos" required>
+
+            <label for="email">Correo electrÃ³nico</label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@dominio.com" required>
+
+            <label for="telefono">TelÃ©fono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000">
+
+            <label for="asunto">Asunto</label>
+            <input type="text" id="asunto" name="asunto" placeholder="Motivo del mensaje" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Mensaje</legend>
+            <label for="tipo">Tipo de consulta</label>
+            <select id="tipo" name="tipo">
+                <option value="informacion">InformaciÃ³n</option>
+                <option value="soporte">Soporte tÃ©cnico</option>
+                <option value="sugerencia">Sugerencia</option>
+                <option value="otro">Otro</option>
+            </select>
+
+            <label for="mensaje">Escribe tu mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" cols="50" placeholder="Escribe aquÃ­ tu consulta..." required></textarea>
+
+            <label>
+                <input type="checkbox" name="copia" value="si"> Deseo recibir una copia en mi correo
+            </label>
+        </fieldset>
+
+        <input type="submit" value="Enviar mensaje">
+        <input type="reset" value="Limpiar">
+    </form>
+
+    <hr>
+    <h2 class="resultado-captura">Resultado</h2>
+    <p><img src="../../capturas/formularios_extra_formularios_con_css_19_formulario_contacto_css.png" alt="Resultado de 19_formulario_contacto_css" style="max-width:100%;border:1px solid #ccc;"></p>
+</body>
+</html>
+

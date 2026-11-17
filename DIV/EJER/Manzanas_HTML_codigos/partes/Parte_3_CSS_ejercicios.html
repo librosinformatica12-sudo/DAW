@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UD2 CSS Â· Ejercicios y ejemplos</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      color: #222;
+      background: #f5f5f5;
+    }
+    * { box-sizing: border-box; }
+    body { max-width: 1500px; margin: 0 auto; padding: 28px; line-height: 1.5; }
+    h1 { margin-bottom: .2rem; color: #8e0000; }
+    .subtitle { margin-top: 0; color: #555; }
+    nav { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem 1.2rem; }
+    nav h2 { margin-top: 0; font-size: 1.05rem; }
+    nav ul { columns: 2; margin: 0; padding-left: 1.2rem; }
+    nav a { color: #8e0000; }
+    section { margin-top: 1.4rem; background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
+    .section-head { display: flex; justify-content: space-between; gap: 1rem; align-items: start; padding: 1rem 1.2rem; border-bottom: 1px solid #eee; }
+    .pages { margin: 0; color: #8e0000; font-weight: 800; text-transform: uppercase; font-size: .78rem; letter-spacing: .06em; }
+    h2 { margin: .15rem 0; font-size: 1.25rem; }
+    .file { margin: .2rem 0 0; color: #666; font-size: .9rem; }
+    .copy { flex: none; border: 0; border-radius: 5px; padding: .5rem .8rem; background: #8e0000; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+    .copy:hover { background: #b30000; }
+    .demo { display: grid; grid-template-columns: 1fr 1fr; }
+    .demo.only-code { grid-template-columns: 1fr; }
+    .code-panel { min-width: 0; border-right: 1px solid #e5e5e5; }
+    .preview-panel { min-width: 0; background: #fafafa; }
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: .7rem; padding: .55rem 1.2rem; background: #f3f3f3; border-bottom: 1px solid #e1e1e1; color: #444; font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+    .panel-head a { color: #8e0000; font-weight: 700; text-decoration: none; text-transform: none; letter-spacing: 0; }
+    .panel-head a:hover { text-decoration: underline; }
+    pre { margin: 0; padding: 1rem 1.2rem; max-height: 760px; overflow: auto; background: #1e1e1e; color: #f4f4f4; tab-size: 4; }
+    code { font-family: Consolas, "Cascadia Mono", "Courier New", monospace; font-size: .88rem; }
+    .file code { background: #f3f3f3; color: #222; padding: .1rem .3rem; border-radius: 3px; }
+    iframe { display: block; width: 100%; border: 0; background: #fff; }
+    .note { background: #fff8e1; border-left: 4px solid #f0b429; padding: .9rem 1.1rem; margin-top: 1rem; }
+    .note p { margin: 0; }
+    footer { margin-top: 1.5rem; color: #666; font-size: .9rem; }
+    @media print {
+      body { max-width: none; padding: 0; background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      nav { break-after: page; }
+      section { break-inside: avoid; border: 0; }
+      .copy { display: none; }
+      .demo { grid-template-columns: 1fr; }
+      .code-panel { border-right: 0; }
+      pre { max-height: none; white-space: pre-wrap; background: #f7f7f7; color: #111; border: 1px solid #ddd; }
+      iframe { border: 1px solid #ddd; }
+    }
+    @media (max-width: 900px) {
+      nav ul { columns: 1; }
+      .section-head { flex-direction: column; }
+      .demo { grid-template-columns: 1fr; }
+      .code-panel { border-right: 0; border-bottom: 1px solid #e5e5e5; }
+      pre { max-height: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>UD2 CSS Â· Ejercicios y ejemplos</h1>
+  <p class="subtitle">Formas de incluir CSS y selectores. CÃ³digo y resultado.</p>
+
+  <nav>
+    <h2>Contenido</h2>
+    <ul>
+<li><a href="#s1">CSS 8 Â· CSS en lÃ­nea</a></li>
+<li><a href="#s2">CSS 9 Â· CSS interno</a></li>
+<li><a href="#s3">CSS 10 Â· CSS externo (HTML)</a></li>
+<li><a href="#s4">CSS 10 Â· CSS externo (estilos1b.css)</a></li>
+<li><a href="#s5">CSS 18 Â· Selector descendiente</a></li>
+<li><a href="#s6">CSS 19 Â· Selector hijo</a></li>
+<li><a href="#s7">CSS 20 Â· Selector adyacente</a></li>
+<li><a href="#s8">CSS 22 Â· Selectores de clase e ID</a></li>
+    </ul>
+  </nav>
+
+  <div class="note">
+    <p><strong>CSS:</strong> ejercicios y ejemplos extraÃ­dos de la presentaciÃ³n <em>UD2 Â· UtilizaciÃ³n de lenguajes de marcas en entornos web Â· CSS (hasta 26)</em>. Cada ejemplo incluye el cÃ³digo y su resultado.</p>
+  </div>
+
+<section id="s1">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 8</p>
+        <h2>CSS en lÃ­nea</h2>
+        <p class="file">Archivo: <code>css_ejercicios/01_css_en_linea.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;CSS en lÃ­nea&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p style="font-family: Courier; font-size: medium;"&gt;El style estÃ¡ en la etiqueta&lt;/p&gt;
+    &lt;p&gt;Esta etiqueta estÃ¡ sin style&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/01_css_en_linea.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/01_css_en_linea.html" title="Resultado de CSS en lÃ­nea" loading="lazy" height="260"></iframe>
+      </div></div>
+  </section>
+
+<section id="s2">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 9</p>
+        <h2>CSS interno</h2>
+        <p class="file">Archivo: <code>css_ejercicios/02_css_interno.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;CSS interno&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+        h1 { color: red; }
+        h1 { font-family: Arial; }
+        h2 { font-family: Verdana; }
+        h2 { color: lightskyblue; }
+        h3 { font-family: Garamond; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;UNIDAD 2. HTML Y XHTML&lt;/h1&gt;
+    &lt;h2&gt;2.5 Contenido del cuerpo&lt;/h2&gt;
+    &lt;h3&gt;2.5.1. Manejo del Texto&lt;/h3&gt;
+    &lt;h3&gt;2.5.2. Listas&lt;/h3&gt;
+    &lt;h2&gt;2.7. HTML 5&lt;/h2&gt;
+    &lt;h3&gt;2.7.1. Elementos de secciÃ³n&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/02_css_interno.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/02_css_interno.html" title="Resultado de CSS interno" loading="lazy" height="360"></iframe>
+      </div></div>
+  </section>
+
+<section id="s3">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 10</p>
+        <h2>CSS externo (HTML)</h2>
+        <p class="file">Archivo: <code>css_ejercicios/03_css_externo.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;CSS externo&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/estilos1b.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;UNIDAD 2. HTML Y XHTML&lt;/h1&gt;
+    &lt;h2&gt;2.5 Contenido del cuerpo&lt;/h2&gt;
+    &lt;h3&gt;2.5.1. Manejo del Texto&lt;/h3&gt;
+    &lt;h3&gt;2.5.2. Listas&lt;/h3&gt;
+    &lt;h2&gt;2.7. HTML 5&lt;/h2&gt;
+    &lt;h3&gt;2.7.1. Elementos de secciÃ³n&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/03_css_externo.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/03_css_externo.html" title="Resultado de CSS externo (HTML)" loading="lazy" height="360"></iframe>
+      </div></div>
+  </section>
+
+<section id="s4" class="full">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 10</p>
+        <h2>CSS externo (estilos1b.css)</h2>
+        <p class="file">Archivo: <code>css_ejercicios/css/estilos1b.css</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo only-code"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>h1 { color: red; }
+h1 { font-family: Arial; }
+h2 { font-family: Verdana; }
+h2 { color: lightskyblue; }
+h3 { font-family: Garamond; }</code></pre>
+      </div></div>
+  </section>
+
+<section id="s5">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 18</p>
+        <h2>Selector descendiente</h2>
+        <p class="file">Archivo: <code>css_ejercicios/04_selectores_descendientes.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Selectores de descendientes&lt;/title&gt;
+    &lt;style&gt;
+        div {
+            border: 3px solid greenyellow;
+            margin: 40px;
+            padding: 20px;
+        }
+
+        div p {
+            color: rgb(25, 109, 193);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;pÃ¡rrafo 1 antes del div&lt;/p&gt;
+    &lt;div&gt;
+        &lt;p&gt;pÃ¡rrafo 2 dentro del div&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;item de lista dentro del div
+                &lt;p&gt;que contiene tambiÃ©n pÃ¡rrafo 3&lt;/p&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;pÃ¡rrafo 4 dentro del div&lt;/p&gt;
+        &lt;address&gt;esto no es un pÃ¡rrafo, es un address&lt;/address&gt;
+    &lt;/div&gt;
+    &lt;p&gt;pÃ¡rrafo 5 despuÃ©s del div&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/04_selectores_descendientes.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/04_selectores_descendientes.html" title="Resultado de Selector descendiente" loading="lazy" height="620"></iframe>
+      </div></div>
+  </section>
+
+<section id="s6">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 19</p>
+        <h2>Selector hijo</h2>
+        <p class="file">Archivo: <code>css_ejercicios/05_selectores_hijos.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Selectores de hijo&lt;/title&gt;
+    &lt;style&gt;
+        div {
+            border: 3px solid greenyellow;
+            margin: 40px;
+            padding: 20px;
+        }
+
+        div &gt; p {
+            color: rgb(25, 109, 193);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;pÃ¡rrafo 1 antes del div&lt;/p&gt;
+    &lt;div&gt;
+        &lt;p&gt;pÃ¡rrafo 2 dentro del div&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;item de lista dentro del div
+                &lt;p&gt;que contiene tambiÃ©n pÃ¡rrafo 3&lt;/p&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;pÃ¡rrafo 4 dentro del div&lt;/p&gt;
+        &lt;address&gt;esto no es un pÃ¡rrafo, es un address&lt;/address&gt;
+    &lt;/div&gt;
+    &lt;p&gt;pÃ¡rrafo 5 despuÃ©s del div&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/05_selectores_hijos.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/05_selectores_hijos.html" title="Resultado de Selector hijo" loading="lazy" height="620"></iframe>
+      </div></div>
+  </section>
+
+<section id="s7">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 20</p>
+        <h2>Selector adyacente</h2>
+        <p class="file">Archivo: <code>css_ejercicios/06_selectores_adyacentes.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Selectores de adyacentes&lt;/title&gt;
+    &lt;style&gt;
+        div {
+            border: 3px solid greenyellow;
+            margin: 40px;
+            padding: 20px;
+        }
+
+        div + p {
+            color: rgb(25, 109, 193);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;pÃ¡rrafo 1 antes del div&lt;/p&gt;
+    &lt;div&gt;
+        &lt;p&gt;pÃ¡rrafo 2 dentro del div&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;item de lista dentro del div
+                &lt;p&gt;que contiene tambiÃ©n pÃ¡rrafo 3&lt;/p&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;pÃ¡rrafo 4 dentro del div&lt;/p&gt;
+        &lt;address&gt;esto no es un pÃ¡rrafo, es un address&lt;/address&gt;
+    &lt;/div&gt;
+    &lt;p&gt;pÃ¡rrafo 5 despuÃ©s del div&lt;/p&gt;
+    &lt;p&gt;pÃ¡rrafo 6 despuÃ©s del div&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/06_selectores_adyacentes.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/06_selectores_adyacentes.html" title="Resultado de Selector adyacente" loading="lazy" height="680"></iframe>
+      </div></div>
+  </section>
+
+<section id="s8">
+    <header class="section-head">
+      <div>
+        <p class="pages">CSS 22</p>
+        <h2>Selectores de clase e ID</h2>
+        <p class="file">Archivo: <code>css_ejercicios/07_selectores_clase_id.html</code></p>
+      </div>
+      <button class="copy" type="button">Copiar cÃ³digo</button>
+    </header>
+    <div class="demo"><div class="code-panel">
+        <div class="panel-head"><span>CÃ³digo</span></div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Selectores de clase e ID&lt;/title&gt;
+    &lt;style&gt;
+        .centrado {
+            text-align: center;
+        }
+
+        .azul {
+            color: dodgerblue;
+        }
+
+        p.centrado {
+            color: red;
+            font-weight: bolder;
+        }
+
+        #mayor {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            font-size: x-large;
+            color: fuchsia;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 class="centrado"&gt;Selectores&lt;/h1&gt;
+    &lt;p&gt;En CSS 2.1 existen los siguientes tipos de selectores:&lt;/p&gt;
+    &lt;ul class="azul"&gt;
+        &lt;li&gt;Selector universal: &lt;b&gt;*&lt;/b&gt;&lt;/li&gt;
+        &lt;li&gt;Selector de tipo&lt;/li&gt;
+        &lt;li&gt;Selector de descendientes&lt;/li&gt;
+        &lt;li&gt;Selector de hijos: &lt;b id="mayor"&gt;&amp;gt;&lt;/b&gt;&lt;/li&gt;
+        &lt;li&gt;Selector adyacente: &lt;b&gt;+&lt;/b&gt;&lt;/li&gt;
+        &lt;li&gt;Selector de atributos&lt;/li&gt;
+        &lt;li&gt;Selector de clase&lt;/li&gt;
+        &lt;li&gt;Selector de ID&lt;/li&gt;
+        &lt;li&gt;Selector de pseudo-clase&lt;/li&gt;
+        &lt;li&gt;Selector de pseudo-elemento&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div><div class="preview-panel">
+        <div class="panel-head">
+          <span>Resultado</span>
+          <a href="css_ejercicios/07_selectores_clase_id.html" target="_blank" rel="noopener">Abrir en pestaÃ±a</a>
+        </div>
+        <iframe src="css_ejercicios/07_selectores_clase_id.html" title="Resultado de Selectores de clase e ID" loading="lazy" height="620"></iframe>
+      </div></div>
+  </section>
+
+  <footer>
+    <p>Documento generado a partir de la carpeta <code>Manzanas_resueltas_HTML_codigos</code>.</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copy').forEach(function (button) {
+      button.addEventListener('click', async function () {
+        var code = button.closest('section').querySelector('code').textContent;
+        try {
+          await navigator.clipboard.writeText(code);
+        } catch (error) {
+          var area = document.createElement('textarea');
+          area.value = code;
+          document.body.appendChild(area);
+          area.select();
+          document.execCommand('copy');
+          area.remove();
+        }
+        var original = button.textContent;
+        button.textContent = 'Copiado';
+        setTimeout(function () { button.textContent = original; }, 1200);
+      });
+    });
+  </script>
+
+    <hr>
+    <h2 class="resultado-captura">Resultado</h2>
+    <p><img src="../capturas/Parte_3_CSS_ejercicios.png" alt="Resultado de Parte_3_CSS_ejercicios" style="max-width:100%;border:1px solid #ccc;"></p>
+</body>
+</html>
+
+

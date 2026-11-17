@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FÃ¡bricas Toledo - Formulario de pedido</title>
+    <link rel="stylesheet" href="../toledo.css">
+</head>
+<body>
+    <header>
+        <h1>FABRICAS TOLEDO</h1>
+        <h2>FORMULARIO DE PEDIDO</h2>
+    </header>
+
+    <form action="#" method="post">
+        <fieldset>
+            <legend>Paso 1. IdentificaciÃ³n</legend>
+
+            <h3>Datos del Cliente</h3>
+            <label for="correo">Correo ElectrÃ³nico</label>
+            <input type="email" id="correo" name="correo">
+
+            <label for="contrasena">ContraseÃ±a</label>
+            <input type="password" id="contrasena" name="contrasena" autocomplete="new-password">
+
+            <fieldset class="tipo">
+                <legend>Tipo de Cliente</legend>
+                <label><input type="radio" name="tipo-cliente" value="particular" checked> Particular</label>
+                <label><input type="radio" name="tipo-cliente" value="asociacion"> AsociaciÃ³n</label>
+                <label><input type="radio" name="tipo-cliente" value="empresa"> Empresa</label>
+            </fieldset>
+        </fieldset>
+
+        <fieldset>
+            <legend>Paso 2. Pedido</legend>
+
+            <h3>Datos del Producto</h3>
+            <label for="producto">Producto</label>
+            <select id="producto" name="producto">
+                <optgroup label="Armaduras">
+                    <option value="AR001">AR001 Oro Reluciente</option>
+                    <option value="AR002">AR002 Plata Pulida</option>
+                    <option value="AR003">AR003 Bronce Reforzado</option>
+                </optgroup>
+                <optgroup label="Extras">
+                    <option value="EX001">EX001 Escudo</option>
+                    <option value="EX002">EX002 Cota de malla</option>
+                </optgroup>
+            </select>
+
+            <fieldset>
+                <legend>InformaciÃ³n de InterÃ©s</legend>
+                <label for="comentarios">Comentarios</label><br>
+                <textarea id="comentarios" name="comentarios" rows="4" cols="50"></textarea>
+            </fieldset>
+
+            <h3>Datos de EnvÃ­o</h3>
+            <label for="direccion">DirecciÃ³n</label>
+            <input type="text" id="direccion" name="direccion">
+
+            <label for="ciudad">Ciudad</label>
+            <input type="text" id="ciudad" name="ciudad">
+
+            <label for="codigo-postal">CÃ³digo Postal</label>
+            <input type="text" id="codigo-postal" name="codigo-postal">
+
+            <fieldset>
+                <legend>Datos Bancarios</legend>
+                <label for="entidad">Nombre de la Entidad</label>
+                <input type="text" id="entidad" name="entidad">
+
+                <label for="cuenta">NÃºmero de cuenta</label>
+                <input type="text" id="cuenta" name="cuenta">
+
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha">
+            </fieldset>
+        </fieldset>
+
+        <input type="submit" value="ENVIAR PEDIDO">
+        <input type="reset" value="RESET">
+    </form>
+
+    <hr>
+</body>
+</html>
+
+

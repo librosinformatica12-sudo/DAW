@@ -1,0 +1,59 @@
+MANZANAS RESUELTAS HTML - CÓDIGOS
+=================================
+
+Esta carpeta contiene el código reconstruido del PDF "Manzanas resueltas HTML.pdf"
+(32 páginas). Se ha agrupado el código por páginas para que sea fácil localizarlo.
+
+Archivos principales
+--------------------
+01_pagina_01_cabecera.html
+02_pagina_02_encabezados.html
+03_paginas_03-04_networking.html
+04_pagina_05_estilos_fuente.html
+05_pagina_06_listas.html
+06_paginas_07-08_listas_type.html
+07_pagina_09_listas_anidadas.html
+08_pagina_10_listas_definicion.html
+09_pagina_11_enlace_interno.html
+10_pagina_12_enlaces_mismo_servidor.html
+11_paginas_13-14_enlaces_externos.html
+12_paginas_15-18_mapa_imagenes.html
+13_paginas_19-22_formulario_datos.html
+14_paginas_23-26_formulario_pedido.html
+15_paginas_27-32_tablas.html
+
+Documentos completos con todos los códigos
+-------------------------------------------
+- Parte_1_paginas_1-16.html
+- Parte_2_paginas_17-32.html
+- Parte_3_CSS_ejercicios.html
+
+Cada documento muestra el código y su resultado, como en el PDF.
+
+Ejercicios de CSS
+-----------------
+- css_ejercicios/01_css_en_linea.html
+- css_ejercicios/02_css_interno.html
+- css_ejercicios/03_css_externo.html
+- css_ejercicios/04_selectores_descendientes.html
+- css_ejercicios/05_selectores_hijos.html
+- css_ejercicios/06_selectores_adyacentes.html
+- css_ejercicios/07_selectores_clase_id.html
+
+Abre index.html para ver la relación de páginas y archivos.
+
+Recursos añadidos
+-----------------
+- estilos.css: estilos generales y del formulario de datos.
+- toledo.css: estilos del formulario de pedido.
+- img/formas.png: imagen para el mapa de imágenes.
+- imagenes/: iconos de ejemplo.
+- primeraWeb.html, manejoTexto.html, rectangulo.html, circulo.html y pentagono.html:
+  páginas de destino para que los enlaces de los ejercicios funcionen.
+
+Notas
+-----
+- Las páginas que solo muestran el navegador no tienen un archivo independiente; su
+  código está en el archivo de la página o páginas que lo contienen.
+- Se han corregido erratas evidentes del OCR y se han añadido acentos, pero se
+  mantiene la estructura y las etiquetas del PDF.

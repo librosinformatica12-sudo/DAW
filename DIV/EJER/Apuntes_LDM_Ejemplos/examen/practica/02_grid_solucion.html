@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 2: Grid (solución)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f4f6f9;
+            color: #102a43;
+        }
+        .layout {
+            display: grid;
+            grid-template-areas:
+                "cabecera cabecera"
+                "menu contenido"
+                "pie pie";
+            grid-template-columns: 220px 1fr;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+        .cabecera,
+        .menu,
+        .contenido,
+        .pie {
+            background: #fff;
+            border: 1px solid #d3e0e8;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        .cabecera {
+            grid-area: cabecera;
+            background: #0b4f6c;
+            color: #fff;
+        }
+        .menu { grid-area: menu; }
+        .contenido {
+            grid-area: contenido;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .pie {
+            grid-area: pie;
+            background: #e6f0f5;
+            text-align: center;
+        }
+        .articulo {
+            background: #f2f7fa;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-areas:
+                    "cabecera"
+                    "menu"
+                    "contenido"
+                    "pie";
+                grid-template-columns: 1fr;
+            }
+            .contenido {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <header class="cabecera">
+            <h1>Mi sitio</h1>
+        </header>
+
+        <nav class="menu">
+            <p>Menú</p>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <main class="contenido">
+            <article class="articulo">
+                <h2>Artículo 1</h2>
+                <p>Primera columna del contenido.</p>
+            </article>
+            <article class="articulo">
+                <h2>Artículo 2</h2>
+                <p>Segunda columna del contenido.</p>
+            </article>
+        </main>
+
+        <footer class="pie">
+            <p>Pie de página</p>
+        </footer>
+    </div>
+</body>
+</html>

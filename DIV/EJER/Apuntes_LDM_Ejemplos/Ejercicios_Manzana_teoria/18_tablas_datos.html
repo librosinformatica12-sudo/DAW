@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>18 · Tablas con datos</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    .numero { text-align: right; font-variant-numeric: tabular-nums; }
+    .tabla-datos { max-width: 820px; }
+    .tabla-datos caption { font-size: 1.05rem; }
+    .fuente { color: #5f6b73; font-size: .85rem; margin-top: .25rem; }
+  </style>
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">18 · PDF 108</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Tablas con datos</h1>
+    <p class="enunciado">Presenta un conjunto de datos en una tabla semántica: título, cabecera de columnas, cuerpo, fila de totales, alineación de números y una fuente bajo la tabla.</p>
+
+    <div class="pista"><strong>No es una tabla de maquetación:</strong> esta tabla relaciona cada comunidad con tres cifras. Por eso usamos <code>th scope="col"</code> y <code>th scope="row"</code>, que indican qué encabezado corresponde a cada dato.</div>
+
+    <table class="tabla tabla-datos">
+      <caption>Población de algunas comunidades autónomas (2024)</caption>
+      <colgroup>
+        <col>
+        <col span="3" class="numero">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">Comunidad autónoma</th>
+          <th scope="col" class="numero">Hombres</th>
+          <th scope="col" class="numero">Mujeres</th>
+          <th scope="col" class="numero">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Andalucía</th>
+          <td class="numero">4.236.000</td>
+          <td class="numero">4.395.000</td>
+          <td class="numero">8.631.000</td>
+        </tr>
+        <tr>
+          <th scope="row">Cataluña</th>
+          <td class="numero">3.947.000</td>
+          <td class="numero">4.066.000</td>
+          <td class="numero">8.013.000</td>
+        </tr>
+        <tr>
+          <th scope="row">Comunidad de Madrid</th>
+          <td class="numero">3.394.000</td>
+          <td class="numero">3.608.000</td>
+          <td class="numero">7.002.000</td>
+        </tr>
+        <tr>
+          <th scope="row">Comunitat Valenciana</th>
+          <td class="numero">2.616.000</td>
+          <td class="numero">2.704.000</td>
+          <td class="numero">5.320.000</td>
+        </tr>
+        <tr>
+          <th scope="row">Galicia</th>
+          <td class="numero">1.307.000</td>
+          <td class="numero">1.398.000</td>
+          <td class="numero">2.705.000</td>
+        </tr>
+        <tr>
+          <th scope="row">Castilla y León</th>
+          <td class="numero">1.177.000</td>
+          <td class="numero">1.206.000</td>
+          <td class="numero">2.383.000</td>
+        </tr>
+        <tr>
+          <th scope="row">País Vasco</th>
+          <td class="numero">1.140.000</td>
+          <td class="numero">1.209.000</td>
+          <td class="numero">2.349.000</td>
+        </tr>
+        <tr>
+          <th scope="row">Canarias</th>
+          <td class="numero">1.122.000</td>
+          <td class="numero">1.116.000</td>
+          <td class="numero">2.238.000</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="row">Total seleccionado</th>
+          <td class="numero">18.939.000</td>
+          <td class="numero">19.702.000</td>
+          <td class="numero">38.641.000</td>
+        </tr>
+      </tfoot>
+    </table>
+    <p class="fuente">Cifras redondeadas y usadas como ejemplo didáctico. No sustituyen a los datos oficiales del INE.</p>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>caption</code> descriptivo</li>
+      <li><code>thead</code>, <code>tbody</code> y <code>tfoot</code></li>
+      <li><code>th scope="col"</code></li>
+      <li><code>th scope="row"</code></li>
+      <li><code>colgroup</code> y <code>col</code></li>
+      <li>Alineación de cifras con CSS</li>
+      <li>Fuente de los datos</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;table class="tabla"&gt;
+  &lt;caption&gt;Población de algunas comunidades (2024)&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Comunidad autónoma&lt;/th&gt;
+      &lt;th scope="col"&gt;Hombres&lt;/th&gt;
+      &lt;th scope="col"&gt;Mujeres&lt;/th&gt;
+      &lt;th scope="col"&gt;Total&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Andalucía&lt;/th&gt;
+      &lt;td&gt;4.236.000&lt;/td&gt;
+      &lt;td&gt;4.395.000&lt;/td&gt;
+      &lt;td&gt;8.631.000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Total&lt;/th&gt;
+      &lt;td&gt;18.939.000&lt;/td&gt;
+      &lt;td&gt;19.702.000&lt;/td&gt;
+      &lt;td&gt;38.641.000&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

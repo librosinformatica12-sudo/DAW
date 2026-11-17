@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mezcla presentación y contenido vs separación</title>
+</head>
+<body>
+    <h1>Mezcla presentación y contenido</h1>
+    <!-- Mal: el formato está mezclado con el contenido -->
+    <h2><font face="Arial" color="red">UNIDAD 2. HTML Y XHTML</font></h2>
+    <h3><font face="Verdana" color="lightskyblue">2.5 Contenido del cuerpo</font></h3>
+    <p><font face="Verdana">2.5.1. Manejo del texto</font></p>
+
+    <hr>
+
+    <h1>Separa presentación del contenido</h1>
+    <!-- Bien: el formato está en CSS y el contenido en HTML -->
+    <style type="text/css">
+        .titulo1 { font-family: Arial; color: red; }
+        .titulo2 { font-family: Verdana; color: lightskyblue; }
+        .texto   { font-family: Verdana; }
+    </style>
+
+    <h2 class="titulo1">UNIDAD 2. HTML Y XHTML</h2>
+    <h3 class="titulo2">2.5 Contenido del cuerpo</h3>
+    <p class="texto">2.5.1. Manejo del texto</p>
+</body>
+</html>

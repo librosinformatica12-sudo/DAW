@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reglas y agrupación</title>
+    <style type="text/css">
+        /* Regla que define el estilo para los párrafos */
+        p {
+            font-family: Verdana;
+            font-size: medium;
+        }
+
+        /* Cuando comparten declaración: se agrupan los selectores */
+        h3, p {
+            font-family: Verdana;
+            font-size: medium;
+        }
+
+        /* Cuando comparten selector: se agrupan las declaraciones */
+        p {
+            font-family: Verdana;
+            font-size: medium;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reglas de estilo</h1>
+    <h3>Un encabezado h3</h3>
+    <p>Un párrafo con las reglas aplicadas.</p>
+</body>
+</html>

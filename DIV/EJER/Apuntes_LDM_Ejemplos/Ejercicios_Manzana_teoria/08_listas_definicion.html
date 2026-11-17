@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>08 · Listas de definición</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">08 · PDF 46</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Listas de definición</h1>
+    <p class="enunciado">Crea un diccionario de términos de lenguajes de marcas con <code>dl</code>, una definición por término y negritas en las iniciales de XML.</p>
+
+    <div class="pista"><strong>Estructura:</strong> <code>dl</code> contiene parejas de <code>dt</code> (término) y <code>dd</code> (definición). Un término puede tener varias definiciones.</div>
+
+    <section class="demo">
+      <h1>Diccionario de Términos</h1>
+      <dl>
+        <dt>XML</dt>
+        <dd><b>E</b>Xtensible <b>M</b>arkup <b>L</b>anguage, Lenguaje de marcado extensible. Lenguaje de marcado de propósito general especificado por el W3C. Esto significa que, a diferencia de otros lenguajes de marcado, XML no está predefinido, por lo que debes definir tus propias etiquetas. El propósito principal del lenguaje es compartir datos a través de diferentes sistemas, como Internet.</dd>
+
+        <dt>HTML</dt>
+        <dd>Hypertext Markup Language, Lenguaje de Marcas de Hipertexto. Es el código que se utiliza para estructurar y desplegar una página web y sus contenidos.</dd>
+
+        <dt>XHTML</dt>
+        <dd>eXtensible HyperText Markup Language. Básicamente, HTML expresado como XML.</dd>
+
+        <dt>CSS</dt>
+        <dd>Cascading Style Sheets. Un lenguaje para la composición y estructuración de documentos web.</dd>
+      </dl>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>&lt;dl&gt;</code>: lista de definición</li>
+      <li><code>&lt;dt&gt;</code>: término</li>
+      <li><code>&lt;dd&gt;</code>: definición</li>
+      <li><code>&lt;b&gt;</code>: resaltado visual de iniciales</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;dl&gt;
+  &lt;dt&gt;XML&lt;/dt&gt;
+  &lt;dd&gt;&lt;b&gt;E&lt;/b&gt;Xtensible &lt;b&gt;M&lt;/b&gt;arkup &lt;b&gt;L&lt;/b&gt;anguage...&lt;/dd&gt;
+
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Hypertext Markup Language...&lt;/dd&gt;
+
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Cascading Style Sheets...&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

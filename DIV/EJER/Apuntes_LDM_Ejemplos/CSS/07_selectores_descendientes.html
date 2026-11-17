@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectores de descendientes</title>
+    <style type="text/css">
+        div {
+            border: 3px solid greenyellow;
+            margin: 40px;
+            padding: 20px;
+        }
+
+        /* Selector descendiente: todos los p dentro de cualquier div */
+        div p {
+            color: rgb(25, 109, 193);
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejemplo de selector de descendientes</h1>
+    <p>Establece color de texto azul a todas las declaraciones de párrafo
+    dentro de cualquier bloque div.</p>
+
+    <p>párrafo 1 antes del div</p>
+
+    <div>
+        <p>párrafo 2 dentro del div</p>
+        <ul>
+            <li>ítem de lista dentro del div</li>
+        </ul>
+        <p>párrafo 3 dentro del div que contiene también un párrafo</p>
+        <p>párrafo 4 dentro del div</p>
+        <address>esto no es un párrafo, es un address</address>
+    </div>
+
+    <p>párrafo 5 después del div</p>
+</body>
+</html>

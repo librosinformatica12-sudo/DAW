@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario: todos los controles</title>
+</head>
+<body>
+    <h2>Formulario</h2>
+
+    <form action="#" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Datos personales</legend>
+
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" value="Nombre"><br><br>
+
+            <label for="pass">Contraseña:</label>
+            <input type="password" id="pass" name="pass"><br><br>
+
+            Socio:
+            <input type="checkbox" name="essocio" checked><br><br>
+
+            Sexo:
+            <input type="radio" name="genero" value="H">Hombre
+            <input type="radio" name="genero" value="M" checked>Mujer
+        </fieldset>
+        <br>
+
+        <fieldset>
+            <legend>Temas preferidos</legend>
+            <input type="checkbox" name="aventuras">Aventuras
+            <input type="checkbox" name="historica">Histórica
+            <input type="checkbox" name="ficcion">Ficción
+            <input type="checkbox" name="animacion">Dibujos
+        </fieldset>
+        <br>
+
+        <label for="descuento">Descuento:</label>
+        <input type="text" id="descuento" name="descuento" value="15%" size="5" readonly><br><br>
+
+        <label for="fichero">Enviar fotografía:</label>
+        <input type="file" id="fichero" name="fichero" accept="application/x-zip-compressed"><br><br>
+
+        <!-- El input hidden no se ve en el formulario -->
+        <input type="hidden" name="fecha" value="2024-01-01">
+
+        Botones con input:
+        <input type="submit" value="Enviar">
+        <input type="reset" value="Borrar">
+        <input type="button" value="Salir"
+               onclick="alert('pulsaste salir de la página!')"><br><br>
+
+        Botones con button:
+        <button type="submit">Enviar</button>
+        <button type="reset">Borrar</button>
+        <button type="button" onclick="alert('pulsaste salir de la página!')">Salir</button>
+        <br><br>
+
+        <!-- Botones personalizados con imágenes -->
+        Botones personalizados con imágenes:
+        <button type="submit"><img src="img/enviar.png" width="50px" alt="enviar"></button>
+        <button type="reset"><img src="img/reset.png" width="50px" alt="reset"></button>
+        <button type="button" onclick="alert('pulsaste salir de la página!')">
+            <img src="img/salir.png" width="50px" alt="salir">
+        </button>
+        <br><br>
+
+        <label for="instrumento">Instrumentos preferidos:</label><br>
+        <select id="instrumento" name="instrumento" size="7" multiple>
+            <optgroup label="cuerda">
+                <option>cello</option>
+                <option>piano</option>
+                <option>guitarra</option>
+                <option>violín</option>
+            </optgroup>
+            <optgroup label="viento">
+                <option>flauta</option>
+                <option>trompeta</option>
+            </optgroup>
+            <optgroup label="percusión">
+                <option>xilofón</option>
+                <option>batería</option>
+            </optgroup>
+        </select>
+        <br><br>
+
+        <label for="idopinion">Danos tu opinión:</label><br>
+        <textarea id="idopinion" name="opinion" rows="5" cols="50"></textarea>
+        <br><br>
+
+        <input type="submit" value="Enviar datos">
+    </form>
+</body>
+</html>

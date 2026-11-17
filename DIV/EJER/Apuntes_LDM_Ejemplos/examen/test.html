@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de práctica | DIV</title>
+    <link rel="stylesheet" href="css/examen.css">
+</head>
+<body>
+    <header class="principal">
+        <div class="contenido">
+            <h1>Test de práctica · DIV</h1>
+            <p><span id="total"></span> preguntas tipo test con corrección automática</p>
+            <nav class="volver">
+                <a href="index.html">Volver al examen</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <p class="panel">
+            Marca una opción por pregunta y pulsa <strong>Corregir</strong>.
+            Cada pregunta vale 1 punto; las respuestas incorrectas no restan.
+        </p>
+
+        <form id="quiz"></form>
+
+        <div class="controles">
+            <button type="button" id="corregir">Corregir</button>
+            <button type="button" class="boton secundario" id="reiniciar">Reiniciar</button>
+        </div>
+
+        <div id="resultado" aria-live="polite"></div>
+    </main>
+
+    <footer>
+        Simulacro de examen · Diseño de Interfaces Web
+    </footer>
+
+    <script>
+        const preguntas = [
+            {
+                tema: "HTML · Estructura",
+                p: "¿Qué etiquetas delimitan el cuerpo del documento?",
+                opciones: ["<head> y </head>", "<main> y </main>", "<body> y </body>", "<html> y </html>"],
+                correcta: 2,
+                explicacion: "El contenido visible se escribe entre <body> y </body>."
+            },
+            {
+                tema: "HTML · Estructura",
+                p: "¿Qué declaración indica que el documento es HTML5?",
+                opciones: ["<!DOCTYPE html>", "<!DOCTYPE HTML5>", '<html version="5">', '<?xml version="1.0"?>'],
+                correcta: 0,
+                explicacion: "HTML5 se declara con <!DOCTYPE html>, sin número de versión."
+            },
+            {
+                tema: "HTML · Estructura",
+                p: "¿Qué atributo de <html> indica el idioma del documento?",
+                opciones: ["lang", "language", "xml:lang", "charset"],
+                correcta: 0,
+                explicacion: "El atributo lang indica el idioma, por ejemplo lang=\"es\"."
+            },
+            {
+                tema: "HTML · Cabecera",
+                p: "¿Qué elemento define el título que aparece en la pestaña?",
+                opciones: ["<meta>", "<title>", "<base>", "<link>"],
+                correcta: 1,
+                explicacion: "<title> se escribe dentro de <head> y nombra la pestaña."
+            },
+            {
+                tema: "HTML · Cabecera",
+                p: "¿Para qué sirve <base href=\"...\">?",
+                opciones: [
+                    "Define el título de la página",
+                    "Indica la dirección raíz para resolver enlaces relativos",
+                    "Carga una hoja de estilos",
+                    "Inserta un icono"
+                ],
+                correcta: 1,
+                explicacion: "<base> fija la dirección base de las rutas relativas del documento."
+            },
+            {
+                tema: "HTML · Cabecera",
+                p: "¿Qué meta etiqueta define las palabras clave del documento?",
+                opciones: [
+                    '<meta name="keywords" content="HTML, CSS">',
+                    '<meta keywords="HTML">',
+                    '<meta content="keywords">',
+                    '<meta http-equiv="keywords">'
+                ],
+                correcta: 0,
+                explicacion: "Se usa name=\"keywords\" con la lista en content."
+            },
+            {
+                tema: "HTML · Cabecera",
+                p: "¿Con qué elemento se enlaza el favicon de la página?",
+                opciones: [
+                    '<img src="favicon.ico">',
+                    '<link rel="icon" href="favicon.ico">',
+                    '<meta name="favicon">',
+                    '<script src="favicon.ico">'
+                ],
+                correcta: 1,
+                explicacion: "El favicon se enlaza con <link> y rel=\"icon\"."
+            },
+            {
+                tema: "HTML · Cabecera",
+                p: "¿Qué atributo indica el archivo de un script externo?",
+                opciones: ["href", "src", "link", "url"],
+                correcta: 1,
+                explicacion: "El atributo src indica la URL del archivo .js."
+            },
+            {
+                tema: "HTML · Cabecera",
+                p: "¿Dónde se coloca normalmente el CSS interno (<style>)?",
+                opciones: [
+                    "Dentro de <head>",
+                    "Dentro de <body> al final",
+                    "En un archivo .js",
+                    "Dentro de <title>"
+                ],
+                correcta: 0,
+                explicacion: "El bloque <style> se incluye en la cabecera, dentro de <head>."
+            },
+            {
+                tema: "HTML · Texto",
+                p: "¿Cuál de estos es un elemento de bloque?",
+                opciones: ["<span>", "<a>", "<div>", "<b>"],
+                correcta: 2,
+                explicacion: "<div> es de bloque; span, a y b son elementos en línea."
+            },
+            {
+                tema: "HTML · Texto",
+                p: "¿Cuál es el encabezado de mayor nivel?",
+                opciones: ["<h6>", "<h1>", "<head>", "<h3>"],
+                correcta: 1,
+                explicacion: "<h1> es el encabezado de mayor nivel; <h6> el menor."
+            },
+            {
+                tema: "HTML · Texto",
+                p: "¿Qué etiqueta inserta un salto de línea?",
+                opciones: ["<hr>", "<br>", "<p>", "<lb>"],
+                correcta: 1,
+                explicacion: "<br> produce un salto de línea sin cerrar el párrafo."
+            },
+            {
+                tema: "HTML · Texto",
+                p: "¿Qué etiqueta dibuja una línea horizontal?",
+                opciones: ["<br>", "<hr>", "<line>", "<p>"],
+                correcta: 1,
+                explicacion: "<hr> inserta una línea horizontal de separación."
+            },
+            {
+                tema: "HTML · Texto",
+                p: "¿Para qué sirve &nbsp;?",
+                opciones: [
+                    "Añadir un espacio que no se usa para salto de línea",
+                    "Crear un salto de línea",
+                    "Poner el texto en negrita",
+                    "Insertar una imagen"
+                ],
+                correcta: 0,
+                explicacion: "&nbsp; es un espacio duro que evita cortes de línea."
+            },
+            {
+                tema: "HTML · Texto",
+                p: "¿Qué etiqueta muestra el texto con estilo de teletipo?",
+                opciones: ["<b>", "<i>", "<tt>", "<u>"],
+                correcta: 2,
+                explicacion: "<tt> muestra el texto con una fuente monoespaciada tipo teletipo."
+            },
+            {
+                tema: "HTML · Listas",
+                p: "¿Qué etiqueta crea una lista no ordenada?",
+                opciones: ["<ol>", "<ul>", "<dl>", "<li>"],
+                correcta: 1,
+                explicacion: "<ul> crea una lista con viñetas; sus elementos son <li>."
+            },
+            {
+                tema: "HTML · Listas",
+                p: "¿Qué etiqueta crea una lista de definiciones?",
+                opciones: ["<dl>", "<ol>", "<ul>", "<menu>"],
+                correcta: 0,
+                explicacion: "<dl> agrupa términos (<dt>) y definiciones (<dd>)."
+            },
+            {
+                tema: "HTML · Listas",
+                p: 'En <ol type="I">, ¿cómo se numeran los elementos?',
+                opciones: [
+                    "Números romanos en mayúscula",
+                    "Letras mayúsculas",
+                    "Números romanos en minúscula",
+                    "Números arábigos"
+                ],
+                correcta: 0,
+                explicacion: "type=\"I\" usa números romanos en mayúscula."
+            },
+            {
+                tema: "HTML · Listas",
+                p: "¿Cómo se anida correctamente una lista dentro de otra?",
+                opciones: [
+                    "<ul> dentro de <li>",
+                    "<ul> directamente dentro de <ul>",
+                    "<li> fuera de la lista",
+                    "<ol> dentro de <head>"
+                ],
+                correcta: 0,
+                explicacion: "La lista interna se coloca dentro del <li> al que pertenece."
+            },
+            {
+                tema: "HTML · Enlaces",
+                p: "¿Cómo se enlaza a un marcador de la misma página?",
+                opciones: [
+                    'href="pagina.html"',
+                    'href="#marcador"',
+                    'href="mailto:marcador"',
+                    'src="#marcador"'
+                ],
+                correcta: 1,
+                explicacion: "El href con # apunta a un ancla o marcador de la misma página."
+            },
+            {
+                tema: "HTML · Enlaces",
+                p: "¿Qué href apunta a otra página del mismo servidor?",
+                opciones: [
+                    'href="https://otro.com/pagina.html"',
+                    'href="./pagina.html"',
+                    'href="#pagina"',
+                    'href="mailto:pagina.html"'
+                ],
+                correcta: 1,
+                explicacion: "Una ruta relativa como ./pagina.html apunta al mismo servidor."
+            },
+            {
+                tema: "HTML · Enlaces",
+                p: '¿Qué hace target="_blank"?',
+                opciones: [
+                    "Abre el enlace en la misma pestaña",
+                    "Abre el enlace en una pestaña o ventana nueva",
+                    "Descarga el archivo",
+                    "Cierra la página actual"
+                ],
+                correcta: 1,
+                explicacion: "_blank abre el destino en una pestaña o ventana nueva."
+            },
+            {
+                tema: "HTML · Enlaces",
+                p: "¿Para qué sirve el atributo name en <a>?",
+                opciones: [
+                    "Para definir el texto visible",
+                    "Para crear un marcador o ancla de destino",
+                    "Para abrir en otra pestaña",
+                    "Para cargar una imagen"
+                ],
+                correcta: 1,
+                explicacion: "name define el nombre del marcador al que se salta con href=\"#nombre\"."
+            },
+            {
+                tema: "HTML · Imágenes",
+                p: "¿Qué formato permite animación?",
+                opciones: ["jpg", "png", "gif", "svg"],
+                correcta: 2,
+                explicacion: "GIF admite animación por fotogramas."
+            },
+            {
+                tema: "HTML · Imágenes",
+                p: "¿Qué formato admite transparencia y compresión sin pérdida?",
+                opciones: ["jpg", "gif", "png", "bmp"],
+                correcta: 2,
+                explicacion: "PNG usa compresión sin pérdida y admite transparencia."
+            },
+            {
+                tema: "HTML · Imágenes",
+                p: "¿Qué atributo asocia una imagen con un mapa de imagen?",
+                opciones: ["src", "alt", "usemap", "ismap"],
+                correcta: 2,
+                explicacion: "usemap indica el mapa de imagen que se aplica a la imagen."
+            },
+            {
+                tema: "HTML · Mapas",
+                p: 'En <area shape="circle">, ¿qué indica coords="x,y,r"?',
+                opciones: [
+                    "Esquina superior izquierda y tamaño",
+                    "Centro del círculo y radio",
+                    "Tres puntos del polígono",
+                    "Ancho y alto de la imagen"
+                ],
+                correcta: 1,
+                explicacion: "En un círculo se indican las coordenadas del centro y el radio."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué atributo de <form> indica la URI que procesa los datos?",
+                opciones: ["action", "method", "target", "enctype"],
+                correcta: 0,
+                explicacion: "action contiene la dirección que recibe y procesa el formulario."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué valores puede tomar method?",
+                opciones: ["get y post", "send y receive", "post y put", "get y set"],
+                correcta: 0,
+                explicacion: "method admite get (datos en la URL) y post (datos en el cuerpo)."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué enctype se usa para subir archivos?",
+                opciones: [
+                    "text/plain",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "application/json"
+                ],
+                correcta: 2,
+                explicacion: "Los archivos se envían con multipart/form-data."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué input oculta los caracteres introducidos?",
+                opciones: ["text", "password", "hidden", "secret"],
+                correcta: 1,
+                explicacion: "type=\"password\" oculta los caracteres en pantalla."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: 'Varios <input type="radio"> con el mismo name...',
+                opciones: [
+                    "Se pueden marcar todos",
+                    "Son excluyentes: solo se puede marcar uno",
+                    "Se convierten en checkbox",
+                    "No se envían con el formulario"
+                ],
+                correcta: 1,
+                explicacion: "Los radios con el mismo name forman un grupo excluyente."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué input permite seleccionar varias opciones independientes?",
+                opciones: ["radio", "checkbox", "submit", "reset"],
+                correcta: 1,
+                explicacion: "Los checkbox permiten marcar varias casillas a la vez."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué elementos agrupan controles y les dan un rótulo?",
+                opciones: [
+                    "<label> y <input>",
+                    "<fieldset> y <legend>",
+                    "<form> y <action>",
+                    "<select> y <option>"
+                ],
+                correcta: 1,
+                explicacion: "<fieldset> agrupa controles y <legend> pone el rótulo del grupo."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué atributo de <select> permite elegir varias opciones?",
+                opciones: ["multiple", "size", "name", "value"],
+                correcta: 0,
+                explicacion: "El atributo multiple permite selección múltiple en un select."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué atributos definen las filas visibles y el ancho de un textarea?",
+                opciones: ["rows y cols", "width y height", "size y maxlength", "lines y chars"],
+                correcta: 0,
+                explicacion: "rows indica filas visibles y cols el ancho en caracteres."
+            },
+            {
+                tema: "HTML · Formularios",
+                p: "¿Qué input envía el formulario?",
+                opciones: ['type="button"', 'type="submit"', 'type="reset"', 'type="text"'],
+                correcta: 1,
+                explicacion: "type=\"submit\" envía los datos del formulario."
+            },
+            {
+                tema: "HTML · Tablas",
+                p: "¿Qué etiqueta define una celda de cabecera?",
+                opciones: ["<td>", "<th>", "<tr>", "<thead>"],
+                correcta: 1,
+                explicacion: "<th> define una celda de cabecera; <td> una celda de datos."
+            },
+            {
+                tema: "HTML · Tablas",
+                p: "¿Qué etiqueta da un título a la tabla?",
+                opciones: ["<title>", "<caption>", "<thead>", "<legend>"],
+                correcta: 1,
+                explicacion: "<caption> es el título asociado a la tabla."
+            },
+            {
+                tema: "HTML · Tablas",
+                p: "¿Qué atributo indica cuántas columnas abarca una celda?",
+                opciones: ["rowspan", "colspan", "span", "merge"],
+                correcta: 1,
+                explicacion: "colspan indica el número de columnas que ocupa la celda."
+            },
+            {
+                tema: "HTML · Tablas",
+                p: "¿Qué atributo indica cuántas filas abarca una celda?",
+                opciones: ["rowspan", "colspan", "span", "height"],
+                correcta: 0,
+                explicacion: "rowspan indica el número de filas que ocupa la celda."
+            },
+            {
+                tema: "HTML · Bloques",
+                p: "¿Qué elemento crea una caja de bloque genérica?",
+                opciones: ["<span>", "<div>", "<a>", "<b>"],
+                correcta: 1,
+                explicacion: "<div> es un contenedor de bloque genérico."
+            },
+            {
+                tema: "HTML · Bloques",
+                p: "¿Qué elemento crea un contenedor en línea?",
+                opciones: ["<div>", "<span>", "<p>", "<section>"],
+                correcta: 1,
+                explicacion: "<span> es un contenedor en línea para agrupar texto."
+            },
+            {
+                tema: "XHTML",
+                p: "¿Qué regla sigue XHTML respecto a las etiquetas?",
+                opciones: [
+                    "Minúsculas y todas cerradas",
+                    "Mayúsculas y opcionales",
+                    "Sin comillas en los atributos",
+                    "Sin anidar etiquetas"
+                ],
+                correcta: 0,
+                explicacion: "XHTML exige minúsculas, cierre de todas las etiquetas y atributos entre comillas."
+            },
+            {
+                tema: "XHTML",
+                p: "¿Cómo se escriben los atributos booleanos en XHTML?",
+                opciones: [
+                    "Solo el nombre: checked",
+                    'Repitiendo el nombre como valor: checked="checked"',
+                    "Con valor true",
+                    "Con valor 1"
+                ],
+                correcta: 1,
+                explicacion: "En XHTML el atributo debe tener valor: checked=\"checked\"."
+            },
+            {
+                tema: "HTML5",
+                p: "¿Qué elemento agrupa los enlaces de navegación?",
+                opciones: ["<header>", "<nav>", "<aside>", "<footer>"],
+                correcta: 1,
+                explicacion: "<nav> agrupa los enlaces principales de navegación."
+            },
+            {
+                tema: "HTML5",
+                p: "¿Qué elemento representa contenido autónomo y reutilizable?",
+                opciones: ["<section>", "<article>", "<div>", "<main>"],
+                correcta: 1,
+                explicacion: "<article> representa una pieza de contenido independiente."
+            },
+            {
+                tema: "HTML5",
+                p: "¿Qué elemento se usa para contenido relacionado indirectamente, como una barra lateral?",
+                opciones: ["<aside>", "<section>", "<article>", "<nav>"],
+                correcta: 0,
+                explicacion: "<aside> agrupa contenido complementario o lateral."
+            },
+            {
+                tema: "HTML5",
+                p: "¿Qué atributo muestra un texto inicial que desaparece al escribir?",
+                opciones: ["value", "placeholder", "label", "title"],
+                correcta: 1,
+                explicacion: "placeholder muestra una pista dentro del campo hasta que se escribe."
+            },
+            {
+                tema: "HTML5",
+                p: "¿Qué tipo de input valida una dirección de correo?",
+                opciones: ['type="text"', 'type="email"', 'type="url"', 'type="mail"'],
+                correcta: 1,
+                explicacion: "type=\"email\" valida el formato de una dirección de correo."
+            },
+            {
+                tema: "CSS · Fundamentos",
+                p: "¿Para qué sirve CSS?",
+                opciones: [
+                    "Para definir la estructura del documento",
+                    "Para dar formato y aspecto separando presentación y contenido",
+                    "Para gestionar la base de datos",
+                    "Para validar formularios"
+                ],
+                correcta: 1,
+                explicacion: "CSS controla la presentación y separa el formato del contenido."
+            },
+            {
+                tema: "CSS · Fundamentos",
+                p: "¿Cómo se puede incluir CSS en una página?",
+                opciones: [
+                    "Solo con archivos externos",
+                    "En línea, interno y externo",
+                    "Solo dentro de <style>",
+                    "Solo con JavaScript"
+                ],
+                correcta: 1,
+                explicacion: "CSS se aplica en línea (style), interno (<style>) o externo (.css)."
+            },
+            {
+                tema: "CSS · Fundamentos",
+                p: "¿Qué orden de prioridad tienen los estilos?",
+                opciones: [
+                    "Externo > interno > en línea",
+                    "En línea > interno > externo",
+                    "Interno > externo > en línea",
+                    "Todos tienen la misma prioridad"
+                ],
+                correcta: 1,
+                explicacion: "El estilo en línea gana al interno, y este al externo."
+            },
+            {
+                tema: "CSS · Fundamentos",
+                p: "¿Qué dos partes tiene una regla CSS?",
+                opciones: ["Selector y declaración", "Etiqueta y atributo", "Propiedad y variable", "Clase e id"],
+                correcta: 0,
+                explicacion: "Una regla tiene un selector y una declaración entre llaves."
+            },
+            {
+                tema: "CSS · Fundamentos",
+                p: "Si una regla CSS tiene un error de sintaxis...",
+                opciones: [
+                    "Se aplica igualmente",
+                    "El navegador ignora esa regla",
+                    "Se detiene la página",
+                    "Solo falla en Chrome"
+                ],
+                correcta: 1,
+                explicacion: "El navegador descarta la regla con errores de sintaxis."
+            },
+            {
+                tema: "CSS · Fundamentos",
+                p: "¿Cómo se escribe un comentario en CSS?",
+                opciones: ["// comentario", "<!-- comentario -->", "/* comentario */", "# comentario"],
+                correcta: 2,
+                explicacion: "Los comentarios CSS van entre /* y */."
+            },
+            {
+                tema: "CSS · Selectores",
+                p: "¿Qué selector selecciona todos los elementos?",
+                opciones: ["*", "#", ".", "all"],
+                correcta: 0,
+                explicacion: "El selector universal * afecta a todos los elementos."
+            },
+            {
+                tema: "CSS · Selectores",
+                p: "¿Qué selector selecciona los párrafos dentro de un div?",
+                opciones: ["div > p", "div p", "div + p", "div.p"],
+                correcta: 1,
+                explicacion: "div p es un selector descendente: cualquier p dentro de div."
+            },
+            {
+                tema: "CSS · Selectores",
+                p: "¿Qué selector selecciona solo los hijos directos?",
+                opciones: ["div p", "div > p", "div + p", "div ~ p"],
+                correcta: 1,
+                explicacion: "El combinador > selecciona hijos directos."
+            },
+            {
+                tema: "CSS · Selectores",
+                p: '¿Qué selector selecciona un elemento con class="aviso"?',
+                opciones: ["#aviso", ".aviso", "aviso", "*aviso"],
+                correcta: 1,
+                explicacion: "Las clases se seleccionan con un punto: .aviso."
+            },
+            {
+                tema: "CSS · Selectores",
+                p: '¿Qué selector selecciona el elemento con id="principal"?',
+                opciones: ["#principal", ".principal", "principal", "*principal"],
+                correcta: 0,
+                explicacion: "Los id se seleccionan con una almohadilla: #principal."
+            },
+            {
+                tema: "CSS · Selectores",
+                p: "¿Cuál es el orden recomendado de las pseudo-clases de enlace?",
+                opciones: [
+                    ":link, :visited, :focus, :hover, :active",
+                    ":hover, :active, :link, :visited",
+                    ":active, :hover, :focus, :link",
+                    ":visited, :link, :active, :hover"
+                ],
+                correcta: 0,
+                explicacion: "El orden LoVe-FHA evita que unas pseudo-clases anulen a otras."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad cambia el color del texto?",
+                opciones: ["background-color", "color", "text-color", "font-color"],
+                correcta: 1,
+                explicacion: "color establece el color del texto."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad alinea el texto?",
+                opciones: ["text-align", "align", "vertical-align", "text-justify"],
+                correcta: 0,
+                explicacion: "text-align alinea el texto: left, right, center o justify."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad transforma el texto a mayúsculas?",
+                opciones: [
+                    "text-transform: uppercase;",
+                    "text-style: uppercase;",
+                    "font-transform: uppercase;",
+                    "text-decoration: uppercase;"
+                ],
+                correcta: 0,
+                explicacion: "text-transform: uppercase convierte el texto a mayúsculas."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad controla el espacio entre letras?",
+                opciones: ["word-spacing", "letter-spacing", "line-height", "text-indent"],
+                correcta: 1,
+                explicacion: "letter-spacing ajusta el espacio entre letras."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad sangra la primera línea de un párrafo?",
+                opciones: ["text-indent", "margin-left", "padding-left", "text-align"],
+                correcta: 0,
+                explicacion: "text-indent aplica una sangría a la primera línea."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad pone una línea bajo el texto?",
+                opciones: [
+                    "text-decoration: underline;",
+                    "text-style: line;",
+                    "font-weight: underline;",
+                    "border-bottom: text;"
+                ],
+                correcta: 0,
+                explicacion: "text-decoration: underline subraya el texto."
+            },
+            {
+                tema: "CSS · Texto",
+                p: "¿Qué propiedad controla el espacio entre líneas?",
+                opciones: ["letter-spacing", "line-height", "word-spacing", "text-indent"],
+                correcta: 1,
+                explicacion: "line-height define la altura de cada línea de texto."
+            },
+            {
+                tema: "CSS · Fuentes",
+                p: "¿Para qué sirve @font-face?",
+                opciones: [
+                    "Para cargar una fuente personalizada",
+                    "Para cambiar el color de la fuente",
+                    "Para importar una hoja de estilos",
+                    "Para definir el tamaño base"
+                ],
+                correcta: 0,
+                explicacion: "@font-face permite declarar y cargar una fuente propia."
+            },
+            {
+                tema: "CSS · Fuentes",
+                p: "¿Para qué sirve @import en CSS?",
+                opciones: [
+                    "Para importar una hoja de estilos externa",
+                    "Para importar una fuente",
+                    "Para importar imágenes",
+                    "Para importar variables"
+                ],
+                correcta: 0,
+                explicacion: "@import incorpora una hoja de estilos externa dentro de otra."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Qué propiedad activa el modelo Flexbox en un contenedor?",
+                opciones: ["display: flex;", "position: flex;", "flex: 1;", "layout: flex;"],
+                correcta: 0,
+                explicacion: "Flexbox se activa con display: flex en el contenedor."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Qué sistema de maquetación es bidimensional (filas y columnas)?",
+                opciones: ["Flexbox", "CSS Grid", "float", "inline-block"],
+                correcta: 1,
+                explicacion: "CSS Grid trabaja en dos dimensiones; Flexbox en una."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Cuál es la sintaxis correcta de una media query?",
+                opciones: [
+                    "@media (max-width: 768px) { ... }",
+                    "@query max-width 768px { ... }",
+                    "media(max-width: 768px) { ... }",
+                    "@media = 768px { ... }"
+                ],
+                correcta: 0,
+                explicacion: "Se escribe @media seguido de la condición entre paréntesis."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Qué etiqueta representa el contenido principal de la página?",
+                opciones: ["<div>", "<main>", "<span>", "<article>"],
+                correcta: 1,
+                explicacion: "<main> identifica el contenido principal del documento."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Qué atributo proporciona un texto alternativo a una imagen?",
+                opciones: ["src", "alt", "title", "longdesc"],
+                correcta: 1,
+                explicacion: "alt describe la imagen para lectores de pantalla y si no carga."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Cómo se asocia un <label> con su campo de formulario?",
+                opciones: [
+                    "Con el atributo name",
+                    "Con for igual al id del campo",
+                    "Con el atributo class",
+                    "Con la etiqueta link"
+                ],
+                correcta: 1,
+                explicacion: "El atributo for del label debe coincidir con el id del control."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Qué unidad es relativa al tamaño de fuente del elemento raíz?",
+                opciones: ["px", "em", "rem", "pt"],
+                correcta: 2,
+                explicacion: "rem equivale al font-size del elemento raíz (html)."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Cómo se declara una variable CSS?",
+                opciones: ["$nombre: valor;", "@nombre: valor;", "--nombre: valor;", "var(--nombre): valor;"],
+                correcta: 2,
+                explicacion: "Las variables se declaran con --nombre y se usan con var(--nombre)."
+            },
+            {
+                tema: "DIV · Maquetación",
+                p: "¿Para qué sirve prefers-reduced-motion en una media query?",
+                opciones: [
+                    "Para cargar imágenes más rápido",
+                    "Para cambiar el idioma del documento",
+                    "Para reducir animaciones si el usuario lo prefiere",
+                    "Para activar el modo oscuro"
+                ],
+                correcta: 2,
+                explicacion: "Permite respetar la preferencia de reducir movimiento del usuario."
+            }
+        ];
+
+        const quiz = document.getElementById('quiz');
+        const resultado = document.getElementById('resultado');
+
+        document.getElementById('total').textContent = preguntas.length;
+
+        function renderizar() {
+            quiz.innerHTML = '';
+            preguntas.forEach((q, i) => {
+                const bloque = document.createElement('section');
+                bloque.className = 'pregunta';
+                bloque.id = 'pregunta-' + i;
+
+                const tema = document.createElement('span');
+                tema.className = 'tema';
+                tema.textContent = q.tema;
+                bloque.appendChild(tema);
+
+                const titulo = document.createElement('h3');
+                titulo.textContent = (i + 1) + '. ' + q.p;
+                bloque.appendChild(titulo);
+
+                q.opciones.forEach((opcion, j) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = 'q' + i;
+                    radio.value = j;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(' ' + opcion));
+                    bloque.appendChild(label);
+                });
+
+                const explicacion = document.createElement('p');
+                explicacion.className = 'explicacion';
+                explicacion.id = 'explicacion-' + i;
+                explicacion.hidden = true;
+                bloque.appendChild(explicacion);
+
+                quiz.appendChild(bloque);
+            });
+            resultado.innerHTML = '';
+        }
+
+        function corregir() {
+            let aciertos = 0;
+            const porTema = {};
+
+            preguntas.forEach((q, i) => {
+                const bloque = document.getElementById('pregunta-' + i);
+                const explicacion = document.getElementById('explicacion-' + i);
+                const marcada = quiz.querySelector('input[name="q' + i + '"]:checked');
+                const valor = marcada ? Number(marcada.value) : -1;
+
+                if (!porTema[q.tema]) {
+                    porTema[q.tema] = { aciertos: 0, total: 0 };
+                }
+                porTema[q.tema].total++;
+
+                bloque.classList.remove('correcta', 'incorrecta');
+                if (valor === q.correcta) {
+                    aciertos++;
+                    porTema[q.tema].aciertos++;
+                    bloque.classList.add('correcta');
+                } else {
+                    bloque.classList.add('incorrecta');
+                }
+
+                explicacion.textContent = (valor === q.correcta ? 'Correcto. ' : 'Incorrecto. ')
+                    + q.explicacion;
+                explicacion.hidden = false;
+            });
+
+            const resumen = Object.keys(porTema).map((tema) =>
+                '<div class="resumen-tema">' + tema + ': '
+                + porTema[tema].aciertos + '/' + porTema[tema].total + '</div>'
+            ).join('');
+
+            resultado.innerHTML = '<div><strong>Resultado: ' + aciertos + ' / ' + preguntas.length
+                + ' (' + Math.round((aciertos / preguntas.length) * 100) + '%)</strong></div>'
+                + resumen;
+        }
+
+        document.getElementById('corregir').addEventListener('click', corregir);
+        document.getElementById('reiniciar').addEventListener('click', renderizar);
+
+        renderizar();
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 3: Responsive (solución)</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        :root {
+            --principal: #0b4f6c;
+            --fondo: #f4f6f9;
+            --texto: #102a43;
+            --espacio: 1.5rem;
+            --borde: #d3e0e8;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+        }
+
+        header {
+            background: var(--principal);
+            color: #fff;
+            padding: var(--espacio);
+        }
+
+        .contenedor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: var(--espacio);
+        }
+
+        .caja {
+            background: #fff;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+        }
+
+        @media (max-width: 768px) {
+            .contenedor {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Práctica de diseño responsive</h1>
+        <p>Redimensiona la ventana para ver el cambio.</p>
+    </header>
+
+    <main class="contenedor">
+        <section class="caja">
+            <h2>Columna 1</h2>
+            <p>En escritorio ocupa la mitad del ancho.</p>
+        </section>
+        <section class="caja">
+            <h2>Columna 2</h2>
+            <p>En móvil pasa debajo de la columna 1.</p>
+        </section>
+    </main>
+</body>
+</html>

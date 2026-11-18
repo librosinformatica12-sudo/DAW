@@ -110,7 +110,12 @@ function esValorValido(valor)
 {
     /*EJERCICIO 3 -Elabora una función que devuelva true o false. Se debe devolver true
      si el valor es del 1 al 100*/
-    return valor >= 1 && valor <= 100;
+    if (valor >= 1 && valor <= 100)
+        return true;
+    else {
+        return false;       
+
+    }
 }
 
 function calcularPuntuacion(vertical, horizontal)
@@ -160,7 +165,7 @@ function anadirAlHistorial(vertical, horizontal, potencia, impactoVertical, impa
     //           - se lanzó, hacia qué componente vertical y horizontal se apuntó, que potencia se utilizó
     //           - y qué puntos se sacaron.
 
-    //texto = ........
+    texto = "ver: " + vertical + "hor" + horizontal + ""
 
     registro.innerText = texto;
     historialTiros.appendChild(registro);
@@ -185,14 +190,17 @@ function reiniciarPartida()
     //              Por ejemplo: volver al numeroLanzamiento 1, reiniciar a 0 la puntuacion,
     //              colocar los textos como estaban al principio, habilitar inputs otra vez.
     
-    //???? = ????
-    //???? = ????
-    //???? = ????
-    //???? = ????
-    //???? = ????
-    //........
-
-
+    botonLanzar.disabled = false;
+    botonReiniciar.hidden = true;
+    entradaVertical.disabled = false;
+    entradaHorizontal.disabled = false;
+    entradaPotencia.disabled = false;
+    mensajeFinal.innerText = "";
+    textoLanzamiento.innerText = "1";
+    let numeroLanzamiento = 1;
+    let puntuacionTotal = 0;
+    let vientoVertical = 0;
+    let vientoHorizontal = 0;
 
     cambiarViento();
 }

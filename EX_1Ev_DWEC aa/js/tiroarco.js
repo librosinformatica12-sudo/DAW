@@ -197,10 +197,9 @@ function reiniciarPartida()
     entradaPotencia.disabled = false;
     mensajeFinal.innerText = "";
     textoLanzamiento.innerText = "1";
-    let numeroLanzamiento = 1;
-    let puntuacionTotal = 0;
-    let vientoVertical = 0;
-    let vientoHorizontal = 0;
+    numeroLanzamiento = 1;
+    puntuacionTotal = 0;
+
 
     cambiarViento();
 }

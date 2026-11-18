@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>17 · Tablas con imágenes</title>
+  <link rel="stylesheet" href="estilo.css">
+  <style>
+    .warhol-tabla {
+      width: min(100%, 560px);
+      table-layout: fixed;
+      border: 8px solid #111;
+      background: #111;
+      margin: 1rem auto;
+    }
+    .warhol-tabla caption {
+      caption-side: top;
+      text-align: center;
+      background: #111;
+      color: #fff;
+      padding: .65rem;
+      font-weight: 800;
+    }
+    .warhol-tabla td {
+      padding: 0;
+      border: 4px solid #111;
+      background: #fff;
+      text-align: center;
+    }
+    .warhol-tabla img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .f1 { filter: sepia(1) saturate(4) hue-rotate(300deg) contrast(1.1); }
+    .f2 { filter: grayscale(1) contrast(1.5); }
+    .f3 { filter: hue-rotate(90deg) saturate(2.4); }
+    .f4 { filter: invert(1) hue-rotate(180deg); }
+    .f5 { filter: sepia(1) saturate(5) hue-rotate(120deg); }
+    .f6 { filter: brightness(1.12) contrast(1.35) saturate(1.9); }
+    .f7 { filter: hue-rotate(210deg) saturate(2.2); }
+    .f8 { filter: sepia(1) saturate(3) hue-rotate(25deg); }
+    .f9 { filter: grayscale(1) invert(1); }
+  </style>
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">17 · PDF 107</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Tablas con imágenes: efecto Warhol</h1>
+    <p class="enunciado">Coloca una misma imagen en una tabla de 3 × 3 y aplica un filtro CSS distinto a cada copia para conseguir un efecto pop art inspirado en Andy Warhol.</p>
+
+    <div class="pista"><strong>Una sola imagen:</strong> todas las celdas usan el mismo archivo <code>warhol.svg</code>. Lo que cambia es la clase CSS de cada imagen, que aplica <code>filter</code> con combinaciones de tono, saturación, sepia, brillo e inversión.</div>
+
+    <section class="demo">
+      <table class="tabla warhol-tabla">
+        <caption>Retrato pop art · 3 × 3</caption>
+        <tbody>
+          <tr>
+            <td><img class="f1" src="warhol.svg" alt="Retrato con filtro rosa"></td>
+            <td><img class="f2" src="warhol.svg" alt="Retrato en blanco y negro"></td>
+            <td><img class="f3" src="warhol.svg" alt="Retrato con filtro verde"></td>
+          </tr>
+          <tr>
+            <td><img class="f4" src="warhol.svg" alt="Retrato invertido"></td>
+            <td><img class="f5" src="warhol.svg" alt="Retrato con filtro sepia"></td>
+            <td><img class="f6" src="warhol.svg" alt="Retrato con filtro brillante"></td>
+          </tr>
+          <tr>
+            <td><img class="f7" src="warhol.svg" alt="Retrato con filtro azul"></td>
+            <td><img class="f8" src="warhol.svg" alt="Retrato con filtro cálido"></td>
+            <td><img class="f9" src="warhol.svg" alt="Retrato en negativo"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li>Imágenes dentro de celdas</li>
+      <li>Tabla de 3 filas y 3 columnas</li>
+      <li><code>table-layout: fixed</code></li>
+      <li>Filtros CSS con <code>filter</code></li>
+      <li>Combinaciones de <code>hue-rotate</code></li>
+      <li><code>saturate</code>, <code>sepia</code> e <code>invert</code></li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;table class="warhol-tabla"&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img class="f1" src="warhol.svg" alt="Retrato rosa"&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img class="f2" src="warhol.svg" alt="Retrato en gris"&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img class="f3" src="warhol.svg" alt="Retrato verde"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;style&gt;
+  .warhol-tabla img { width: 100%; display: block; }
+  .f1 { filter: sepia(1) saturate(4) hue-rotate(300deg); }
+  .f2 { filter: grayscale(1) contrast(1.5); }
+  .f3 { filter: hue-rotate(90deg) saturate(2.4); }
+&lt;/style&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

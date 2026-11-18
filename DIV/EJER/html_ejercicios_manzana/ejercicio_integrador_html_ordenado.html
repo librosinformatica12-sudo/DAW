@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Proyecto pr&aacute;ctico de HTML: gu&iacute;a tur&iacute;stica con enlaces, im&aacute;genes, mapas, formularios y tablas." name="description"/>
+  <meta content="Alumno/a" name="author"/>
+  <title>
+   Explora Espa&ntilde;a | Gu&iacute;a tur&iacute;stica
+  </title>
+  <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E" rel="icon"/>
+  <style>
+   :root {
+      --azul: #173b57;
+      --azul-claro: #e8f2f8;
+      --turquesa: #0f8b8d;
+      --coral: #f07858;
+      --fondo: #f5f7fa;
+      --texto: #263442;
+      --blanco: #fff;
+      --sombra: 0 12px 30px rgba(23,59,87,.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6; color: var(--texto); background: var(--fondo);
+    }
+    header {
+      color: white; padding: 58px 22px 46px;
+      background: linear-gradient(125deg, #173b57, #0f8b8d);
+    }
+    .contenedor { width: min(1100px, 92%); margin: auto; }
+    .barra { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+    .marca { font-weight:800; letter-spacing:.5px; font-size:1.2rem; }
+    nav { display:flex; gap:9px; flex-wrap:wrap; }
+    nav a {
+      color:white; text-decoration:none; padding:8px 12px; border-radius:20px;
+      background:rgba(255,255,255,.13); font-size:.92rem;
+    }
+    nav a:hover, nav a:focus { background:white; color:var(--azul); }
+    .hero { max-width:720px; padding-top:45px; }
+    .hero h1 { font-size:clamp(2.3rem,6vw,4.5rem); line-height:1.05; margin:0 0 16px; }
+    .hero p { font-size:1.12rem; color:#e7f3f4; }
+    .boton {
+      display:inline-block; background:var(--coral); color:white; text-decoration:none;
+      padding:12px 19px; border-radius:9px; font-weight:bold; margin-top:10px;
+    }
+    main { padding:30px 0 60px; }
+    section { background:white; margin:22px 0; padding:28px; border-radius:17px; box-shadow:var(--sombra); }
+    h2 { color:var(--azul); margin-top:0; font-size:1.8rem; }
+    h3 { color:var(--turquesa); }
+    .etiqueta { color:var(--turquesa); font-weight:bold; text-transform:uppercase; letter-spacing:1px; font-size:.76rem; }
+    .rejilla { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; }
+    .tarjeta { border:1px solid #e5edf2; border-radius:13px; overflow:hidden; background:#fff; }
+    .tarjeta img { width:100%; height:155px; object-fit:cover; display:block; }
+    .tarjeta-contenido { padding:16px; }
+    .tarjeta h3 { margin:0 0 7px; }
+    .nota { background:var(--azul-claro); border-left:4px solid var(--turquesa); padding:13px 16px; border-radius:7px; }
+    .dos-columnas { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .mapa-marco { overflow-x:auto; background:#edf4f5; border-radius:12px; padding:10px; }
+    .mapa-marco img { display:block; width:100%; max-width:800px; height:auto; margin:auto; }
+    table { width:100%; border-collapse:collapse; margin-top:14px; }
+    caption { text-align:left; font-weight:bold; color:var(--azul); padding:10px 0; }
+    th, td { border:1px solid #d7e1e8; padding:11px; text-align:left; }
+    thead { background:var(--azul); color:white; }
+    tbody tr:nth-child(even) { background:#f1f6f8; }
+    tfoot { background:#e8f2f8; font-weight:bold; }
+    form { display:grid; gap:17px; }
+    fieldset { border:1px solid #d7e1e8; border-radius:11px; padding:17px; }
+    legend { color:var(--azul); font-weight:bold; padding:0 7px; }
+    .campo { display:grid; gap:6px; margin:10px 0; }
+    input, select, textarea {
+      width:100%; padding:11px; border:1px solid #bdcbd5; border-radius:8px;
+      font:inherit; background:white;
+    }
+    input[type=checkbox], input[type=radio], input[type=file] { width:auto; }
+    .opciones { display:flex; flex-wrap:wrap; gap:15px; }
+    .opciones label { display:flex; align-items:center; gap:7px; }
+    .acciones { display:flex; gap:10px; flex-wrap:wrap; }
+    button {
+      border:0; border-radius:8px; padding:12px 18px; cursor:pointer;
+      font:inherit; font-weight:bold; background:var(--turquesa); color:white;
+    }
+    button[type=reset] { background:#687987; }
+    button:hover { filter:brightness(.92); }
+    .solo-lectura { max-width:220px; background:#eef2f5; }
+    .resaltado { color:var(--coral); font-weight:bold; }
+    footer { text-align:center; padding:28px 15px; color:#dbe8ed; background:var(--azul); }
+    footer a { color:white; }
+    @media (max-width:700px) {
+      .dos-columnas { grid-template-columns:1fr; }
+      section { padding:20px; }
+      .barra { align-items:flex-start; }
+    }
+  </style>
+ </head>
+ <body>
+  <header id="inicio">
+   <div class="contenedor">
+    <div class="barra">
+     <div class="marca">
+      🧭 EXPLORA ESPA&Ntilde;A
+     </div>
+     <nav aria-label="Navegaci&oacute;n principal">
+      <a href="#destinos">
+       Destinos
+      </a>
+      <a href="#mapa">
+       Mapa
+      </a>
+      <a href="#agenda">
+       Agenda
+      </a>
+      <a href="#reserva">
+       Reserva
+      </a>
+     </nav>
+    </div>
+    <div class="hero">
+     <p class="etiqueta">
+      Proyecto pr&aacute;ctico de HTML
+     </p>
+     <h1>
+      Tu pr&oacute;xima aventura empieza aqu&iacute;.
+     </h1>
+     <p>
+      Una gu&iacute;a para descubrir lugares, organizar una escapada y compartir tus preferencias. Este ejercicio re&uacute;ne los principales elementos estudiados de HTML.
+     </p>
+     <a class="boton" href="#destinos">
+      Descubrir destinos &darr;
+     </a>
+    </div>
+   </div>
+  </header>
+  <main class="contenedor">
+   <section id="presentacion">
+    <p class="etiqueta">
+     01 &middot; Estructura y texto
+    </p>
+    <h2>
+     Bienvenido a nuestra gu&iacute;a
+    </h2>
+    <p>
+     Espa&ntilde;a re&uacute;ne ciudades hist&oacute;ricas, playas, monta&ntilde;as y una gastronom&iacute;a muy variada. En esta p&aacute;gina utilizamos t&iacute;tulos, p&aacute;rrafos, saltos de l&iacute;nea y elementos de formato.
+    </p>
+    <p>
+     <strong>
+      Consejo:
+     </strong>
+     prepara tu viaje con tiempo.
+     <em>
+      Viajar tambi&eacute;n es aprender.
+     </em>
+     Nuestro destino destacado es
+     <span class="resaltado" title="Destino recomendado">
+      Madrid
+     </span>
+     .
+    </p>
+    <div class="nota">
+     <strong>
+      &iquest;Qu&eacute; vas a practicar?
+     </strong>
+     La estructura de un documento, la cabecera, el cuerpo, listas, enlaces, im&aacute;genes, mapas de im&aacute;genes, formularios, tablas y contenedores.
+    </div>
+   </section>
+   <section id="destinos">
+    <p class="etiqueta">
+     02 &middot; Bloques, im&aacute;genes y listas
+    </p>
+    <h2>
+     Destinos recomendados
+    </h2>
+    <div class="rejilla">
+     <article class="tarjeta">
+      <img alt="Vista panor&aacute;mica de Madrid" src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="tarjeta-contenido">
+       <h3>
+        Madrid
+       </h3>
+       <p>
+        Una ciudad llena de museos, plazas y vida cultural.
+       </p>
+       <a href="https://www.madrid.es/" rel="noopener" target="_blank">
+        Web oficial de Madrid
+       </a>
+      </div>
+     </article>
+     <article class="tarjeta">
+      <img alt="Arquitectura y costa de Valencia" src="https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="tarjeta-contenido">
+       <h3>
+        Valencia
+       </h3>
+       <p>
+        Combina arquitectura, playa y gastronom&iacute;a mediterr&aacute;nea.
+       </p>
+       <a href="https://www.valencia.es/" rel="noopener" target="_blank">
+        Web oficial de Valencia
+       </a>
+      </div>
+     </article>
+     <article class="tarjeta">
+      <img alt="Paisaje de las Islas Canarias" src="https://images.unsplash.com/photo-1514238485-7a5c9b4b4f9b?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+      <div class="tarjeta-contenido">
+       <h3>
+        Canarias
+       </h3>
+       <p>
+        Un archipi&eacute;lago de paisajes volc&aacute;nicos y playas.
+       </p>
+       <a href="https://www.hellocanaryislands.com/" rel="noopener" target="_blank">
+        Turismo de Canarias
+       </a>
+      </div>
+     </article>
+    </div>
+    <div class="dos-columnas" style="margin-top:24px">
+     <div>
+      <h3>
+       Qu&eacute; llevar en la maleta
+      </h3>
+      <ul>
+       <li>
+        Documentaci&oacute;n y reservas
+       </li>
+       <li>
+        Ropa adecuada al clima
+       </li>
+       <li>
+        Cargador y tel&eacute;fono
+       </li>
+       <li>
+        Calzado c&oacute;modo
+       </li>
+      </ul>
+     </div>
+     <div>
+      <h3>
+       C&oacute;mo preparar el viaje
+      </h3>
+      <ol type="A">
+       <li>
+        Elegir el destino
+       </li>
+       <li>
+        Consultar el transporte
+       </li>
+       <li>
+        Reservar alojamiento
+       </li>
+       <li>
+        Preparar la maleta
+       </li>
+      </ol>
+     </div>
+    </div>
+    <h3>
+     Peque&ntilde;o glosario
+    </h3>
+    <dl>
+     <dt>
+      <strong>
+       Destino
+      </strong>
+     </dt>
+     <dd>
+      Lugar al que se realiza un viaje.
+     </dd>
+     <dt>
+      <strong>
+       Itinerario
+      </strong>
+     </dt>
+     <dd>
+      Plan o recorrido de un viaje.
+     </dd>
+     <dt>
+      <strong>
+       Reserva
+      </strong>
+     </dt>
+     <dd>
+      Solicitud anticipada de una plaza o servicio.
+     </dd>
+    </dl>
+   </section>
+   <section id="enlaces">
+    <p class="etiqueta">
+     03 &middot; Enlaces
+    </p>
+    <h2>
+     Navega por la p&aacute;gina
+    </h2>
+    <p>
+     Los enlaces permiten saltar a otra zona de la misma p&aacute;gina, abrir otra p&aacute;gina del mismo sitio o visitar una web externa.
+    </p>
+    <ul>
+     <li>
+      <a href="#reserva">
+       Enlace interno: ir al formulario de reserva
+      </a>
+     </li>
+     <li>
+      <a href="./otra-pagina.html">
+       Enlace a otra p&aacute;gina del mismo sitio (ejemplo)
+      </a>
+     </li>
+     <li>
+      <a href="https://www.spain.info/es/" rel="noopener" target="_blank">
+       Enlace externo que abre una pesta&ntilde;a nueva
+      </a>
+     </li>
+    </ul>
+    <p class="nota">
+     El atributo
+     <code>
+      href
+     </code>
+     indica el destino. El atributo
+     <code>
+      target="_blank"
+     </code>
+     abre el enlace en otra pesta&ntilde;a. Los atributos
+     <code>
+      id
+     </code>
+     y
+     <code>
+      name
+     </code>
+     pueden identificar destinos; en HTML actual se utiliza habitualmente
+     <code>
+      id
+     </code>
+     .
+    </p>
+   </section>
+   <section id="mapa">
+    <p class="etiqueta">
+     04 &middot; Im&aacute;genes y mapa de im&aacute;genes
+    </p>
+    <h2>
+     Explora el mapa interactivo
+    </h2>
+    <p>
+     Haz clic en una de las zonas se&ntilde;aladas. El mapa utiliza
+     <code>
+      img
+     </code>
+     ,
+     <code>
+      map
+     </code>
+     y varias etiquetas
+     <code>
+      area
+     </code>
+     con formas rectangulares y circulares.
+    </p>
+    <div class="mapa-marco">
+     <img alt="Mapa esquem&aacute;tico interactivo con zonas de Madrid, Valencia y Canarias" height="400" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' rx='20' fill='%23dceef2'/%3E%3Cpath d='M115 95 L270 55 L420 90 L535 65 L685 130 L650 280 L500 330 L350 300 L205 340 L95 235 Z' fill='%23a8cda9' stroke='%233d806d' stroke-width='8'/%3E%3Cpath d='M260 90 L360 110 L345 220 L230 235 Z' fill='%23f3c77b' stroke='%23fff' stroke-width='5'/%3E%3Cpath d='M420 105 L560 105 L600 225 L470 245 Z' fill='%23f29a7b' stroke='%23fff' stroke-width='5'/%3E%3Ccircle cx='180' cy='190' r='35' fill='%2377b8d1' stroke='%23fff' stroke-width='5'/%3E%3Ctext x='400' y='30' text-anchor='middle' font-family='Arial' font-size='22' font-weight='bold' fill='%23173b57'%3EMAPA DE DESTINOS%3C/text%3E%3Ctext x='290' y='170' text-anchor='middle' font-family='Arial' font-size='20' fill='%23173b57'%3EMADRID%3C/text%3E%3Ctext x='510' y='180' text-anchor='middle' font-family='Arial' font-size='20' fill='%23173b57'%3EVALENCIA%3C/text%3E%3Ctext x='180' y='250' text-anchor='middle' font-family='Arial' font-size='15' fill='%23173b57'%3ECANARIAS%3C/text%3E%3C/svg%3E" usemap="#mapa-destinos" width="800"/>
+     <map id="mapa-destinos" name="mapa-destinos">
+      <area alt="Madrid" coords="230,90,365,240" href="https://www.madrid.es/" shape="rect" target="_blank" title="Visitar Madrid"/>
+      <area alt="Valencia" coords="420,100,610,255" href="https://www.valencia.es/" shape="rect" target="_blank" title="Visitar Valencia"/>
+      <area alt="Islas Canarias" coords="180,190,40" href="https://www.hellocanaryislands.com/" shape="circle" target="_blank" title="Visitar Canarias"/>
+     </map>
+    </div>
+    <p class="nota">
+     En
+     <code>
+      shape
+     </code>
+     se indica la forma:
+     <code>
+      rect
+     </code>
+     (rect&aacute;ngulo),
+     <code>
+      circle
+     </code>
+     (c&iacute;rculo),
+     <code>
+      poly
+     </code>
+     (pol&iacute;gono) o
+     <code>
+      default
+     </code>
+     . En
+     <code>
+      coords
+     </code>
+     se escriben las coordenadas. Cada &aacute;rea puede incluir
+     <code>
+      href
+     </code>
+     ,
+     <code>
+      alt
+     </code>
+     ,
+     <code>
+      title
+     </code>
+     y
+     <code>
+      target
+     </code>
+     .
+    </p>
+   </section>
+   <section id="agenda">
+    <p class="etiqueta">
+     05 &middot; Tablas
+    </p>
+    <h2>
+     Agenda de actividades
+    </h2>
+    <p>
+     La tabla se divide en cabecera, cuerpo y pie. Tambi&eacute;n se muestra un ejemplo de combinaci&oacute;n de celdas mediante
+     <code>
+      colspan
+     </code>
+     .
+    </p>
+    <table>
+     <caption>
+      Actividades propuestas para el fin de semana
+     </caption>
+     <thead>
+      <tr>
+       <th scope="col">
+        D&iacute;a
+       </th>
+       <th scope="col">
+        Ma&ntilde;ana
+       </th>
+       <th scope="col">
+        Tarde
+       </th>
+       <th scope="col">
+        Ciudad
+       </th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr>
+       <th scope="row">
+        S&aacute;bado
+       </th>
+       <td>
+        Visita guiada
+       </td>
+       <td>
+        Museo
+       </td>
+       <td>
+        Madrid
+       </td>
+      </tr>
+      <tr>
+       <th scope="row">
+        Domingo
+       </th>
+       <td>
+        Ruta a pie
+       </td>
+       <td>
+        Tiempo libre
+       </td>
+       <td>
+        Valencia
+       </td>
+      </tr>
+      <tr>
+       <th scope="row">
+        Lunes
+       </th>
+       <td colspan="2">
+        Excursi&oacute;n de d&iacute;a completo
+       </td>
+       <td>
+        Canarias
+       </td>
+      </tr>
+     </tbody>
+     <tfoot>
+      <tr>
+       <td colspan="3">
+        Total de actividades programadas
+       </td>
+       <td>
+        5
+       </td>
+      </tr>
+     </tfoot>
+    </table>
+    <p>
+     <small>
+      Etiquetas utilizadas:
+      <code>
+       table
+      </code>
+      ,
+      <code>
+       caption
+      </code>
+      ,
+      <code>
+       thead
+      </code>
+      ,
+      <code>
+       tbody
+      </code>
+      ,
+      <code>
+       tfoot
+      </code>
+      ,
+      <code>
+       tr
+      </code>
+      ,
+      <code>
+       th
+      </code>
+      y
+      <code>
+       td
+      </code>
+      . Para combinar celdas se usan
+      <code>
+       colspan
+      </code>
+      (columnas) y
+      <code>
+       rowspan
+      </code>
+      (filas).
+     </small>
+    </p>
+   </section>
+   <section id="reserva">
+    <p class="etiqueta">
+     06 &middot; Formularios
+    </p>
+    <h2>
+     Solicita informaci&oacute;n de tu viaje
+    </h2>
+    <p>
+     Este formulario re&uacute;ne diferentes controles de entrada. Es una demostraci&oacute;n de HTML: al enviarlo no se guardan datos en ning&uacute;n servidor.
+    </p>
+    <form action="#" enctype="multipart/form-data" method="post" onsubmit="event.preventDefault(); alert('&iexcl;Formulario de ejemplo completado! No se han enviado datos a ning&uacute;n servidor.');">
+     <fieldset>
+      <legend>
+       Datos personales
+      </legend>
+      <div class="campo">
+       <label for="nombre">
+        Nombre completo
+       </label>
+       <input id="nombre" maxlength="60" name="usuario" placeholder="Escribe tu nombre" required="" type="text"/>
+      </div>
+      <div class="campo">
+       <label for="correo">
+        Correo electr&oacute;nico
+       </label>
+       <input id="correo" name="correo" placeholder="nombre@ejemplo.com" required="" type="email"/>
+      </div>
+      <div class="campo">
+       <label for="clave">
+        Contrase&ntilde;a de ejemplo
+       </label>
+       <input id="clave" name="pass" placeholder="No uses una contrase&ntilde;a real" type="password"/>
+      </div>
+      <div class="campo">
+       <label for="codigo">
+        C&oacute;digo de reserva (solo lectura)
+       </label>
+       <input class="solo-lectura" id="codigo" name="codigo" readonly="" type="text" value="EXP-2026-001"/>
+      </div>
+     </fieldset>
+     <fieldset>
+      <legend>
+       Preferencias del viaje
+      </legend>
+      <div class="campo">
+       <label for="destino">
+        Destino preferido
+       </label>
+       <select id="destino" name="destino">
+        <optgroup label="Ciudades">
+         <option selected="" value="madrid">
+          Madrid
+         </option>
+         <option value="valencia">
+          Valencia
+         </option>
+        </optgroup>
+        <optgroup label="Islas">
+         <option value="canarias">
+          Islas Canarias
+         </option>
+         <option value="mallorca">
+          Mallorca
+         </option>
+        </optgroup>
+       </select>
+      </div>
+      <div class="campo">
+       <span>
+        Tipo de viaje (elige uno)
+       </span>
+       <div class="opciones">
+        <label>
+         <input checked="" name="tipo" type="radio" value="cultural"/>
+         Cultural
+        </label>
+        <label>
+         <input name="tipo" type="radio" value="playa"/>
+         Playa
+        </label>
+        <label>
+         <input name="tipo" type="radio" value="naturaleza"/>
+         Naturaleza
+        </label>
+       </div>
+      </div>
+      <div class="campo">
+       <span>
+        Actividades que te interesan (puedes elegir varias)
+       </span>
+       <div class="opciones">
+        <label>
+         <input checked="" name="actividades[]" type="checkbox" value="museos"/>
+         Museos
+        </label>
+        <label>
+         <input name="actividades[]" type="checkbox" value="comida"/>
+         Gastronom&iacute;a
+        </label>
+        <label>
+         <input name="actividades[]" type="checkbox" value="deporte"/>
+         Deporte
+        </label>
+       </div>
+      </div>
+      <div class="campo">
+       <label for="fecha">
+        Fecha aproximada
+       </label>
+       <input id="fecha" name="fecha" type="date"/>
+      </div>
+      <div class="campo">
+       <label for="personas">
+        N&uacute;mero de viajeros
+       </label>
+       <input id="personas" max="20" min="1" name="personas" type="number" value="2"/>
+      </div>
+      <div class="campo">
+       <label for="comentarios">
+        Cu&eacute;ntanos qu&eacute; necesitas
+       </label>
+       <textarea cols="40" id="comentarios" name="comentarios" placeholder="Escribe aqu&iacute; tus preferencias..." rows="4"></textarea>
+      </div>
+      <div class="campo">
+       <label for="archivo">
+        Adjuntar un documento (ejemplo de type=file)
+       </label>
+       <input accept=".pdf,.jpg,.png" id="archivo" name="documento" type="file"/>
+      </div>
+      <input name="origen" type="hidden" value="pagina-guia"/>
+     </fieldset>
+     <div class="acciones">
+      <button type="submit">
+       Enviar solicitud
+      </button>
+      <button type="reset">
+       Restablecer formulario
+      </button>
+      <button onclick="alert('Este es un bot&oacute;n gen&eacute;rico de ejemplo.')" type="button">
+       Bot&oacute;n normal
+      </button>
+     </div>
+    </form>
+    <p class="nota">
+     En un formulario,
+     <code>
+      action
+     </code>
+     indica d&oacute;nde se env&iacute;an los datos y
+     <code>
+      method
+     </code>
+     puede ser
+     <code>
+      get
+     </code>
+     o
+     <code>
+      post
+     </code>
+     . Los controles usan
+     <code>
+      name
+     </code>
+     para identificar los datos.
+     <code>
+      submit
+     </code>
+     env&iacute;a,
+     <code>
+      reset
+     </code>
+     restaura y
+     <code>
+      hidden
+     </code>
+     no se muestra.
+    </p>
+   </section>
+   <section id="contenedores">
+    <p class="etiqueta">
+     07 &middot; Organizaci&oacute;n del contenido
+    </p>
+    <h2>
+     Bloques y elementos en l&iacute;nea
+    </h2>
+    <div class="dos-columnas">
+     <div class="nota">
+      <h3>
+       Elemento div
+      </h3>
+      <p>
+       <code>
+        div
+       </code>
+       es un contenedor de bloque. Agrupa secciones y otros elementos, y permite organizarlos con CSS.
+      </p>
+     </div>
+     <div class="nota">
+      <h3>
+       Elemento span
+      </h3>
+      <p>
+       <code>
+        span
+       </code>
+       es un contenedor en l&iacute;nea. Sirve para aplicar estilo a una parte del texto, como este
+       <span class="resaltado">
+        fragmento resaltado
+       </span>
+       .
+      </p>
+     </div>
+    </div>
+    <p>
+     Los elementos de bloque suelen comenzar en una l&iacute;nea nueva y pueden contener otros bloques y elementos en l&iacute;nea. Los elementos en l&iacute;nea ocupan solo el espacio necesario y normalmente contienen texto u otros elementos en l&iacute;nea.
+    </p>
+   </section>
+   <section id="repaso">
+    <p class="etiqueta">
+     08 &middot; Repaso de estructura
+    </p>
+    <h2>
+     &iquest;Qu&eacute; partes tiene un documento HTML?
+    </h2>
+    <ol>
+     <li>
+      <code>
+       &lt;!DOCTYPE html&gt;
+      </code>
+      : declara el tipo de documento HTML5.
+     </li>
+     <li>
+      <code>
+       &lt;html&gt;
+      </code>
+      : elemento ra&iacute;z que contiene toda la p&aacute;gina.
+     </li>
+     <li>
+      <code>
+       &lt;head&gt;
+      </code>
+      : contiene metadatos, t&iacute;tulo, icono y estilos.
+     </li>
+     <li>
+      <code>
+       &lt;body&gt;
+      </code>
+      : contiene el contenido visible de la p&aacute;gina.
+     </li>
+    </ol>
+    <p>
+     En HTML5 se utiliza una estructura sencilla y sem&aacute;ntica. XHTML, por su parte, aplica reglas m&aacute;s estrictas de escritura, como cerrar correctamente los elementos y respetar la sintaxis XML.
+    </p>
+    <a href="#inicio">
+     &uarr; Volver al principio
+    </a>
+   </section>
+  </main>
+  <footer>
+   <p>
+    <strong>
+     Explora Espa&ntilde;a
+    </strong>
+    &middot; Ejercicio integrador de Lenguajes de Marcas
+   </p>
+   <p>
+    HTML + CSS &middot;
+    <a href="#inicio">
+     Volver arriba
+    </a>
+   </p>
+  </footer>
+ </body>
+</html>

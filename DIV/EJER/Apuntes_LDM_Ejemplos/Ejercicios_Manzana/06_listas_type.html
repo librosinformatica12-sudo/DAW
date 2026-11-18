@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06 · El atributo type en listas</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">06 · PDF 40</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>El atributo <code>type</code> en listas ordenadas</h1>
+    <p class="enunciado">Crea cinco listas con los momentos del día usando numeración por defecto, números romanos y letras, en mayúscula y en minúscula.</p>
+
+    <div class="pista"><strong>Valores de <code>type</code>:</strong> <code>1</code> para números, <code>I</code>/<code>i</code> para romanos y <code>A</code>/<code>a</code> para letras. El valor distingue mayúsculas de minúsculas.</div>
+
+    <section class="demo">
+      <h2>Momentos del día. Numeración por defecto</h2>
+      <ol>
+        <li>mañana</li>
+        <li>tarde</li>
+        <li>noche</li>
+      </ol>
+
+      <h2>Momentos del día. Números romanos en mayúscula</h2>
+      <ol type="I">
+        <li>mañana</li>
+        <li>tarde</li>
+        <li>noche</li>
+      </ol>
+
+      <h2>Momentos del día. Números romanos en minúscula</h2>
+      <ol type="i">
+        <li>mañana</li>
+        <li>tarde</li>
+        <li>noche</li>
+      </ol>
+
+      <h2>Momentos del día. Letras minúsculas</h2>
+      <ol type="a">
+        <li>mañana</li>
+        <li>tarde</li>
+        <li>noche</li>
+      </ol>
+
+      <h2>Momentos del día. Letras mayúsculas</h2>
+      <ol type="A">
+        <li>mañana</li>
+        <li>tarde</li>
+        <li>noche</li>
+      </ol>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>type="1"</code>: 1, 2, 3</li>
+      <li><code>type="I"</code>: I, II, III</li>
+      <li><code>type="i"</code>: i, ii, iii</li>
+      <li><code>type="A"</code>: A, B, C</li>
+      <li><code>type="a"</code>: a, b, c</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;ol type="I"&gt;
+  &lt;li&gt;mañana&lt;/li&gt;
+  &lt;li&gt;tarde&lt;/li&gt;
+  &lt;li&gt;noche&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ol type="a"&gt;
+  &lt;li&gt;mañana&lt;/li&gt;
+  &lt;li&gt;tarde&lt;/li&gt;
+  &lt;li&gt;noche&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

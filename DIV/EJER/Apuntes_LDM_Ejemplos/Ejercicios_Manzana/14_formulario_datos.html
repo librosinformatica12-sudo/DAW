@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14 · Formulario de datos personales</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">14 · PDF 99</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Formulario de datos personales</h1>
+    <p class="enunciado">Crea un formulario con los controles básicos: usuario, contraseña, sexo, condición de socio, temas preferidos, descuento de solo lectura, fichero adjunto, campo oculto y botones.</p>
+
+    <div class="pista"><strong>Accesibilidad:</strong> cada control debe tener su <code>label</code> asociado mediante <code>for</code> e <code>id</code>. Los grupos de radio comparten el mismo <code>name</code> para que solo se pueda elegir una opción.</div>
+
+    <section class="demo form-ejemplo">
+      <form action="#" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Datos de acceso</legend>
+
+          <div class="campo">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" value="Nombre" autocomplete="username">
+          </div>
+
+          <div class="campo">
+            <label for="pass">Contraseña:</label>
+            <input type="password" id="pass" name="pass" autocomplete="current-password">
+          </div>
+
+          <div class="campo opciones">
+            <label><input type="checkbox" name="socio" checked> Soy socio</label>
+          </div>
+
+          <div class="campo opciones">
+            <span>Sexo:</span>
+            <label><input type="radio" name="genero" value="H"> Hombre</label>
+            <label><input type="radio" name="genero" value="M" checked> Mujer</label>
+            <label><input type="radio" name="genero" value="X"> Otro</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Temas preferidos</legend>
+          <div class="campo opciones">
+            <label><input type="checkbox" name="aventuras"> Aventuras</label>
+            <label><input type="checkbox" name="historica"> Histórica</label>
+            <label><input type="checkbox" name="ficcion"> Ficción</label>
+            <label><input type="checkbox" name="animacion"> Dibujos</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Envío</legend>
+
+          <div class="campo">
+            <label for="descuento">Descuento:</label>
+            <input type="text" id="descuento" name="descuento" value="15%" size="5" readonly>
+          </div>
+
+          <div class="campo">
+            <label for="fichero">Enviar fotografía:</label>
+            <input type="file" id="fichero" name="fichero" accept=".zip,.pdf,.jpg,.png">
+          </div>
+
+          <div class="campo">
+            <label for="opinion">Danos tu opinión:</label>
+            <textarea id="opinion" name="opinion" rows="4"></textarea>
+          </div>
+
+          <input type="hidden" name="fecha" value="2026-11-16">
+
+          <div class="acciones">
+            <input class="boton" type="submit" value="Enviar">
+            <input class="boton secundario" type="reset" value="Borrar">
+            <button class="boton secundario" type="button" onclick="alert('Has pulsado Salir')">Salir</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>&lt;form&gt;</code> con <code>action</code> y <code>method</code></li>
+      <li><code>input type="text"</code> y <code>password</code></li>
+      <li><code>checkbox</code> y <code>radio</code></li>
+      <li><code>readonly</code> y <code>hidden</code></li>
+      <li><code>input type="file"</code></li>
+      <li><code>textarea</code></li>
+      <li><code>fieldset</code> y <code>legend</code></li>
+      <li>Botones <code>submit</code>, <code>reset</code> y <code>button</code></li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;form action="#" method="post" enctype="multipart/form-data"&gt;
+  &lt;label for="usuario"&gt;Usuario:&lt;/label&gt;
+  &lt;input type="text" id="usuario" name="usuario"&gt;
+
+  &lt;label for="pass"&gt;Contraseña:&lt;/label&gt;
+  &lt;input type="password" id="pass" name="pass"&gt;
+
+  &lt;label&gt;&lt;input type="checkbox" name="socio" checked&gt; Soy socio&lt;/label&gt;
+
+  &lt;label&gt;&lt;input type="radio" name="genero" value="H"&gt; Hombre&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="genero" value="M" checked&gt; Mujer&lt;/label&gt;
+
+  &lt;input type="text" name="descuento" value="15%" readonly&gt;
+  &lt;input type="file" id="fichero" name="fichero"&gt;
+  &lt;input type="hidden" name="fecha" value="2026-11-16"&gt;
+
+  &lt;input type="submit" value="Enviar"&gt;
+  &lt;input type="reset" value="Borrar"&gt;
+&lt;/form&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11 · Enlace externo en la misma pestaña</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">11 · PDF 56</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Enlaces externos en la misma pestaña</h1>
+    <p class="enunciado">Crea enlaces a páginas de otros servidores. Al no indicar <code>target</code>, el navegador sustituye la página actual por el destino.</p>
+
+    <div class="pista"><strong>Consejo:</strong> usa enlaces externos para ampliar información, no para sustituir el contenido del ejercicio. Escribe siempre un texto de enlace descriptivo.</div>
+
+    <section class="demo">
+      <h2>Documentación y referencias</h2>
+      <ul>
+        <li><a href="https://www.w3.org/TR/html401/">Documentación de HTML 4.01 en el W3C</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Web/HTML">Referencia de HTML en MDN</a></li>
+        <li><a href="https://es.wikipedia.org/wiki/HTML">HTML en Wikipedia</a></li>
+      </ul>
+      <p>Si haces clic en uno de estos enlaces, esta página se cerrará y se abrirá el destino en la misma pestaña.</p>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>href</code> con URL absoluta</li>
+      <li>Enlace sin <code>target</code></li>
+      <li>Texto de enlace descriptivo</li>
+      <li>Diferencia entre enlace interno y externo</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;a href="https://www.w3.org/TR/html401/"&gt;
+  Documentación de HTML 4.01 en el W3C
+&lt;/a&gt;
+
+&lt;a href="https://developer.mozilla.org/es/docs/Web/HTML"&gt;
+  Referencia de HTML en MDN
+&lt;/a&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

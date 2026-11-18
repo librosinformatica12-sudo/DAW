@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 460" role="img" aria-labelledby="titulo">
+  <title id="titulo">Mapa esquemático de España</title>
+  <rect width="600" height="460" rx="24" fill="#e8f4f8"/>
+  <path d="M70 80 200 55 300 60 390 45 470 85 520 140 545 190 520 235 500 270 455 300 430 340 380 370 330 420 280 430 250 380 200 365 165 330 130 300 105 250 120 210 95 170 85 125Z"
+        fill="#f7e7c6" stroke="#7a5b32" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M90 125 115 75 185 68 198 120 150 152 106 145Z" fill="#8ecae6" stroke="#4a7f99" stroke-width="2"/>
+  <path d="M415 100 470 78 525 130 515 190 462 182 435 145Z" fill="#ffb703" stroke="#b97c00" stroke-width="2"/>
+  <path d="M380 198 470 198 500 240 470 270 390 260 365 230Z" fill="#fb8500" stroke="#a85a00" stroke-width="2"/>
+  <path d="M215 300 340 290 375 350 300 392 205 360 185 325Z" fill="#90be6d" stroke="#557b3e" stroke-width="2"/>
+  <path d="M245 155 350 145 380 200 315 245 245 230 215 190Z" fill="#ffd166" stroke="#b38b2e" stroke-width="2"/>
+  <circle cx="300" cy="220" r="27" fill="#e63946" stroke="#8b1e28" stroke-width="2"/>
+  <ellipse cx="505" cy="250" rx="28" ry="19" fill="#ffb703" stroke="#b97c00" stroke-width="2"/>
+  <g fill="#90be6d" stroke="#557b3e" stroke-width="2">
+    <circle cx="62" cy="382" r="13"/>
+    <circle cx="89" cy="370" r="9"/>
+    <circle cx="112" cy="388" r="11"/>
+    <circle cx="137" cy="405" r="14"/>
+    <circle cx="68" cy="412" r="8"/>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#25313a" text-anchor="middle">
+    <text x="145" y="118">Galicia</text>
+    <text x="475" y="145">Cataluña</text>
+    <text x="431" y="236">Valencia</text>
+    <text x="300" y="225" fill="#fff">Madrid</text>
+    <text x="283" y="348">Andalucía</text>
+    <text x="505" y="254">Mallorca</text>
+    <text x="100" y="427">Canarias</text>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="13" fill="#54717d" text-anchor="middle">
+    <text x="300" y="442">Pasa el ratón por una zona y haz clic</text>
+  </g>
+</svg>

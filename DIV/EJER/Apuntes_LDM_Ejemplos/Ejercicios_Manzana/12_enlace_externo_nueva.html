@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12 · Enlace externo en pestaña nueva</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">12 · PDF 58</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Enlaces externos en una pestaña nueva</h1>
+    <p class="enunciado">Abre varias referencias externas en una pestaña nueva con <code>target="_blank"</code> y añade <code>rel="noopener noreferrer"</code> por seguridad.</p>
+
+    <div class="pista"><strong>Importante:</strong> cuando uses <code>target="_blank"</code>, añade <code>rel="noopener"</code>. Evita que la página abierta pueda manipular la pestaña original. <code>noreferrer</code> oculta además la procedencia.</div>
+
+    <section class="demo">
+      <h2>Referencias para seguir practicando</h2>
+      <ul>
+        <li><a href="https://www.w3.org/Style/CSS/" target="_blank" rel="noopener noreferrer">CSS en el W3C (nueva pestaña)</a></li>
+        <li><a href="https://developer.mozilla.org/es/docs/Web/CSS" target="_blank" rel="noopener noreferrer">Referencia de CSS en MDN (nueva pestaña)</a></li>
+        <li><a href="https://web.dev/learn/css" target="_blank" rel="noopener noreferrer">Curso de CSS en web.dev (nueva pestaña)</a></li>
+        <li><a href="https://es.wikipedia.org/wiki/CSS" target="_blank" rel="noopener noreferrer">CSS en Wikipedia (nueva pestaña)</a></li>
+      </ul>
+      <p>Los enlaces de esta lista conservan esta página abierta y muestran el destino en otra pestaña.</p>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>target="_blank"</code></li>
+      <li><code>rel="noopener"</code></li>
+      <li><code>rel="noreferrer"</code></li>
+      <li>Enlaces externos seguros</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;a href="https://www.w3.org/Style/CSS/"
+   target="_blank"
+   rel="noopener noreferrer"&gt;
+  CSS en el W3C (nueva pestaña)
+&lt;/a&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

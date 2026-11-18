@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15 · Tablas 10–14</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">15 · PDF 105</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Tablas 10 a 14</h1>
+    <p class="enunciado">Construye cinco tablas: una básica con cabecera y pie, una con encabezados de fila y columna, otra con columnas combinadas, otra con filas combinadas y una última que mezcle ambas técnicas.</p>
+
+    <div class="pista"><strong>Semántica:</strong> usa <code>thead</code> para la cabecera, <code>tbody</code> para los datos y <code>tfoot</code> para el pie. <code>scope="col"</code> y <code>scope="row"</code> ayudan a lectores de pantalla a relacionar celdas.</div>
+
+    <h2>Tabla 10. Tabla básica</h2>
+    <table class="tabla">
+      <caption>Tabla 10</caption>
+      <thead>
+        <tr>
+          <th scope="col">Encabezado 1</th>
+          <th scope="col">Encabezado 2</th>
+          <th scope="col">Encabezado 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>valor 1</td>
+          <td>valor 2</td>
+          <td>valor 3</td>
+        </tr>
+        <tr>
+          <td>valor 4</td>
+          <td>valor 5</td>
+          <td>valor 6</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Pie de la tabla</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h2>Tabla 11. Encabezado en filas y columnas</h2>
+    <table class="tabla">
+      <caption>Tabla 11</caption>
+      <thead>
+        <tr>
+          <th scope="col">Encabezado 1</th>
+          <th scope="col">Encabezado 2</th>
+          <th scope="col">Encabezado 3</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Fila 1</th>
+          <td>valor 1</td>
+          <td>valor 2</td>
+        </tr>
+        <tr>
+          <th scope="row">Fila 2</th>
+          <td>valor 3</td>
+          <td>valor 4</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Tabla 12. Combinar columnas</h2>
+    <table class="tabla">
+      <caption>Tabla 12</caption>
+      <tbody>
+        <tr>
+          <td colspan="2">Celda que ocupa 2 columnas</td>
+        </tr>
+        <tr>
+          <td>valor 1</td>
+          <td>valor 2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Tabla 13. Combinar filas</h2>
+    <table class="tabla">
+      <caption>Tabla 13</caption>
+      <tbody>
+        <tr>
+          <td rowspan="2">Celda que ocupa 2 filas</td>
+          <td>valor 1</td>
+        </tr>
+        <tr>
+          <td>valor 2</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Tabla 14. Filas, columnas y encabezados</h2>
+    <table class="tabla">
+      <caption>Tabla 14. Horario de ejemplo</caption>
+      <thead>
+        <tr>
+          <th scope="col">Bloque</th>
+          <th scope="col">Hora</th>
+          <th scope="col">Materia</th>
+          <th scope="col">Aula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="rowgroup" rowspan="2">Mañana</th>
+          <td>8:00</td>
+          <td>Lenguajes de marcas</td>
+          <td>201</td>
+        </tr>
+        <tr>
+          <td>10:00</td>
+          <td>Redes</td>
+          <td>202</td>
+        </tr>
+        <tr>
+          <th scope="rowgroup" rowspan="2">Tarde</th>
+          <td>15:00</td>
+          <td>Sistemas operativos</td>
+          <td>203</td>
+        </tr>
+        <tr>
+          <td>17:00</td>
+          <td>Seguridad informática</td>
+          <td>204</td>
+        </tr>
+        <tr>
+          <td colspan="4">Descanso entre bloques</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>table</code>, <code>tr</code>, <code>td</code>, <code>th</code></li>
+      <li><code>thead</code>, <code>tbody</code>, <code>tfoot</code></li>
+      <li><code>caption</code></li>
+      <li><code>colspan</code> y <code>rowspan</code></li>
+      <li><code>scope</code></li>
+      <li><code>border-collapse</code></li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;table&gt;
+  &lt;caption&gt;Tabla 10&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th scope="col"&gt;Encabezado 1&lt;/th&gt;...&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;valor 1&lt;/td&gt;...&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td colspan="3"&gt;Pie de la tabla&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+
+&lt;td rowspan="2"&gt;Celda que ocupa 2 filas&lt;/td&gt;
+&lt;td colspan="2"&gt;Celda que ocupa 2 columnas&lt;/td&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

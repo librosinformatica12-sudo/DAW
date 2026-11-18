@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 · Estilos de fuente</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">04 · PDF 33</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1>Estilos de fuente</h1>
+    <p class="enunciado">Reproduce los estilos de texto de la diapositiva: negrita, cursiva, subrayado, tamaño grande y pequeño, teletipo, tachado y la etiqueta histórica <code>font</code>.</p>
+
+    <div class="pista"><strong>Ojo:</strong> <code>&lt;big&gt;</code>, <code>&lt;tt&gt;</code>, <code>&lt;strike&gt;</code> y <code>&lt;font&gt;</code> están desaprobadas en HTML5. Se incluyen para reconocerlas en apuntes antiguos; hoy se usarían CSS y etiquetas con significado.</div>
+
+    <section class="demo">
+      <h1>Estilos de Fuente</h1>
+      <hr>
+      <p><b>Negrita o bold</b><br>
+      <i>Cursiva o itálica</i><br>
+      <u>Subrayado</u><br>
+      <big>Tamaño grande o big</big><br>
+      <small>Tamaño pequeño o small</small><br>
+      <tt>Teletipo</tt><br>
+      <s>Tachado o strike</s><br>
+      <strike>Tachado o strike</strike><br>
+      <font color="red" size="4" face="Arial">Texto con font (desaprobado)</font></p>
+    </section>
+
+    <h2>Equivalentes actuales</h2>
+    <ul class="lista-tecnica">
+      <li><code>&lt;b&gt;</code> → <code>font-weight: bold</code></li>
+      <li><code>&lt;i&gt;</code> → <code>font-style: italic</code></li>
+      <li><code>&lt;u&gt;</code> → <code>text-decoration: underline</code></li>
+      <li><code>&lt;s&gt;</code> → <code>text-decoration: line-through</code></li>
+      <li><code>&lt;small&gt;</code> → texto secundario</li>
+      <li><code>&lt;strong&gt;</code> → importancia, no solo negrita</li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;b&gt;Negrita o bold&lt;/b&gt;&lt;br&gt;
+&lt;i&gt;Cursiva o itálica&lt;/i&gt;&lt;br&gt;
+&lt;u&gt;Subrayado&lt;/u&gt;&lt;br&gt;
+&lt;big&gt;Tamaño grande o big&lt;/big&gt;&lt;br&gt;
+&lt;small&gt;Tamaño pequeño o small&lt;/small&gt;&lt;br&gt;
+&lt;tt&gt;Teletipo&lt;/tt&gt;&lt;br&gt;
+&lt;s&gt;Tachado o strike&lt;/s&gt;&lt;br&gt;
+&lt;font color="red" size="4" face="Arial"&gt;Texto con font&lt;/font&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

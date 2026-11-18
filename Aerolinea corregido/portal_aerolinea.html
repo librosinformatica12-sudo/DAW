@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Aerolínea - Portal de reservas</title>
+</head>
+<body>
+    <h2>Alta de Viajero</h2>
+    <form action="gestionar_viajeros.php" method="post">
+        <label for="documento">Documento (DNI o pasaporte):</label><br>
+        <input type="text" id="documento" name="documento" maxlength="20" required>
+        <br>
+
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" maxlength="50" required>
+        <br>
+
+        <label for="apellidos">Apellidos:</label><br>
+        <input type="text" id="apellidos" name="apellidos" maxlength="50" required>
+        <br>
+
+        <input type="hidden" name="accion" value="alta_viajero">
+        <button type="submit">Dar de alta viajero</button>
+    </form>
+
+    <h2>Alta de Billete de Vuelo</h2>
+    <form action="gestionar_billetes.php" method="post">
+        <label for="destino">Destino:</label><br>
+        <input type="text" id="destino" name="destino" maxlength="80" required>
+        <br><br>
+
+        <label for="fecha_hora">Fecha y hora del vuelo:</label><br>
+        <input type="datetime-local" id="fecha_hora" name="fecha_hora" required>
+        <br><br>
+
+        <label for="documento_viajero">Documento del viajero:</label><br>
+        <input type="text" id="documento_viajero" name="documento_viajero" maxlength="20" required>
+        <br><br>
+
+        <input type="hidden" name="accion" value="alta_billete">
+        <button type="submit">Dar de alta billete</button>
+        <a href="gestionar_billetes.php">Ver billetes actuales</a>
+    </form>
+
+    <br>
+    <a href="gestionar_viajeros.php">Ver viajeros dados de alta</a>
+</body>
+</html>

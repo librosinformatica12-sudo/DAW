@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>09 · Enlace dentro de la misma página</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="cabecera-inner">
+      <a class="marca" href="index.html"><img src="manzana.svg" alt=""><span>Ejercicios con manzana</span></a>
+      <span class="etiqueta">09 · PDF 53</span>
+    </div>
+  </header>
+
+  <main>
+    <a class="volver" href="index.html">← Volver al índice</a>
+    <h1 id="inicio">Enlaces dentro de la misma página</h1>
+    <p class="enunciado">Crea un índice que salte a distintas secciones de esta misma página. Cada sección debe tener un <code>id</code> y un enlace para volver arriba.</p>
+
+    <div class="pista"><strong>Cómo funciona:</strong> el destino se marca con <code>id="nombre"</code> y el enlace usa <code>href="#nombre"</code>. El símbolo <code>#</code> significa “dentro de este documento”.</div>
+
+    <nav class="demo" aria-label="Índice de la página">
+      <h2>Índice</h2>
+      <ol>
+        <li><a href="#html">HTML</a></li>
+        <li><a href="#css">CSS</a></li>
+        <li><a href="#xml">XML</a></li>
+        <li><a href="#js">JavaScript</a></li>
+      </ol>
+    </nav>
+
+    <section class="demo" id="html">
+      <h2>HTML</h2>
+      <p>HTML significa HyperText Markup Language. Es el lenguaje que estructura el contenido de una página: títulos, párrafos, listas, enlaces, imágenes, formularios y tablas.</p>
+      <p>Un documento HTML se compone de una cabecera, donde van los metadatos, y un cuerpo, donde va lo que ve el usuario.</p>
+      <p><a href="#inicio">Volver arriba</a></p>
+    </section>
+
+    <section class="demo" id="css">
+      <h2>CSS</h2>
+      <p>CSS significa Cascading Style Sheets. Se encarga de la presentación: colores, tipografías, márgenes, tamaños, distribución y animaciones.</p>
+      <p>Separar HTML y CSS permite cambiar el aspecto de todo un sitio sin reescribir su estructura.</p>
+      <p><a href="#inicio">Volver arriba</a></p>
+    </section>
+
+    <section class="demo" id="xml">
+      <h2>XML</h2>
+      <p>XML significa eXtensible Markup Language. No tiene etiquetas predefinidas: cada vocabulario define las suyas para describir datos.</p>
+      <p>Se usa para intercambiar información entre sistemas, guardar configuración y representar documentos estructurados.</p>
+      <p><a href="#inicio">Volver arriba</a></p>
+    </section>
+
+    <section class="demo" id="js">
+      <h2>JavaScript</h2>
+      <p>JavaScript es el lenguaje de programación del navegador. Añade comportamiento: responde a clics, valida formularios, modifica el DOM y se comunica con servidores.</p>
+      <p>No es un lenguaje de marcas, pero convive con HTML y CSS en la mayoría de páginas web.</p>
+      <p><a href="#inicio">Volver arriba</a></p>
+    </section>
+
+    <h2>Qué se practica</h2>
+    <ul class="lista-tecnica">
+      <li><code>id</code> único en cada destino</li>
+      <li><code>href="#destino"</code></li>
+      <li>Índice de navegación</li>
+      <li>Enlace de vuelta a <code>#inicio</code></li>
+    </ul>
+
+    <details>
+      <summary>Ver el código clave</summary>
+      <pre><code>&lt;h1 id="inicio"&gt;Enlaces dentro de la misma página&lt;/h1&gt;
+&lt;a href="#xml"&gt;Ir a XML&lt;/a&gt;
+
+&lt;h2 id="xml"&gt;XML&lt;/h2&gt;
+&lt;p&gt;...&lt;/p&gt;
+
+&lt;a href="#inicio"&gt;Volver arriba&lt;/a&gt;</code></pre>
+    </details>
+  </main>
+
+  <footer><p>Ejercicios con manzana · <a href="index.html">índice de la carpeta</a></p></footer>
+</body>
+</html>

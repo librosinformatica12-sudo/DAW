@@ -7,12 +7,13 @@ echo.
 echo Anadiendo cambios...
 git add .
 
+rem Fecha y hora del momento del add
+for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command "Get-Date -Format 'dd/MM/yyyy HH:mm:ss'"`) do set "FECHA=%%i"
+
 echo.
-set /p COMMIT_MSG="Mensaje del commit (pulsa Enter para usar uno automatico): "
-if "%COMMIT_MSG%"=="" (
-    for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm:ss'"`) do set FECHA=%%i
-    set "COMMIT_MSG=Actualizacion %FECHA%"
-)
+set "COMMIT_MSG="
+set /p COMMIT_MSG="Mensaje del commit (pulsa Enter para usar la fecha y hora): "
+if not defined COMMIT_MSG set "COMMIT_MSG=%FECHA%"
 
 echo.
 echo Creando commit...

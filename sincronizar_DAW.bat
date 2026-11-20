@@ -1,16 +1,17 @@
 @echo off
 cd /d "%~dp0"
 
-echo === Sincronizando DAW con GitHub (Modo Forzado) ===
+echo === Sincronizando DAW con GitHub ===
 echo.
 
-echo Añadiendo cambios...
+echo Anadiendo cambios...
 git add .
 
 echo.
 set /p COMMIT_MSG="Mensaje del commit (pulsa Enter para usar uno automatico): "
 if "%COMMIT_MSG%"=="" (
-    set COMMIT_MSG=Actualizacion %DATE% %TIME%
+    for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm:ss'"`) do set FECHA=%%i
+    set "COMMIT_MSG=Actualizacion %FECHA%"
 )
 
 echo.
@@ -24,9 +25,15 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo Forzando subida a daw/main (sobrescribiendo remoto)...
-git push daw main --force
+echo Subiendo a daw/main...
+git push daw main
+if %ERRORLEVEL% NEQ 0 (
+    echo.
+    echo El push ha fallado. Lee el mensaje de arriba.
+    pause
+    exit /b 1
+)
 
 echo.
-echo ¡Ajuste completado!
+echo Listo.
 pause

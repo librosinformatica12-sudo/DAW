@@ -33,7 +33,7 @@ $host     = '127.0.0.1';
 $port     = 3306;
 $database = 'dinocards';
 $username = 'oscar';
-$password = '561Cazadora#%';
+$password = '1234';
 
 // Desactivamos las excepciones automaticas de mysqli para poder
 // controlar los errores a mano (mismo criterio que dino-prueba).

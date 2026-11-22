@@ -1,0 +1,108 @@
+body {
+  background-color: lightgray;
+  font-family: monospace;
+  background-image: url(../img/fondoAzul.jpg);
+}
+
+h1 {
+  margin: 0;
+  font-size: 3rem;
+  text-align: center;
+  font-family: "Lucida Console";
+}
+
+p {
+  padding: 15px;
+  font-size: 1.5rem;
+}
+
+p#m1 {
+  position: absolute;
+  top: 25%;
+  right: 15%;
+  width: 35%;
+  height: 25%;
+  border: darkgoldenrod 4px solid;
+  background-color: bisque;
+  text-align: center;
+}
+
+p#m2 {
+  position: absolute;
+  top: 40%;
+  left: 32%;
+  width: 35%;
+  height: 30%;
+  z-index: 2;
+  border: green 4px solid;
+  background-color: rgb(188, 250, 188);
+  text-align: center;
+}
+
+p#m3 {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  width: 35%;
+  height: 25%;
+  border: rgb(182, 177, 107) 4px solid;
+  background-color: hsl(60, 100%, 75%);
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+
+
+p#m4 {
+  position: absolute;
+  top: 25%;
+  right: 5%;
+  width: 35%;
+  height: 25%;
+  border: hsl(180, 32%, 68%) 4px solid;
+  background-color: rgb(200, 250, 250) ;
+  text-align: end;
+
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 15px;
+}
+
+p#m5 {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  width: 35%;
+  height: 25%;
+  border: hsl(300, 15%, 70%) 4px solid;
+  background-color: hsl(300, 100%, 95%);
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+p#m6 {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 35%;
+  height: 25%;
+  border: hsl(0, 15%, 45%) 4px solid;
+  background-color: hsl(0, 100%, 85%);
+  text-align: end;
+  
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 15px;
+}
+
+p:hover {
+  z-index: 3;
+} 

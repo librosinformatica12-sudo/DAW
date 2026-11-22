@@ -1,0 +1,7 @@
+# Credenciales reales: no subir nunca
+config/database.local.php
+
+# Logs / editores
+*.log
+.vscode/
+.idea/

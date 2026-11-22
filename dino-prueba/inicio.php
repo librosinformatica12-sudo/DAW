@@ -22,7 +22,7 @@ function e(mixed $v): string {
 }
 
 /* ============================================================
-   1. DATOS
+1. DATOS
    ============================================================ */
 
 /* ---------- Usuario ---------- */
@@ -66,8 +66,8 @@ $sobres = [
             : 'Ábrelo y consigue un dinosaurio nuevo para tu colección.',
         'estado'     => $yaObtenidaHoy ? 'Abierto hoy' : 'Disponible',
         'contiene'   => [
-            ['bx-cube',   '1 carta de dinosaurio'],
-            ['bx-time',   'Uno gratis cada día'],
+            ['bx-cube',    '1 carta de dinosaurio'],
+            ['bx-time',    'Uno gratis cada día'],
             ['bx-shuffle', 'Dinosaurio aleatorio del catálogo'],
         ],
     ],
@@ -78,11 +78,7 @@ $sobres = [
         'imagen'     => 'img/img-sobres/sobre3.png',
         'disponible' => true, // siempre activo para hacer pruebas
         'texto'      => $pruebaListo
-<<<<<<< HEAD
             ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 2 minutos.'
-=======
-            ? 'Ábrelo y consigue 4 cartas. Puedes repetir cada 5 minutos.'
->>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             : 'Aún no puedes abrirlo. Vuelve en unos minutos.',
         'estado'     => $pruebaListo ? 'Disponible' : 'En espera',
         'boton'      => $pruebaListo ? 'Abrir sobre de prueba' : 'En espera',
@@ -91,15 +87,11 @@ $sobres = [
         'cartas'     => 4,
         'contiene'   => [
             ['bx-cube',    '4 cartas de dinosaurio'],
-<<<<<<< HEAD
             ['bx-time',    'Se repite cada 2 minutos'],
-=======
-            ['bx-time',    'Se repite cada 5 minutos'],
->>>>>>> b7032b5d8e0c3c0bd80c1f6144c9ef5dd5aee06c
             ['bx-shuffle', 'Dinosaurios aleatorios'],
         ],
     ],
-    /* 
+    /*
     [
         'nombre'     => 'Sobre semanal',
         'icono'      => 'bx-calendar-week',
@@ -127,7 +119,6 @@ $sobres = [
             ['bx-crown', 'Cartas que no salen en otros sobres'],
         ],
     ],
-
 ];
 ?>
 <!DOCTYPE html>
@@ -276,7 +267,7 @@ $sobres = [
                 </div>
 
             </div><!-- /.col-principal -->
-            
+
             <!-- ====================================================
                  COLUMNA LATERAL
                  ==================================================== -->

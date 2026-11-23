@@ -12,62 +12,42 @@ pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 
-// --- Resultado del ultimo sobre abierto (lo deja el endpoint en sesion) ---
-$mensaje       = "";
-$carta_nueva   = null;
-$cartas_prueba = [];
+// 1) Traigo los ids de los dinosaurios que tengo (puede haber repetidos)
+$ids = [];
+$consulta = $conexion->prepare("SELECT dinosaurio_id FROM colecciones WHERE usuario_id = ?");
+$consulta->bind_param("i", $usuario_id);
+$consulta->execute();
+$resultado = $consulta->get_result();
+while ($fila = $resultado->fetch_assoc()) {
+    $ids[] = (int) $fila["dinosaurio_id"];
+}
+$consulta->close();
 
-if (isset($_SESSION["sobre_flash"])) {
-    $flash = $_SESSION["sobre_flash"];
-    unset($_SESSION["sobre_flash"]);
-
-    $mensaje       = $flash["mensaje"] ?? "";
-    $carta_nueva   = $flash["carta"]   ?? null;
-    $cartas_prueba = $flash["cartas"]  ?? [];
+// 2) Cuento cuantas copias tengo de cada dinosaurio
+$copias = [];
+$orden  = [];
+foreach ($ids as $id) {
+    if (!isset($copias[$id])) {
+        $copias[$id] = 0;
+        $orden[] = $id;
+    }
+    $copias[$id]++;
 }
 
-// --- Datos del usuario ---
-$usuario = obtenerUsuarioPorId($usuario_id);
-if (!$usuario) {
-    header("Location: index.php");
-    exit;
+// 3) Traigo los datos de esos dinosaurios
+$dinos = [];
+if (count($orden) > 0) {
+    $lista = implode(",", $orden); // son numeros, no hay peligro
+    $res = $conexion->query("SELECT * FROM dinosaurios WHERE id IN ($lista)");
+    while ($d = $res->fetch_assoc()) {
+        $dinos[(int) $d["id"]] = $d;
+    }
 }
 
-// --- Espera del sobre del día (24 horas desde la última apertura) ---
-$espera_dia    = 24 * 60 * 60;
-$faltan_dia    = segundosRestantes($usuario["ultima_obtencion"] ?? null, $espera_dia);
-$ya_cogida_hoy = ($faltan_dia > 0);
-
-// --- Espera del sobre de prueba (2 minutos) ---
-$espera_prueba = 120;
-$faltan_prueba = segundosRestantes($usuario["carta_prueba"] ?? null, $espera_prueba);
-$prueba_listo  = ($faltan_prueba === 0);
-
-// --- Resumen de la coleccion ---
-$resumen        = resumenColeccion($usuario_id);
-$total_cartas   = $resumen["cartas"];
-$total_especies = $resumen["especies"];
-$total_catalogo = contarDinosaurios();
+// 4) Calculo el progreso
+$total_catalogo = (int) $conexion->query("SELECT COUNT(*) AS total FROM dinosaurios")->fetch_assoc()["total"];
+$total_especies = count($orden);
 $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo * 100) : 0;
-
-// --- Datos para el banner de bienvenida (estilo dino-prueba) ---
-$nombre = $usuario["username"] ?? "Coleccionista";
-
-$inicial = strtoupper(mb_substr($nombre, 0, 1, "UTF-8"));
-if ($inicial === "") {
-    $inicial = "?";
-}
-
-$dias_semana = [
-    "Domingo", "Lunes", "Martes", "Miércoles",
-    "Jueves", "Viernes", "Sábado",
-];
-$meses = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
-];
-$diaSemana = $dias_semana[(int) date("w")];
-$mesActual = $meses[(int) date("n") - 1];
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +61,13 @@ $mesActual = $meses[(int) date("n") - 1];
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
-    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+     <!--
+    
+        <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+    
+    -->
+    <link rel="stylesheet" href="styles/intercambio.css?v=<?= @filemtime(__DIR__ . '/styles/intercambio.css') ?>">
+    <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>"></script>
 </head>
 <body>
 
@@ -89,100 +75,26 @@ $mesActual = $meses[(int) date("n") - 1];
 
 <main class="panel-inicio">
     <!-- Sobres: el del día a la izquierda y el de prueba a la derecha -->
-    <div class="sobres-fila">
-
+    <div class="main-container">
         <!-- Sobre del día -->
-        <div class="tarjeta sobre-card">
-            <figure class="sobre-card-figura">
-                <img src="img/img-sobres/sobre.png" alt="Sobre del día" loading="lazy" decoding="async">
-            </figure>
-            <div class="sobre-card-texto">
-                <h2>Sobre del día</h2>
-                <p>Consigue un dinosaurio nuevo gratis. Se puede abrir cada 24 horas.</p>
-                <form method="POST" action="php/cartaDiaria.php">
-                    <button type="submit" class="boton"
-                            data-espera="<?= (int) $faltan_dia ?>"
-                            data-label="Abrir sobre del día"
-                            <?= $ya_cogida_hoy ? "disabled" : "" ?>>
-                        <?= $ya_cogida_hoy ? "Sobre en espera" : "Abrir sobre del día" ?>
-                    </button>
-                </form>
+        <div class="tarjeta-coleccion">
+            <h1>Mi colección</h1>
+            <p>Tienes <b><?= $total_especies ?></b> de <b><?= $total_catalogo ?></b> especies (<?= $porcentaje ?>%).</p>
+
+            <?php if ($total_especies === 0): ?>
+                <p class="aviso error">Todavía no tienes ninguna carta. Abre tu sobre del día para empezar.</p>
+            <?php else: ?>
+            <div class="campo">
+                <input type="text" id="buscador" oninput="filtrarColeccion()" placeholder="Escribe un dinosaurio...">
             </div>
-        </div>
 
-        <!-- Sobre de prueba -->
-        <div class="tarjeta sobre-card">
-            <figure class="sobre-card-figura">
-                <img src="img/img-sobres/sobre2.png" alt="Sobre de prueba" loading="lazy" decoding="async">
-            </figure>
-            <div class="sobre-card-texto">
-                <h2>Sobre de prueba</h2>
-                <p>Consigue 4 cartas de golpe. Debes esperar 2 minutos entre aperturas.</p>
-                <form method="POST" action="php/abrirSobrePrueba.php">
-                    <button type="submit" class="boton secundario"
-                            data-espera="<?= (int) $faltan_prueba ?>"
-                            data-label="Abrir sobre de prueba"
-                            <?= $prueba_listo ? "" : "disabled" ?>>
-                        <?= $prueba_listo ? "Abrir sobre de prueba" : "En espera" ?>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="tarjeta sobre-card">
-            <figure class="sobre-card-figura">
-                <img src="img/img-sobres/sobre2.png" alt="Sobre de prueba" loading="lazy" decoding="async">
-            </figure>
-            <div class="sobre-card-texto">
-                <h2>Sobre de prueba</h2>
-                <p>Consigue 4 cartas de golpe. Debes esperar 2 minutos entre aperturas.</p>
-                <form method="POST" action="php/abrirSobrePrueba.php">
-                    <button type="submit" class="boton secundario"
-                            data-espera="<?= (int) $faltan_prueba ?>"
-                            data-label="Abrir sobre de prueba"
-                            <?= $prueba_listo ? "" : "disabled" ?>>
-                        <?= $prueba_listo ? "Abrir sobre de prueba" : "En espera" ?>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Carta conseguida hoy -->
-    <?php if ($carta_nueva): ?>
-        <div class="tarjeta">
-            <h2>Tu carta de hoy</h2>
             <ul class="cartas-grid">
-                <li class="carta-mini">
-                    <span class="retrato">
-                        <?php if (!empty($carta_nueva["imagen_url"])): ?>
-                            <img class="fondo" src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                            <img src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="<?= escapar($carta_nueva["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                        <?php else: ?>
-                            <i class="bx bx-dna" aria-hidden="true"></i>
+                <?php foreach ($orden as $id): ?>
+                    <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
+                    <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
+                        <?php if ($copias[$id] > 1): ?>
+                            <span class="badge">x<?= $copias[$id] ?></span>
                         <?php endif; ?>
-                    </span>
-                    <h3><?= escapar($carta_nueva["nombre"]) ?></h3>
-                    <p class="apodo">«<?= escapar($carta_nueva["especie"]) ?>»</p>
-                    <div class="mini-stats">
-                        <span><b><?= escapar($carta_nueva["hp"]) ?></b><small>HP</small></span>
-                        <span><b><?= escapar($carta_nueva["ataque"]) ?></b><small>ATQ</small></span>
-                        <span><b><?= escapar($carta_nueva["defensa"]) ?></b><small>DEF</small></span>
-                        <span><b><?= escapar($carta_nueva["agilidad"]) ?></b><small>AGI</small></span>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    <?php endif; ?>
-
-    <!-- Cartas de prueba conseguidas -->
-    <?php if (count($cartas_prueba) > 0): ?>
-        <div class="tarjeta">
-            <h2>Cartas de prueba</h2>
-            <ul class="cartas-grid">
-                <?php foreach ($cartas_prueba as $d): ?>
-                    <li class="carta-mini">
                         <span class="retrato">
                             <?php if (!empty($d["imagen_url"])): ?>
                                 <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
@@ -202,21 +114,31 @@ $mesActual = $meses[(int) date("n") - 1];
                     </li>
                 <?php endforeach; ?>
             </ul>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
 
-    <!-- Resumen -->
-    <div class="tarjeta">
-        <h2>Tu colección</h2>
-        <ul class="resumen">
-            <li><b><?= $total_cartas ?></b>cartas guardadas</li>
-            <li><b><?= $total_especies ?></b>especies distintas</li>
-            <li><b><?= $porcentaje ?>%</b>del catálogo (<?= $total_catalogo ?>)</li>
-        </ul>
+        <!-- Contenedor de intercambio -->
+        <div class="panel-intercambio">
+            <div class="contenedores-usuario">
+                <h2>Intercambio</h2>
+                <div id="panel-usuario1" class="sub-panel">
+                    <p>Consigue 4 cartas</p>
+                </div>
+                <div id="panel-usuario2" class="sub-panel">
+                    <p>Consigue 2 cartas</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-chat">
+            <div class="contenedor-chat">
+                <h2>Chat</h2>
+            </div>
+        </div>
+
     </div>
 </main>
 
-<script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>"></script>
 
 </body>
 </html>

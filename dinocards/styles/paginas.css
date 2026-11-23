@@ -487,8 +487,8 @@
    ============================================================ */
 .sobres-fila {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: 5fr 5fr;
+    gap: 12px;
 }
 
 .sobre-card {
@@ -584,7 +584,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 25px;
     padding: 30px;
     margin-bottom: 20px;
     border-radius: 22px;

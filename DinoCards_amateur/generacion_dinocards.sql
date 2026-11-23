@@ -12,7 +12,8 @@ CREATE TABLE usuarios(id INT primary key auto_increment,
                       email VARCHAR(256) UNIQUE,
                       password_hash VARCHAR(1024),
                       fecha_registro DATETIME,
-                      ultima_obtencion DATETIME);
+                      ultima_obtencion DATETIME,
+                      listos_negociar int);
 CREATE TABLE dinosaurios(id INT primary key auto_increment,
 					  nombre VARCHAR(64),
                       especie VARCHAR(1024),
@@ -160,22 +161,55 @@ BEGIN
 END$$
 DELIMITER ;
 
-DROP PROCEDURE Trade;
+DROP PROCEDURE if exists Trade;
 DELIMITER //
 CREATE PROCEDURE Trade(IN _serieIdsA VARCHAR(1000),
 						IN _serieIdsB VARCHAR(1000),
                         OUT _res INT)
 BEGIN
 	DECLARE auxId VARCHAR(10);
+    declare idUsuarioA int;
+	declare idUsuarioB int;
+    
     SET auxId = NULL;
+    set idUsuarioA = null;
+    set idUsuarioB = null;
+    
+    set _res = -99;
     -- Los argumentos _serieIds contienen en modo texto los IDs de coleccion
     -- separados por un guion bajo '_'
-    -- Recortar el primer cacho hasta el _ de la serie A
+    
+    -- OBTENCION DE LOS USUARIOS 
+    
+    -- recortar el primer cabho el _ de la seria A
     SELECT SUBSTRING_INDEX(_serieIdsA, '_', 1)
     INTO auxId;
-    SELECT SUBSTR(_serieIdsA,INSTR(_serieIdsA,'_') + 1)
-    INTO _serieIdsA;
     
+    -- Averiguar el ID de usuario que tiene la coleccion A
+    select usuario_id from colecciones where id like auxID into idUsuarioA;
+    
+    -- recortar el primer cacho has el _ de la seria B
+	SELECT SUBSTRING_INDEX(_serieIdsA, '_', 1)
+    INTO auxId;
+    
+    -- Averiguar el ID de usuario que tiene la coleccion b    
+	select usuario_id from colecciones where id like auxID into idUsuarioA;
+
+    
+    -- RECORRER LAS COLECCIONES Y CMABIAR SU PROPIEDAD
+    while _serieIdsA not like "" do
+    
+			SELECT SUBSTRING_INDEX(_serieIdsA, '_', 1)
+		INTO auxId;
+		
+		-- cambiar la propuiedad del usuarioA al usuarioB de ese id de carta
+		update usuario_id set id_usuario = idUsuarioA 
+        where id = auxId;
+			
+		-- cambiar al propiedad del usuarioA al usuarioB de sese id
+		SELECT SUBSTR(_serieIdsA,INSTR(_serieIdsA,'_') + 1)
+		INTO _serieIdsA;
+    end while;
     
     -- Tengo que lograr editar los registros de propiedad de esas cartas
     -- que estan en la tabla COLECCIONES para poner que cada carta que era
@@ -185,6 +219,18 @@ BEGIN
 END//
 DELIMITER ;
 
+-- COMPROBACION TRADE
+set @seriesA = "3_8_13_40_80_";
+
+
+
+-- COMPROBACION TRADE CON VARIOS ID
+set @res=-99;
+call trade("_1_2_3_4_","5_6_7_", @res);
+select @res;
+
+SELECT * FROM DINOCARDS.COLECCIONES
+WHERE ID<=7;
 
 
 
@@ -291,17 +337,24 @@ INSERT INTO `dinosaurios` (`id`, `nombre`, `especie`, `periodo`, `image_url`, `a
 (99, 'Ictiosaurio Depredador', 'Stenopterygius quadriscissus', 'Jurásico Medio (175-168 Ma)', NULL, 1.2, 4.2, 1.8, 48, 70, 65, 40, 80),
 (100, 'Pterosaurio Cazador', 'Anhanguera piscator', 'Cretácico Superior (112-66 Ma)', NULL, 1.5, 3.8, 0.85, 42, 72, 58, 38, 88);
 
-INSERT INTO `usuarios` (`id`, `username`, `email`, `password_hash`, `fecha_registro`, `ultima_obtencion`) VALUES
-(1, 'triceraantonio75', 'antonio.suarez36@icloud.com', '263767ec6d91aa58da1c2ad5fda96476', '2025-10-21T02:47:43', '2026-09-25T15:33:58'),
-(2, 'eva_saurio93', 'eva.gallardo@gmail.com', '0d4acc123a9b88e689ad66f653f8cf62', '2025-12-05T19:49:05', '2026-08-26T12:32:25'),
-(3, 'estherdel55', 'esther.delgado@gmail.com', 'e1a3582bbd2f9c4a52def22f0d5d480a', '2026-01-29T01:38:21', '2026-08-28T11:23:03'),
-(4, 'cretacicosalvador55', 'salvador.sanz@icloud.com', '0e471cac6e3bbab3dd538fd9f328f186', '2026-02-09T13:41:26', '2026-09-27T19:22:13'),
-(5, 'stegojulia30', 'julia.ferrer@icloud.com', '38d1512f32820763c30ade6d691cae94', '2026-02-18T08:36:53', '2026-08-09T03:31:49'),
-(6, 'mariaflo59', 'maria.flores@gmail.com', '6d5a5cce9e2ab3b33cb7a92f2543e574', '2026-03-28T08:46:57', '2026-06-12T05:29:43'),
-(7, 'araceli_raptor6', 'araceli.martinez@gmail.com', 'a2e4bcade15582a5457fcc0bf99366e9', '2026-06-05T02:01:48', '2026-09-21T17:50:06'),
-(8, 'armando_tricera57', 'armando.ortiz@icloud.com', '0fca78eb359b46b6fad87389360ce143', '2026-06-23T16:21:35', '2026-09-26T02:36:52'),
-(9, 'rexleire49', 'leire.guerrero@comcast.net', '9fbfb391dcd78c072784de93d78f89e4', '2026-06-25T11:07:53', '2026-09-27T09:41:51'),
-(10, 'miguel_rex91', 'miguel.ortiz@icloud.com', 'b579717c9d3458ac8637bdcdf493b0cd', '2026-09-08T00:33:12', '2026-09-28T01:00:53');
+INSERT INTO `usuarios` (`id`, `username`, `email`, `password_hash`, `fecha_registro`, `ultima_obtencion`, `listos_negociar`) VALUES
+(1, 'triceraantonio75', 'antonio.suarez36@icloud.com', '263767ec6d91aa58da1c2ad5fda96476', '2025-10-21T02:47:43', '2026-09-25T15:33:58', NULL),
+(2, 'eva_saurio93', 'eva.gallardo@gmail.com', '0d4acc123a9b88e689ad66f653f8cf62', '2025-12-05T19:49:05', '2026-08-26T12:32:25', NULL),
+(3, 'estherdel55', 'esther.delgado@gmail.com', 'e1a3582bbd2f9c4a52def22f0d5d480a', '2026-01-29T01:38:21', '2026-08-28T11:23:03', NULL),
+(4, 'cretacicosalvador55', 'salvador.sanz@icloud.com', '0e471cac6e3bbab3dd538fd9f328f186', '2026-02-09T13:41:26', '2026-09-27T19:22:13', NULL),
+(5, 'stegojulia30', 'julia.ferrer@icloud.com', '38d1512f32820763c30ade6d691cae94', '2026-02-18T08:36:53', '2026-10-12T17:59:09', NULL),
+(6, 'mariaflo59', 'maria.flores@gmail.com', '6d5a5cce9e2ab3b33cb7a92f2543e574', '2026-03-28T08:46:57', '2026-06-12T05:29:43', NULL),
+(7, 'araceli_raptor6', 'araceli.martinez@gmail.com', 'a2e4bcade15582a5457fcc0bf99366e9', '2026-06-05T02:01:48', '2026-09-21T17:50:06', NULL),
+(8, 'armando_tricera57', 'armando.ortiz@icloud.com', '0fca78eb359b46b6fad87389360ce143', '2026-06-23T16:21:35', '2026-09-26T02:36:52', NULL),
+(9, 'rexleire49', 'leire.guerrero@comcast.net', '9fbfb391dcd78c072784de93d78f89e4', '2026-06-25T11:07:53', '2026-09-27T09:41:51', NULL),
+(10, 'miguel_rex91', 'miguel.ortiz@icloud.com', 'b579717c9d3458ac8637bdcdf493b0cd', '2026-09-08T00:33:12', '2026-09-28T01:00:53', NULL),
+(19, 'oscar', 'oscar@gmail.com', '$2y$10$lKHk9LGEQ2.YjWSqh6SEWeYBAIWg/xltjNaqOK.6EAgU7.aeNTAOG', '2026-10-12T18:32:46', '2026-10-16T11:27:29', NULL),
+(20, 'admin', 'admin@gmail.com', '$2y$10$lLTVA2MiLAaiilLGywSWNeJIb8fL0UZc1iYkao1aXFXMaC9azb86i', '2026-10-12T19:44:00', '2026-10-14T09:57:37', NULL),
+(25, 'viztest', 'viztest@example.com', '16d7a4fca7442dda3ad93c9a726597e4', '2026-10-15T14:42:26', NULL, NULL),
+(26, 'oscar12', 'oscar12@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2026-10-16T10:22:57', NULL, NULL),
+(27, 'nacho1234', 'nacho1234@gmail.com', '$2y$10$mj45TStpoAA1.INJtgqPSOjDGj96vkr3U0GLXVtnR/af.KBdN71R6', '2026-10-19T09:50:07', NULL, NULL),
+(28, 'oscar01', 'oscar01@gmail.com', '$2y$10$HO7AKHAQ1IcS/kCiKDceyOTsEUZ1lm3NvVXoi95sAHx01L6Chm9hy', '2026-10-19T10:46:36', NULL, NULL),
+(29, 'oscar1234', 'oscar1234@gmail.com', '$2y$10$GsT7Acg/83zJQ2uurGUtKuNqAJRqggynNpcBs/nXaKVV2jtEDvm8C', '2026-11-20T09:13:49', NULL, NULL);
 
 INSERT INTO `colecciones` (`id`, `usuario_id`, `dinosaurio_id`, `fecha_adquisicion`) VALUES
 (1, 1, 74, '2025-10-21T21:54:39'),

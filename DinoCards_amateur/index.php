@@ -157,7 +157,7 @@ unset($_SESSION['mensajeColeccion']);
 						<h1 id="collection-title">Tu colección</h1>
 					</div>
 					<div class="explorer-account">
-						</a><button id="btn_trade">Intercambiar cartas</button>
+						<a href="intercambiar.php"><button id="btn_trade">Intercambiar cartas</button></a>
 						<p class="explorer-tag"><span class="status-dot"></span>
 						<span id="explorer-name"><?= $nombreUsuario ?></span></p>
 						<form action="backend.php?accion=logout" method="POST">

@@ -7,7 +7,7 @@
    php/registro.php (endpoints JSON llamados con fetch).
    ============================================================ */
 
-require_once __DIR__ . "/src/bootstrap.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 
 // Si ya esta dentro, lo mandamos al panel
 if (esta_logueado()) {
@@ -15,22 +15,7 @@ if (esta_logueado()) {
     exit;
 }
 
-$aviso    = "";
-$correcto = true;    // true = aviso verde, false = aviso rojo
-$pestana  = "login"; // pestana que se muestra al cargar
-
-// La logica de login y registro vive en php/login.php y php/registro.php
-// (endpoints JSON llamados con fetch, igual que en dino-prueba).
-// Este dispatch solo actua como respaldo si el formulario se envia sin JavaScript.
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $accion = $_POST["accion"] ?? "";
-
-    if ($accion === "registro") {
-        require __DIR__ . "/php/registro.php";
-    } elseif ($accion === "login") {
-        require __DIR__ . "/php/login.php";
-    }
-}
+$pestana = "login"; // pestana que se muestra al cargar
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -91,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <p class="sub">Rellena con tu usuario y contraseña para acceder a DinoCards</p>
 
             <input type="hidden" name="accion" value="login">
-            <?= csrf_input() ?>
 
             <div class="campo icono">
                 <i class="bx bx-user"></i>
@@ -127,7 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <p class="sub">Rellena tus datos para registrarte</p>
 
             <input type="hidden" name="accion" value="registro">
-            <?= csrf_input() ?>
 
             <div class="campo">
                 <label for="reg-usuario">Usuario</label>

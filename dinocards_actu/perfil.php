@@ -6,50 +6,40 @@
    (Adaptado al estilo de dino-prueba manteniendo funciones de dinocards-basico)
    ============================================================ */
 
-require_once __DIR__ . "/src/bootstrap.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 
-// --- Datos del usuario (dal/UsuarioDAL.php) ---
 $usuario = obtenerUsuarioPorId($usuario_id);
-
-// Si no se encuentra el usuario, evitamos continuar.
 if (!$usuario) {
-    header("Location: index.php");
+    header('Location: index.php');
     exit;
 }
 
-// --- Inicial del avatar ---
-$inicial = strtoupper(
-    mb_substr($usuario["username"] ?? "", 0, 1, "UTF-8")
-);
-
-if ($inicial === "") {
-    $inicial = "?";
+$inicial = strtoupper(mb_substr($usuario['username'] ?? '', 0, 1, 'UTF-8'));
+if ($inicial === '') {
+    $inicial = '?';
 }
 
-// --- Estadísticas de la colección (dal/ColeccionDAL.php y dal/DinosaurioDAL.php) ---
-$resumen        = resumenColeccion($usuario_id);
-$total_cartas   = $resumen["cartas"];
-$total_especies = $resumen["especies"];
-$total_catalogo = contarDinosaurios();
+$resumen = resumenColeccion($usuario_id);
+$total_cartas   = $resumen['cartas'];
+$total_especies = $resumen['especies'];
 
-// --- Progreso del catálogo y nivel de la barra (src/ReglasColeccion.php) ---
-$progreso   = calcularProgreso($total_especies, $total_catalogo);
-$porcentaje = $progreso["porcentaje"];
-$faltan     = $progreso["faltan"];
-$nivel      = calcularNivel($porcentaje);
+$progreso = calcularProgreso($total_especies, contarDinosaurios());
+$total_catalogo = $progreso['total'];
+$porcentaje     = $progreso['porcentaje'];
+$faltan         = $progreso['faltan'];
+$nivel          = calcularNivel($porcentaje);
 
-// --- Fechas de la cuenta ---
-$registro = $usuario["fecha_registro"] ?? null;
-$ultima   = $usuario["ultima_obtencion"] ?? null;
+$registro = $usuario['fecha_registro'] ?? null;
+$ultima   = $usuario['ultima_obtencion'] ?? null;
 
-// --- Comprobar si ya se obtuvo la carta diaria ---
 $ya_obtenida_hoy = (
     $ultima !== null
-    && substr((string) $ultima, 0, 10) === date("Y-m-d")
+    && substr((string) $ultima, 0, 10) === date('Y-m-d')
 );
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

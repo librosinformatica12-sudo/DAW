@@ -1,13 +1,8 @@
 <?php
-/* ============================================================
-   php/cerrar.php
-   ------------------------------------------------------------------
-   Cierra la sesion y vuelve a la pagina principal.
-   (Antes el archivo empezaba con una linea "```php" de Markdown que
-   se enviaba al navegador y rompia la redireccion.)
-   ============================================================ */
-
-require_once __DIR__ . "/../src/bootstrap.php";
+// Iniciar la sesión para poder cerrarla correctamente.
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Vaciar todas las variables de sesión.
 $_SESSION = [];

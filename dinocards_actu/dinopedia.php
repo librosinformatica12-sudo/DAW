@@ -6,15 +6,12 @@
    coleccion se ven a color; las que le faltan, en gris.
    ============================================================ */
 
-require_once __DIR__ . "/src/bootstrap.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 
-// --- Especies que ya tengo (se ven a color) frente a las que no (en gris) ---
 $mios = array_flip(obtenerIdsColeccion($usuario_id));
-
-// --- Traigo todos los dinosaurios del catalogo (dal/DinosaurioDAL.php) ---
 $dinos = obtenerTodosLosDinosaurios();
 ?>
 <!DOCTYPE html>

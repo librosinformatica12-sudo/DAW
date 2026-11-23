@@ -1,91 +1,25 @@
 <?php
-/**
- * AccesoDatos.php
- * ------------------------------------------------------------------
- * Punto de entrada a la capa de datos de DinoCards.
- *
- * Se encarga de:
- *   1. Iniciar la sesion (si no lo esta ya).
- *   2. Crear la conexion a MySQL en la variable $conexion
- *      (con alias $connection, igual que en dino-prueba).
- *   3. Definir las funciones de ayuda que usan casi todas las paginas.
- *
- * Cualquier archivo que haga require de este archivo ya tiene
- * acceso a la conexion y a todas las funciones de ayuda.
- *
- * Equivale a src/AccesoDatos.php del proyecto dino-prueba.
- * ------------------------------------------------------------------
- */
 
-// ------------------------------------------------------------
-// 1. SESION
-// ------------------------------------------------------------
-// La abrimos aqui una sola vez para no repetir session_start()
-// en cada pagina.
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// ------------------------------------------------------------
-// 2. CONEXION A LA BASE DE DATOS
-// ------------------------------------------------------------
-$host     = '127.0.0.1';
-$port     = 3306;
+$host = '127.0.0.1';
+$port = 3306;
 $database = 'dinocards';
 $username = 'oscar';
-$password = '1234';
+$password = '561Cazadora#%';
 
-// Desactivamos las excepciones automaticas de mysqli para poder
-// controlar los errores a mano (mismo criterio que dino-prueba).
 mysqli_report(MYSQLI_REPORT_OFF);
+$connection = @new mysqli($host, $username, $password, $database, $port);
 
-$conexion = @new mysqli($host, $username, $password, $database, $port);
-
-if ($conexion->connect_errno) {
-    die("Error de conexion: " . $conexion->connect_error);
-}
-
-// Aseguramos acentos y caracteres especiales (tildes, ñ...).
-$conexion->set_charset('utf8mb4');
-
-// Alias con el nombre que usa dino-prueba ($connection).
-$connection = $conexion;
-
-
-// ------------------------------------------------------------
-// 3. FUNCIONES DE AYUDA
-// ------------------------------------------------------------
-
-/**
- * Limpia un texto antes de mostrarlo en el HTML.
- * Evita problemas de seguridad (XSS).
- */
-function escapar(mixed $texto): string
+function falloAccesoDatos(string $detalle): void
 {
-    return htmlspecialchars($texto ?? "", ENT_QUOTES, "UTF-8");
+    error_log($detalle);
+    responder('No se pudo completar la operación. Inténtalo de nuevo.', 500);
 }
 
-/**
- * Alias corto de escapar() (lo usan algunas plantillas
- * al estilo dino-prueba).
- */
-function e(mixed $texto)
-{
-    return escapar($texto);
-}
-
-/**
- * Devuelve true si el usuario ha iniciado sesion.
- */
 function esta_logueado()
 {
     return isset($_SESSION["usuario_id"]);
 }
 
-/**
- * Si el usuario no ha iniciado sesion, lo manda a la pagina
- * de entrada (index.php) y detiene la ejecucion.
- */
 function pedir_login()
 {
     if (!esta_logueado()) {
@@ -94,12 +28,219 @@ function pedir_login()
     }
 }
 
-// ------------------------------------------------------------
-// 4. SERVICIOS
-// ------------------------------------------------------------
-// Se cargan aqui para que cualquier archivo que haga require de
-// AccesoDatos tenga ya disponibles todas las funciones de datos.
-// (Mismo patron que AccesoDatos.php de dino-prueba.)
-require_once __DIR__ . '/ReglasColeccion.php';
-require_once __DIR__ . '/UsuarioService.php';
-require_once __DIR__ . '/ColeccionService.php';
+function PA_Registrar(string $nick, string $email, string $contrasena)
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL Registro(?, ?, ?, @resultado)';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+    }
+    $contrasenaHash = md5($contrasena);
+    $stmt->bind_param('sss', $nick, $email, $contrasenaHash);
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    while ($stmt->more_results()) {
+        $stmt->next_result();
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+
+    if (!$resultado) {
+        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return $fila['resultado'];
+}
+function PA_Login(string $email, string $contrasena): array
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL Login(?, ?, @resultado)';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+    }
+    $contrasenaHash = md5($contrasena);
+    $stmt->bind_param('ss', $email, $contrasenaHash);
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    $usuario = null;
+    if ($stmt->field_count > 0) {
+        $resultadoUsuario = $stmt->get_result();
+        if ($resultadoUsuario) {
+            $usuario = $resultadoUsuario->fetch_assoc() ?: null;
+            $resultadoUsuario->free();
+        }
+    }
+
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+
+    if (!$resultado) {
+        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return [
+        'resultado' => (int) $fila['resultado'],
+        'usuario' => $usuario,
+    ];
+}
+
+/** @return array{resultado: int, coleccion: list<array<string, mixed>>} */
+function PA_ObtenerColeccion(int $idUsuario): array
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL ObtenerColeccion(?, @resultado)';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+    }
+
+    $stmt->bind_param('i', $idUsuario);
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    $coleccion = [];
+    if ($stmt->field_count > 0) {
+        $resultadoColeccion = $stmt->get_result();
+        if ($resultadoColeccion) {
+            while ($fila = $resultadoColeccion->fetch_assoc()) {
+                $fila['id'] = (int) $fila['id'];
+                $coleccion[] = $fila;
+            }
+            $resultadoColeccion->free();
+        }
+    }
+
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+
+    if (!$resultado) {
+        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return [
+        'resultado' => (int) $fila['resultado'],
+        'coleccion' => $coleccion,
+    ];
+}
+
+function PA_AñadirNuevaCartaAColeccion(int $idUsuario): int
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL `AñadirNuevaCartaAColeccion`(?, @resultado)';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+    }
+
+    $stmt->bind_param('i', $idUsuario);
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+    if (!$resultado) {
+        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return (int) $fila['resultado'];
+}

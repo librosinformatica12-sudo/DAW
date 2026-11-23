@@ -1,7 +1,5 @@
-# Credenciales reales: no subir nunca
-config/database.local.php
-
-# Logs / editores
+# Configuración local y archivos temporales
+.env
+.DS_Store
+Thumbs.db
 *.log
-.vscode/
-.idea/

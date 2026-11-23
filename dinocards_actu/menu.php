@@ -6,20 +6,16 @@
    Estructura: logo - navegacion - carta diaria y salir.
    ============================================================ */
 
-// Asegurarnos de que la sesión esté iniciada por si no se llamó antes
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+require_once __DIR__ . '/src/AccesoDatos.php';
 
-// Sabemos en que pagina estamos para marcar el enlace activo
-$pagina_actual = basename($_SERVER["PHP_SELF"]);
+$pagina_actual = basename($_SERVER['PHP_SELF']);
 
-// ¿Ya ha cogido la carta de hoy? (el dato lo da la capa de datos: dal/UsuarioDAL.php)
-$menu_usuario_id = (int) ($_SESSION["usuario_id"] ?? 0);
-$menu_ultima     = $menu_usuario_id > 0 ? obtenerUltimaObtencion($menu_usuario_id) : null;
+$menu_usuario_id = (int) ($_SESSION['usuario_id'] ?? 0);
+$menu_usuario = $menu_usuario_id > 0 ? obtenerUsuarioPorId($menu_usuario_id) : null;
+$menu_ultima  = $menu_usuario['ultima_obtencion'] ?? null;
 
 $menu_obtenida_hoy = ($menu_ultima !== null
-    && substr($menu_ultima, 0, 10) === date("Y-m-d"));
+    && substr($menu_ultima, 0, 10) === date('Y-m-d'));
 
 // Enlaces de navegacion: [archivo, icono, texto]
 $menu_enlaces = [
@@ -27,6 +23,7 @@ $menu_enlaces = [
     ["coleccion.php", "bx-collection", "Mi colección"],
     ["dinopedia.php", "bx-book-open",  "DinoPedia"],
     ["perfil.php",    "bx-user",       "Mi perfil"],
+    ["intercambio.php",     "bx-transfer",     "Intercambio"],
 ];
 ?>
 <header class="topbar">

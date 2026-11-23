@@ -7,7 +7,7 @@
    endpoints php/cartaDiaria.php y php/abrirSobrePrueba.php.
    ============================================================ */
 
-require_once __DIR__ . "/src/bootstrap.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
@@ -34,11 +34,13 @@ if (!$usuario) {
 }
 
 // --- Espera del sobre del día (24 horas desde la última apertura) ---
-$faltan_dia    = segundosRestantes($usuario["ultima_obtencion"] ?? null, ESPERA_SOBRE_DIA);
+$espera_dia    = 24 * 60 * 60;
+$faltan_dia    = segundosRestantes($usuario["ultima_obtencion"] ?? null, $espera_dia);
 $ya_cogida_hoy = ($faltan_dia > 0);
 
 // --- Espera del sobre de prueba (2 minutos) ---
-$faltan_prueba = segundosRestantes($usuario["carta_prueba"] ?? null, ESPERA_SOBRE_PRUEBA);
+$espera_prueba = 120;
+$faltan_prueba = segundosRestantes($usuario["carta_prueba"] ?? null, $espera_prueba);
 $prueba_listo  = ($faltan_prueba === 0);
 
 // --- Resumen de la coleccion ---
@@ -46,7 +48,7 @@ $resumen        = resumenColeccion($usuario_id);
 $total_cartas   = $resumen["cartas"];
 $total_especies = $resumen["especies"];
 $total_catalogo = contarDinosaurios();
-$porcentaje     = calcularProgreso($total_especies, $total_catalogo)["porcentaje"];
+$porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo * 100) : 0;
 
 // --- Datos para el banner de bienvenida (estilo dino-prueba) ---
 $nombre = $usuario["username"] ?? "Coleccionista";
@@ -119,7 +121,6 @@ $mesActual = $meses[(int) date("n") - 1];
                 <h2>Sobre del día</h2>
                 <p>Consigue un dinosaurio nuevo gratis. Se puede abrir cada 24 horas.</p>
                 <form method="POST" action="php/cartaDiaria.php">
-                    <?= csrf_input() ?>
                     <button type="submit" class="boton"
                             data-espera="<?= (int) $faltan_dia ?>"
                             data-label="Abrir sobre del día"
@@ -139,7 +140,6 @@ $mesActual = $meses[(int) date("n") - 1];
                 <h2>Sobre de prueba</h2>
                 <p>Consigue 4 cartas de golpe. Debes esperar 2 minutos entre aperturas.</p>
                 <form method="POST" action="php/abrirSobrePrueba.php">
-                    <?= csrf_input() ?>
                     <button type="submit" class="boton secundario"
                             data-espera="<?= (int) $faltan_prueba ?>"
                             data-label="Abrir sobre de prueba"

@@ -5,26 +5,20 @@
    Muestra las cartas que tiene el usuario.
    ============================================================ */
 
-require_once __DIR__ . "/src/bootstrap.php";
+require_once __DIR__ . "/src/AccesoDatos.php";
 pedir_login();
 
 $usuario_id = (int) $_SESSION["usuario_id"];
 
-// 1) Ids de los dinosaurios que tengo (puede haber repetidos)  -> dal/ColeccionDAL.php
 $ids = obtenerIdsColeccion($usuario_id);
-
-// 2) Cuento cuantas copias tengo de cada dinosaurio  -> src/ReglasColeccion.php
 $agrupado = agruparColeccion($ids);
-$copias   = $agrupado["conteo"];
-$orden    = $agrupado["orden"];
-
-// 3) Datos de esos dinosaurios  -> dal/DinosaurioDAL.php
-$dinos = dinosauriosPorIds($orden);
-
-// 4) Progreso
-$total_catalogo = contarDinosaurios();
-$total_especies = count($orden);
-$porcentaje     = calcularProgreso($total_especies, $total_catalogo)["porcentaje"];
+$copias = $agrupado['conteo'];
+$orden  = $agrupado['orden'];
+$dinos  = dinosauriosPorIds($orden);
+$progreso = calcularProgreso(count($orden), contarDinosaurios());
+$total_catalogo = $progreso['total'];
+$total_especies = $progreso['especies'];
+$porcentaje     = $progreso['porcentaje'];
 ?>
 <!DOCTYPE html>
 <html lang="es">

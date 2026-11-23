@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     responder(false, "Metodo no permitido.");
 }
 
-// se guarda la info q poner en el registro
 $usuario = trim($_POST["usuario"] ?? "");
 $email   = trim($_POST["email"] ?? "");
 $clave1  = $_POST["contrasena"] ?? "";
@@ -28,17 +27,18 @@ if ($usuario === "" || $email === "" || $clave1 === "") {
 if (strlen($usuario) < 3) {
     responder(false, "El usuario debe tener al menos 3 caracteres.");
 }
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { // validar email
     responder(false, "El correo no es válido.");
 }
 if (strlen($clave1) < 4) {
-    responder(false, "La contraseña debe tener al menos 4 caracteres.");
+    responder(false, "La contraseña debe tener al menos 4 caracteres."); // medir longitud de contraseña
 }
 if ($clave1 !== $clave2) {
     responder(false, "Las contraseñas no coinciden.");
 }
 
 // Miramos si ese usuario o email ya existen
+// comprobamos duplicados
 $consulta = $conexion->prepare("SELECT id FROM usuarios WHERE username = ? OR email = ?");
 $consulta->bind_param("ss", $usuario, $email);
 $consulta->execute();
@@ -51,6 +51,8 @@ if ($consulta->num_rows > 0) {
 $consulta->close();
 
 // Guardamos la contraseña cifrada de forma segura (password_hash)
+// cifrar la contra
+// insertar usuario
 $hash = password_hash($clave1, PASSWORD_DEFAULT);
 $alta = $conexion->prepare(
     "INSERT INTO usuarios (username, email, password_hash, fecha_registro)

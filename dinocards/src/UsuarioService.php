@@ -26,6 +26,7 @@ function obtenerUsuarioPorId(int $usuario_id): ?array
 }
 
 /** Marca ahora como la ultima vez que se abrio el sobre del dia. */
+/** Actualizar la fecha de obtencion. */
 function marcarUltimaObtencion(int $usuario_id): void
 {
     global $conexion;

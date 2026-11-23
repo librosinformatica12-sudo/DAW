@@ -43,6 +43,13 @@
     justify-content: center;
 }
 
+.tarjeta-coleccion{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+}
+
 
 /* Panel del chat */
 .contenedor-chat{

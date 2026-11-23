@@ -1,30 +1,52 @@
 <?php
 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+function esta_logueado(): bool
+{
+    return isset($_SESSION['usuario_id']) && (int) $_SESSION['usuario_id'] > 0;
+}
+
+function escapar(mixed $valor): string
+{
+    return htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+}
+
+function pedir_login(): void
+{
+    if (!esta_logueado()) {
+        header('Location: index.php');
+        exit;
+    }
+}
+
 $host = '127.0.0.1';
 $port = 3306;
 $database = 'dinocards';
 $username = 'oscar';
-$password = '561Cazadora#%';
+$password = '1234';
 
 mysqli_report(MYSQLI_REPORT_OFF);
 $connection = @new mysqli($host, $username, $password, $database, $port);
+$conexion = $connection;
+
+if (!$connection->connect_errno) {
+    $connection->set_charset('utf8mb4');
+}
 
 function falloAccesoDatos(string $detalle): void
 {
     error_log($detalle);
-    responder('No se pudo completar la operación. Inténtalo de nuevo.', 500);
+    http_response_code(500);
+    responder(false, 'No se pudo completar la operación. Inténtalo de nuevo.');
 }
 
-function esta_logueado()
+function asegurarConexion(mysqli $connection): void
 {
-    return isset($_SESSION["usuario_id"]);
-}
-
-function pedir_login()
-{
-    if (!esta_logueado()) {
-        header("Location: index.php");
-        exit;
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
     }
 }
 
@@ -68,6 +90,7 @@ function PA_Registrar(string $nick, string $email, string $contrasena)
 
     return $fila['resultado'];
 }
+
 function PA_Login(string $email, string $contrasena): array
 {
     global $connection;
@@ -130,7 +153,6 @@ function PA_Login(string $email, string $contrasena): array
     ];
 }
 
-/** @return array{resultado: int, coleccion: list<array<string, mixed>>} */
 function PA_ObtenerColeccion(int $idUsuario): array
 {
     global $connection;
@@ -244,3 +266,8 @@ function PA_AñadirNuevaCartaAColeccion(int $idUsuario): int
 
     return (int) $fila['resultado'];
 }
+
+require_once __DIR__ . '/Respuesta.php';
+require_once __DIR__ . '/ReglasColeccion.php';
+require_once __DIR__ . '/UsuarioService.php';
+require_once __DIR__ . '/ColeccionService.php';

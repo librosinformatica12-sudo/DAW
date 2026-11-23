@@ -121,7 +121,7 @@ function anadirCarta(): void
 
         if ($resultado === 0) {
             $_SESSION['usuario']['fechaHoraUltimaObtencionCarta'] = (new DateTimeImmutable())->format('Y-m-d H:i:s');
-            $coleccion = ObtenerColeccion($idUsuario);
+            $coleccion = PA_ObtenerColeccion($idUsuario);
             if ($coleccion['resultado'] !== 0) {
                 responder('No se pudo actualizar la colección. Inténtalo de nuevo.', 500);
             }

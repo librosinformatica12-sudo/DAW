@@ -13,14 +13,14 @@ Aplicación web de colección de cartas de dinosaurios. Incluye acceso y registr
 1. Descomprime la carpeta `dinocards` dentro de `C:\xampp\htdocs\`.
 2. Abre el panel de XAMPP e inicia **Apache** y **MySQL**.
 3. Entra en `http://localhost/phpmyadmin`.
-4. Selecciona **Importar** y carga `SQL/instalar.sql`. El script crea la base de datos `dinocards`, las tablas, el catálogo de dinosaurios y todos los procedimientos almacenados. No incluye cuentas personales ni contraseñas de ejemplo.
-5. Si tu MySQL usa otros datos, define las variables de entorno `DINOCARDS_DB_HOST`, `DINOCARDS_DB_PORT`, `DINOCARDS_DB_NAME`, `DINOCARDS_DB_USER` y `DINOCARDS_DB_PASS` (puedes usar `.env.example` como referencia).
+4. Selecciona **Importar** y carga `SQL/instalar.sql`. El script crea la base de datos `dinocards_actu`, las tablas, el catálogo de dinosaurios y todos los procedimientos almacenados. No incluye cuentas personales ni contraseñas de ejemplo.
+5. La configuración de MySQL se lee de variables de entorno. En `.htaccess` ya están definidas `DINOCARDS_DB_HOST`, `DINOCARDS_DB_PORT`, `DINOCARDS_DB_NAME`, `DINOCARDS_DB_USER` y `DINOCARDS_DB_PASS` para este XAMPP (`root` / `1234`). Si cambias de equipo, ajusta ese archivo o las variables del servidor (usa `.env.example` como referencia).
 6. Abre `http://localhost/ejer/dinocards_actu/`.
 7. Crea una cuenta desde **Registrarse** y después inicia sesión.
 
 > **Importante:** `SQL/instalar.sql` está pensado para una instalación nueva: elimina y vuelve a crear las tablas del proyecto. Si ya tienes datos de DinoCards, haz una copia de seguridad antes de importarlo.
 >
-> En una instalación XAMPP habitual el usuario de MySQL es `root` y la contraseña está vacía. Si has configurado una contraseña, indícala en `DINOCARDS_DB_PASS`.
+> Este proyecto usa su propia base `dinocards_actu` para no sobrescribir la base `dinocards` de las otras versiones. Tablas, procedimientos y conexión usan la misma collation (`utf8mb4_unicode_ci`).
 
 ## Estructura principal
 

@@ -1,4 +1,5 @@
 -- SCRIPT de Generacion de BBDD en MySQL
+-- TOP
 CREATE DATABASE IF NOT EXISTS DinoCards;
 
 -- DROPS

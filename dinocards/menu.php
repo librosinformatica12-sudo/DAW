@@ -42,6 +42,7 @@ $menu_enlaces = [
     ["coleccion.php", "bx-collection", "Mi colección"],
     ["dinopedia.php", "bx-book-open",  "DinoPedia"],
     ["perfil.php",    "bx-user",       "Mi perfil"],
+    ["intercambio.php",     "bx-transfer",     "Intercambio"],
 ];
 ?>
 <header class="topbar">

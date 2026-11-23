@@ -48,7 +48,7 @@ function conexionBaseDatos(): mysqli
         $config['database'],
         $config['port']
     );
-    $conexion->set_charset('utf8mb4');
+    $conexion->query("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
 
     return $conexion;
 }

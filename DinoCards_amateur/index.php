@@ -24,12 +24,11 @@ function PuedeObtenerNuevaCarta(?string $ultimaObtencion, ?int &$tiempoRestante 
 $usuarioActual = $_SESSION['usuario'] ?? null;
 $estaAutenticado = is_array($usuarioActual);
 
-$usuariosTrading = $_SESSION["lista_usuarios_trading"];
+$usuariosTrading = $_SESSION["lista_usuarios_trading"] ?? null;
 if($usuariosTrading != null)
 	$estaTrading = true;
 else
 	$estaTrading = false;
-
 $nombreUsuario = htmlspecialchars((string) ($usuarioActual['username'] ?? 'Explorador'), ENT_QUOTES, 'UTF-8');
 
 $ultimaObtencion = $usuarioActual['fechaHoraUltimaObtencionCarta'] ?? null;

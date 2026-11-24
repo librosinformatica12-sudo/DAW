@@ -29,7 +29,7 @@ function PA_Registrar(string $nick, string $email, string $contrasena)
     if (!$stmt) {
         falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
     }
-    $contrasenaHash = md5($contrasena);
+    $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
     $stmt->bind_param('sss', $nick, $email, $contrasenaHash);
 
     if (!$stmt->execute()) {
@@ -55,6 +55,20 @@ function PA_Registrar(string $nick, string $email, string $contrasena)
 
     return $fila['resultado'];
 }
+
+function verificarContrasena(string $contrasena, string $hash): bool
+{
+    if ($hash === '') {
+        return false;
+    }
+
+    if (password_verify($contrasena, $hash)) {
+        return true;
+    }
+
+    return hash_equals($hash, md5($contrasena));
+}
+
 function PA_Login(string $email, string $contrasena): array
 {
     global $connection;
@@ -63,58 +77,45 @@ function PA_Login(string $email, string $contrasena): array
         falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
     }
 
-    $sql = 'CALL Login(?, ?, @resultado)';
+    $email = trim($email);
+    if ($email === '') {
+        return ['resultado' => -1, 'usuario' => null];
+    }
+    if ($contrasena === '') {
+        return ['resultado' => -2, 'usuario' => null];
+    }
+
+    $sql = 'SELECT * FROM usuarios WHERE email = ? OR username = ? LIMIT 1';
     $stmt = $connection->prepare($sql);
 
     if (!$stmt) {
-        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+        falloAccesoDatos('Error al preparar la consulta: ' . $connection->error);
     }
-    $contrasenaHash = md5($contrasena);
-    $stmt->bind_param('ss', $email, $contrasenaHash);
+
+    $stmt->bind_param('ss', $email, $email);
 
     if (!$stmt->execute()) {
         $error = $stmt->error;
         $stmt->close();
-        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+        falloAccesoDatos('Error al ejecutar la consulta: ' . $error);
     }
 
-    $usuario = null;
-    if ($stmt->field_count > 0) {
-        $resultadoUsuario = $stmt->get_result();
-        if ($resultadoUsuario) {
-            $usuario = $resultadoUsuario->fetch_assoc() ?: null;
-            $resultadoUsuario->free();
-        }
+    $resultadoUsuario = $stmt->get_result();
+    $usuario = $resultadoUsuario ? $resultadoUsuario->fetch_assoc() : null;
+    if ($resultadoUsuario) {
+        $resultadoUsuario->free();
     }
-
-    while ($stmt->more_results()) {
-        if (!$stmt->next_result()) {
-            break;
-        }
-
-        if ($stmt->field_count > 0) {
-            $resultadoAdicional = $stmt->get_result();
-            if ($resultadoAdicional) {
-                $resultadoAdicional->free();
-            }
-        }
-    }
-
     $stmt->close();
 
-    $resultado = $connection->query('SELECT @resultado AS resultado');
-
-    if (!$resultado) {
-        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    if (!is_array($usuario)) {
+        return ['resultado' => -3, 'usuario' => null];
     }
 
-    $fila = $resultado->fetch_assoc();
-    $resultado->free();
+    if (!verificarContrasena($contrasena, (string) ($usuario['password_hash'] ?? ''))) {
+        return ['resultado' => -3, 'usuario' => null];
+    }
 
-    return [
-        'resultado' => (int) $fila['resultado'],
-        'usuario' => $usuario,
-    ];
+    return ['resultado' => 0, 'usuario' => $usuario];
 }
 
 /** @return array{resultado: int, coleccion: list<array<string, mixed>>} */
@@ -183,6 +184,72 @@ function PA_ObtenerColeccion(int $idUsuario): array
     ];
 }
 
+function PA_ObtenerUsuariosParaTrade() 
+{
+    
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos("Error de conexión: " . $connection->connect_error);
+    }
+
+    $sql = "CALL UserListReadyTrading(@resultado)";
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos("Error al preparar el procedimiento: " . $connection->error);
+    }
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos("Error al ejecutar el procedimiento: " . $error);
+    }
+
+
+    // Primer conjunto de resultados (la lista de usuarios)
+    $ListaUsuariosTrading = [];
+    if ($stmt->field_count > 0) {
+        $resultadoColeccion = $stmt->get_result();
+        if ($resultadoColeccion) {
+            while ($fila = $resultadoColeccion->fetch_assoc()) {
+                $fila['id'] = (int) $fila['id'];
+                $ListaUsuariosTrading[] = $fila;
+            }
+            $resultadoColeccion->free();
+        }
+    }
+
+    // Limpiar posibles conjuntos de resultados adicionales del procedimiento
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    // Recuperar el parámetro OUT @resultado
+    $resOut = $connection->query("SELECT @resultado AS resultado");
+    if (!$resOut) {
+        falloAccesoDatos("Error al recuperar el parámetro OUT: " . $connection->error);
+    }
+
+    $filaOut = $resOut->fetch_assoc();
+    $resOut->free();
+
+    return [
+        'resultado' => (int) $filaOut['resultado'],
+        'coleccion' => $ListaUsuariosTrading
+    ];
+}
+
 function PA_AñadirNuevaCartaAColeccion(int $idUsuario): int
 {
     global $connection;
@@ -231,3 +298,51 @@ function PA_AñadirNuevaCartaAColeccion(int $idUsuario): int
 
     return (int) $fila['resultado'];
 }
+
+function PA_CambiarListoParaNegociar()
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL `SetListoParaNegociar`()';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+    }
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+    if (!$resultado) {
+        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return (int) $fila['resultado'];
+}
+

@@ -262,7 +262,7 @@ function renderCartas(cartas, contenedor, seleccion, lado) {
         const id = Number(carta.coleccion_id);
         const activa = seleccion.has(id);
         const imagen = carta.image_url
-            ? `<img src="${escapar(carta.image_url)}" alt="${escapar(carta.nombre)}">`
+            ? `<img src="res/${encodeURIComponent(carta.image_url)}" alt="${escapar(carta.nombre)}">`
             : `<div class="dino-placeholder">D</div>`;
         return `<button type="button" class="dino-card ${activa ? 'selected' : ''}" data-id="${id}" aria-pressed="${activa}">
             <span class="card-number">#${id}</span>${imagen}

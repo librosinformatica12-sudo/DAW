@@ -44,6 +44,7 @@ function iniciarSesion(): void
             'username' => $usuario['username'] ?? $usuario['nick'] ?? null,
             'email' => $usuario['email'] ?? trim($email),
             'fechaHoraUltimaObtencionCarta' => $usuario['ultima_obtencion'] ?? null,
+            'listos_negociar' => $usuario["listos_negociar"] ?? null,
         ];
         $_SESSION['coleccion'] = $coleccion['coleccion'];
 
@@ -140,6 +141,24 @@ function anadirCarta(): void
     exit;
 }
 
+function entrarTrade(): void
+{
+    // CAMBIAR EL ESTADO DEL USUARIO A 'LISTO_NEGOCIAR'
+    if($_SESSION["usuario"]["listos_negociar"] == 0)
+    {
+        PA_CambiarListoParaNegociar($_SESSION["usuario"]["id"]);
+    }
+    // OBTENER LA LISTA DE USUARIOS LISTOS PARA NEGOCIAR
+
+        $lista_usuarios_trade = PA_ObtenerUsuariosParaTrade();
+        $_SESSION["lista_usuarios_trade"] = $lista_usuarios_trade;
+
+    // NAVEGAR AL AREA DE TRADE Y RELLENAR LA LISTA DE USUARIOS VISUAL
+        header('Location: index.php');
+}
+
+
+// permite leer los action q estan en index
 $accion = $_GET['accion'];
 
 switch ($accion) {
@@ -155,6 +174,8 @@ switch ($accion) {
     case 'anadir-carta':
         anadirCarta();
         break;
+    case 'entrar-a-trade':
+        entrarTrade();
     default:
         responder('Acción no encontrada.', 404);
 }

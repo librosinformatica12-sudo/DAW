@@ -153,7 +153,7 @@ function renderCollection(collection) {
 
 function mostrarAreaTrading()
 {
-    
+    fetch()
 }
 
 renderCollection(JSON.parse(collectionView.dataset.collection || '[]'));

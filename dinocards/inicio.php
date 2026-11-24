@@ -159,9 +159,10 @@ $mesActual = $meses[(int) date("n") - 1];
             <ul class="cartas-grid">
                 <li class="carta-mini">
                     <span class="retrato">
-                        <?php if (!empty($carta_nueva["imagen_url"])): ?>
-                            <img class="fondo" src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                            <img src="<?= escapar($carta_nueva["imagen_url"]) ?>" alt="<?= escapar($carta_nueva["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                        <?php $img_path = !empty($carta_nueva["image_url"]) ? "img/img-cartas/" . $carta_nueva["image_url"] : ""; ?>
+                        <?php if ($img_path !== ""): ?>
+                            <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <img src="<?= escapar($img_path) ?>" alt="<?= escapar($carta_nueva["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
                         <?php else: ?>
                             <i class="bx bx-dna" aria-hidden="true"></i>
                         <?php endif; ?>
@@ -187,9 +188,10 @@ $mesActual = $meses[(int) date("n") - 1];
                 <?php foreach ($cartas_prueba as $d): ?>
                     <li class="carta-mini">
                         <span class="retrato">
-                            <?php if (!empty($d["imagen_url"])): ?>
-                                <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                                <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; ?>
+                            <?php if ($img_path !== ""): ?>
+                                <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
                             <?php else: ?>
                                 <i class="bx bx-dna" aria-hidden="true"></i>
                             <?php endif; ?>

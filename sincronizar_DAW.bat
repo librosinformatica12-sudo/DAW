@@ -26,8 +26,9 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo Subiendo a daw/main...
-git push daw main
+echo Subiendo a daw/main (el codigo local sobrescribe al remoto)...
+git fetch daw
+git push daw main --force-with-lease
 if %ERRORLEVEL% NEQ 0 (
     echo.
     echo El push ha fallado. Lee el mensaje de arriba.

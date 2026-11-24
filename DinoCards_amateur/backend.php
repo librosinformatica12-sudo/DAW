@@ -149,7 +149,12 @@ function entrarTrade(): void
         PA_CambiarListoParaNegociar($_SESSION["usuario"]["id"]);
     }
     // OBTENER LA LISTA DE USUARIOS LISTOS PARA NEGOCIAR
+
+        $lista_usuarios_trade = PA_ObtenerUsuariosParaTrade();
+        $_SESSION["lista_usuarios_trade"] = $lista_usuarios_trade;
+
     // NAVEGAR AL AREA DE TRADE Y RELLENAR LA LISTA DE USUARIOS VISUAL
+        header('Location: index.php');
 }
 
 
@@ -169,7 +174,7 @@ switch ($accion) {
     case 'anadir-carta':
         anadirCarta();
         break;
-    case 'entrar-trade':
+    case 'entrar-a-trade':
         entrarTrade();
     default:
         responder('Acción no encontrada.', 404);

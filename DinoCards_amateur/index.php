@@ -23,7 +23,15 @@ function PuedeObtenerNuevaCarta(?string $ultimaObtencion, ?int &$tiempoRestante 
 
 $usuarioActual = $_SESSION['usuario'] ?? null;
 $estaAutenticado = is_array($usuarioActual);
+
+$usuariosTrading = $_SESSION["lista_usuarios_trading"];
+if($usuariosTrading != null)
+	$estaTrading = true;
+else
+	$estaTrading = false;
+
 $nombreUsuario = htmlspecialchars((string) ($usuarioActual['username'] ?? 'Explorador'), ENT_QUOTES, 'UTF-8');
+
 $ultimaObtencion = $usuarioActual['fechaHoraUltimaObtencionCarta'] ?? null;
 $tiempoRestante = null;
 $puedeObtenerCarta = $ultimaObtencion === null
@@ -213,7 +221,7 @@ unset($_SESSION['mensajeColeccion']);
 				</div>
 			</section>
 			
-			<section class="trading-view" id="trading-view">
+			<section class="trading-view" id="trading-view" <?= $estaTrading ? '' : 'hidden' ?>>
 
 			<!-- Cuando tengas el WireFrame generas el HTML y CSS que consideres -->
 			

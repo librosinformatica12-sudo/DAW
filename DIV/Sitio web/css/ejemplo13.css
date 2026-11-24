@@ -1,0 +1,34 @@
+#contenedor header {
+    height: 70px;
+    padding: 2px;
+    margin: 20px auto;
+    background-color: red;
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 2px;
+    text-align: center;
+}
+
+#contenedor nav {
+    height: 90px;
+    padding: 2px;
+    margin: 20px auto;
+    background-color: rgb(39, 230, 255);
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 2px;
+}
+
+#content {
+    height: 90px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+footer {
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 15px;
+    margin: 20px auto;
+}

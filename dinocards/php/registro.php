@@ -16,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     responder(false, "Metodo no permitido.");
 }
 
-// se guarda la info q poner en el registro
 $usuario = trim($_POST["usuario"] ?? "");
 $email   = trim($_POST["email"] ?? "");
 $clave1  = $_POST["contrasena"] ?? "";

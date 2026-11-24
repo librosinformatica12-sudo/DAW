@@ -9,6 +9,8 @@
 require_once __DIR__ . "/../src/AccesoDatos.php";
 require_once __DIR__ . "/../src/Respuesta.php";
 
+global $conexion;
+
 header("Content-Type: application/json; charset=utf-8");
 
 if (session_status() === PHP_SESSION_NONE) {

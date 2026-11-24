@@ -55,6 +55,7 @@ function PA_Registrar(string $nick, string $email, string $contrasena)
 
     return $fila['resultado'];
 }
+
 function PA_Login(string $email, string $contrasena): array
 {
     global $connection;
@@ -183,6 +184,72 @@ function PA_ObtenerColeccion(int $idUsuario): array
     ];
 }
 
+function PA_ObtenerUsuariosParaTrade() 
+{
+    
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos("Error de conexión: " . $connection->connect_error);
+    }
+
+    $sql = "CALL UserListReadyTrading(@resultado)";
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos("Error al preparar el procedimiento: " . $connection->error);
+    }
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos("Error al ejecutar el procedimiento: " . $error);
+    }
+
+
+    // Primer conjunto de resultados (la lista de usuarios)
+    $ListaUsuariosTrading = [];
+    if ($stmt->field_count > 0) {
+        $resultadoColeccion = $stmt->get_result();
+        if ($resultadoColeccion) {
+            while ($fila = $resultadoColeccion->fetch_assoc()) {
+                $fila['id'] = (int) $fila['id'];
+                $ListaUsuariosTrading[] = $fila;
+            }
+            $resultadoColeccion->free();
+        }
+    }
+
+    // Limpiar posibles conjuntos de resultados adicionales del procedimiento
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    // Recuperar el parámetro OUT @resultado
+    $resOut = $connection->query("SELECT @resultado AS resultado");
+    if (!$resOut) {
+        falloAccesoDatos("Error al recuperar el parámetro OUT: " . $connection->error);
+    }
+
+    $filaOut = $resOut->fetch_assoc();
+    $resOut->free();
+
+    return [
+        'resultado' => (int) $filaOut['resultado'],
+        'coleccion' => $ListaUsuariosTrading
+    ];
+}
+
 function PA_AñadirNuevaCartaAColeccion(int $idUsuario): int
 {
     global $connection;
@@ -231,3 +298,51 @@ function PA_AñadirNuevaCartaAColeccion(int $idUsuario): int
 
     return (int) $fila['resultado'];
 }
+
+function PA_CambiarListoParaNegociar()
+{
+    global $connection;
+
+    if ($connection->connect_errno) {
+        falloAccesoDatos('Error de conexión: ' . $connection->connect_error);
+    }
+
+    $sql = 'CALL `SetListoParaNegociar`()';
+    $stmt = $connection->prepare($sql);
+
+    if (!$stmt) {
+        falloAccesoDatos('Error al preparar el procedimiento: ' . $connection->error);
+    }
+
+    if (!$stmt->execute()) {
+        $error = $stmt->error;
+        $stmt->close();
+        falloAccesoDatos('Error al ejecutar el procedimiento: ' . $error);
+    }
+
+    while ($stmt->more_results()) {
+        if (!$stmt->next_result()) {
+            break;
+        }
+
+        if ($stmt->field_count > 0) {
+            $resultadoAdicional = $stmt->get_result();
+            if ($resultadoAdicional) {
+                $resultadoAdicional->free();
+            }
+        }
+    }
+
+    $stmt->close();
+
+    $resultado = $connection->query('SELECT @resultado AS resultado');
+    if (!$resultado) {
+        falloAccesoDatos('Error al recuperar el parámetro OUT: ' . $connection->error);
+    }
+
+    $fila = $resultado->fetch_assoc();
+    $resultado->free();
+
+    return (int) $fila['resultado'];
+}
+

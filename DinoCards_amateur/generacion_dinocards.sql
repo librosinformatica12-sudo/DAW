@@ -1,4 +1,4 @@
--- SCRIPT de Generacion de BBDD en MySQL
+-- SCRIPT de Generacion de BBDD en MySQL bien
 CREATE DATABASE IF NOT EXISTS DinoCards;
 
 -- DROPS
@@ -35,6 +35,19 @@ CREATE TABLE colecciones(id INT primary key auto_increment,
               foreign key (dinosaurio_id) REFERENCES dinosaurios(id)
 			);
 
+create table solicitudes(solicitudes_id int primary key auto_increment,
+						fecha datetime not null,
+						fk_usuario_A int not null,
+                        fk_usuario_B int not null,
+                        estado enum("Pendiente","Aceptada","Calcelada")
+);
+create table negociaciones(negociaciones int primary key auto_increment,
+							fk_usuario_A int not null,
+                            fk_usuario_B int not null,
+                            coleccion_mesa_a varchar(1000),
+                            coleccion_mesa_b varchar(1000),
+                            estado enum("Abierta","Cerrada")
+);
 -- PROCEDIMIENTOS ALMACENADOS
 	-- PA REGISTRO
 DROP PROCEDURE IF EXISTS Registro;
@@ -160,6 +173,58 @@ BEGIN
         ORDER BY dinosaurio_id ASC;
 END$$
 DELIMITER ;
+
+drop procedure if exists SetUserListReadyTrading;
+delimiter $$
+create procedure SetUserListReadyTrading(
+
+)
+begin
+	select id, username from usuarios
+    where listos_negociar = 1;
+end $$
+delimiter ;
+
+drop procedure if exists SetListoParaNegociar;
+delimiter $$
+create procedure SetListoParaNegociar(
+	in _usuario_id int,
+    out _res int
+)
+begin
+		declare aux int;
+		set aux = null;
+		
+		select listos_negociar from usuarios where id = _usuario_id
+		into aux;
+		
+		-- CASO -1 EL USUARIO NO EXISTE
+		if(aux = null) then
+			set _res = -1;
+		
+		-- CASO 0 - todo ok
+		elseif (aux = 0) then
+			update usuarios set listos_negociar = 1
+			where id = _usuario_id;
+		else
+			update usuarios set listos_negociar = 0
+			where id = _usuario_id;
+		end if;
+		set _res = 0;
+end $$
+delimiter ;
+
+drop procedure if exists AltaSolicitud;
+delimiter $$
+create procedure AltaSolicitud(
+
+)
+begin
+
+end $$
+delimiter ;
+
+
 
 DROP PROCEDURE if exists Trade;
 DELIMITER //

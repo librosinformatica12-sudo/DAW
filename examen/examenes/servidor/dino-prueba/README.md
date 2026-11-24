@@ -40,7 +40,7 @@ Proyecto de **Desarrollo de Aplicaciones Web (nivel medio)** realizado con
 
 ## Tecnologías
 
-- **PHP 8** con **PDO** y sentencias preparadas.
+- **PHP 8** con **MySQLi** y sentencias preparadas.
 - **MySQL 8** — base de datos `dinocards` (3 tablas + procedimientos almacenados).
 - **JavaScript** moderno (módulos ES6) consumiendo la API con `fetch`.
 - **CSS** propio con variables, Flexbox, Grid y diseño responsive.
@@ -51,39 +51,30 @@ Proyecto de **Desarrollo de Aplicaciones Web (nivel medio)** realizado con
 ## Estructura del proyecto
 
 ```
-dinocards/
+dino-prueba/
 ├── index.php          Entrada: iniciar sesión / registrarse
 ├── inicio.php         Panel principal (sobres y resumen)
 ├── coleccion.php      Mi colección
 ├── dinopedia.php      Catálogo de dinosaurios
 ├── perfil.php         Ficha del usuario
-├── logout.php         Cerrar sesión
-├── includes/
-│   ├── conexion.php   Conexión PDO a la base de datos
-│   ├── funciones.php  Funciones de ayuda (sesión, escape, JSON)
-│   ├── cabecera.php   Cabecera común (<head> + navegación)
-│   └── pie.php        Pie de página común
-├── api/               Endpoints que devuelven JSON (usados con fetch)
+├── partials/
+│   └── cabecera.php   Cabecera común (navegación)
+├── php/               Endpoints que devuelven JSON (usados con fetch)
 │   ├── login.php
 │   ├── registro.php
-│   ├── carta_diaria.php
-│   ├── abrir_prueba.php
-│   ├── anadir_carta.php
-│   ├── dinosaurios.php
-│   └── coleccion.php
-├── css/
-│   └── estilos.css    Estilos (variables, Flexbox, Grid, responsive)
-├── js/                JavaScript moderno (módulos ES6)
-│   ├── main.js        Funciones comunes (fetch, crear carta…)
-│   ├── index.js
-│   ├── inicio.js
-│   ├── coleccion.js
-│   └── dinopedia.js
-├── img/
-│   ├── img-cartas/    Imágenes de las cartas
-│   └── img-sobres/    Imágenes de los sobres
-├── sql/
-│   └── dinocards.sql  Copia de la base de datos (estructura y datos)
+│   ├── cartaDiaria.php
+│   ├── abrirSobrePrueba.php
+│   ├── añadirCarta.php
+│   └── logout.php
+├── src/                Capa de datos y reglas de negocio (MySQLi)
+│   ├── AccesoDatos.php
+│   ├── UsuarioService.php
+│   ├── ColeccionService.php
+│   └── ReglasColeccion.php
+├── styles/            Estilos (comun.css, paginas.css, perfil.css)
+├── script/            JavaScript (script.js, inicio.js, coleccion.js…)
+├── doc SQL/           Scripts SQL de instalación y copias de seguridad
+├── img/               Imágenes de cartas y sobres
 └── README.md
 ```
 
@@ -101,25 +92,28 @@ La base se llama `dinocards` y tiene tres tablas:
 
 Procedimientos almacenados: `Registro`, `Login`, `AñadirNuevaCartaAColeccion` y
 `ObtenerColeccion`. El script con la estructura y los datos está en
-`sql/dinocards.sql`.
+`doc SQL/instalar bueno.sql` (instala también las 100 cartas y los usuarios de prueba).
 
 ---
 
 ## Cómo ejecutar en XAMPP
 
-1. Copia la carpeta `dinocards` dentro de `C:\xampp\htdocs\ejer\`.
-2. Arranca **Apache** y **MySQL** desde el panel de control de XAMPP.
+1. La carpeta debe estar en
+   `C:\xampp\htdocs\ejer\examen\examenes\servidor\dino-prueba`.
+2. Arranca **Apache** y **MySQL** desde el panel de control de XAMPP (puerto 80
+   y 3306).
 3. Crea la base de datos (una sola vez) importando el script SQL:
-   - Opción A (phpMyAdmin): importa `sql/dinocards.sql`.
-   - Opción B (línea de comandos):
+   - Opción A (phpMyAdmin): importa `doc SQL/instalar bueno.sql`.
+   - Opción B (línea de comandos con el cliente de MySQL 8):
      ```
-     C:\xampp\mysql\bin\mysql.exe -u oscar -p < sql\dinocards.sql
+     "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p < "doc SQL\instalar bueno.sql"
      ```
-4. Revisa las credenciales en `includes/conexion.php`
-   (`DB_USER`, `DB_PASS`, `DB_NAME`).
+4. Las credenciales están en `src/AccesoDatos.php`: usuario `root`, contraseña
+   `1234`, base `dinocards`. `C:\xampp\mysql\bin\mysql.exe` no sirve para importar
+   aquí porque le falta el plugin `caching_sha2_password`.
 5. Abre en el navegador:
    ```
-   http://localhost:8080/ejer/dinocards/
+   http://localhost/ejer/examen/examenes/servidor/dino-prueba/
    ```
 
 > Usuario de prueba: **oscar@gmail.com** / **1234**
@@ -128,13 +122,13 @@ Procedimientos almacenados: `Registro`, `Login`, `AñadirNuevaCartaAColeccion` y
 
 ## Notas técnicas y seguridad
 
-- Las consultas usan **PDO con sentencias preparadas** (evitan inyecciones SQL).
+- Las consultas usan **MySQLi con sentencias preparadas** (evitan inyecciones SQL).
 - Las salidas se escapan con `htmlspecialchars()` antes de mostrarlas en HTML.
 - Las nuevas contraseñas se guardan con `password_hash()`; el login también
   admite contraseñas antiguas en md5 para no perder usuarios ya existentes.
 - El frontend consume la carpeta `api/` mediante `fetch` y JSON.
 - La interfaz es **responsive** y usa variables CSS, Flexbox y Grid.
-- Las credenciales de MySQL están en `includes/conexion.php`; en un entorno real
+- Las credenciales de MySQL están en `src/AccesoDatos.php`; en un entorno real
   convendría moverlas a variables de entorno.
 
 ---

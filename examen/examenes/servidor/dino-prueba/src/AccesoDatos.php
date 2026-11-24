@@ -17,7 +17,7 @@ $host = '127.0.0.1';
 $port = 3306;
 $database = 'dinocards';
 $username = 'root';
-$password = 'root1234';
+$password = '1234';
 
 mysqli_report(MYSQLI_REPORT_OFF);
 $connection = @new mysqli($host, $username, $password, $database, $port);

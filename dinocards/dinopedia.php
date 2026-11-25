@@ -44,7 +44,7 @@ while ($d = $res->fetch_assoc()) {
             <?php foreach ($dinos as $d): ?>
                 <li class="carta-mini<?= isset($mios[$d["id"]]) ? "" : " bloqueada" ?>">
                     <span class="retrato">
-                        <?php $img_ok = false; $img_path = $d["imagen_url"] ?? null; if (!empty($img_path)) { $full = __DIR__ . "/" . ltrim($img_path, '/\\'); $img_ok = is_readable($full); } ?>
+                        <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; $img_ok = $img_path !== "" && is_readable(__DIR__ . "/" . $img_path); ?>
                         <?php if ($img_ok): ?>
                             <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
                             <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">

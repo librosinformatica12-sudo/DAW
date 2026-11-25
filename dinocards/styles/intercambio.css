@@ -1,62 +1,77 @@
+/* Contenedor principal en Grid con proporciones personalizadas */
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    /* Columna 1 más ancha para la colección, y las otras dos más compactas */
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 20px;
-    height: 75vh;
+    /* Cambiamos height fijo por min-height para que crezca según el contenido */
+    min-height: 80vh;
+    padding: 20px;
 }
 
-.tarjeta-coleccion{
-    padding: 50%;
-    height: 200px;
-    width: 200px;
+/* Tarjeta de colección / Panel izquierdo */
+.tarjeta-coleccion {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #ff6c6c;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.2); /* Opcional: mejora la legibilidad */
 }
 
+/* Grid de cartas interior */
 .cartas-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 20px;
+    /* Ajusta el tamaño mínimo de las cartas fácilmente aquí (ej. 150px o 180px) */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
     padding: 0;
     margin: 0;
 }
 
-/* Panel de intercambio */
-.panel-intercambio{
+/* Panel de intercambio central */
+.panel-intercambio {
     display: flex;
     flex-direction: column;
     gap: 15px;
     border: 1px solid #ff6c6c;
     padding: 15px;
 }
+
 .contenedores-usuario {
     display: flex;
     flex-direction: column;
     gap: 15px;
     flex: 1;
 }
-.sub-panel{
+
+.sub-panel {
     border: 1px solid #fa6161;
     padding: 15px;
+    /* Usamos flex-grow para que se expandan de manera uniforme y grande */
     flex: 1;
+    min-height: 180px; /* Tamaño mínimo configurable para los sub-paneles */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.tarjeta-coleccion{
+/* Panel del chat derecho */
+.panel-chat {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    flex: 1;
+    border: 1px solid #fa6161;
+    padding: 15px;
 }
 
-
-/* Panel del chat */
-.contenedor-chat{
+.contenedor-chat {
     border: 1px solid #fa6161;
     padding: 15px;
     flex: 1;
+    min-height: 300px; /* Tamaño configurable para que el chat sea más alto */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }

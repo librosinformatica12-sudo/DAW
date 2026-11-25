@@ -157,3 +157,11 @@ function mostrarAreaTrading()
 }
 
 renderCollection(JSON.parse(collectionView.dataset.collection || '[]'));
+
+function mostrar(panelName){
+    //ocultar todo
+    ocultarTodo();
+    // mostrar todas las seccionmes del area
+}
+
+loginTab

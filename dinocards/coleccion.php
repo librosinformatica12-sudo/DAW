@@ -82,9 +82,10 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
                             <span class="badge">x<?= $copias[$id] ?></span>
                         <?php endif; ?>
                         <span class="retrato">
-                            <?php if (!empty($d["imagen_url"])): ?>
-                                <img class="fondo" src="<?= escapar($d["imagen_url"]) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                                <img src="<?= escapar($d["imagen_url"]) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                            <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; ?>
+                            <?php if ($img_path !== ""): ?>
+                                <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
                             <?php else: ?>
                                 <i class="bx bx-dna" aria-hidden="true"></i>
                             <?php endif; ?>

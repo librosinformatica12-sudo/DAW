@@ -30,6 +30,7 @@ while ($d = $res->fetch_assoc()) {
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
     <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+    <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>" defer></script>
 </head>
 <body>
 
@@ -40,9 +41,14 @@ while ($d = $res->fetch_assoc()) {
         <h1>DinoPedia</h1>
         <p>Tu álbum: ya tienes <b><?= count($mios) ?></b> de <b><?= count($dinos) ?></b> especies. Las que te faltan se ven en gris.</p>
 
+            <div class="campo">
+                <input type="text" id="buscador" oninput="filtrarColeccion()" placeholder="Escribe un dinosaurio...">
+            </div>
+
+        <div class="coleccion-scroll">
         <ul class="cartas-grid">
             <?php foreach ($dinos as $d): ?>
-                <li class="carta-mini<?= isset($mios[$d["id"]]) ? "" : " bloqueada" ?>">
+                <li class="carta-mini<?= isset($mios[$d["id"]]) ? "" : " bloqueada" ?>" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
                     <span class="retrato">
                         <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; $img_ok = $img_path !== "" && is_readable(__DIR__ . "/" . $img_path); ?>
                         <?php if ($img_ok): ?>

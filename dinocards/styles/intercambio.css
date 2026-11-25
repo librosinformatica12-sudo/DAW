@@ -1,62 +1,91 @@
+main.panel-inicio {
+    max-width: none;
+    width: 100%;
+    height: calc(100vh - 64px);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor principal en Grid con proporciones personalizadas */
 .main-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    height: 75vh;
+    /* Columna 1 más ancha para la colección, y las otras dos más compactas */
+    grid-template-columns: 2.5fr 2fr 2fr;
+    gap: 24px;
+    flex: 1;
+    min-height: 0;
+    padding: 12px;
 }
 
-.tarjeta-coleccion{
-    padding: 50%;
-    height: 200px;
-    width: 200px;
+.tarjeta-coleccion,
+.panel-intercambio,
+.panel-chat {
+    margin: 0;
+    min-height: 0;
+    overflow-y: auto;
 }
 
+/* Tarjeta de colección / Panel izquierdo */
+.tarjeta-coleccion {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Grid de cartas interior */
 .cartas-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    grid-template-columns: repeat(3, 215px);
+    justify-content: start;
+    flex-shrink: 0;
     gap: 20px;
     padding: 0;
     margin: 0;
 }
 
-/* Panel de intercambio */
-.panel-intercambio{
+/* Panel de intercambio central */
+.panel-intercambio {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border: 1px solid #ff6c6c;
-    padding: 15px;
 }
+
 .contenedores-usuario {
     display: flex;
     flex-direction: column;
     gap: 15px;
     flex: 1;
 }
-.sub-panel{
-    border: 1px solid #fa6161;
+
+.sub-panel {
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 14px;
     padding: 15px;
+    background: rgba(255, 255, 255, .04);
+    /* Usamos flex-grow para que se expandan de manera uniforme y grande */
     flex: 1;
+    min-height: 180px; /* Tamaño mínimo configurable para los sub-paneles */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.tarjeta-coleccion{
+/* Panel del chat derecho */
+.panel-chat {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    flex: 1;
 }
 
-
-/* Panel del chat */
-.contenedor-chat{
-    border: 1px solid #fa6161;
+.contenedor-chat {
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 14px;
     padding: 15px;
+    background: rgba(255, 255, 255, .04);
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 0;
 }

@@ -1,0 +1,348 @@
+/* ============================================================
+   Intercambio integrado en la interfaz original de DinoCards
+   ============================================================ */
+
+main.intercambio-pagina {
+    width: min(1500px, calc(100% - 40px));
+    max-width: 1500px;
+    margin: 28px auto 50px;
+    padding: 0;
+}
+
+.intercambio-cabecera {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 22px;
+}
+
+.intercambio-eyebrow,
+.intercambio-panel-titulo small,
+.intercambio-confirmacion small {
+    margin: 0;
+    color: #8aa17c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+.intercambio-cabecera h1 {
+    margin: 8px 0;
+    color: #203d30;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.1;
+}
+
+.intercambio-cabecera h1 span {
+    color: #789a6e;
+}
+
+.intercambio-cabecera p:last-child {
+    margin: 0;
+    color: #748176;
+}
+
+.intercambio-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    padding: 11px 15px;
+    border: 1px solid #dce5d8;
+    border-radius: 10px;
+    color: #315b40;
+    text-decoration: none;
+    font-weight: 700;
+    background: #fff;
+}
+
+.intercambio-volver:hover {
+    background: #f2f7ef;
+}
+
+.intercambio-selector {
+    margin-bottom: 22px;
+    padding: 20px 22px;
+}
+
+.intercambio-selector > label {
+    display: block;
+    margin-bottom: 10px;
+    color: #45624b;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .8px;
+}
+
+.intercambio-selector-fila {
+    display: flex;
+    gap: 12px;
+}
+
+.intercambio-selector select {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #d9e2d5;
+    border-radius: 9px;
+    background: #fbfcfa;
+    color: #294536;
+    font: inherit;
+}
+
+.intercambio-selector > small {
+    display: block;
+    margin-top: 9px;
+    color: #879287;
+    font-size: 11px;
+}
+
+.btn-intercambio-secundario,
+.btn-intercambio-principal {
+    border: 0;
+    border-radius: 9px;
+    padding: 12px 17px;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.btn-intercambio-secundario {
+    background: #e8efe4;
+    color: #315b40;
+}
+
+.btn-intercambio-secundario:hover {
+    background: #dce9d7;
+}
+
+.intercambio-columnas {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr);
+    align-items: stretch;
+    gap: 14px;
+}
+
+.intercambio-panel {
+    min-width: 0;
+    padding: 20px;
+}
+
+.intercambio-panel-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.intercambio-panel-titulo h2,
+.intercambio-confirmacion h2 {
+    margin: 5px 0 0;
+    color: #254333;
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 23px;
+}
+
+.intercambio-panel-titulo > span {
+    flex: 0 0 auto;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #edf3e9;
+    color: #63805e;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.intercambio-cartas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    gap: 12px;
+    align-content: start;
+    max-height: 560px;
+    min-height: 190px;
+    overflow-y: auto;
+    padding: 2px 5px 5px 2px;
+}
+
+.intercambio-carta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #e1e8dd;
+    border-radius: 12px;
+    background: #fbfcfa;
+    color: #294536;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, transform .15s;
+}
+
+.intercambio-carta:hover {
+    transform: translateY(-2px);
+    border-color: #9bb99a;
+}
+
+.intercambio-carta.seleccionada {
+    border: 2px solid #638c5d;
+    padding: 9px;
+    background: #f1f7ed;
+}
+
+.intercambio-carta img,
+.intercambio-placeholder {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 112px;
+    border-radius: 8px;
+    background: #edf1e9;
+    object-fit: contain;
+}
+
+.intercambio-placeholder {
+    color: #789a6e;
+    font: 42px Georgia, serif;
+}
+
+.intercambio-numero {
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 15px;
+    padding: 4px 6px;
+    border-radius: 5px;
+    background: #234b37;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.intercambio-carta strong {
+    overflow: hidden;
+    margin-top: 9px;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.intercambio-carta small {
+    min-height: 27px;
+    margin-top: 3px;
+    color: #839084;
+    font-size: 10px;
+}
+
+.intercambio-seleccion {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid #e4eae1;
+    color: #62835d;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.intercambio-vacio {
+    grid-column: 1 / -1;
+    align-self: center;
+    margin: 0;
+    padding: 35px 12px;
+    color: #8b978c;
+    text-align: center;
+    font-size: 13px;
+}
+
+.intercambio-simbolo {
+    display: grid;
+    place-items: center;
+    align-self: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e8efe4;
+    color: #64845d;
+    font-size: 24px;
+}
+
+.intercambio-confirmacion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 22px;
+    padding: 20px 22px;
+}
+
+.intercambio-confirmacion p {
+    margin: 7px 0 0;
+    color: #7c897e;
+    font-size: 13px;
+}
+
+.btn-intercambio-principal {
+    flex: 0 0 auto;
+    background: #28563d;
+    color: #fff;
+}
+
+.btn-intercambio-principal:hover:not(:disabled) {
+    background: #356c4d;
+}
+
+.btn-intercambio-principal:disabled,
+.btn-intercambio-secundario:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.intercambio-feedback {
+    min-height: 22px;
+    margin: 12px 3px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.intercambio-feedback.success {
+    color: #347446;
+}
+
+.intercambio-feedback.error {
+    color: #a34e3e;
+}
+
+@media (max-width: 900px) {
+    .intercambio-columnas {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .intercambio-simbolo {
+        transform: rotate(90deg);
+        justify-self: center;
+    }
+}
+
+@media (max-width: 600px) {
+    main.intercambio-pagina {
+        width: min(100% - 24px, 1500px);
+        margin-top: 18px;
+    }
+    .intercambio-cabecera,
+    .intercambio-confirmacion {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .intercambio-selector-fila {
+        flex-direction: column;
+    }
+    .intercambio-cartas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-height: 420px;
+    }
+    .intercambio-panel {
+        padding: 15px;
+    }
+}

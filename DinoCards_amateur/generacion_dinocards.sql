@@ -217,10 +217,26 @@ delimiter ;
 drop procedure if exists AltaSolicitud;
 delimiter $$
 create procedure AltaSolicitud(
-
+		IN _fk_usuario_A int,
+		IN _fk_usuario_B int,
+	    out _res int
 )
 begin
+	-- CASO 1: Intenar enviarse una solucitud a uno mismo
+    if(_fk_usuario_A = _fk_usuario_B) then
+		set _res = -1;
+    
+    -- CASO 2: Verificar si alguno de los dos usuarios no existe
+	elseif(not exists(select 1 from usuarios where id = _fk_usuario_A) or
+			not exists(select 1 from usuarios where id = _fk_usuario_B)) then
+		set _res = -2;
 
+	-- CASO 0 - TODO PERFECTO
+    else
+	insert into solicitudes(fecha, fk_usuario_A, fk_usuario_B, estado)
+    values (sysdate(), _fk_usuario_A, _fk_usuario_B, "Pendiente");
+    set _res = 0;
+    end if;
 end $$
 delimiter ;
 

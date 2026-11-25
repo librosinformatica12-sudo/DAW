@@ -1,0 +1,20 @@
+h1{
+    color: red;
+}
+
+#btn-OFERTAS{
+    color: white;
+    background-color: rgb(186, 163, 12);
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+}
+
+#principal{
+    text-align: center;
+    background-image: url(./img/O6DXT80.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    padding: 10px;
+}

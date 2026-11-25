@@ -1,1 +1,475 @@
-*{box-sizing:border-box}body{margin:0;background:#f3f1e8;color:#19372c;font-family:Inter,Segoe UI,Arial,sans-serif}.trade-shell{max-width:1440px;margin:auto;padding:0 34px}.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d9dfd3}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:#173c2e;font-weight:800;font-size:21px;letter-spacing:-.6px}.brand-mark{width:38px;height:38px;border-radius:12px;background:#174b38;color:#f4f1e6;display:grid;place-items:center;font-family:Georgia,serif;font-size:25px}.brand-light{color:#789b73}.topbar-right{font-size:11px;letter-spacing:1.5px;font-weight:700;color:#64776a}.online-dot{display:inline-block;width:8px;height:8px;background:#64a66c;border-radius:50%;margin-right:8px}.back-link{display:inline-block;margin:28px 0 12px;color:#56735f;text-decoration:none;font-size:13px;font-weight:700}.back-link:hover{color:#173c2e}.intro{padding:20px 0 30px}.eyebrow,.step{font-size:10px;letter-spacing:2px;font-weight:800;color:#78936e}.intro h1{font:500 clamp(38px,5vw,62px)/1.05 Georgia,serif;margin:12px 0;color:#19372c;letter-spacing:-1.8px}.intro h1 em{color:#6e936b;font-weight:400}.intro>p:last-child{color:#6d7c70;margin:12px 0;font-size:15px}.select-panel,.side-panel,.confirm-panel{background:#fff;border:1px solid #e1e5dc;border-radius:16px;box-shadow:0 10px 35px #263d2b0a}.select-panel{padding:22px 24px;margin-bottom:25px}.select-panel label{display:block;font-size:11px;letter-spacing:1.5px;font-weight:800;color:#78936e;margin-bottom:12px}.select-row{display:flex;gap:12px}.select-row select{flex:1;min-width:0;border:1px solid #d9e0d7;background:#fafbf8;padding:13px 14px;border-radius:9px;color:#213d30;font-size:14px}.secondary-button,.primary-button{border:0;border-radius:9px;padding:13px 20px;font-weight:800;cursor:pointer}.secondary-button{background:#e7eee4;color:#315a40}.secondary-button:hover{background:#dce8d8}.hint{font-size:12px;color:#89958b;margin:10px 0 0}.trade-columns{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);gap:14px;align-items:stretch}.side-panel{padding:22px;min-width:0}.panel-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:18px}.panel-heading h2,.confirm-panel h2{font:500 27px Georgia,serif;margin:7px 0 0;color:#1c3c2e}.counter{font-size:11px;font-weight:700;color:#66816a;background:#edf3e9;border-radius:30px;padding:7px 10px;white-space:nowrap}.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px;min-height:160px}.dino-card{position:relative;text-align:left;border:1px solid #e0e6dc;background:#fafbf8;border-radius:12px;padding:10px;cursor:pointer;color:#1b3b2d;transition:.16s}.dino-card:hover{transform:translateY(-2px);border-color:#9bb99a}.dino-card.selected{border:2px solid #56865a;background:#f1f7ed;padding:9px;box-shadow:0 0 0 3px #56865a16}.dino-card img,.dino-placeholder{width:100%;height:105px;object-fit:contain;border-radius:8px;background:#e9eee5}.dino-placeholder{display:grid;place-items:center;font:50px Georgia,serif;color:#7a9a76;background:radial-gradient(circle,#f5f4e9,#dfe8dc)}.card-number{position:absolute;top:16px;left:16px;z-index:1;background:#173f30;color:white;border-radius:5px;padding:4px 6px;font-size:10px}.dino-name{display:block;font-weight:800;font-size:13px;margin:10px 0 3px}.dino-species{display:block;color:#829084;font-size:10px;min-height:25px}.card-select{display:block;margin-top:9px;border-top:1px solid #e5e9e1;padding-top:8px;color:#64865e;font-size:10px;font-weight:800}.exchange-mark{align-self:center;justify-self:center;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#e3ebdf;color:#547b54;font-size:27px}.empty{color:#929d93;font-size:13px;padding:28px 8px;text-align:center;grid-column:1/-1}.confirm-panel{margin-top:24px;padding:23px 25px;display:flex;align-items:center;justify-content:space-between;gap:20px}.confirm-panel h2{font-size:24px}.confirm-panel p{margin:8px 0 0;color:#7c897e;font-size:13px}.primary-button{background:#1c4c38;color:#fff;min-width:230px;box-shadow:0 8px 18px #1c4c3824}.primary-button:hover:not(:disabled){background:#286347}.primary-button:disabled{opacity:.42;cursor:not-allowed;box-shadow:none}.primary-button span{margin-left:10px}.feedback{min-height:24px;margin:14px 2px;font-size:13px;font-weight:700}.feedback.success{color:#347446}.feedback.error{color:#a34e3e}footer{border-top:1px solid #d9dfd3;margin-top:38px;padding:22px 0 28px;display:flex;justify-content:space-between;color:#7c8b7e;font-size:10px;letter-spacing:1.5px;font-weight:800}footer span{color:#9cac91}@media(max-width:850px){.trade-shell{padding:0 18px}.trade-columns{grid-template-columns:1fr}.exchange-mark{transform:rotate(90deg);margin:-2px auto}.confirm-panel{align-items:flex-start;flex-direction:column}.primary-button{width:100%}}@media(max-width:520px){.topbar{height:68px}.topbar-right{font-size:9px;letter-spacing:.6px}.select-row{flex-direction:column}.secondary-button{width:100%}.side-panel{padding:16px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel-heading{align-items:flex-start;flex-direction:column}footer{gap:10px;flex-direction:column}}
+/* =========================================
+   1. CONFIGURACIÓN GLOBAL Y LAYOUT PRINCIPAL
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f3f1e8;
+  color: #19372c;
+  font-family: Inter, Segoe UI, Arial, sans-serif;
+}
+
+.trade-shell {
+  max-width: 1440px;
+  margin: auto;
+  padding: 0 34px;
+}
+
+/* =========================================
+   2. NAVEGACIÓN Y CABECERA (TOPBAR)
+   ========================================= */
+.topbar {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d9dfd3;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: #173c2e;
+  font-weight: 800;
+  font-size: 21px;
+  letter-spacing: -0.6px;
+}
+
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #174b38;
+  color: #f4f1e6;
+  display: grid;
+  place-items: center;
+  font-family: Georgia, serif;
+  font-size: 25px;
+}
+
+.brand-light {
+  color: #789b73;
+}
+
+.topbar-right {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #64776a;
+}
+
+.online-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #64a66c;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.back-link {
+  display: inline-block;
+  margin: 28px 0 12px;
+  color: #56735f;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.back-link:hover {
+  color: #173c2e;
+}
+
+/* =========================================
+   3. INTRODUCCIÓN Y TÍTULOS
+   ========================================= */
+.intro {
+  padding: 20px 0 30px;
+}
+
+.eyebrow,
+.step {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: #78936e;
+}
+
+.intro h1 {
+  font: 500 clamp(38px, 5vw, 62px)/1.05 Georgia, serif;
+  margin: 12px 0;
+  color: #19372c;
+  letter-spacing: -1.8px;
+}
+
+.intro h1 em {
+  color: #6e936b;
+  font-weight: 400;
+}
+
+.intro > p:last-child {
+  color: #6d7c70;
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+/* =========================================
+   4. PANELES GENERALES Y BOTONES
+   ========================================= */
+.select-panel,
+.side-panel,
+.confirm-panel {
+  background: #fff;
+  border: 1px solid #e1e5dc;
+  border-radius: 16px;
+  box-shadow: 0 10px 35px #263d2b0a;
+}
+
+.secondary-button,
+.primary-button {
+  border: 0;
+  border-radius: 9px;
+  padding: 13px 20px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondary-button {
+  background: #e7eee4;
+  color: #315a40;
+}
+
+.secondary-button:hover {
+  background: #dce8d8;
+}
+
+.primary-button {
+  background: #1c4c38;
+  color: #fff;
+  min-width: 230px;
+  box-shadow: 0 8px 18px #1c4c3824;
+}
+
+.primary-button:hover:not(:disabled) {
+  background: #286347;
+}
+
+.primary-button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.primary-button span {
+  margin-left: 10px;
+}
+
+/* =========================================
+   5. PANEL DE SELECCIÓN DE USUARIO
+   ========================================= */
+.select-panel {
+  padding: 22px 24px;
+  margin-bottom: 25px;
+}
+
+.select-panel label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+  color: #78936e;
+  margin-bottom: 12px;
+}
+
+.select-row {
+  display: flex;
+  gap: 12px;
+}
+
+.select-row select {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #d9e0d7;
+  background: #fafbf8;
+  padding: 13px 14px;
+  border-radius: 9px;
+  color: #213d30;
+  font-size: 14px;
+}
+
+.hint {
+  font-size: 12px;
+  color: #89958b;
+  margin: 10px 0 0;
+}
+
+/* =========================================
+   6. COLUMNAS DE INTERCAMBIO Y TARJETAS
+   ========================================= */
+.trade-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.side-panel {
+  padding: 22px;
+  min-width: 0;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.panel-heading h2,
+.confirm-panel h2 {
+  font: 500 27px Georgia, serif;
+  margin: 7px 0 0;
+  color: #1c3c2e;
+}
+
+.counter {
+  font-size: 11px;
+  font-weight: 700;
+  color: #66816a;
+  background: #edf3e9;
+  border-radius: 30px;
+  padding: 7px 10px;
+  white-space: nowrap;
+}
+
+.exchange-mark {
+  align-self: center;
+  justify-self: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e3ebdf;
+  color: #547b54;
+  font-size: 27px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  gap: 12px;
+  min-height: 160px;
+}
+
+.empty {
+  color: #929d93;
+  font-size: 13px;
+  padding: 28px 8px;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+/* Tarjetas de Dinosaurios */
+.dino-card {
+  position: relative;
+  text-align: left;
+  border: 1px solid #e0e6dc;
+  background: #fafbf8;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  color: #1b3b2d;
+  transition: 0.16s;
+}
+
+.dino-card:hover {
+  transform: translateY(-2px);
+  border-color: #9bb99a;
+}
+
+.dino-card.selected {
+  border: 2px solid #56865a;
+  background: #f1f7ed;
+  padding: 9px;
+  box-shadow: 0 0 0 3px #56865a16;
+}
+
+.dino-card img,
+.dino-placeholder {
+  width: 100%;
+  height: 105px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #e9eee5;
+}
+
+.dino-placeholder {
+  display: grid;
+  place-items: center;
+  font: 50px Georgia, serif;
+  color: #7a9a76;
+  background: radial-gradient(circle, #f5f4e9, #dfe8dc);
+}
+
+.card-number {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  background: #173f30;
+  color: white;
+  border-radius: 5px;
+  padding: 4px 6px;
+  font-size: 10px;
+}
+
+.dino-name {
+  display: block;
+  font-weight: 800;
+  font-size: 13px;
+  margin: 10px 0 3px;
+}
+
+.dino-species {
+  display: block;
+  color: #829084;
+  font-size: 10px;
+  min-height: 25px;
+}
+
+.card-select {
+  display: block;
+  margin-top: 9px;
+  border-top: 1px solid #e5e9e1;
+  padding-top: 8px;
+  color: #64865e;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* =========================================
+   7. CONFIRMACIÓN Y FEEDBACK
+   ========================================= */
+.confirm-panel {
+  margin-top: 24px;
+  padding: 23px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.confirm-panel h2 {
+  font-size: 24px;
+}
+
+.confirm-panel p {
+  margin: 8px 0 0;
+  color: #7c897e;
+  font-size: 13px;
+}
+
+.feedback {
+  min-height: 24px;
+  margin: 14px 2px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.feedback.success {
+  color: #347446;
+}
+
+.feedback.error {
+  color: #a34e3e;
+}
+
+/* =========================================
+   8. PIE DE PÁGINA (FOOTER)
+   ========================================= */
+footer {
+  border-top: 1px solid #d9dfd3;
+  margin-top: 38px;
+  padding: 22px 0 28px;
+  display: flex;
+  justify-content: space-between;
+  color: #7c8b7e;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+}
+
+footer span {
+  color: #9cac91;
+}
+
+/* =========================================
+   9. DISEÑO ADAPTABLE (MEDIA QUERIES)
+   ========================================= */
+@media (max-width: 850px) {
+  .trade-shell {
+    padding: 0 18px;
+  }
+
+  .trade-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .exchange-mark {
+    transform: rotate(90deg);
+    margin: -2px auto;
+  }
+
+  .confirm-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    height: 68px;
+  }
+
+  .topbar-right {
+    font-size: 9px;
+    letter-spacing: 0.6px;
+  }
+
+  .select-row {
+    flex-direction: column;
+  }
+
+  .secondary-button {
+    width: 100%;
+  }
+
+  .side-panel {
+    padding: 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  footer {
+    gap: 10px;
+    flex-direction: column;
+  }
+}

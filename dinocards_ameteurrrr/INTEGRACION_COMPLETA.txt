@@ -1,0 +1,54 @@
+DINOCARDS INTEGRADO - REGISTRO, LOGIN, SOBRES, COLECCION E INTERCAMBIO
+=====================================================================
+
+FUNCIONALIDADES INCLUIDAS
+-------------------------
+1. Registro: index.php -> php/registro.php. Guarda contraseñas con password_hash.
+2. Inicio de sesión: index.php -> php/login.php. Acepta usuario o correo.
+   También reconoce hashes MD5 antiguos y los actualiza al iniciar sesión.
+3. Inicio: inicio.php. Muestra el sobre diario y el sobre de prueba.
+4. Sobre diario: una carta aleatoria cada 24 horas.
+5. Sobre de prueba: cuatro cartas aleatorias cada 2 minutos.
+6. Colección: coleccion.php. Muestra las cartas guardadas del usuario.
+7. Intercambio: intercambio.php. Busca usuarios, carga sus cartas y permite
+   intercambiar el mismo número de cartas mediante una transacción MySQL.
+8. DinoPedia y perfil: se conservan las páginas originales.
+
+INSTALACION EN XAMPP
+--------------------
+1. Copia la carpeta dinocards dentro de C:\xampp\htdocs\.
+2. Inicia Apache y MySQL desde XAMPP.
+3. Crea/usa la base de datos llamada dinocards.
+4. Si necesitas crearla desde cero, importa SQL/instalar.sql en phpMyAdmin.
+   El instalador crea primero usuarios, después dinosaurios y al final colecciones
+   para respetar las claves foráneas. ATENCIÓN: contiene DROP TABLE y datos de
+   ejemplo; úsalo solo en una base vacía o después de hacer copia de seguridad.
+5. Revisa src/AccesoDatos.php: host 127.0.0.1, puerto 3306, base dinocards,
+   usuario oscar y contraseña 1234. Cambia usuario/contraseña según tu MySQL.
+6. Abre http://localhost/dinocards/index.php
+7. Registra una cuenta, inicia sesión y abre los sobres desde Inicio.
+8. Para probar intercambios reales, registra dos cuentas e inicia sesión con
+   una de ellas. La otra aparecerá en el selector de Intercambio.
+
+BASE DE DATOS E INTERCAMBIO
+---------------------------
+No se añaden tablas ni procedimientos almacenados. Se usan las tablas existentes
+usuarios, dinosaurios y colecciones. Cada carta se identifica por colecciones.id
+(la copia física), no por dinosaurios.id (la especie).
+El servidor comprueba de nuevo la propiedad de cada carta y actualiza los
+propietarios dentro de una transacción. Si falla una validación, revierte todo.
+No importes generacion_dinocards.sql del módulo amateur ni uses el procedimiento
+Trade defectuoso que incluía.
+
+ARCHIVOS CLAVE
+-------------
+- index.php, php/registro.php, php/login.php, php/cerrar.php
+- inicio.php, php/cartaDiaria.php, php/abrirSobrePrueba.php
+- coleccion.php, dinopedia.php, perfil.php
+- intercambio.php, script/intercambio.js, styles/intercambio.css
+- src/AccesoDatos.php y servicios src/*.php
+
+NOTAS DE PRUEBA
+---------------
+El ZIP se ha validado estructuralmente y se ha revisado la sintaxis PHP/JS.
+La ejecución real depende de las credenciales MySQL configuradas en tu XAMPP.

@@ -1,0 +1,5 @@
+# Configuración local y archivos temporales
+.env
+.DS_Store
+Thumbs.db
+*.log

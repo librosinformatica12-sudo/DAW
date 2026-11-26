@@ -1,0 +1,52 @@
+DINOCARDS INTEGRADO - INTERCAMBIO
+=================================
+
+Proyecto base: dinocards(3)
+Módulo fuente: DinoCards_amateur(3)
+
+INTEGRACIÓN
+-----------
+- Se conserva la estructura y el backend del proyecto principal.
+- El enlace "Intercambio" ya estaba definido en menu.php y conduce a intercambio.php.
+- Se ha sustituido la vista antigua de intercambio por una pantalla integrada
+  con la navegación, estilos y sesión del proyecto principal.
+- El endpoint AJAX vive en intercambio.php (?ajax=usuarios, cartas, intercambiar).
+- El acceso a MySQL reutiliza src/AccesoDatos.php y su conexión $connection.
+- El JavaScript específico está en script/intercambio.js.
+- Los estilos específicos están en styles/intercambio.css.
+- Las imágenes se reutilizan desde img/img-cartas del proyecto base.
+
+BASE DE DATOS
+-------------
+No se necesitan tablas, columnas ni procedimientos nuevos para la versión
+integrada. El módulo utiliza usuarios, colecciones y dinosaurios existentes.
+No importes el procedimiento Trade del módulo amateur: la definición incluida
+en ese archivo contiene errores de tabla/columna y no es segura para usar.
+El intercambio integrado valida la propiedad de las cartas y actualiza los
+registros de colecciones dentro de una transacción.
+
+El archivo SQL/intercambio_integrado.sql documenta y comprueba el esquema
+requerido. No modifica ni elimina datos.
+
+INSTALACIÓN EN XAMPP
+--------------------
+1. Copia la carpeta dinocards en C:\xampp\htdocs\dinocards.
+2. Comprueba las credenciales de MySQL en src/AccesoDatos.php:
+   host, puerto, base de datos, usuario y contraseña.
+3. Usa la base de datos dinocards ya creada con los scripts del proyecto base.
+4. Si necesitas comprobar el esquema, ejecuta SQL/intercambio_integrado.sql
+   desde phpMyAdmin.
+5. Abre http://localhost/dinocards/index.php.
+6. Inicia sesión con una cuenta que tenga cartas.
+7. En el menú superior pulsa "Intercambio", selecciona otro usuario,
+   carga sus cartas y selecciona la misma cantidad en ambos lados.
+
+NOTAS
+-----
+- La lista de usuarios muestra todas las cuentas distintas de la sesión actual.
+- Las cartas se identifican por colecciones.id (cada copia física), no por
+  dinosaurios.id (especie); por eso se pueden intercambiar copias repetidas.
+- Para probar el intercambio necesitas al menos dos usuarios y cartas en
+  ambas colecciones.
+- No se ha importado el login/registro ni la conexión del proyecto amateur:
+  se conserva el sistema de autenticación del proyecto principal.

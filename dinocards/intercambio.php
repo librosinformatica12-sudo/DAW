@@ -48,6 +48,23 @@ if (count($orden) > 0) {
 $total_catalogo = (int) $conexion->query("SELECT COUNT(*) AS total FROM dinosaurios")->fetch_assoc()["total"];
 $total_especies = count($orden);
 $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo * 100) : 0;
+
+$usuarioSesion = $_SESSION["usuario"] ?? null;
+$nombre = "Coleccionista";
+if (is_array($usuarioSesion)) {
+    $nombre = (string) ($usuarioSesion["username"] ?? $usuarioSesion["nombre"] ?? $nombre);
+} elseif (is_string($usuarioSesion) && $usuarioSesion !== "") {
+    $nombre = $usuarioSesion;
+}
+$inicial = strtoupper(mb_substr($nombre, 0, 1, "UTF-8"));
+if ($inicial === "") {
+    $inicial = "?";
+}
+
+$dias_semana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+$meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+$diaSemana = $dias_semana[(int) date("w")];
+$mesActual = $meses[(int) date("n") - 1];
 ?>
 
 <!DOCTYPE html>
@@ -55,17 +72,14 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DinoCards - Inicio</title>
+    <title>DinoCards - Intercambios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/comun.css?v=<?= @filemtime(__DIR__ . '/styles/comun.css') ?>">
-     <!--
-    
-        <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
-    
-    -->
+    <link rel="stylesheet" href="styles/paginas.css?v=<?= @filemtime(__DIR__ . '/styles/paginas.css') ?>">
+
     <link rel="stylesheet" href="styles/intercambio.css?v=<?= @filemtime(__DIR__ . '/styles/intercambio.css') ?>">
     <script src="script/script.js?v=<?= @filemtime(__DIR__ . '/script/script.js') ?>"></script>
 </head>
@@ -74,10 +88,9 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
 <?php require "menu.php"; ?>
 
 <main class="panel-inicio">
-    <!-- Sobres: el del día a la izquierda y el de prueba a la derecha -->
+
     <div class="main-container">
-        <!-- Sobre del día -->
-        <div class="tarjeta-coleccion">
+        <div class="tarjeta tarjeta-coleccion">
             <h1>Mi colección</h1>
             <p>Tienes <b><?= $total_especies ?></b> de <b><?= $total_catalogo ?></b> especies (<?= $porcentaje ?>%).</p>
 
@@ -88,56 +101,59 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
                 <input type="text" id="buscador" oninput="filtrarColeccion()" placeholder="Escribe un dinosaurio...">
             </div>
 
-            <ul class="cartas-grid">
-                <?php foreach ($orden as $id): ?>
-                    <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
-                    <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
-                        <?php if ($copias[$id] > 1): ?>
-                            <span class="badge">x<?= $copias[$id] ?></span>
-                        <?php endif; ?>
-                        <span class="retrato">
-                            <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; ?>
-                            <?php if ($img_path !== ""): ?>
-                                <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                                <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                            <?php else: ?>
-                                <i class="bx bx-dna" aria-hidden="true"></i>
+            <div class="coleccion-scroll">
+                <ul class="cartas-grid">
+                    <?php foreach ($orden as $id): ?>
+                        <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
+                        <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
+                            <?php if ($copias[$id] > 1): ?>
+                                <span class="badge">x<?= $copias[$id] ?></span>
                             <?php endif; ?>
-                        </span>
-                        <h3><?= escapar($d["nombre"]) ?></h3>
-                        <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
-                        <div class="mini-stats">
-                            <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
-                            <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
-                            <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
-                            <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-    </div>
+                            <span class="retrato">
+                                <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; ?>
+                                <?php if ($img_path !== ""): ?>
+                                    <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                    <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                <?php else: ?>
+                                    <i class="bx bx-dna" aria-hidden="true"></i>
+                                <?php endif; ?>
+                            </span>
+                            <h3><?= escapar($d["nombre"]) ?></h3>
+                            <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
+                            <div class="mini-stats">
+                                <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
+                                <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
+                                <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
+                                <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
 
-        <!-- Contenedor de intercambio -->
-        <div class="panel-intercambio">
+        <?php endif; ?>
+        </div>
+
+        <div class="tarjeta panel-intercambio">
             <div class="contenedores-usuario">
                 <h2>Intercambio</h2>
                 <div id="panel-usuario1" class="sub-panel">
-                    <p>Consigue 4 cartas</p>
+                
                 </div>
                 <div id="panel-usuario2" class="sub-panel">
-                    <p>Consigue 2 cartas</p>
+                
                 </div>
             </div>
         </div>
 
-        <div class="panel-chat">
+        <div class="contenedor-chat">
+            <h2>Chat</h2>
+
             <div class="contenedor-chat">
-                <h2>Chat</h2><br>
-                <div id="panel-usuario1">
-                    <p>a</p>
-                </div>
+                <div class=""</div>
             </div>
+
+
         </div>
 
     </div>

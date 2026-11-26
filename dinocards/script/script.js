@@ -35,19 +35,59 @@ function mostrarPestana(nombre) {
 
 // ============================================================
 //    BUSCAR EN MI COLECCIÓN
+//    ------------------------------------------------------------
+//    Filtra las cartas mientras escribes (ignora mayúsculas y tildes),
+//    avisa si no hay resultados y sube al principio del scroll.
 // ============================================================
+
+// Pasa a minúsculas y quita tildes: "Velociráptor" -> "velociraptor"
+function normalizar(texto) {
+    return (texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
 function filtrarColeccion() {
-    var texto = document.getElementById("buscador").value.toLowerCase();
+    var buscador = document.getElementById("buscador");
+    var contenedor = document.querySelector(".coleccion-scroll");
+    var lista = document.querySelector(".cartas-grid");
     var cartas = document.getElementsByClassName("carta-mini");
 
+    if (!buscador || !lista) return;
+
+    var texto = normalizar(buscador.value.trim());
+    var visibles = 0;
+
     for (var i = 0; i < cartas.length; i++) {
-        var contenido = cartas[i].getAttribute("data-buscar");
+        var contenido = normalizar(cartas[i].getAttribute("data-buscar"));
 
         if (contenido.indexOf(texto) !== -1) {
             cartas[i].style.display = "";
+            visibles++;
         } else {
             cartas[i].style.display = "none";
         }
+    }
+
+    // Aviso "sin resultados"
+    var aviso = document.getElementById("sin-resultados");
+
+    if (visibles === 0) {
+        if (!aviso) {
+            aviso = document.createElement("p");
+            aviso.id = "sin-resultados";
+            aviso.className = "aviso error";
+            aviso.textContent = "No se ha encontrado ningún dinosaurio con ese nombre.";
+            lista.insertAdjacentElement("afterend", aviso);
+        }
+    } else if (aviso) {
+        aviso.remove();
+    }
+
+    // Al escribir, volvemos al principio de la lista
+    if (contenedor) {
+        contenedor.scrollTop = 0;
     }
 }
 
@@ -261,6 +301,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
     });
 });
-
-
-

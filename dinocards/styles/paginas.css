@@ -658,3 +658,19 @@
     .panel-inicio .panel-hero-texto h2 { font-size: 1.6rem; }
 }
 
+.coleccion-scroll {
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 5px 8px 4px 4px;
+  margin-top: 12px;
+}
+
+.coleccion-scroll::-webkit-scrollbar { width: 6px; }
+.coleccion-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,.05); border-radius: 10px; }
+.coleccion-scroll::-webkit-scrollbar-thumb { background: #c8102e; border-radius: 10px; }
+
+.coleccion-scroll { scrollbar-width: thin; scrollbar-color: #c8102e transparent; }
+
+
+

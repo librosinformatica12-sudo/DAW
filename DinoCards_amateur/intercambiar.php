@@ -167,6 +167,7 @@ if (isset($_GET['ajax'])) {
     <meta name="theme-color" content="#123b2d">
     <title>DinoCards | Intercambiar cartas</title>
     <link rel="stylesheet" href="trading.css">
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 <div class="trade-shell">

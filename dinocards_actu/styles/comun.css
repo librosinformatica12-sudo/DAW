@@ -1,0 +1,389 @@
+/* ============================================================
+   comun.css - Estilos compartidos de DinoCards
+   Base, cabecera, tarjeta, botones, avisos y barra de progreso.
+
+   CONECTADO A: TODAS las paginas.
+   Lo enlazan en el <head>:
+     index.php, inicio.php, coleccion.php, dinopedia.php, perfil.php
+   ============================================================ */
+
+
+/* ---------- BASE (todas las paginas) ---------- */
+/* Que el padding no rompa los tamaños */
+* {
+    box-sizing: border-box;
+}
+
+/* Variables de color reutilizables en todo el proyecto */
+:root {
+    --rojo: #d6232f;      /* rojo principal de la marca */
+    --rojo-osc: #b01c26;  /* rojo oscuro (hover) */
+    --fondo: #0b1018;     /* azul muy oscuro de fondo */
+    --texto: #111827;     /* texto oscuro (para tarjetas claras) */
+    --gris: #6b7280;      /* gris de textos secundarios */
+    --borde: #d9dde5;     /* color de bordes claros */
+}
+
+/* Fondo oscuro con destellos rojos, como en dino-prueba */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 20% 70%, rgba(214, 35, 47, .25), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(60, 80, 130, .25), transparent 40%),
+        var(--fondo);
+}
+
+/* ---------- Barra superior ----------
+   La cabecera la genera menu.php (inicio, coleccion, dinopedia, perfil).
+   index.php usa su propia .topbar con .topbar-der.
+   El logo y la navegacion son comunes a todas las paginas. */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background-color: rgba(8, 12, 20, .88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(214, 35, 47, .5);
+    color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.logo-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(140deg, var(--rojo), var(--rojo-osc));
+    box-shadow: 0 8px 18px rgba(214, 35, 47, .4);
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.logo-texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-texto strong {
+    font-size: 18px;
+}
+
+.logo-texto small {
+    font-size: 11px;
+    color: #9aa3b2;
+}
+
+
+/* Navegacion (menu.php) */
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.nav-link i {
+    font-size: 18px;
+    margin-right: 2px;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, .08);
+}
+
+.nav-link.activo {
+    background-color: rgba(214, 35, 47, .18);
+    color: #ffffff;
+}
+
+.nav-link.activo i {
+    color: var(--rojo);
+}
+
+/* Zona derecha de la cabecera: carta diaria + salir (menu.php) */
+.topbar-fin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    border: 1px solid rgba(53, 208, 127, .35);
+    background-color: rgba(53, 208, 127, .12);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.carta-badge i {
+    font-size: 20px;
+    color: #35d07f;
+}
+
+.carta-badge.abierta {
+    border-color: rgba(255, 255, 255, .15);
+    background-color: rgba(255, 255, 255, .05);
+}
+
+.carta-badge.abierta i {
+    color: #9aa3b2;
+}
+
+.carta-badge-txt {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.carta-badge-txt small {
+    font-size: 10px;
+    color: #9fd9bd;
+}
+
+.carta-badge-txt b {
+    font-size: 13px;
+}
+
+.punto {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #35d07f;
+    box-shadow: 0 0 0 0 rgba(53, 208, 127, .7);
+    animation: pulso 1.8s infinite;
+}
+
+@keyframes pulso {
+    0%   { box-shadow: 0 0 0 0 rgba(53, 208, 127, .6); }
+    70%  { box-shadow: 0 0 0 7px rgba(53, 208, 127, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(53, 208, 127, 0); }
+}
+
+.nav-link.salir {
+    border: 1px solid rgba(255, 255, 255, .2);
+}
+
+/* ---------- Contenedor principal ----------
+   Usado por: inicio, coleccion, dinopedia, perfil.
+   (index.php usa .pagina, definida en paginas.css) */
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* ---------- Tarjeta ----------
+   Usado por: inicio.php, coleccion.php, dinopedia.php, perfil.php */
+.tarjeta {
+    background-color: #181820;
+    border: 1px solid #282836;
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+/* ---------- Barra de progreso ----------
+   Usada por: perfil.php (progreso del catalogo) */
+.contenedor-barra {
+    margin-top: 1rem;
+}
+
+.barra-progreso {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--gris);
+}
+
+.barra-progreso b {
+    color: var(--rojo);
+    font-size: 1rem;
+}
+
+.barra {
+    width: 100%;
+    height: 10px;
+    background: #2d3748;
+    border-radius: 10px;
+    overflow: hidden;
+    display: block;
+    border: 1px solid var(--borde);
+}
+
+.barra-relleno {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--rojo-osc), var(--rojo), #ff5b4d);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+/* Color de la barra segun el progreso */
+.barra-relleno.nivel-bajo {
+    background: linear-gradient(90deg, var(--rojo-osc), var(--rojo));
+}
+
+.barra-relleno.nivel-medio {
+    background: linear-gradient(90deg, var(--rojo), #f6a623);
+}
+
+.barra-relleno.nivel-alto {
+    background: linear-gradient(90deg, #f6a623, #35d07f);
+}
+
+.barra-relleno.nivel-completo {
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    box-shadow: 0 0 12px rgba(53, 208, 127, .65);
+}
+
+.barra-detalle {
+    margin: 0.6rem 0 0;
+    font-size: 0.82rem;
+    color: #a0aec0;
+}
+
+.barra-detalle i {
+    color: var(--rojo);
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+
+
+
+/* ---------- Titulos y enlaces (todas las paginas) ---------- */
+h1, h2, h3 {
+    color: var(--rojo-osc);
+}
+
+a {
+    color: var(--rojo);
+}
+
+/* ---------- Botones ----------
+   Usados por: inicio.php (abrir sobres del dia y de prueba) */
+.boton {
+    display: inline-block;
+    background-color: var(--rojo);
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.boton:hover {
+    background-color: var(--rojo-osc);
+}
+
+.boton.secundario {
+    background-color: #ff0000;
+}
+
+.boton.secundario:hover {
+    background-color: #ff0000;
+}
+
+.boton:disabled {
+    background-color: #b0b8b2;
+    cursor: not-allowed;
+}
+
+/* ---------- Formularios ---------- */
+/* Los estilos de .campo se definen en paginas.css (seccion del portal). */
+
+/* ---------- Avisos ----------
+   Usados por: inicio, coleccion, dinopedia (mensajes) e index.php */
+.aviso {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+.aviso.ok {
+    background-color: #e2f5dc;
+    color: #276b1e;
+}
+
+.aviso.error {
+    background-color: #fde3e3;
+    color: #a12b2b;
+}
+
+/* Oculta pestañas del portal sin usar al cargar (index.php) */
+.oculto {
+    display: none;
+}
+
+/* ---------- Resumen ----------
+   Usado por: inicio.php (tarjeta "Tu coleccion") */
+.resumen {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.resumen li {
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--borde);
+    color: var(--texto);
+}
+
+.resumen li b {
+    display: block;
+    font-size: 22px;
+    color: var(--rojo-osc);
+}
+
+
+

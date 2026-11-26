@@ -74,33 +74,37 @@ $porcentaje     = $total_catalogo > 0 ? round($total_especies / $total_catalogo 
                 <input type="text" id="buscador" oninput="filtrarColeccion()" placeholder="Escribe un dinosaurio...">
             </div>
 
-            <ul class="cartas-grid">
-                <?php foreach ($orden as $id): ?>
-                    <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
-                    <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
-                        <?php if ($copias[$id] > 1): ?>
-                            <span class="badge">x<?= $copias[$id] ?></span>
-                        <?php endif; ?>
-                        <span class="retrato">
-                            <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; ?>
-                            <?php if ($img_path !== ""): ?>
-                                <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                                <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                            <?php else: ?>
-                                <i class="bx bx-dna" aria-hidden="true"></i>
+            <!-- NUEVO: contenedor con scroll propio -->
+            <div class="coleccion-scroll">
+                <ul class="cartas-grid">
+                    <?php foreach ($orden as $id): ?>
+                        <?php if (!isset($dinos[$id])) { continue; } $d = $dinos[$id]; ?>
+                        <li class="carta-mini" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
+                            <?php if ($copias[$id] > 1): ?>
+                                <span class="badge">x<?= $copias[$id] ?></span>
                             <?php endif; ?>
-                        </span>
-                        <h3><?= escapar($d["nombre"]) ?></h3>
-                        <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
-                        <div class="mini-stats">
-                            <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
-                            <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
-                            <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
-                            <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+                            <span class="retrato">
+                                <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; ?>
+                                <?php if ($img_path !== ""): ?>
+                                    <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                    <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                                <?php else: ?>
+                                    <i class="bx bx-dna" aria-hidden="true"></i>
+                                <?php endif; ?>
+                            </span>
+                            <h3><?= escapar($d["nombre"]) ?></h3>
+                            <p class="apodo">«<?= escapar($d["especie"]) ?>»</p>
+                            <div class="mini-stats">
+                                <span><b><?= escapar($d["hp"]) ?></b><small>HP</small></span>
+                                <span><b><?= escapar($d["ataque"]) ?></b><small>ATQ</small></span>
+                                <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
+                                <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <!-- FIN contenedor con scroll -->
         <?php endif; ?>
     </div>
 </main>

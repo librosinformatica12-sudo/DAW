@@ -78,7 +78,7 @@ main.panel-inicio {
 .panel-chat {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
 .contenedor-chat {
@@ -86,6 +86,72 @@ main.panel-inicio {
     border-radius: 14px;
     padding: 15px;
     background: rgba(255, 255, 255, .04);
+
+    /* Configuración para que llene el espacio de la columna */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Vital para que el scroll funcione bien en contenedores flex */
+    width: 100%;   /* Se adapta al ancho de su contenedor padre */
+    height: 200%; /* Cambia este valor a los píxeles que prefieras (ej. 300px, 400px) */
+}
+
+/* PANEL CHAT */
+.panel-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* CONTENEDOR */
+.panel-chat .contenedor-chat {
     flex: 1;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* MENSAJES */
+.mensajes-chat {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* FORMULARIO */
+.formulario-chat {
+    display: flex;
+    gap: 8px;
+}
+
+.formulario-chat input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    padding: 0 12px;
+
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.06);
+    color: white;
+    outline: none;
+}
+
+.formulario-chat button {
+    width: 40px;
+    border: none;
+    border-radius: 8px;
+
+    background: #5278e8;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
 }

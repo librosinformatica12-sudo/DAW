@@ -146,9 +146,32 @@ $mesActual = $meses[(int) date("n") - 1];
             </div>
         </div>
 
-        <div class="tarjeta panel-chat">
-            <h2>Chat</h2>
-            <div class="contenedor-chat"></div>
+
+    <div class="tarjeta panel-chat">
+
+        <h2>Chat</h2>
+
+        <div class="contenedor-chat">
+
+            <div class="mensajes-chat" id="mensajes-chat">
+            </div>
+
+            <form class="formulario-chat" id="formulario-chat">
+
+                <input
+                    type="text"
+                    id="mensaje-input"
+                    placeholder="Escribe un mensaje..."
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit">
+                    <i class="bx bx-send"></i>
+                </button>
+
+            </form>
+
         </div>
 
     </div>

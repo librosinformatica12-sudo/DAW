@@ -1,0 +1,86 @@
+DINOCARDS - MODULO DE INTERCAMBIO
+================================
+
+ARCHIVOS
+--------
+- intercambiar.php: pantalla y peticiones AJAX para listar usuarios/cartas y ejecutar el intercambio.
+- trading.css: estilos de la página.
+- config_trade.php: conexión MySQL que debes adaptar a tu instalación.
+
+INSTALACIÓN
+-----------
+1. Descomprime la carpeta.
+2. Copia los tres archivos en la carpeta raíz del proyecto, al mismo nivel que index.php y backend.php.
+3. Abre config_trade.php y comprueba:
+   - DB_HOST
+   - DB_USER
+   - DB_PASS
+   - DB_NAME
+   El nombre predeterminado es DinoCards_amateur (el nombre del SQL original).
+   Si tu base de datos real se llama dinocards, cambia DB_NAME a 'dinocards'.
+
+4. Comprueba que en MySQL ya existe el procedimiento almacenado Trade del script SQL.
+   El procedimiento recibe dos listas de IDs de registros de colecciones separadas por "_"
+   y un parámetro OUT. Ejemplo:
+      CALL Trade('1_2', '5_6', @resultado);
+   Las cartas se identifican por colecciones.id, no por dinosaurios.id.
+
+5. Conecta el botón que ya tienes en index.php:
+   Busca:
+      <button id="btn_trade">Intercambiar cartas</button>
+   Puedes sustituirlo por:
+      <a id="btn_trade" href="intercambiar.php">Intercambiar cartas</a>
+   Si prefieres mantener el botón, añade este código al final de js/main.js:
+      document.getElementById('btn_trade')?.addEventListener('click', () => {
+          window.location.href = 'intercambiar.php';
+      });
+
+REQUISITOS DE SESIÓN
+--------------------
+La página utiliza la sesión que ya usa tu index.php:
+    $_SESSION['usuario']
+Debe ser un array con al menos:
+    ['id']       (recomendado), o
+    ['usuario_id'] / ['user_id']
+También puede localizar el ID por:
+    ['username']
+
+Si tu login guarda el usuario con otra estructura, adapta la sección inicial de intercambiar.php.
+
+BASE DE DATOS UTILIZADA
+----------------------
+Tablas:
+- usuarios(id, username, ...)
+- dinosaurios(id, nombre, especie, periodo, image_url, ...)
+- colecciones(id, usuario_id, dinosaurio_id, ...)
+
+FUNCIONAMIENTO
+--------------
+- Lista otros usuarios sin mostrar el usuario conectado.
+- Carga las cartas de cada usuario desde colecciones + dinosaurios.
+- Permite seleccionar varias cartas en ambos lados.
+- Solo permite confirmar si ambos ofrecen el mismo número de cartas.
+- Llama al procedimiento Trade, que debe validar propiedad y hacer el cambio de usuario_id.
+- El backend no confía en las selecciones del navegador: el procedimiento Trade debe volver a validar los IDs y propietarios.
+
+PRUEBA
+-----
+1. Inicia sesión con un usuario que tenga cartas.
+2. Abre Intercambiar cartas.
+3. Elige otro usuario que también tenga cartas.
+4. Pulsa Ver sus cartas.
+5. Selecciona una carta tuya y una suya.
+6. Pulsa Realizar intercambio.
+7. En MySQL comprueba:
+      SELECT c.id, u.username, d.nombre
+      FROM colecciones c
+      JOIN usuarios u ON u.id = c.usuario_id
+      JOIN dinosaurios d ON d.id = c.dinosaurio_id
+      ORDER BY c.id;
+
+IMPORTANTE
+----------
+El archivo SQL anterior define la base de datos como dinocards en una versión corregida,
+pero el SQL original del proyecto usa DinoCards_amateur. Configura el nombre exacto que
+tengas en tu servidor. No ejecutes de nuevo un script que borre tablas si quieres conservar
+tus datos actuales.

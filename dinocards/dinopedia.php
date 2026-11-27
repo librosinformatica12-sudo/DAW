@@ -50,7 +50,12 @@ while ($d = $res->fetch_assoc()) {
             <?php foreach ($dinos as $d): ?>
                 <li class="carta-mini<?= isset($mios[$d["id"]]) ? "" : " bloqueada" ?>" data-buscar="<?= escapar(strtolower($d["especie"] . " " . $d["nombre"])) ?>">
                     <span class="retrato">
-                        <?php $img_path = !empty($d["image_url"]) ? "img/img-cartas/" . $d["image_url"] : ""; $img_ok = $img_path !== "" && is_readable(__DIR__ . "/" . $img_path); ?>
+                        <?php
+                        $valor = trim((string) ($d["image_url"] ?? ''));
+                        $archivo = $valor !== '' ? basename($valor) : $d["id"] . ".png";
+                        $img_path = "img/img-cartas/" . $archivo;
+                        $img_ok = is_readable(__DIR__ . "/" . $img_path);
+                        ?>
                         <?php if ($img_ok): ?>
                             <img class="fondo" src="<?= escapar($img_path) ?>" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.style.display='none'">
                             <img src="<?= escapar($img_path) ?>" alt="<?= escapar($d["nombre"]) ?>" loading="lazy" decoding="async" onerror="this.style.display='none'">

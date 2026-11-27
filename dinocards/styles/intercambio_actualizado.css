@@ -1,0 +1,367 @@
+/* intercambio.css - sencillo, para la estructura nueva
+   Colores y medidas en las variables de .intercambio */
+
+.intercambio {
+    --rojo: #d4202f;
+    --panel: #1a1a22;
+    --caja: #22222b;
+    --hondo: #15151b;
+    --borde: rgba(255, 255, 255, .1);
+    --texto: #f2f2f5;
+    --suave: #9a9aa8;
+    --menu: 62px; /* altura de tu menú */
+
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr;
+    gap: 20px;
+    height: calc(100vh - var(--menu));
+    padding: 12px;
+    color: var(--texto);
+}
+
+.intercambio *,
+.intercambio *::before,
+.intercambio *::after {
+    box-sizing: border-box;
+}
+
+.intercambio [hidden] {
+    display: none !important;
+}
+
+/* ---------- Columnas (el contenedor de cada bloque) ---------- */
+.columna {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 22px;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+}
+
+.columna-cabecera {
+    margin-bottom: 16px;
+}
+
+.columna-cabecera h1,
+.columna-cabecera h2 {
+    margin: 0 0 4px;
+    font-size: 1.7rem;
+    color: var(--rojo);
+}
+
+.columna-cabecera p {
+    margin: 0;
+    font-size: .9rem;
+    color: var(--suave);
+}
+
+/* Zona que ocupa todo el alto que sobra */
+.columna-cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+}
+
+/* ---------- Columna 1: colección ---------- */
+.buscador {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 0 12px;
+    background: var(--caja);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+}
+
+.buscador input {
+    flex: 1;
+    padding: 12px 0;
+    color: var(--texto);
+    background: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+}
+
+.coleccion-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.cartas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.carta-mini {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: var(--caja);
+    border: 1px solid var(--rojo);
+    border-radius: 12px;
+}
+
+.badge-copias {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    padding: 0 8px;
+    font-size: .8rem;
+    background: var(--rojo);
+    border-radius: 99px;
+}
+
+.carta-retrato {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    font-size: 2rem;
+    color: var(--rojo);
+    background: var(--hondo);
+    border-radius: 8px;
+}
+
+.carta-retrato img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carta-datos h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.carta-especie {
+    margin: 2px 0 8px;
+    font-size: .78rem;
+    font-style: italic;
+    color: var(--suave);
+}
+
+.mini-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    text-align: center;
+}
+
+.mini-stats span {
+    padding: 3px 0;
+    background: var(--hondo);
+    border-radius: 6px;
+}
+
+.mini-stats b,
+.mini-stats small {
+    display: block;
+}
+
+.mini-stats small {
+    font-size: .65rem;
+    color: var(--suave);
+}
+
+.btn-intercambiar {
+    margin-top: auto;
+    padding: 8px;
+    color: #fff;
+    background: var(--rojo);
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.btn-intercambiar:hover {
+    filter: brightness(1.15);
+}
+
+.aviso {
+    padding: 14px;
+    text-align: center;
+    color: var(--suave);
+}
+
+/* ---------- Columna 2: intercambio ---------- */
+.caja-usuario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    padding: 16px;
+    background: var(--caja);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+
+/* verde cuando ese usuario ha aceptado */
+.caja-usuario:has(input:checked) {
+    border-color: #2ecc71;
+}
+
+.caja-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.caja-cabecera h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.contador-cartas {
+    font-size: .8rem;
+    color: var(--suave);
+}
+
+.cartas-intercambio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.panel-vacio {
+    display: grid;
+    place-items: center;
+    flex: 1;
+    margin: 0;
+    padding: 12px;
+    font-size: .9rem;
+    text-align: center;
+    color: var(--suave);
+    border: 1px dashed var(--borde);
+    border-radius: 8px;
+}
+
+.confirmacion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.confirmacion input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--rojo);
+}
+
+.estado-intercambio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 12px;
+    background: var(--caja);
+    border-left: 4px solid var(--rojo);
+    border-radius: 8px;
+}
+
+/* ---------- Columna 3: chat ---------- */
+.caja-chat {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    background: var(--caja);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+}
+
+.mensajes-chat {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.chat-vacio {
+    margin: auto;
+    text-align: center;
+    color: var(--suave);
+}
+
+.chat-vacio i {
+    font-size: 2.5rem;
+    color: var(--rojo);
+}
+
+.chat-vacio p {
+    margin: 4px 0 0;
+}
+
+.formulario-chat {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+}
+
+.formulario-chat input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    color: var(--texto);
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font: inherit;
+}
+
+.formulario-chat button {
+    width: 42px;
+    color: #fff;
+    background: var(--rojo);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 1100px) {
+    .intercambio {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .coleccion-scroll {
+        max-height: 70vh;
+    }
+
+    .caja-usuario {
+        min-height: 200px;
+    }
+
+    .caja-chat {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cartas-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

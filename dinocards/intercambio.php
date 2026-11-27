@@ -126,6 +126,18 @@ $mesActual = $meses[(int) date("n") - 1];
                                 <span><b><?= escapar($d["defensa"]) ?></b><small>DEF</small></span>
                                 <span><b><?= escapar($d["agilidad"]) ?></b><small>AGI</small></span>
                             </div>
+                            <button type="button" class="btn-intercambiar" data-trade-card
+                                    data-id="<?= (int) $id ?>"
+                                    data-nombre="<?= escapar($nombreCarta) ?>"
+                                    data-especie="<?= escapar($especieCarta) ?>"
+                                    data-imagen="<?= escapar($imgPath) ?>"
+                                    data-hp="<?= escapar($d["hp"] ?? "—") ?>"
+                                    data-ataque="<?= escapar($d["ataque"] ?? "—") ?>"
+                                    data-defensa="<?= escapar($d["defensa"] ?? "—") ?>"
+                                    data-agilidad="<?= escapar($d["agilidad"] ?? "—") ?>"
+                                    aria-label="Añadir <?= escapar($nombreCarta) ?> al intercambio">
+                                <i class="bx bx-plus" aria-hidden="true"></i> Intercambiar
+                            </button>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -137,26 +149,44 @@ $mesActual = $meses[(int) date("n") - 1];
         <div class="tarjeta panel-intercambio">
             <div class="contenedores-usuario">
                 <h2>Intercambio</h2>
-                <div id="panel-usuario1" class="sub-panel">
+                <div id="panel-usuario1" class="sub-panel1">
                 
                 </div>
-                <div id="panel-usuario2" class="sub-panel">
-                
+                <div id="panel-usuario2" class="sub-panel1">
+
                 </div>
             </div>
         </div>
 
-        <div class="contenedor-chat">
+
+        <div class="tarjeta panel-chat">
+
             <h2>Chat</h2>
 
             <div class="contenedor-chat">
-                <div class=""</div>
+
+                <div class="mensajes-chat" id="mensajes-chat">
+                </div>
+
+                <form class="formulario-chat" id="formulario-chat">
+
+                    <input
+                        type="text"
+                        id="mensaje-input"
+                        placeholder="Escribe un mensaje..."
+                        autocomplete="off"
+                        required
+                    >
+
+                    <button type="submit">
+                        <i class="bx bx-send"></i>
+                    </button>
+
+                </form>
+
             </div>
 
-
         </div>
-
-    </div>
 </main>
 
 

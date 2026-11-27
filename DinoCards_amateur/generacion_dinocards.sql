@@ -1,4 +1,4 @@
--- SCRIPT de Generacion de BBDD en MySQL
+-- SCRIPT de Generacion de BBDD en MySQL bien
 CREATE DATABASE IF NOT EXISTS DinoCards;
 
 -- DROPS
@@ -199,7 +199,7 @@ begin
 		into aux;
 		
 		-- CASO -1 EL USUARIO NO EXISTE
-		if(aux is null) then
+		if(aux = null) then
 			set _res = -1;
 		
 		-- CASO 0 - todo ok
